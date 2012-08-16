@@ -1,0 +1,26 @@
+*** IMPORTANT BUGFIXES ***
+
+/Core/Object.php (+ test case in /Test/Case/Controller/ControllerMergeVarsTest.php)
+	=> line 200: FIX to correctly merge
+
+/Utility/Folder.php (+ test case)
+	=> ability to merge recursivly
+
+
+*** IMPORTANT IMPROVEMENTS ***
+
+n/a
+
+
+*** NICE TO HAVE ***
+
+/Cache/Engine/FileEngine.php (not necessary anymore?)
+/Log/Engine/FileLog.php (not necessary anymore?)
+	fixes to auto create tmp folders on debug
+
+
+*** NOT ANYMORE ***
+
+/Model/CakeSchema.php
+/Console/Command/SchemaShell.php (+ test case)
+	=> correctly skip missing tables
