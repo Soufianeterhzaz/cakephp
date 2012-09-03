@@ -2315,7 +2315,6 @@ class DboSource extends DataSource {
 			}
 			$fields = array_values($fields);
 		}
-
 		if (!$quote) {
 			if (!empty($virtual)) {
 				$fields = array_merge($fields, $this->_constructVirtualFields($model, $alias, $virtual));
@@ -2633,8 +2632,11 @@ class DboSource extends DataSource {
 			$end = preg_quote($this->endQuote);
 		}
 		$conditions = str_replace(array($start, $end), '', $conditions);
-		$conditions = preg_replace_callback('/(?:[\'\"][^\'\"\\\]*(?:\\\.[^\'\"\\\]*)*[\'\"])|([a-z0-9_' . $start . $end . ']*\\.[a-z0-9_' . $start . $end . ']*)/i', array(&$this, '_quoteMatchedField'), $conditions);
-
+		$conditions = preg_replace_callback(
+			'/(?:[\'\"][^\'\"\\\]*(?:\\\.[^\'\"\\\]*)*[\'\"])|([a-z0-9\\-_' . $start . $end . ']*\\.[a-z0-9_\\-' . $start . $end . ']*)/i',
+			array(&$this, '_quoteMatchedField'),
+			$conditions
+		);
 		if ($conditions !== null) {
 			return $conditions;
 		}
@@ -3068,7 +3070,7 @@ class DboSource extends DataSource {
 		}
 		$out = $this->_buildFieldParameters($out, $column, 'beforeDefault');
 
-		if (isset($column['key']) && $column['key'] === 'primary' && $type === 'integer') {
+		if (isset($column['key']) && $column['key'] === 'primary' && ($type === 'integer' || $type === 'biginteger')) {
 			$out .= ' ' . $this->columns['primary_key']['name'];
 		} elseif (isset($column['key']) && $column['key'] === 'primary') {
 			$out .= ' NOT NULL';
