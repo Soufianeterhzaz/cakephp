@@ -112,10 +112,8 @@ class CakeTime {
 		switch ($name) {
 			case 'niceFormat':
 				return self::${$name};
-				break;
 			default:
 				return null;
-				break;
 		}
 	}
 
@@ -479,7 +477,7 @@ class CakeTime {
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/time.html#testing-time
  */
 	public static function isThisMonth($dateString, $timezone = null) {
-		$date = self::fromString($dateString);
+		$date = self::fromString($dateString, $timezone);
 		return date('m Y', $date) == date('m Y', time());
 	}
 
