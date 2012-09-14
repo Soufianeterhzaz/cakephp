@@ -4,10 +4,6 @@
 	=> line 200: FIX to correctly merge
 	=> http://cakephp.lighthouseapp.com/projects/42648/tickets/3079-aliasing-gets-overwritten-by-plugin-setting
 
-/Utility/Folder.php (+ test case)
-	=> ability to merge recursivly
-	=> http://cakephp.lighthouseapp.com/projects/42648/tickets/2314-folder-class-should-merge-by-default
-
 
 *** IMPORTANT IMPROVEMENTS ***
 

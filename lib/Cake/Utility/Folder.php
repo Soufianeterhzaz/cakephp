@@ -23,7 +23,7 @@ class Folder {
 
 /**
  * Default scheme for Folder::copy
- * Recursivly merges subfolders with the same name 
+ * Recursively merges subfolders with the same name 
  *
  * @constant MERGE
  */
@@ -44,7 +44,7 @@ class Folder {
  * @constant SKIP
  */
 	const SKIP = 'skip';
-	
+
 /**
  * Path to Folder.
  *
@@ -633,7 +633,7 @@ class Folder {
 			$to = $options;
 			$options = array();
 		}
-		$options = array_merge(array('to' => $to, 'from' => $this->path, 'mode' => $this->mode, 'skip' => array(), 'scheme'=>Folder::MERGE), $options);
+		$options = array_merge(array('to' => $to, 'from' => $this->path, 'mode' => $this->mode, 'skip' => array(), 'scheme' => Folder::MERGE), $options);
 
 		$fromDir = $options['from'];
 		$toDir = $options['to'];
@@ -658,7 +658,7 @@ class Folder {
 			while (($item = readdir($handle)) !== false) {
 				$to = Folder::addPathElement($toDir, $item);
 				if (($options['scheme'] != Folder::SKIP || !is_dir($to)) && !in_array($item, $exceptions)) {
-					$from = Folder::addPathElement($fromDir, $item);				
+					$from = Folder::addPathElement($fromDir, $item);
 					if (is_file($from)) {
 						if (copy($from, $to)) {
 							chmod($to, intval($mode, 8));
@@ -668,7 +668,7 @@ class Folder {
 							$this->_errors[] = __d('cake_dev', '%s NOT copied to %s', $from, $to);
 						}
 					}
-					
+
 					if (is_dir($from) && file_exists($to) && $options['scheme'] == Folder::OVERWRITE) {
 						$this->delete($to);
 					}
@@ -687,7 +687,7 @@ class Folder {
 							$this->_errors[] = __d('cake_dev', '%s not created', $to);
 						}
 					} elseif (is_dir($from) && $options['scheme'] == Folder::MERGE) {
-						$options = array_merge($options, array('to'=> $to, 'from'=> $from));
+						$options = array_merge($options, array('to' => $to, 'from' => $from));
 						$this->copy($options);
 					}
 				}
@@ -712,8 +712,9 @@ class Folder {
  * - `from` The directory to copy from, this will cause a cd() to occur, changing the results of pwd().
  * - `chmod` The mode to copy the files/directories with.
  * - `skip` Files/directories to skip.
+ * - `scheme` Folder::MERGE, Folder::OVERWRITE, Folder::SKIP
  *
- * @param array $options (to, from, chmod, skip)
+ * @param array $options (to, from, chmod, skip, scheme)
  * @return boolean Success
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/file-folder.html#Folder::move
  */

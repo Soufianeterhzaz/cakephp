@@ -286,7 +286,7 @@ abstract class ObjectCollection {
  * @return void
  */
 	public function unload($name) {
-		$name = array_pop(pluginSplit($name));
+		list(, $name) = pluginSplit($name);
 		unset($this->_loaded[$name], $this->_enabled[$name]);
 	}
 
@@ -299,7 +299,8 @@ abstract class ObjectCollection {
  */
 	public function set($name = null, $object = null) {
 		if (!empty($name) && !empty($object)) {
-			$this->_loaded[array_pop(pluginSplit($name))] = $object;
+			list(, $name) = pluginSplit($name);
+			$this->_loaded[$name] = $object;
 		}
 		return $this->_loaded;
 	}
@@ -319,7 +320,8 @@ abstract class ObjectCollection {
 				$options = (array)$objectName;
 				$objectName = $i;
 			}
-			$normal[array_pop(pluginSplit($objectName))] = array('class' => $objectName, 'settings' => $options);
+			list(, $name) = pluginSplit($objectName);
+			$normal[$name] = array('class' => $objectName, 'settings' => $options);
 		}
 		return $normal;
 	}
