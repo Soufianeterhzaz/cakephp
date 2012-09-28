@@ -253,6 +253,7 @@ class DboSource extends DataSource {
 		if (!$this->enabled()) {
 			throw new MissingConnectionException(array(
 				'class' => get_class($this),
+				'message' => __d('cake_dev', 'Selected driver is not enabled'),
 				'enabled' => false
 			));
 		}
@@ -1294,9 +1295,9 @@ class DboSource extends DataSource {
 						}
 					}
 					if ($type === 'hasAndBelongsToMany') {
-						$uniqueIds = $merge = array();
+						$merge = array();
 
-						foreach ($fetch as $j => $data) {
+						foreach ($fetch as $data) {
 							if (isset($data[$with]) && $data[$with][$foreignKey] === $row[$modelAlias][$modelPK]) {
 								if ($habtmFieldsCount <= 2) {
 									unset($data[$with]);
@@ -1445,7 +1446,7 @@ class DboSource extends DataSource {
 					$data[$association] = array();
 				}
 			} else {
-				foreach ($merge as $i => $row) {
+				foreach ($merge as $row) {
 					$insert = array();
 					if (count($row) === 1) {
 						$insert = $row[$association];
@@ -2413,7 +2414,7 @@ class DboSource extends DataSource {
 		}
 		$clauses = '/^WHERE\\x20|^GROUP\\x20BY\\x20|^HAVING\\x20|^ORDER\\x20BY\\x20/i';
 
-		if (preg_match($clauses, $conditions, $match)) {
+		if (preg_match($clauses, $conditions)) {
 			$clause = '';
 		}
 		$conditions = $this->_quoteFields($conditions);
@@ -2908,7 +2909,7 @@ class DboSource extends DataSource {
 			$columnMap[$key] = $pdoMap[$type];
 		}
 
-		foreach ($values as $row => $value) {
+		foreach ($values as $value) {
 			$i = 1;
 			foreach ($value as $col => $val) {
 				$statement->bindValue($i, $val, $columnMap[$col]);
@@ -2924,7 +2925,7 @@ class DboSource extends DataSource {
  * Reset a sequence based on the MAX() value of $column.  Useful
  * for resetting sequences after using insertMulti().
  *
- * This method should be implmented by datasources that require sequences to be used.
+ * This method should be implemented by datasources that require sequences to be used.
  *
  * @param string $table The name of the table to update.
  * @param string $column The column to use when reseting the sequence value.
@@ -3220,7 +3221,7 @@ class DboSource extends DataSource {
 
 		$isAllFloat = $isAllInt = true;
 		$containsFloat = $containsInt = $containsString = false;
-		foreach ($value as $key => $valElement) {
+		foreach ($value as $valElement) {
 			$valElement = trim($valElement);
 			if (!is_float($valElement) && !preg_match('/^[\d]+\.[\d]+$/', $valElement)) {
 				$isAllFloat = false;

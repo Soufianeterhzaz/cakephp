@@ -298,11 +298,6 @@ class View extends Object {
 	protected $_eventManager = null;
 
 /**
- * The view file to be rendered, only used inside _execute()
- */
-	private $__viewFileName = null;
-
-/**
  * Whether the event manager was already configured for this object
  *
  * @var boolean
@@ -335,7 +330,7 @@ class View extends Object {
 		if (is_object($controller) && isset($controller->response)) {
 			$this->response = $controller->response;
 		} else {
-			$this->response = new CakeResponse(array('charset' => Configure::read('App.encoding')));
+			$this->response = new CakeResponse();
 		}
 		$this->Helpers = new HelperCollection($this);
 		$this->Blocks = new ViewBlock();
@@ -830,7 +825,7 @@ class View extends Object {
  */
 	public function loadHelpers() {
 		$helpers = HelperCollection::normalizeObjectArray($this->helpers);
-		foreach ($helpers as $name => $properties) {
+		foreach ($helpers as $properties) {
 			list($plugin, $class) = pluginSplit($properties['class']);
 			$this->{$class} = $this->Helpers->load($properties['class'], $properties['settings']);
 		}
