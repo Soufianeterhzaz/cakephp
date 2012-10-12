@@ -18,6 +18,7 @@
  */
 
 App::uses('File', 'Utility');
+App::uses('CakeCookie', 'Model/Datasource');
 
 /**
  * CakeResponse is responsible for managing the response text, status and headers of a HTTP response.
@@ -359,13 +360,6 @@ class CakeResponse {
 	protected $_cacheDirectives = array();
 
 /**
- * Holds cookies to be sent to the client
- *
- * @var array
- */
-	protected $_cookies = array();
-
-/**
  * Class constructor
  *
  * @param array $options list of parameters to setup the response. Possible values are:
@@ -426,12 +420,7 @@ class CakeResponse {
  * @return void
  */
 	protected function _setCookies() {
-		foreach ($this->_cookies as $name => $c) {
-			setcookie(
-				$name, $c['value'], $c['expire'], $c['path'],
-				$c['domain'], $c['secure'], $c['httpOnly']
-			);
-		}
+		CakeCookie::send();
 	}
 
 /**
@@ -1145,47 +1134,12 @@ class CakeResponse {
  *  - domain: Domain the cookie is for.
  *  - secure: Is the cookie https?
  *  - httpOnly: Is the cookie available in the client?
- *
- * ## Examples
- *
- * ### Getting all cookies
- *
- * `$this->cookie()`
- *
- * ### Getting a certain cookie configuration
- *
- * `$this->cookie('MyCookie')`
- *
- * ### Setting a cookie configuration
- *
- * `$this->cookie((array) $options)`
- *
+
+ * @see CakeCookie::cookie
  * @return mixed
  */
 	public function cookie($options = null) {
-		if ($options === null) {
-			return $this->_cookies;
-		}
-
-		if (is_string($options)) {
-			if (!isset($this->_cookies[$options])) {
-				return null;
-			}
-			return $this->_cookies[$options];
-		}
-
-		$defaults = array(
-			'name' => 'CakeCookie[default]',
-			'value' => '',
-			'expire' => 0,
-			'path' => '/',
-			'domain' => '',
-			'secure' => false,
-			'httpOnly' => false
-		);
-		$options += $defaults;
-
-		$this->_cookies[$options['name']] = $options;
+		return CakeCookie::cookie($options);
 	}
 
 /**
