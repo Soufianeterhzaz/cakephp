@@ -19,6 +19,10 @@
 
 App::uses('CakeCookie', 'Model/Datasource');
 
+/**
+ * TestCakeCookie class to allow reset for testing
+ *
+ */
 class TestCakeCookie extends CakeCookie {
 
 	public static function reset() {

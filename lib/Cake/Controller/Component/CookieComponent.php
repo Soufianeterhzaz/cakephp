@@ -75,7 +75,7 @@ class CookieComponent extends Component {
  * @return boolean True if variable is there
  */
 	public function check($key = null) {
-		return CakeCookie::check($name);
+		return CakeCookie::check($key);
 	}
 
 /**
@@ -92,7 +92,7 @@ class CookieComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::delete
  */
 	public function delete($key) {
-		return CakeCookie::delete($name);
+		return CakeCookie::delete($key);
 	}
 
 /**

@@ -298,7 +298,7 @@ class CakeCookie {
 		if (is_null($encrypt)) {
 			$encrypt = true;
 		}
-		self::$_encrypted = $encrypt;
+		self::$_encrypted = (bool)$encrypt;
 		self::_expire($expires);
 
 		if (!is_array($key)) {
