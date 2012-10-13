@@ -467,12 +467,12 @@ class CakeCookie {
  */
 	protected static function _expire($expires = null) {
 		$now = time();
-		if (is_null($expires)) {
+		if ($expires === null) {
 			return self::$_expires;
 		}
 		self::$_reset = self::$_expires;
 
-		if ($expires == 0) {
+		if (!$expires) {
 			return self::$_expires = 0;
 		}
 

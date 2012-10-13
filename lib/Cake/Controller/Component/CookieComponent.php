@@ -65,7 +65,7 @@ class CookieComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::read
  */
 	public function read($key = null) {
-		return CakeCookie::write($key);
+		return CakeCookie::read($key);
 	}
 
 /**

@@ -115,32 +115,6 @@ class CookieComponentTest extends CakeTestCase {
 	}
 
 /**
- * test that initialize sets settings from components array
- *
- * @return void
- */
-	public function testSettings() {
-		$settings = array(
-			'time' => '5 days',
-			'path' => '/'
-		);
-		Configure::write('Cookie', $settings);
-		$Cookie = new CookieComponent(new ComponentCollection(), $settings);
-		$Cookie->read();
-		$this->assertEquals(CakeCookie::$time, $settings['time']);
-		$this->assertEquals(CakeCookie::$path, $settings['path']);
-	}
-
-/**
- * testCookieName
- *
- * @return void
- */
-	public function testCookieName() {
-		$this->assertEquals('CakeTestCookie', CakeCookie::$name);
-	}
-
-/**
  * testReadEncryptedCookieData
  *
  * @return void
@@ -221,7 +195,8 @@ class CookieComponentTest extends CakeTestCase {
 			'domain' => '',
 			'secure' => false,
 			'httpOnly' => true);
-		$result = $this->Controller->response->cookie(CakeCookie::$name . '[Testing]');
+		$result = $this->Cookie->cookie(CakeCookie::$name . '[Testing]');
+		//die(debug($result));
 		$this->assertEquals($expected, $result);
 	}
 
@@ -242,7 +217,7 @@ class CookieComponentTest extends CakeTestCase {
 			'domain' => '',
 			'secure' => false,
 			'httpOnly' => true);
-		$result = $this->Controller->response->cookie(CakeCookie::$name . '[Testing]');
+		$result = $this->Cookie->cookie(CakeCookie::$name . '[Testing]');
 		$this->assertEquals($expected, $result);
 	}
 
