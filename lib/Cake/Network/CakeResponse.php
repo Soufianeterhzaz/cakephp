@@ -413,7 +413,7 @@ class CakeResponse {
 	}
 
 /**
- * Sets the cookies that have been added via static method CakeResponse::addCookie()
+ * Sets the cookies that have been added via static method CakeResponse::cookie()
  * before any other output is sent to the client.
  * Will set the cookies in the order they have been set.
  *

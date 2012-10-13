@@ -164,6 +164,7 @@ class CakeCookie {
 		if (self::$_started) {
 			return;
 		}
+		self::$_started = true;
 
 		self::$key = Configure::read('Security.salt');
 		self::_settings();
@@ -240,7 +241,6 @@ class CakeCookie {
  */
 	public static function cookie($options = null) {
 		self::init();
-
 		if ($options === null) {
 			return self::$_cookies;
 		}
@@ -332,6 +332,7 @@ class CakeCookie {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::read
  */
 	public static function read($key = null) {
+		self::init();
 		if (empty(self::$_values[self::$name]) && isset($_COOKIE[self::$name])) {
 			self::$_values[self::$name] = self::_decrypt($_COOKIE[self::$name]);
 		}
@@ -383,6 +384,7 @@ class CakeCookie {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::delete
  */
 	public static function delete($key) {
+		self::init();
 		if (empty(self::$_values[self::$name])) {
 			self::read();
 		}
@@ -413,6 +415,7 @@ class CakeCookie {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::destroy
  */
 	public static function destroy() {
+		self::init();
 		if (isset($_COOKIE[self::$name])) {
 			self::$_values[self::$name] = self::_decrypt($_COOKIE[self::$name]);
 		}
