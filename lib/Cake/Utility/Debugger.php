@@ -295,9 +295,9 @@ class Debugger {
 		$back = array();
 
 		$_trace = array(
-			'line'     => '??',
-			'file'     => '[internal]',
-			'class'    => null,
+			'line' => '??',
+			'file' => '[internal]',
+			'class' => null,
 			'function' => '[main]'
 		);
 
@@ -474,7 +474,7 @@ class Debugger {
 			case 'float':
 				return '(float) ' . $var;
 			case 'string':
-				if (trim($var) == '') {
+				if (!trim($var)) {
 					return "''";
 				}
 				return "'" . $var . "'";
@@ -510,7 +510,7 @@ class Debugger {
 	protected static function _array(array $var, $depth, $indent) {
 		$secrets = array(
 			'password' => '*****',
-			'login'  => '*****',
+			'login' => '*****',
 			'host' => '*****',
 			'database' => '*****',
 			'port' => '*****',

@@ -4290,7 +4290,7 @@ class ModelReadTest extends BaseModelTest {
 
 		$TestModel->resetAssociations();
 		$result = $TestModel->hasMany;
-		$this->assertEquals(array(), $result);
+		$this->assertSame(array(), $result);
 
 		$result = $TestModel->bindModel(array('hasMany' => array('Comment')), false);
 		$this->assertTrue($result);
@@ -4959,7 +4959,9 @@ class ModelReadTest extends BaseModelTest {
 	public function testAssociationAfterFind() {
 		$this->loadFixtures('Post', 'Author', 'Comment');
 		$TestModel = new Post();
-		$result = $TestModel->find('all');
+		$result = $TestModel->find('all', array(
+			'order' => array('Post.id' => 'ASC')
+		));
 		$expected = array(
 			array(
 				'Post' => array(
@@ -5028,6 +5030,7 @@ class ModelReadTest extends BaseModelTest {
 		)));
 		$result = $Author->find('all', array(
 			'conditions' => array('Author.id' => 1),
+			'order' => array('Author.id' => 'ASC'),
 			'recursive' => 2
 		));
 		$expected = array(
@@ -5384,7 +5387,9 @@ class ModelReadTest extends BaseModelTest {
 		));
 		$Post->Tag->primaryKey = 'tag';
 
-		$result = $Post->find('all');
+		$result = $Post->find('all', array(
+			'order' => array('Post.id' => 'ASC')
+		));
 		$expected = array(
 			array(
 				'Post' => array(
@@ -7756,7 +7761,9 @@ class ModelReadTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 
 		$Post->Author->virtualFields = array('joined' => 'Post.id * Author.id');
-		$result = $Post->find('all');
+		$result = $Post->find('all', array(
+			'order' => array('Post.id' => 'ASC')
+		));
 		$result = Hash::extract($result, '{n}.Author.joined');
 		$expected = array(1, 6, 3);
 		$this->assertEquals($expected, $result);
