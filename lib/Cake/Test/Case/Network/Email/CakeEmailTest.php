@@ -515,18 +515,21 @@ class CakeEmailTest extends CakeTestCase {
 		$this->assertSame($this->CakeEmail->getHeaders(array('from' => true)), $expected);
 
 		$this->CakeEmail->to(array('cake@cakephp.org', 'php@cakephp.org' => 'CakePHP'));
+		$result = $this->CakeEmail->getHeaders(array('from' => true, 'to' => true));
+		$date = $result['Date'];
+		unset($result['Date']);
 		$expected = array(
 			'From' => 'CakePHP <cake@cakephp.org>',
 			'To' => 'cake@cakephp.org, CakePHP <php@cakephp.org>',
 			'X-Something' => 'very nice',
 			'X-Other' => 'cool',
 			'X-Mailer' => 'CakePHP Email',
-			'Date' => date(DATE_RFC2822),
 			'MIME-Version' => '1.0',
 			'Content-Type' => 'text/plain; charset=UTF-8',
 			'Content-Transfer-Encoding' => '8bit'
 		);
-		$this->assertSame($this->CakeEmail->getHeaders(array('from' => true, 'to' => true)), $expected);
+		$this->assertSame($result, $expected);
+		$this->assertWithinMargin(time(), strtotime($date), 1);
 
 		$this->CakeEmail->charset = 'ISO-2022-JP';
 		$expected = array(
