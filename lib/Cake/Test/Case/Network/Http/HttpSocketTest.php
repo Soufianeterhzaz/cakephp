@@ -221,7 +221,7 @@ class HttpSocketTest extends CakeTestCase {
 		$baseConfig = $this->Socket->config;
 		$this->Socket->expects($this->never())->method('connect');
 		$this->Socket->__construct(array('host' => 'foo-bar'));
-		$baseConfig['host']	 = 'foo-bar';
+		$baseConfig['host'] = 'foo-bar';
 		$baseConfig['protocol'] = getprotobyname($baseConfig['protocol']);
 		$this->assertEquals($this->Socket->config, $baseConfig);
 
@@ -1567,7 +1567,6 @@ class HttpSocketTest extends CakeTestCase {
  * testBuildCookies method
  *
  * @return void
- * @todo Test more scenarios
  */
 	public function testBuildCookies() {
 		$cookies = array(
