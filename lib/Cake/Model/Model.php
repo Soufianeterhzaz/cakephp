@@ -2438,10 +2438,9 @@ class Model extends Object implements CakeEventListener {
 		}
 
 		foreach (array_merge($this->hasMany, $this->hasOne) as $assoc => $data) {
-			if ($data['dependent'] !== true) {
+			if ($data['dependent'] !== null && $data['dependent'] !== true) {
 				continue;
 			}
-
 			$model = $this->{$assoc};
 
 			if ($data['foreignKey'] === false && $data['conditions'] && in_array($this->name, $model->getAssociated('belongsTo'))) {
@@ -2453,6 +2452,17 @@ class Model extends Object implements CakeEventListener {
 				if ($data['conditions']) {
 					$conditions = array_merge((array)$data['conditions'], $conditions);
 				}
+			}
+
+			if ($data['dependent'] === null) {
+				if ($data['foreignKey'] === false) {
+					continue;
+				}
+				$schema = $model->schema($model->primaryKey);
+				$fields = array($model->escapeField($data['foreignKey']) => $schema['default']);
+
+				$model->updateAll($fields, $conditions);
+				continue;
 			}
 
 			if (isset($data['exclusive']) && $data['exclusive']) {
