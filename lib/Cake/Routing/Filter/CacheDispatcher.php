@@ -42,10 +42,13 @@ class CacheDispatcher extends DispatcherFilter {
 		}
 
 		$path = $event->data['request']->here();
-		if ($path == '/') {
+		if ($path === '/') {
 			$path = 'home';
 		}
-		$path = strtolower(Inflector::slug($path));
+		if ($prefix = Configure::read('Cache.viewPrefix')) {
+			$prefix .= '_';
+		}
+		$path = strtolower(Inflector::slug($prefix . $path));
 
 		$filename = CACHE . 'views' . DS . $path . '.php';
 
