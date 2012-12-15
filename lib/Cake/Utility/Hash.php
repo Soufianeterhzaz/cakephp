@@ -96,7 +96,7 @@ class Hash {
 			return (array)self::get($data, $path);
 		}
 
-		if (strpos('[', $path) === false) {
+		if (strpos($path, '[') === false) {
 			$tokens = explode('.', $path);
 		} else {
 			$tokens = String::tokenize($path, '.', '[', ']');
@@ -117,7 +117,7 @@ class Hash {
 			}
 
 			foreach ($context[$_key] as $item) {
-				foreach ($item as $k => $v) {
+				foreach ((array)$item as $k => $v) {
 					if (self::_matchToken($k, $token)) {
 						$next[] = $v;
 					}
@@ -596,7 +596,7 @@ class Hash {
 			foreach ((array)$arg as $key => $val) {
 				if (!empty($return[$key]) && is_array($return[$key]) && is_array($val)) {
 					$return[$key] = self::merge($return[$key], $val);
-				} elseif (is_int($key)) {
+				} elseif (is_int($key) && isset($return[$key])) {
 					$return[] = $val;
 				} else {
 					$return[$key] = $val;
