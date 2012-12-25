@@ -2762,6 +2762,22 @@ class RouterTest extends CakeTestCase {
 		$expected = '/posts/view/?foo=bar';
 		$this->assertEquals($expected, $result);
 
+		$result = Router::url('/a/string/url');
+		$expected = '/a/string/url/';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url('/a/string/url', true);
+		$expected = FULL_BASE_URL . '/a/string/url/';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url(FULL_BASE_URL . '/foreign/string/url');
+		$expected = FULL_BASE_URL . '/foreign/string/url'; // should this also be a trailing slash if its the same domain?
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url('http://www.some/foreign/string/url');
+		$expected = 'http://www.some/foreign/string/url';
+		$this->assertEquals($expected, $result);
+
 		$params = array(
 			'controller' => 'posts',
 			'action' => 'view',
@@ -2784,6 +2800,19 @@ class RouterTest extends CakeTestCase {
 		$request->query = array('url' => '/posts/view/1', 'test' => 'value');
 		$result = Router::reverse($request);
 		$expected = '/posts/view/1/?test=value';
+		$this->assertEquals($expected, $result);
+
+		$request = new CakeRequest();
+		$request->addParams(array(
+			'action' => 'index', 'plugin' => null, 'controller' => 'subscribe', 'admin' => true
+		));
+		$request->base = '/magazine';
+		$request->here = '/magazine';
+		$request->webroot = '/magazine/';
+		Router::setRequestInfo($request);
+
+		$result = Router::url();
+		$expected = '/magazine/';
 		$this->assertEquals($expected, $result);
 	}
 
