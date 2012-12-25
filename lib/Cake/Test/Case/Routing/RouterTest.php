@@ -2728,4 +2728,63 @@ class RouterTest extends CakeTestCase {
 		$expected = '?foo=bar&php=nut&jose=zap';
 		$this->assertEquals($expected, $result);
 	}
+
+/**
+ * Test trailing slashes
+ *
+ * @return void
+ */
+	public function testTrailingSlashes() {
+		Router::addTrailingSlash(true);
+
+		Router::connect('/:controller', array('controller' => 'posts'));
+		$this->assertEquals(Router::url(array('action' => 'index')), '/');
+
+		Router::mapResources('Posts');
+
+		$result = Router::url(array('controller' => 'posts', 'action' => 'index', '[method]' => 'GET'));
+		$expected = '/posts/';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url(array('controller' => 'posts', 'action' => 'view', '[method]' => 'GET', 'id' => 10));
+		$expected = '/posts/10/';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url(array('controller' => 'posts', 'action' => 'view', '#'=>'foo'));
+		$expected = '/posts/view/#foo';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url(array('controller' => 'posts', 'action' => 'view', 'ext'=>'json'));
+		$expected = '/posts/view.json';
+		$this->assertEquals($expected, $result);
+
+		$result = Router::url(array('controller' => 'posts', 'action' => 'view', '?'=>array('foo' => 'bar')));
+		$expected = '/posts/view/?foo=bar';
+		$this->assertEquals($expected, $result);
+
+		$params = array(
+			'controller' => 'posts',
+			'action' => 'view',
+			'pass' => array(1),
+			'named' => array(),
+			'url' => array('url' => '/posts/view/1'),
+			'paging' => array(),
+			'models' => array()
+		);
+		$result = Router::reverse($params);
+		$this->assertEquals('/posts/view/1/', $result);
+
+		$request = new CakeRequest('/posts/view/1');
+		$request->addParams(array(
+			'controller' => 'posts',
+			'action' => 'view',
+			'pass' => array(1),
+			'named' => array(),
+		));
+		$request->query = array('url' => '/posts/view/1', 'test' => 'value');
+		$result = Router::reverse($request);
+		$expected = '/posts/view/1/?test=value';
+		$this->assertEquals($expected, $result);
+	}
+
 }

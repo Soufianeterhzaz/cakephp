@@ -167,6 +167,13 @@ class Router {
 	protected static $_routeClass = 'CakeRoute';
 
 /**
+ * If a trailing slash should be appended to extensionless urls
+ *
+ * @var boolean
+ */
+ 	protected static $_addTrailingSlash = false;
+
+/**
  * Set the default route class to use or return the current one
  *
  * @param string $routeClass to set as default
@@ -177,8 +184,20 @@ class Router {
 		if (is_null($routeClass)) {
 			return self::$_routeClass;
 		}
-
 		self::$_routeClass = self::_validateRouteClass($routeClass);
+	}
+
+/**
+ * Set the route class to enable/disable trailing slashs or return the current behavior
+ *
+ * @param boolean $value If trailing slashes should be used or not
+ * @return mixed void|boolean
+ */
+	public static function addTrailingSlash($value = null) {
+		if (is_null($value)) {
+			return self::$_addTrailingSlash;
+		}
+		self::$_addTrailingSlash = $value;
 	}
 
 /**
@@ -888,6 +907,9 @@ class Router {
 			}
 			if (!empty($extension)) {
 				$output = rtrim($output, '/');
+			}
+			if (empty($extension) && self::$_addTrailingSlash && substr($output, -1, 1) !== '/') {
+				$output .= '/';
 			}
 		}
 		return $output . $extension . self::queryString($q, array(), $escape) . $frag;
