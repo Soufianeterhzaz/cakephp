@@ -249,7 +249,7 @@ class CakeRequest implements ArrayAccess {
 		if (strpos($uri, '?') !== false) {
 			list($uri) = explode('?', $uri, 2);
 		}
-		if (empty($uri) || $uri == '/' || $uri == '//') {
+		if (empty($uri) || $uri == '/' || $uri == '//' || $uri == '/index.php') {
 			return '/';
 		}
 		return $uri;
@@ -716,7 +716,7 @@ class CakeRequest implements ArrayAccess {
 	public static function acceptLanguage($language = null) {
 		$raw = self::_parseAcceptWithQualifier(self::header('Accept-Language'));
 		$accept = array();
-		foreach ($raw as $qualifier => $languages) {
+		foreach ($raw as $languages) {
 			foreach ($languages as &$lang) {
 				if (strpos($lang, '_')) {
 					$lang = str_replace('_', '-', $lang);
