@@ -433,7 +433,9 @@ class FormHelper extends AppHelper {
 		$htmlAttributes = array_merge($options, $htmlAttributes);
 
 		$this->fields = array();
-		$append .= $this->_csrfField();
+		if ($this->requestType !== 'get') {
+			$append .= $this->_csrfField();
+		}
 
 		if (!empty($append)) {
 			$append = $this->Html->useTag('hiddenblock', $append);
@@ -504,7 +506,11 @@ class FormHelper extends AppHelper {
 			}
 			$out .= $this->submit($submit, $submitOptions);
 		}
-		if (isset($this->request['_Token']) && !empty($this->request['_Token'])) {
+		if (
+			$this->requestType !== 'get' &&
+			isset($this->request['_Token']) &&
+			!empty($this->request['_Token'])
+		) {
 			$out .= $this->secure($this->fields);
 			$this->fields = array();
 		}
@@ -1123,6 +1129,10 @@ class FormHelper extends AppHelper {
 			$options['type'] = 'select';
 		} elseif (in_array($fieldKey, array('psword', 'passwd', 'password'))) {
 			$options['type'] = 'password';
+		} elseif (in_array($fieldKey, array('tel', 'telephone', 'phone'))) {
+			$options['type'] = 'tel';
+		} elseif ($fieldKey === 'email') {
+			$options['type'] = 'email';
 		} elseif (isset($options['checked'])) {
 			$options['type'] = 'checkbox';
 		} elseif ($fieldDef = $this->_introspectModel($modelKey, 'fields', $fieldKey)) {
@@ -1229,7 +1239,9 @@ class FormHelper extends AppHelper {
 			is_scalar($fieldDef['length']) &&
 			$options['type'] !== 'select'
 		);
-		if ($autoLength && $options['type'] == 'text') {
+		if ($autoLength &&
+			in_array($options['type'], array('text', 'email', 'tel', 'url'))
+		) {
 			$options['maxlength'] = $fieldDef['length'];
 		}
 		if ($autoLength && $fieldDef['type'] == 'float') {
@@ -2602,7 +2614,7 @@ class FormHelper extends AppHelper {
 			if ($name !== null) {
 				if (
 					(!$selectedIsArray && !$selectedIsEmpty && (string)$attributes['value'] == (string)$name) ||
-					($selectedIsArray && in_array($name, $attributes['value']))
+					($selectedIsArray && in_array($name, $attributes['value'], true))
 				) {
 					if ($attributes['style'] === 'checkbox') {
 						$htmlOptions['checked'] = true;
