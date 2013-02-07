@@ -1664,6 +1664,9 @@ class HtmlHelperTest extends CakeTestCase {
 		$result = $this->Html->useTag('unknowntag');
 		$this->assertEquals('', $result);
 
+		$result = $this->Html->useTag('break', null);
+		$this->assertEquals('<br />', $result);
+
 		$result = $this->Html->useTag('formend');
 		$this->assertTags($result, '/form');
 

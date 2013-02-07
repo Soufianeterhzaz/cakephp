@@ -85,6 +85,7 @@ class HtmlHelper extends AppHelper {
 		'tagselfclosing' => '<%s%s/>',
 		'para' => '<p%s>%s</p>',
 		'parastart' => '<p%s>',
+		'break' => '<br %s/>',
 		'label' => '<label for="%s"%s>%s</label>',
 		'fieldset' => '<fieldset%s>%s</fieldset>',
 		'fieldsetstart' => '<fieldset><legend>%s</legend>',
