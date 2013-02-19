@@ -929,6 +929,13 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::comparison(7, '==', 6));
 		$this->assertFalse(Validation::comparison(7, 'not equal', 7));
 		$this->assertFalse(Validation::comparison(7, '!=', 7));
+
+		$this->assertTrue(Validation::comparison("x", '==', 0));
+		$this->assertTrue(Validation::comparison("2", '==', 2));
+		$this->assertFalse(Validation::comparison("x", '===', 0));
+		$this->assertFalse(Validation::comparison("2", '===', 2));
+		$this->assertTrue(Validation::comparison(2, '===', 2));
+		$this->assertFalse(Validation::comparison(3, '===', 2));
 	}
 
 /**

@@ -248,6 +248,12 @@ class Validation {
 					return true;
 				}
 				break;
+			case 'identicalto':
+			case '===':
+				if ($check1 === $check2) {
+					return true;
+				}
+				break;
 			case 'notequal':
 			case '!=':
 				if ($check1 != $check2) {
