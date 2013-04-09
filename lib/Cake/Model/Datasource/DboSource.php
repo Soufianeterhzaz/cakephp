@@ -2735,13 +2735,17 @@ class DboSource extends DataSource {
 			}
 
 			$key = trim($key);
+			list($alias, $field) = pluginSplit($key);
+			if (!$alias) {
+				$alias = $model->alias;
+			}
 
 			if (is_object($model) && $model->isVirtualField($key)) {
-				$key = '(' . $this->_quoteFields($model->getVirtualField($key)) . ')';
+				$key = $this->name($alias . $this->virtualFieldSeparator . $field);
 			}
-			list($alias, $field) = pluginSplit($key);
+
 			if (is_object($model) && $alias !== $model->alias && is_object($model->{$alias}) && $model->{$alias}->isVirtualField($key)) {
-				$key = '(' . $this->_quoteFields($model->{$alias}->getVirtualField($key)) . ')';
+				$key = $this->name($model->{$alias} . $this->virtualFieldSeparator . $field);
 			}
 
 			if (strpos($key, '.')) {
