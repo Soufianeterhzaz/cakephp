@@ -607,6 +607,47 @@ class ViewTaskTest extends CakeTestCase {
 	}
 
 /**
+ * test execute into interactive with force option.
+ *
+ * @return void
+ */
+	public function _testExecuteForceOption() {
+		$this->Task->connection = 'test';
+		$this->Task->args = array();
+		$this->Task->params = array('force' => 1);
+
+		$this->Task->Controller->expects($this->once())->method('getName')
+			->will($this->returnValue('ViewTaskComments'));
+
+		$this->Task->expects($this->at(3))->method('createFile')
+			->with(
+				TMP . 'ViewTaskComments' . DS . 'index.ctp',
+				$this->stringContains('ViewTaskComment')
+			);
+
+		$this->Task->expects($this->at(4))->method('createFile')
+			->with(
+				TMP . 'ViewTaskComments' . DS . 'view.ctp',
+				$this->stringContains('ViewTaskComment')
+			);
+
+		$this->Task->expects($this->at(5))->method('createFile')
+			->with(
+				TMP . 'ViewTaskComments' . DS . 'add.ctp',
+				$this->stringContains('Add View Task Comment')
+			);
+
+		$this->Task->expects($this->at(6))->method('createFile')
+			->with(
+				TMP . 'ViewTaskComments' . DS . 'edit.ctp',
+				$this->stringContains('Edit View Task Comment')
+			);
+
+		$this->Task->expects($this->exactly(4))->method('createFile');
+		$this->Task->execute();
+	}
+
+/**
  * test `cake bake view posts index list`
  *
  * @return void
