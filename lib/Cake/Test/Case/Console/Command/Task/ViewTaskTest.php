@@ -611,7 +611,7 @@ class ViewTaskTest extends CakeTestCase {
  *
  * @return void
  */
-	public function _testExecuteForceOption() {
+	public function testExecuteForceOption() {
 		$this->Task->connection = 'test';
 		$this->Task->args = array();
 		$this->Task->params = array('force' => 1);
