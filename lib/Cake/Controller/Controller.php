@@ -250,7 +250,7 @@ class Controller extends Object implements CakeEventListener {
 	public $passedArgs = array();
 
 /**
- * Triggers Scaffolding
+ * Triggers Scaffolding every time.
  *
  * @var mixed
  * @link http://book.cakephp.org/2.0/en/controllers/scaffolding.html
@@ -360,7 +360,7 @@ class Controller extends Object implements CakeEventListener {
 				return true;
 		}
 
-		if (is_array($this->uses)) {
+		if (is_array($this->uses) && !empty($this->uses)) {
 			foreach ($this->uses as $modelClass) {
 				list($plugin, $class) = pluginSplit($modelClass, true);
 				if ($name === $class) {
