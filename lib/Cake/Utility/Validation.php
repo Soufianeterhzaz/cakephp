@@ -550,10 +550,10 @@ class Validation {
  *
  * @param array $check Value to check
  * @param array $options Options for the check.
- * @param boolean $caseInsensitive Set to true for case insensitive comparison.
+ * @param boolean $caseSensitive Set to false for case insensitive comparison.
  * @return boolean Success
  */
-	public static function multiple($check, $options = array(), $caseInsensitive = false) {
+	public static function multiple($check, $options = array(), $caseSensitive = true) {
 		$defaults = array('in' => null, 'max' => null, 'min' => null);
 		$options = array_merge($defaults, $options);
 
@@ -568,12 +568,12 @@ class Validation {
 			return false;
 		}
 		if ($options['in'] && is_array($options['in'])) {
-			if ($caseInsensitive) {
+			if (!$caseSensitive) {
 				$options['in'] = array_map('mb_strtolower', $options['in']);
 			}
 			foreach ($check as $val) {
 				$strict = !is_numeric($val);
-				if ($caseInsensitive) {
+				if (!$caseSensitive) {
 					$val = mb_strtolower($val);
 				}
 				if (!in_array((string)$val, $options['in'], $strict)) {
@@ -778,13 +778,13 @@ class Validation {
  *
  * @param string $check Value to check.
  * @param array $list List to check against.
- * @param boolean $caseInsensitive Set to true for case insensitive comparison.
+ * @param boolean $caseSensitive Set to false for case insensitive comparison.
  * @return boolean Success.
  */
-	public static function inList($check, $list, $caseInsensitive = false) {
+	public static function inList($check, $list, $caseSensitive = true) {
 		$strict = !is_numeric($check);
 
-		if ($caseInsensitive) {
+		if (!$caseSensitive) {
 			$list = array_map('mb_strtolower', $list);
 			$check = mb_strtolower($check);
 		}

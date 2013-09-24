@@ -1951,9 +1951,9 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::inList('One', array('one', 'two')));
 
 		// case insensitive
-		$this->assertTrue(Validation::inList('one', array('One', 'Two'), true));
-		$this->assertTrue(Validation::inList('Two', array('one', 'two'), true));
-		$this->assertFalse(Validation::inList('three', array('one', 'two'), true));
+		$this->assertTrue(Validation::inList('one', array('One', 'Two'), false));
+		$this->assertTrue(Validation::inList('Two', array('one', 'two'), false));
+		$this->assertFalse(Validation::inList('three', array('one', 'two'), false));
 	}
 
 /**
@@ -2087,9 +2087,9 @@ class ValidationTest extends CakeTestCase {
 		$this->assertFalse(Validation::multiple(array('Two'), array('in' => array('one', 'two'))));
 
 		// case insensitive
-		$this->assertTrue(Validation::multiple(array('one'), array('in' => array('One', 'Two')), true));
-		$this->assertTrue(Validation::multiple(array('Two'), array('in' => array('one', 'two')), true));
-		$this->assertFalse(Validation::multiple(array('three'), array('in' => array('one', 'two')), true));
+		$this->assertTrue(Validation::multiple(array('one'), array('in' => array('One', 'Two')), false));
+		$this->assertTrue(Validation::multiple(array('Two'), array('in' => array('one', 'two')), false));
+		$this->assertFalse(Validation::multiple(array('three'), array('in' => array('one', 'two')), false));
 	}
 
 /**
