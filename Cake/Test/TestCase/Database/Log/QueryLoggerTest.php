@@ -26,31 +26,31 @@ use Cake\Log\Log;
  */
 class QueryLoggerTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Set up
- *
- * @return void
- */
+	/**
+	 * Set up
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Log::reset();
 	}
 
-/**
- * Tear down
- *
- * @return void
- */
+	/**
+	 * Tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Log::reset();
 	}
 
-/**
- * Tests that query placeholders are replaced when logged
- *
- * @return void
- */
+	/**
+	 * Tests that query placeholders are replaced when logged
+	 *
+	 * @return void
+	 */
 	public function testStingInterpolation() {
 		$logger = $this->getMock('\Cake\Database\Log\QueryLogger', ['_log']);
 		$query = new LoggedQuery;
@@ -63,11 +63,11 @@ class QueryLoggerTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, (string)$query);
 	}
 
-/**
- * Tests that positional placeholders are replaced when logging a query
- *
- * @return void
- */
+	/**
+	 * Tests that positional placeholders are replaced when logging a query
+	 *
+	 * @return void
+	 */
 	public function testStingInterpolation2() {
 		$logger = $this->getMock('\Cake\Database\Log\QueryLogger', ['_log']);
 		$query = new LoggedQuery;
@@ -80,12 +80,12 @@ class QueryLoggerTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, (string)$query);
 	}
 
-/**
- * Tests that the logged query object is passed to the built-in logger using
- * the correct scope
- *
- * @return void
- */
+	/**
+	 * Tests that the logged query object is passed to the built-in logger using
+	 * the correct scope
+	 *
+	 * @return void
+	 */
 	public function testLogFunction() {
 		$logger = new QueryLogger;
 		$query = new LoggedQuery;

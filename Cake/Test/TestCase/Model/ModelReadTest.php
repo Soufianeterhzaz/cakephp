@@ -30,10 +30,10 @@ use Cake\Test\TestCase\Model\ModelTestBase;
  */
 class ModelReadTest extends ModelTestBase {
 
-/**
- * testExists function
- * @return void
- */
+	/**
+	 * testExists function
+	 * @return void
+	 */
 	public function testExists() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -49,17 +49,17 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse($TestModel->exists(2));
 	}
 
-/**
- * testFetchingNonUniqueFKJoinTableRecords()
- *
- * Tests if the results are properly returned in the case there are non-unique FK's
- * in the join table but another fields value is different. For example:
- * something_id | something_else_id | doomed = 1
- * something_id | something_else_id | doomed = 0
- * Should return both records and not just one.
- *
- * @return void
- */
+	/**
+	 * testFetchingNonUniqueFKJoinTableRecords()
+	 *
+	 * Tests if the results are properly returned in the case there are non-unique FK's
+	 * in the join table but another fields value is different. For example:
+	 * something_id | something_else_id | doomed = 1
+	 * something_id | something_else_id | doomed = 0
+	 * Should return both records and not just one.
+	 *
+	 * @return void
+	 */
 	public function testFetchingNonUniqueFKJoinTableRecords() {
 		$this->loadFixtures('Something', 'SomethingElse', 'JoinThing');
 		$Something = new Something();
@@ -91,14 +91,14 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(in_array(false, $doomed));
 	}
 
-/**
- * testGroupBy method
- *
- * These tests will never pass with Postgres or Oracle as all fields in a select must be
- * part of an aggregate function or in the GROUP BY statement.
- *
- * @return void
- */
+	/**
+	 * testGroupBy method
+	 *
+	 * These tests will never pass with Postgres or Oracle as all fields in a select must be
+	 * part of an aggregate function or in the GROUP BY statement.
+	 *
+	 * @return void
+	 */
 	public function testGroupBy() {
 		$isStrictGroupBy = $this->db instanceof Postgres || $this->db instanceof Sqlite || $this->db instanceof Oracle || $this->db instanceof Sqlserver;
 		$message = 'Postgres, Oracle, SQLite and SQL Server have strict GROUP BY and are incompatible with this test.';
@@ -251,11 +251,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testOldQuery method
- *
- * @return void
- */
+	/**
+	 * testOldQuery method
+	 *
+	 * @return void
+	 */
 	public function testOldQuery() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag', 'Comment', 'Attachment');
 		$Article = new Article();
@@ -287,11 +287,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(is_array($results));
 	}
 
-/**
- * testPreparedQuery method
- *
- * @return void
- */
+	/**
+	 * testPreparedQuery method
+	 *
+	 * @return void
+	 */
 	public function testPreparedQuery() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -354,12 +354,12 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse($result === false);
 	}
 
-/**
- * testParameterMismatch method
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 * testParameterMismatch method
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testParameterMismatch() {
 		$this->skipIf($this->db instanceof Sqlite, 'Sqlite does not accept real prepared statements, no way to check this');
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
@@ -373,12 +373,12 @@ class ModelReadTest extends ModelTestBase {
 		$Article->query($query, $params);
 	}
 
-/**
- * testVeryStrangeUseCase method
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 * testVeryStrangeUseCase method
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testVeryStrangeUseCase() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -393,11 +393,11 @@ class ModelReadTest extends ModelTestBase {
 		$Article->query($query, $param);
 	}
 
-/**
- * testRecursiveUnbind method
- *
- * @return void
- */
+	/**
+	 * testRecursiveUnbind method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveUnbind() {
 		$this->skipIf($this->db instanceof Sqlserver, 'The test of testRecursiveUnbind test is not compatible with SQL Server, because it check for time columns.');
 
@@ -2989,11 +2989,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSelfAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testSelfAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testSelfAssociationAfterFind() {
 		$this->loadFixtures('Apple', 'Sample');
 		$afterFindModel = new NodeAfterFind();
@@ -3011,11 +3011,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($afterFindData, $noAfterFindData);
 	}
 
-/**
- * Test that afterFind can completely unset data.
- *
- * @return void
- */
+	/**
+	 * Test that afterFind can completely unset data.
+	 *
+	 * @return void
+	 */
 	public function testAfterFindUnset() {
 		$this->loadFixtures('Article', 'Comment', 'User');
 		$model = new CustomArticle();
@@ -3035,11 +3035,11 @@ class ModelReadTest extends ModelTestBase {
 		);
 	}
 
-/**
- * testFindThreadedNoParent method
- *
- * @return void
- */
+	/**
+	 * testFindThreadedNoParent method
+	 *
+	 * @return void
+	 */
 	public function testFindThreadedNoParent() {
 		$this->loadFixtures('Apple', 'Sample');
 		$Apple = new Apple();
@@ -3049,11 +3049,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindThreaded method
- *
- * @return void
- */
+	/**
+	 * testFindThreaded method
+	 *
+	 * @return void
+	 */
 	public function testFindThreaded() {
 		$this->loadFixtures('Person');
 		$Model = new Person();
@@ -3135,11 +3135,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllThreaded method
- *
- * @return void
- */
+	/**
+	 * testFindAllThreaded method
+	 *
+	 * @return void
+	 */
 	public function testFindAllThreaded() {
 		$this->loadFixtures('Category');
 		$TestModel = new Category();
@@ -3611,11 +3611,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test find('neighbors')
- *
- * @return void
- */
+	/**
+	 * test find('neighbors')
+	 *
+	 * @return void
+	 */
 	public function testFindNeighbors() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag', 'Attachment');
 		$TestModel = new Article();
@@ -3765,11 +3765,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test find(neighbors) with missing fields so no neighbors are found.
- *
- * @return void
- */
+	/**
+	 * Test find(neighbors) with missing fields so no neighbors are found.
+	 *
+	 * @return void
+	 */
 	public function testFindNeighborsNoPrev() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag', 'Attachment');
 		$Article = new Article();
@@ -3790,11 +3790,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindCombinedRelations method
- *
- * @return void
- */
+	/**
+	 * testFindCombinedRelations method
+	 *
+	 * @return void
+	 */
 	public function testFindCombinedRelations() {
 		$this->skipIf($this->db instanceof Sqlserver, 'The test of testRecursiveUnbind test is not compatible with SQL Server, because it check for time columns.');
 
@@ -4068,11 +4068,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSaveEmpty method
- *
- * @return void
- */
+	/**
+	 * testSaveEmpty method
+	 *
+	 * @return void
+	 */
 	public function testSaveEmpty() {
 		$this->loadFixtures('Thread');
 		$TestModel = new Thread();
@@ -4081,11 +4081,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse($expected);
 	}
 
-/**
- * testFindAllWithConditionInChildQuery
- *
- * @return void
- */
+	/**
+	 * testFindAllWithConditionInChildQuery
+	 *
+	 * @return void
+	 */
 	public function testFindAllWithConditionInChildQuery() {
 		$this->loadFixtures('Basket', 'FilmFile');
 
@@ -4124,11 +4124,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllWithConditionsHavingMixedDataTypes method
- *
- * @return void
- */
+	/**
+	 * testFindAllWithConditionsHavingMixedDataTypes method
+	 *
+	 * @return void
+	 */
 	public function testFindAllWithConditionsHavingMixedDataTypes() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$TestModel = new Article();
@@ -4205,11 +4205,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBindUnbind method
- *
- * @return void
- */
+	/**
+	 * testBindUnbind method
+	 *
+	 * @return void
+	 */
 	public function testBindUnbind() {
 		$this->loadFixtures(
 			'User',
@@ -4698,11 +4698,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(is_object($TestModel2->NewFeatureSet));
 	}
 
-/**
- * testBindMultipleTimes method
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method
+	 *
+	 * @return void
+	 */
 	public function testBindMultipleTimes() {
 		$this->loadFixtures('User', 'Comment', 'Article', 'Tag', 'ArticlesTag');
 		$TestModel = new User();
@@ -4870,11 +4870,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that multiple reset = true calls to bindModel() result in the original associations.
- *
- * @return void
- */
+	/**
+	 * test that multiple reset = true calls to bindModel() result in the original associations.
+	 *
+	 * @return void
+	 */
 	public function testBindModelMultipleTimesResetCorrectly() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new User();
@@ -4886,11 +4886,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse(isset($TestModel->hasMany['Comment']), 'Association left behind');
 	}
 
-/**
- * testBindMultipleTimes method with different reset settings
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method with different reset settings
+	 *
+	 * @return void
+	 */
 	public function testBindMultipleTimesWithDifferentResetSettings() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new User();
@@ -4920,11 +4920,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that bindModel behaves with Custom primary Key associations
- *
- * @return void
- */
+	/**
+	 * test that bindModel behaves with Custom primary Key associations
+	 *
+	 * @return void
+	 */
 	public function testBindWithCustomPrimaryKey() {
 		$this->loadFixtures('Story', 'StoriesTag', 'Tag');
 		$Model = ClassRegistry::init('StoriesTag');
@@ -4939,12 +4939,12 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse(empty($result));
 	}
 
-/**
- * test that calling unbindModel() with reset == true multiple times
- * leaves associations in the correct state.
- *
- * @return void
- */
+	/**
+	 * test that calling unbindModel() with reset == true multiple times
+	 * leaves associations in the correct state.
+	 *
+	 * @return void
+	 */
 	public function testUnbindMultipleTimesResetCorrectly() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new Article10();
@@ -4956,11 +4956,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(isset($TestModel->hasMany['Comment']), 'Association permanently removed');
 	}
 
-/**
- * testBindMultipleTimes method with different reset settings
- *
- * @return void
- */
+	/**
+	 * testBindMultipleTimes method with different reset settings
+	 *
+	 * @return void
+	 */
 	public function testUnBindMultipleTimesWithDifferentResetSettings() {
 		$this->loadFixtures('User', 'Comment', 'Article');
 		$TestModel = new Comment();
@@ -4990,11 +4990,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testAssociationAfterFind() {
 		$this->loadFixtures('Post', 'Author', 'Comment');
 		$TestModel = new Post();
@@ -5085,11 +5085,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result[0]['Post'][0]['Comment'][0]);
 	}
 
-/**
- * testDeeperAssociationAfterFind method
- *
- * @return void
- */
+	/**
+	 * testDeeperAssociationAfterFind method
+	 *
+	 * @return void
+	 */
 	public function testDeeperAssociationAfterFind() {
 		$this->loadFixtures('Post', 'Author', 'Comment', 'Attachment', 'Article');
 
@@ -5118,11 +5118,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals('Fired', $result['Comment'][0]['Attachment']['callback']);
 	}
 
-/**
- * Tests that callbacks can be properly disabled
- *
- * @return void
- */
+	/**
+	 * Tests that callbacks can be properly disabled
+	 *
+	 * @return void
+	 */
 	public function testCallbackDisabling() {
 		$this->loadFixtures('Author');
 		$TestModel = new ModifiedAuthor();
@@ -5144,11 +5144,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAssociationAfterFindCallbacksDisabled method
- *
- * @return void
- */
+	/**
+	 * testAssociationAfterFindCallbacksDisabled method
+	 *
+	 * @return void
+	 */
 	public function testAssociationAfterFindCalbacksDisabled() {
 		$this->loadFixtures('Post', 'Author', 'Comment');
 		$TestModel = new Post();
@@ -5237,35 +5237,35 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result[0]['Post'][0]['Comment'][0]);
 	}
 
-/**
- * Tests that the database configuration assigned to the model can be changed using
- * (before|after)Find callbacks
- *
- * @return void
- */
+	/**
+	 * Tests that the database configuration assigned to the model can be changed using
+	 * (before|after)Find callbacks
+	 *
+	 * @return void
+	 */
 	public function testCallbackSourceChange() {
 		$this->loadFixtures('Post');
 		$TestModel = new Post();
 		$this->assertEquals(3, count($TestModel->find('all')));
 	}
 
-/**
- * testCallbackSourceChangeUnknownDatasource method
- *
- * @expectedException MissingDatasourceConfigException
- * @return void
- */
+	/**
+	 * testCallbackSourceChangeUnknownDatasource method
+	 *
+	 * @expectedException MissingDatasourceConfigException
+	 * @return void
+	 */
 	public function testCallbackSourceChangeUnknownDatasource() {
 		$this->loadFixtures('Post', 'Author');
 		$TestModel = new Post();
 		$this->assertFalse($TestModel->find('all', array('connection' => 'foo')));
 	}
 
-/**
- * testMultipleBelongsToWithSameClass method
- *
- * @return void
- */
+	/**
+	 * testMultipleBelongsToWithSameClass method
+	 *
+	 * @return void
+	 */
 	public function testMultipleBelongsToWithSameClass() {
 		$this->loadFixtures(
 			'DeviceType',
@@ -5359,11 +5359,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHabtmRecursiveBelongsTo method
- *
- * @return void
- */
+	/**
+	 * testHabtmRecursiveBelongsTo method
+	 *
+	 * @return void
+	 */
 	public function testHabtmRecursiveBelongsTo() {
 		$this->loadFixtures('Portfolio', 'Item', 'ItemsPortfolio', 'Syfile', 'Image');
 		$Portfolio = new Portfolio();
@@ -5417,11 +5417,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNonNumericHabtmJoinKey method
- *
- * @return void
- */
+	/**
+	 * testNonNumericHabtmJoinKey method
+	 *
+	 * @return void
+	 */
 	public function testNonNumericHabtmJoinKey() {
 		$this->loadFixtures('Post', 'Tag', 'PostsTag', 'Author');
 		$Post = new Post();
@@ -5519,11 +5519,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHabtmFinderQuery method
- *
- * @return void
- */
+	/**
+	 * testHabtmFinderQuery method
+	 *
+	 * @return void
+	 */
 	public function testHabtmFinderQuery() {
 		$this->loadFixtures('Article', 'Tag', 'ArticlesTag');
 		$Article = new Article();
@@ -5567,11 +5567,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result['Tag']);
 	}
 
-/**
- * testHabtmLimitOptimization method
- *
- * @return void
- */
+	/**
+	 * testHabtmLimitOptimization method
+	 *
+	 * @return void
+	 */
 	public function testHabtmLimitOptimization() {
 		$this->loadFixtures('Article', 'User', 'Comment', 'Tag', 'ArticlesTag');
 		$TestModel = new Article();
@@ -5637,11 +5637,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHasManyLimitOptimization method
- *
- * @return void
- */
+	/**
+	 * testHasManyLimitOptimization method
+	 *
+	 * @return void
+	 */
 	public function testHasManyLimitOptimization() {
 		$this->loadFixtures('Project', 'Thread', 'Message', 'Bid');
 		$Project = new Project();
@@ -5753,11 +5753,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllRecursiveSelfJoin method
- *
- * @return void
- */
+	/**
+	 * testFindAllRecursiveSelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testFindAllRecursiveSelfJoin() {
 		$this->loadFixtures('Home', 'AnotherArticle', 'Advertisement');
 		$TestModel = new Home();
@@ -5861,11 +5861,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllRecursiveWithHabtm method
- *
- * @return void
- */
+	/**
+	 * testFindAllRecursiveWithHabtm method
+	 *
+	 * @return void
+	 */
 	public function testFindAllRecursiveWithHabtm() {
 		$this->loadFixtures(
 			'MyCategoriesMyUsers',
@@ -5931,11 +5931,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testReadFakeThread method
- *
- * @return void
- */
+	/**
+	 * testReadFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testReadFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -5995,11 +5995,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindFakeThread method
- *
- * @return void
- */
+	/**
+	 * testFindFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testFindFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -6059,11 +6059,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindAllFakeThread method
- *
- * @return void
- */
+	/**
+	 * testFindAllFakeThread method
+	 *
+	 * @return void
+	 */
 	public function testFindAllFakeThread() {
 		$this->loadFixtures('CategoryThread');
 		$TestModel = new CategoryThread();
@@ -6279,11 +6279,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testConditionalNumerics method
- *
- * @return void
- */
+	/**
+	 * testConditionalNumerics method
+	 *
+	 * @return void
+	 */
 	public function testConditionalNumerics() {
 		$this->loadFixtures('NumericArticle');
 		$NumericArticle = new NumericArticle();
@@ -6296,11 +6296,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(empty($result));
 	}
 
-/**
- * test buildQuery()
- *
- * @return void
- */
+	/**
+	 * test buildQuery()
+	 *
+	 * @return void
+	 */
 	public function testBuildQuery() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6326,11 +6326,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test find('all') method
- *
- * @return void
- */
+	/**
+	 * test find('all') method
+	 *
+	 * @return void
+	 */
 	public function testFindAll() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6555,11 +6555,11 @@ class ModelReadTest extends ModelTestBase {
 		}
 	}
 
-/**
- * test find('list') method
- *
- * @return void
- */
+	/**
+	 * test find('list') method
+	 *
+	 * @return void
+	 */
 	public function testGenerateFindList() {
 		$this->loadFixtures('Article', 'Apple', 'Post', 'Author', 'User', 'Comment');
 
@@ -6830,11 +6830,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFindField method
- *
- * @return void
- */
+	/**
+	 * testFindField method
+	 *
+	 * @return void
+	 */
 	public function testFindField() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6859,11 +6859,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * testFindUnique method
- *
- * @return void
- */
+	/**
+	 * testFindUnique method
+	 *
+	 * @return void
+	 */
 	public function testFindUnique() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -6881,11 +6881,11 @@ class ModelReadTest extends ModelTestBase {
 		)));
 	}
 
-/**
- * test find('count') method
- *
- * @return void
- */
+	/**
+	 * test find('count') method
+	 *
+	 * @return void
+	 */
 	public function testFindCount() {
 		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag');
 
@@ -6928,11 +6928,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that find('first') does not use the id set to the object.
- *
- * @return void
- */
+	/**
+	 * Test that find('first') does not use the id set to the object.
+	 *
+	 * @return void
+	 */
 	public function testFindFirstNoIdUsed() {
 		$this->loadFixtures('Project');
 
@@ -6943,11 +6943,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals('Project 1', $result['Project']['name'], 'Wrong record retrieved');
 	}
 
-/**
- * test find with COUNT(DISTINCT field)
- *
- * @return void
- */
+	/**
+	 * test find with COUNT(DISTINCT field)
+	 *
+	 * @return void
+	 */
 	public function testFindCountDistinct() {
 		$this->skipIf($this->db instanceof Sqlite, 'SELECT COUNT(DISTINCT field) is not compatible with SQLite.');
 		$this->skipIf($this->db instanceof Sqlserver, 'This test is not compatible with SQL Server.');
@@ -6962,11 +6962,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * Test find(count) with Db::expression
- *
- * @return void
- */
+	/**
+	 * Test find(count) with Db::expression
+	 *
+	 * @return void
+	 */
 	public function testFindCountWithDbExpressions() {
 		$this->skipIf($this->db instanceof Postgres, 'testFindCountWithDbExpressions is not compatible with Postgres.');
 
@@ -6985,11 +6985,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals(1, $result);
 	}
 
-/**
- * testFindMagic method
- *
- * @return void
- */
+	/**
+	 * testFindMagic method
+	 *
+	 * @return void
+	 */
 	public function testFindMagic() {
 		$this->loadFixtures('User');
 		$TestModel = new User();
@@ -7016,11 +7016,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRead method
- *
- * @return void
- */
+	/**
+	 * testRead method
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$this->loadFixtures('User', 'Article');
 		$TestModel = new User();
@@ -7096,11 +7096,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecursiveRead method
- *
- * @return void
- */
+	/**
+	 * testRecursiveRead method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveRead() {
 		$this->loadFixtures(
 			'User',
@@ -7521,11 +7521,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecursiveFindAllWithLimit method
- *
- * @return void
- */
+	/**
+	 * testRecursiveFindAllWithLimit method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveFindAllWithLimit() {
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag', 'Comment', 'Attachment');
 		$TestModel = new Article();
@@ -7687,11 +7687,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Testing availability of $this->findQueryType in Model callbacks
- *
- * @return void
- */
+	/**
+	 * Testing availability of $this->findQueryType in Model callbacks
+	 *
+	 * @return void
+	 */
 	public function testFindQueryTypeInCallbacks() {
 		$this->loadFixtures('Comment');
 		$Comment = new AgainModifiedComment();
@@ -7701,14 +7701,14 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals('first', $comments['Comment']['querytype']);
 	}
 
-/**
- * testVirtualFields()
- *
- * Test correct fetching of virtual fields
- * currently is not possible to do Relation.virtualField
- *
- * @return void
- */
+	/**
+	 * testVirtualFields()
+	 *
+	 * Test correct fetching of virtual fields
+	 * currently is not possible to do Relation.virtualField
+	 *
+	 * @return void
+	 */
 	public function testVirtualFields() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = ClassRegistry::init('Post');
@@ -7784,13 +7784,13 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals(4, $result);
 	}
 
-/**
- * testVirtualFieldsOrder()
- *
- * Test correct order on virtual fields
- *
- * @return void
- */
+	/**
+	 * testVirtualFieldsOrder()
+	 *
+	 * Test correct order on virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsOrder() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = ClassRegistry::init('Post');
@@ -7830,13 +7830,13 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testVirtualFieldsMysql()
- *
- * Test correct fetching of virtual fields
- * currently is not possible to do Relation.virtualField
- *
- */
+	/**
+	 * testVirtualFieldsMysql()
+	 *
+	 * Test correct fetching of virtual fields
+	 * currently is not possible to do Relation.virtualField
+	 *
+	 */
 	public function testVirtualFieldsMysql() {
 		$this->skipIf(!($this->db instanceof Mysql), 'The rest of virtualFields test only compatible with Mysql.');
 
@@ -7883,11 +7883,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(isset($result['Author']['full_name']));
 	}
 
-/**
- * test that virtual fields work when they don't contain functions.
- *
- * @return void
- */
+	/**
+	 * test that virtual fields work when they don't contain functions.
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldAsAString() {
 		$this->loadFixtures('Post', 'Author');
 		$Post = new Post();
@@ -7898,11 +7898,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(isset($result['Post']['writer']), 'virtual field not fetched %s');
 	}
 
-/**
- * test that isVirtualField will accept both aliased and non aliased fieldnames
- *
- * @return void
- */
+	/**
+	 * test that isVirtualField will accept both aliased and non aliased fieldnames
+	 *
+	 * @return void
+	 */
 	public function testIsVirtualField() {
 		$this->loadFixtures('Post');
 		$Post = ClassRegistry::init('Post');
@@ -7916,11 +7916,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertFalse($Post->isVirtualField(array()));
 	}
 
-/**
- * test that getting virtual fields works with and without model alias attached
- *
- * @return void
- */
+	/**
+	 * test that getting virtual fields works with and without model alias attached
+	 *
+	 * @return void
+	 */
 	public function testGetVirtualField() {
 		$this->loadFixtures('Post');
 		$Post = ClassRegistry::init('Post');
@@ -7930,11 +7930,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals($Post->getVirtualField('Post.other_field'), $Post->virtualFields['other_field']);
 	}
 
-/**
- * test that checks for error when NOT condition passed in key and a 1 element array value
- *
- * @return void
- */
+	/**
+	 * test that checks for error when NOT condition passed in key and a 1 element array value
+	 *
+	 * @return void
+	 */
 	public function testNotInArrayWithOneValue() {
 		$this->loadFixtures('Article');
 		$Article = new Article();
@@ -7951,11 +7951,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(is_array($result) && !empty($result));
 	}
 
-/**
- * test to assert that != in key together with a single element array will work
- *
- * @return void
- */
+	/**
+	 * test to assert that != in key together with a single element array will work
+	 *
+	 * @return void
+	 */
 	public function testNotEqualsInArrayWithOneValue() {
 		$this->loadFixtures('Article');
 		$Article = new Article();
@@ -7972,11 +7972,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertTrue(is_array($result) && !empty($result));
 	}
 
-/**
- * test custom find method
- *
- * @return void
- */
+	/**
+	 * test custom find method
+	 *
+	 * @return void
+	 */
 	public function testfindCustom() {
 		$this->loadFixtures('Article');
 		$Article = new CustomArticle();
@@ -7992,11 +7992,11 @@ class ModelReadTest extends ModelTestBase {
 		$this->assertEquals(1, count($result));
 	}
 
-/**
- * test after find callback on related model
- * 
- * @return void 
- */
+	/**
+	 * test after find callback on related model
+	 * 
+	 * @return void 
+	 */
 	public function testRelatedAfterFindCallback() {
 		$this->loadFixtures('Something', 'SomethingElse', 'JoinThing');
 		$Something = new Something();

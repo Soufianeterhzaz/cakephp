@@ -26,14 +26,14 @@ use Cake\Utility\ObjectRegistry;
  */
 class CacheRegistry extends ObjectRegistry {
 
-/**
- * Resolve a cache engine classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a cache engine classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		if (is_object($class)) {
 			return $class;
@@ -41,29 +41,29 @@ class CacheRegistry extends ObjectRegistry {
 		return App::classname($class, 'Cache/Engine', 'Engine');
 	}
 
-/**
- * Throws an exception when a cache engine is missing.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the cache is missing in.
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Throws an exception when a cache engine is missing.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the cache is missing in.
+	 * @throws Cake\Error\Exception
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new Error\Exception(__d('cake_dev', 'Cache engine %s is not available.', $class));
 	}
 
-/**
- * Create the cache engine instance.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- * @param string|CacheEngine $class The classname or object to make.
- * @param array $settings An array of settings to use for the cache engine.
- * @return CacheEngine The constructed CacheEngine class.
- * @throws Cake\Error\Exception when an object doesn't implement
- *    the correct interface.
- */
+	/**
+	 * Create the cache engine instance.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 * @param string|CacheEngine $class The classname or object to make.
+	 * @param array $settings An array of settings to use for the cache engine.
+	 * @return CacheEngine The constructed CacheEngine class.
+	 * @throws Cake\Error\Exception when an object doesn't implement
+	 *    the correct interface.
+	 */
 	protected function _create($class, $settings) {
 		if (is_object($class)) {
 			$instance = $class;
@@ -93,12 +93,12 @@ class CacheRegistry extends ObjectRegistry {
 		return $instance;
 	}
 
-/**
- * Remove a single adapter from the registry.
- *
- * @param string $name The adapter name.
- * @return void
- */
+	/**
+	 * Remove a single adapter from the registry.
+	 *
+	 * @param string $name The adapter name.
+	 * @return void
+	 */
 	public function unload($name) {
 		unset($this->_loaded[$name]);
 	}

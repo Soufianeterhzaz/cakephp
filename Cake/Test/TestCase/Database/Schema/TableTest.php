@@ -24,11 +24,11 @@ use Cake\TestSuite\TestCase;
  */
 class TableTest extends TestCase {
 
-/**
- * Test construction with columns
- *
- * @return void
- */
+	/**
+	 * Test construction with columns
+	 *
+	 * @return void
+	 */
 	public function testConstructWithColumns() {
 		$columns = [
 			'id' => [
@@ -44,11 +44,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['id', 'title'], $table->columns());
 	}
 
-/**
- * Test adding columns.
- *
- * @return void
- */
+	/**
+	 * Test adding columns.
+	 *
+	 * @return void
+	 */
 	public function testAddColumn() {
 		$table = new Table('articles');
 		$result = $table->addColumn('title', [
@@ -64,11 +64,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['title', 'body'], $table->columns());
 	}
 
-/**
- * Test columnType method
- *
- * @return void
- */
+	/**
+	 * Test columnType method
+	 *
+	 * @return void
+	 */
 	public function testColumnType() {
 		$table = new Table('articles');
 		$table->addColumn('title', [
@@ -80,11 +80,11 @@ class TableTest extends TestCase {
 		$this->assertNull($table->columnType('not there'));
 	}
 
-/**
- * Attribute keys should be filtered and have defaults set.
- *
- * @return void
- */
+	/**
+	 * Attribute keys should be filtered and have defaults set.
+	 *
+	 * @return void
+	 */
 	public function testAddColumnFiltersAttributes() {
 		$table = new Table('articles');
 		$table->addColumn('title', [
@@ -103,11 +103,11 @@ class TableTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test adding an constraint.
- *
- * @return void
- */
+	/**
+	 * Test adding an constraint.
+	 *
+	 * @return void
+	 */
 	public function testAddConstraint() {
 		$table = new Table('articles');
 		$table->addColumn('id', [
@@ -121,11 +121,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['primary'], $table->constraints());
 	}
 
-/**
- * Dataprovider for invalid addConstraint calls.
- *
- * @return array
- */
+	/**
+	 * Dataprovider for invalid addConstraint calls.
+	 *
+	 * @return array
+	 */
 	public static function addConstaintErrorProvider() {
 		return [
 			// No properties
@@ -139,25 +139,25 @@ class TableTest extends TestCase {
 			[['columns' => 'author_id', 'type' => 'derp']],
 		];
 	}
-/**
- * Test that an exception is raised when constraints
- * are added for fields that do not exist.
- *
- * @dataProvider addConstaintErrorProvider
- * @expectedException Cake\Database\Exception
- * @return void
- */
+	/**
+	 * Test that an exception is raised when constraints
+	 * are added for fields that do not exist.
+	 *
+	 * @dataProvider addConstaintErrorProvider
+	 * @expectedException Cake\Database\Exception
+	 * @return void
+	 */
 	public function testAddConstraintError($props) {
 		$table = new Table('articles');
 		$table->addColumn('author_id', 'integer');
 		$table->addConstraint('author_idx', $props);
 	}
 
-/**
- * Test adding an index.
- *
- * @return void
- */
+	/**
+	 * Test adding an index.
+	 *
+	 * @return void
+	 */
 	public function testAddIndex() {
 		$table = new Table('articles');
 		$table->addColumn('title', [
@@ -171,11 +171,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['faster'], $table->indexes());
 	}
 
-/**
- * Dataprovider for invalid addIndex calls
- *
- * @return array
- */
+	/**
+	 * Dataprovider for invalid addIndex calls
+	 *
+	 * @return array
+	 */
 	public static function addIndexErrorProvider() {
 		return [
 			// Empty
@@ -190,25 +190,25 @@ class TableTest extends TestCase {
 		];
 	}
 
-/**
- * Test that an exception is raised when indexes
- * are added for fields that do not exist.
- *
- * @dataProvider addIndexErrorProvider
- * @expectedException Cake\Database\Exception
- * @return void
- */
+	/**
+	 * Test that an exception is raised when indexes
+	 * are added for fields that do not exist.
+	 *
+	 * @dataProvider addIndexErrorProvider
+	 * @expectedException Cake\Database\Exception
+	 * @return void
+	 */
 	public function testAddIndexError($props) {
 		$table = new Table('articles');
 		$table->addColumn('author_id', 'integer');
 		$table->addIndex('author_idx', $props);
 	}
 
-/**
- * Test adding different kinds of indexes.
- *
- * @return void
- */
+	/**
+	 * Test adding different kinds of indexes.
+	 *
+	 * @return void
+	 */
 	public function testAddIndexTypes() {
 		$table = new Table('articles');
 		$table->addColumn('id', 'integer')
@@ -229,11 +229,11 @@ class TableTest extends TestCase {
 		);
 	}
 
-/**
- * Test getting the primary key.
- *
- * @return void
- */
+	/**
+	 * Test getting the primary key.
+	 *
+	 * @return void
+	 */
 	public function testPrimaryKey() {
 		$table = new Table('articles');
 		$table->addColumn('id', 'integer')
@@ -249,11 +249,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['id'], $table->primaryKey());
 	}
 
-/**
- * Test the options method.
- *
- * @return void
- */
+	/**
+	 * Test the options method.
+	 *
+	 * @return void
+	 */
 	public function testOptions() {
 		$table = new Table('articles');
 		$options = [
@@ -264,11 +264,11 @@ class TableTest extends TestCase {
 		$this->assertEquals($options, $table->options());
 	}
 
-/**
- * Add a basic foreign key constraint.
- *
- * @return void
- */
+	/**
+	 * Add a basic foreign key constraint.
+	 *
+	 * @return void
+	 */
 	public function testAddConstraintForeignKey() {
 		$table = new Table('articles');
 		$table->addColumn('author_id', 'integer')
@@ -282,11 +282,11 @@ class TableTest extends TestCase {
 		$this->assertEquals(['author_id_idx'], $table->constraints());
 	}
 
-/**
- * Provider for exceptionally bad foreign key data.
- *
- * @return array
- */
+	/**
+	 * Provider for exceptionally bad foreign key data.
+	 *
+	 * @return array
+	 */
 	public static function badForeignKeyProvider() {
 		return [
 			'references is bad' => [[
@@ -310,13 +310,13 @@ class TableTest extends TestCase {
 		];
 	}
 
-/**
- * Add a foreign key constraint with bad data
- *
- * @dataProvider badForeignKeyProvider
- * @expectedException Cake\Database\Exception
- * @return void
- */
+	/**
+	 * Add a foreign key constraint with bad data
+	 *
+	 * @dataProvider badForeignKeyProvider
+	 * @expectedException Cake\Database\Exception
+	 * @return void
+	 */
 	public function testAddConstraintForeignKeyBadData($data) {
 		$table = new Table('articles');
 		$table->addColumn('author_id', 'integer')

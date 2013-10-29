@@ -26,11 +26,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class SampleFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'apple_id' => ['type' => 'integer', 'null' => false],
@@ -38,11 +38,11 @@ class SampleFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('apple_id' => 3, 'name' => 'sample1'),
 		array('apple_id' => 2, 'name' => 'sample2'),

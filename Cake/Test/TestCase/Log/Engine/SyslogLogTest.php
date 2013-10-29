@@ -24,11 +24,11 @@ use Cake\TestSuite\TestCase;
  */
 class SyslogLogTest extends TestCase {
 
-/**
- * Tests that the connection to the logger is open with the right arguments
- *
- * @return void
- */
+	/**
+	 * Tests that the connection to the logger is open with the right arguments
+	 *
+	 * @return void
+	 */
 	public function testOpenLog() {
 		$log = $this->getMock('Cake\Log\Engine\SyslogLog', array('_open', '_write'));
 		$log->expects($this->once())->method('_open')->with('', LOG_ODELAY, LOG_USER);
@@ -46,23 +46,23 @@ class SyslogLogTest extends TestCase {
 		$log->write('debug', 'message');
 	}
 
-/**
- * Tests that single lines are written to syslog
- *
- * @dataProvider typesProvider
- * @return void
- */
+	/**
+	 * Tests that single lines are written to syslog
+	 *
+	 * @dataProvider typesProvider
+	 * @return void
+	 */
 	public function testWriteOneLine($type, $expected) {
 		$log = $this->getMock('Cake\Log\Engine\SyslogLog', array('_open', '_write'));
 		$log->expects($this->once())->method('_write')->with($expected, $type . ': Foo');
 		$log->write($type, 'Foo');
 	}
 
-/**
- * Tests that multiple lines are split and logged separately
- *
- * @return void
- */
+	/**
+	 * Tests that multiple lines are split and logged separately
+	 *
+	 * @return void
+	 */
 	public function testWriteMultiLine() {
 		$log = $this->getMock('Cake\Log\Engine\SyslogLog', array('_open', '_write'));
 		$log->expects($this->at(1))->method('_write')->with(LOG_DEBUG, 'debug: Foo');
@@ -71,11 +71,11 @@ class SyslogLogTest extends TestCase {
 		$log->write('debug', "Foo\nBar");
 	}
 
-/**
- * Data provider for the write function test
- *
- * @return array
- */
+	/**
+	 * Data provider for the write function test
+	 *
+	 * @return array
+	 */
 	public function typesProvider() {
 		return array(
 			array('emergency', LOG_EMERG),

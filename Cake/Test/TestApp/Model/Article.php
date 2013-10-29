@@ -21,67 +21,67 @@ use Cake\TestSuite\Fixture\TestModel;
  */
 class Article extends TestModel {
 
-/**
- * name property
- *
- * @var string 'Article'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'Article'
+	 */
 	public $name = 'Article';
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('User');
 
-/**
- * hasMany property
- *
- * @var array
- */
+	/**
+	 * hasMany property
+	 *
+	 * @var array
+	 */
 	public $hasMany = array('Comment' => array('dependent' => true));
 
-/**
- * hasAndBelongsToMany property
- *
- * @var array
- */
+	/**
+	 * hasAndBelongsToMany property
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array('Tag');
 
-/**
- * validate property
- *
- * @var array
- */
+	/**
+	 * validate property
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'user_id' => 'numeric',
 		'title' => array('required' => false, 'rule' => 'notEmpty'),
 		'body' => array('required' => false, 'rule' => 'notEmpty'),
 	);
 
-/**
- * beforeSaveReturn property
- *
- * @var bool true
- */
+	/**
+	 * beforeSaveReturn property
+	 *
+	 * @var bool true
+	 */
 	public $beforeSaveReturn = true;
 
-/**
- * beforeSave method
- *
- * @return void
- */
+	/**
+	 * beforeSave method
+	 *
+	 * @return void
+	 */
 	public function beforeSave($options = array()) {
 		return $this->beforeSaveReturn;
 	}
 
-/**
- * titleDuplicate method
- *
- * @param string $title
- * @return void
- */
+	/**
+	 * titleDuplicate method
+	 *
+	 * @param string $title
+	 * @return void
+	 */
 	public static function titleDuplicate($title) {
 		if ($title === 'My Article Title') {
 			return false;

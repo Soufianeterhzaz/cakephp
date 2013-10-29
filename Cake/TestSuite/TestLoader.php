@@ -31,37 +31,37 @@ use Cake\Error;
  */
 class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 
-/**
- * Load a file and find the first test case / suite in that file.
- *
- * @param string $filePath
- * @param string $params
- * @return ReflectionClass
- */
+	/**
+	 * Load a file and find the first test case / suite in that file.
+	 *
+	 * @param string $filePath
+	 * @param string $params
+	 * @return ReflectionClass
+	 */
 	public function load($filePath, $params = '') {
 		$file = $this->_resolveTestFile($filePath, $params);
 		return parent::load('', $file);
 	}
 
-/**
- * Convert path fragments used by CakePHP's test runner to absolute paths that can be fed to PHPUnit.
- *
- * @param string $filePath
- * @param string $params
- * @return void
- */
+	/**
+	 * Convert path fragments used by CakePHP's test runner to absolute paths that can be fed to PHPUnit.
+	 *
+	 * @param string $filePath
+	 * @param string $params
+	 * @return void
+	 */
 	protected function _resolveTestFile($filePath, $params) {
 		$basePath = $this->_basePath($params) . DS . $filePath;
 		$ending = 'Test.php';
 		return (strpos($basePath, $ending) === (strlen($basePath) - strlen($ending))) ? $basePath : $basePath . $ending;
 	}
 
-/**
- * Generates the base path to a set of tests based on the parameters.
- *
- * @param array $params
- * @return string The base path.
- */
+	/**
+	 * Generates the base path to a set of tests based on the parameters.
+	 *
+	 * @param array $params
+	 * @return string The base path.
+	 */
 	protected static function _basePath($params) {
 		$result = null;
 		if (!empty($params['core'])) {
@@ -82,12 +82,12 @@ class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 		return $result;
 	}
 
-/**
- * Get the list of files for the test listing.
- *
- * @param string $params
- * @return array
- */
+	/**
+	 * Get the list of files for the test listing.
+	 *
+	 * @param string $params
+	 * @return array
+	 */
 	public static function generateTestList($params) {
 		$directory = static::_basePath($params);
 		$fileList = static::_getRecursiveFileList($directory);
@@ -102,13 +102,13 @@ class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 		return $testCases;
 	}
 
-/**
- * Gets a recursive list of files from a given directory and matches then against
- * a given fileTestFunction, like isTestCaseFile()
- *
- * @param string $directory The directory to scan for files.
- * @return array
- */
+	/**
+	 * Gets a recursive list of files from a given directory and matches then against
+	 * a given fileTestFunction, like isTestCaseFile()
+	 *
+	 * @param string $directory The directory to scan for files.
+	 * @return array
+	 */
 	protected static function _getRecursiveFileList($directory = '.') {
 		$fileList = array();
 		if (!is_dir($directory)) {

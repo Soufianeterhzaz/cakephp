@@ -36,11 +36,11 @@ class BufferedResultSetTest extends TestCase {
 		$this->table = new Table(['table' => 'articles', 'connection' => $this->connection]);
 	}
 
-/**
- * Test that result sets can be rewound and re-used.
- *
- * @return void
- */
+	/**
+	 * Test that result sets can be rewound and re-used.
+	 *
+	 * @return void
+	 */
 	public function testRewind() {
 		$query = $this->table->find('all');
 		$results = $query->bufferResults()->execute();

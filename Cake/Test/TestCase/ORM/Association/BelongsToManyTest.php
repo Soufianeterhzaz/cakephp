@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class BelongsToManyTest extends TestCase {
 
-/**
- * Set up
- *
- * @return void
- */
+	/**
+	 * Set up
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->tag = $this->getMock(
@@ -52,31 +52,31 @@ class BelongsToManyTest extends TestCase {
 		TableRegistry::set('Article', $this->article);
 	}
 
-/**
- * Tear down
- *
- * @return void
- */
+	/**
+	 * Tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Tests that the association reports it can be joined
- *
- * @return void
- */
+	/**
+	 * Tests that the association reports it can be joined
+	 *
+	 * @return void
+	 */
 	public function testCanBeJoined() {
 		$assoc = new BelongsToMany('Test');
 		$this->assertFalse($assoc->canBeJoined());
 	}
 
-/**
- * Tests sort() method
- *
- * @return void
- */
+	/**
+	 * Tests sort() method
+	 *
+	 * @return void
+	 */
 	public function testSort() {
 		$assoc = new BelongsToMany('Test');
 		$this->assertNull($assoc->sort());
@@ -84,11 +84,11 @@ class BelongsToManyTest extends TestCase {
 		$this->assertEquals(['id' => 'ASC'], $assoc->sort());
 	}
 
-/**
- * Tests requiresKeys() method
- *
- * @return void
- */
+	/**
+	 * Tests requiresKeys() method
+	 *
+	 * @return void
+	 */
 	public function testRequiresKeys() {
 		$assoc = new BelongsToMany('Test');
 		$this->assertTrue($assoc->requiresKeys());
@@ -98,11 +98,11 @@ class BelongsToManyTest extends TestCase {
 		$this->assertTrue($assoc->requiresKeys());
 	}
 
-/**
- * Tests the pivot method
- *
- * @return void
- */
+	/**
+	 * Tests the pivot method
+	 *
+	 * @return void
+	 */
 	public function testPivot() {
 		$assoc = new BelongsToMany('Test', [
 			'sourceTable' => $this->article,
@@ -136,11 +136,11 @@ class BelongsToManyTest extends TestCase {
 		$this->assertSame($pivot, $assoc->pivot());
 	}
 
-/**
- * Tests it is possible to set the table name for the join table
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to set the table name for the join table
+	 *
+	 * @return void
+	 */
 	public function testPivotWithDefaultTableName() {
 		$assoc = new BelongsToMany('Test', [
 			'sourceTable' => $this->article,
@@ -152,12 +152,12 @@ class BelongsToManyTest extends TestCase {
 		$this->assertEquals('tags_articles', $pivot->table());
 	}
 
-/**
- * Tests that the correct join and fields are attached to a query depending on
- * the association config
- *
- * @return void
- */
+	/**
+	 * Tests that the correct join and fields are attached to a query depending on
+	 * the association config
+	 *
+	 * @return void
+	 */
 	public function testAttachTo() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -203,11 +203,11 @@ class BelongsToManyTest extends TestCase {
 		$association->attachTo($query);
 	}
 
-/**
- * Tests that it is possible to avoid fields inclusion for the associated table
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to avoid fields inclusion for the associated table
+	 *
+	 * @return void
+	 */
 	public function testAttachToNoFields() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -246,11 +246,11 @@ class BelongsToManyTest extends TestCase {
 		$association->attachTo($query, ['includeFields' => false]);
 	}
 
-/**
- * Test the eager loader method with no extra options
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with no extra options
+	 *
+	 * @return void
+	 */
 	public function testEagerLoader() {
 		$config = [
 			'sourceTable' => $this->article,
@@ -300,11 +300,11 @@ class BelongsToManyTest extends TestCase {
 		$this->assertEquals($row, $result);
 	}
 
-/**
- * Test the eager loader method with default query clauses
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with default query clauses
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderWithDefaults() {
 		$config = [
 			'sourceTable' => $this->article,
@@ -352,11 +352,11 @@ class BelongsToManyTest extends TestCase {
 		$association->eagerLoader(compact('keys', 'query'));
 	}
 
-/**
- * Test the eager loader method with overridden query clauses
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with overridden query clauses
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderWithOverrides() {
 		$config = [
 			'sourceTable' => $this->article,
@@ -420,13 +420,13 @@ class BelongsToManyTest extends TestCase {
 		]);
 	}
 
-/**
- * Test the eager loader method with default query clauses
- *
- * @expectedException \InvalidArgumentException
- * @expectedExceptionMessage You are required to select the "ArticlesTag.article_id"
- * @return void
- */
+	/**
+	 * Test the eager loader method with default query clauses
+	 *
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage You are required to select the "ArticlesTag.article_id"
+	 * @return void
+	 */
 	public function testEagerLoaderFieldsException() {
 		$config = [
 			'sourceTable' => $this->article,
@@ -458,11 +458,11 @@ class BelongsToManyTest extends TestCase {
 		]);
 	}
 
-/**
- * Tests eager loading using subquery
- *
- * @return void
- */
+	/**
+	 * Tests eager loading using subquery
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderSubquery() {
 		$config = [
 			'sourceTable' => $this->article,

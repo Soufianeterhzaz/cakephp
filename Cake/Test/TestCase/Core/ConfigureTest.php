@@ -33,22 +33,22 @@ use Cake\TestSuite\TestCase;
  */
 class ConfigureTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Cache::disable();
 		App::objects('Plugin', null, true);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		if (file_exists(TMP . 'cache/persistent/cake_core_core_paths')) {
@@ -72,11 +72,11 @@ class ConfigureTest extends TestCase {
 		Configure::drop('test');
 	}
 
-/**
- * testRead method
- *
- * @return void
- */
+	/**
+	 * testRead method
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$expected = 'ok';
 		Configure::write('level1.level2.level3_1', $expected);
@@ -99,11 +99,11 @@ class ConfigureTest extends TestCase {
 		$this->assertEquals(null, $result, 'Missing key should return null.');
 	}
 
-/**
- * testWrite method
- *
- * @return void
- */
+	/**
+	 * testWrite method
+	 *
+	 * @return void
+	 */
 	public function testWrite() {
 		$writeResult = Configure::write('SomeName.someKey', 'myvalue');
 		$this->assertTrue($writeResult);
@@ -136,11 +136,11 @@ class ConfigureTest extends TestCase {
 		$this->assertEquals('4', $result);
 	}
 
-/**
- * test setting display_errors with debug.
- *
- * @return void
- */
+	/**
+	 * test setting display_errors with debug.
+	 *
+	 * @return void
+	 */
 	public function testDebugSettingDisplayErrors() {
 		Configure::write('debug', 0);
 		$result = ini_get('display_errors');
@@ -151,11 +151,11 @@ class ConfigureTest extends TestCase {
 		$this->assertEquals(1, $result);
 	}
 
-/**
- * testDelete method
- *
- * @return void
- */
+	/**
+	 * testDelete method
+	 *
+	 * @return void
+	 */
 	public function testDelete() {
 		Configure::write('SomeName.someKey', 'myvalue');
 		$result = Configure::read('SomeName.someKey');
@@ -182,11 +182,11 @@ class ConfigureTest extends TestCase {
 		$this->assertTrue($result === null);
 	}
 
-/**
- * testCheck method
- *
- * @return void
- */
+	/**
+	 * testCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		Configure::write('ConfigureTestCase', 'value');
 		$this->assertTrue(Configure::check('ConfigureTestCase'));
@@ -194,11 +194,11 @@ class ConfigureTest extends TestCase {
 		$this->assertFalse(Configure::check('NotExistingConfigureTestCase'));
 	}
 
-/**
- * testCheckingSavedEmpty method
- *
- * @return void
- */
+	/**
+	 * testCheckingSavedEmpty method
+	 *
+	 * @return void
+	 */
 	public function testCheckingSavedEmpty() {
 		$this->assertTrue(Configure::write('ConfigureTestCase', 0));
 		$this->assertTrue(Configure::check('ConfigureTestCase'));
@@ -213,11 +213,11 @@ class ConfigureTest extends TestCase {
 		$this->assertFalse(Configure::check('ConfigureTestCase'));
 	}
 
-/**
- * testCheckKeyWithSpaces method
- *
- * @return void
- */
+	/**
+	 * testCheckKeyWithSpaces method
+	 *
+	 * @return void
+	 */
 	public function testCheckKeyWithSpaces() {
 		$this->assertTrue(Configure::write('Configure Test', "test"));
 		$this->assertTrue(Configure::check('Configure Test'));
@@ -227,31 +227,31 @@ class ConfigureTest extends TestCase {
 		$this->assertTrue(Configure::check('Configure Test.Test Case'));
 	}
 
-/**
- * testCheckEmpty
- *
- * @return void
- */
+	/**
+	 * testCheckEmpty
+	 *
+	 * @return void
+	 */
 	public function testCheckEmpty() {
 		$this->assertFalse(Configure::check());
 	}
 
-/**
- * testLoad method
- *
- * @expectedException RuntimeException
- * @return void
- */
+	/**
+	 * testLoad method
+	 *
+	 * @expectedException RuntimeException
+	 * @return void
+	 */
 	public function testLoadExceptionOnNonExistantFile() {
 		Configure::config('test', new PhpConfig());
 		Configure::load('non_existing_configuration_file', 'test');
 	}
 
-/**
- * test load method for default config creation
- *
- * @return void
- */
+	/**
+	 * test load method for default config creation
+	 *
+	 * @return void
+	 */
 	public function testLoadDefaultConfig() {
 		try {
 			Configure::load('non_existing_configuration_file');
@@ -261,11 +261,11 @@ class ConfigureTest extends TestCase {
 		}
 	}
 
-/**
- * test load with merging
- *
- * @return void
- */
+	/**
+	 * test load with merging
+	 *
+	 * @return void
+	 */
 	public function testLoadWithMerge() {
 		Configure::config('test', new PhpConfig(CAKE . 'Test/TestApp/Config/'));
 
@@ -284,11 +284,11 @@ class ConfigureTest extends TestCase {
 		$this->assertEquals('one', Configure::read('TestAcl.custom'));
 	}
 
-/**
- * test loading with overwrite
- *
- * @return void
- */
+	/**
+	 * test loading with overwrite
+	 *
+	 * @return void
+	 */
 	public function testLoadNoMerge() {
 		Configure::config('test', new PhpConfig(CAKE . 'Test/TestApp/Config/'));
 
@@ -305,11 +305,11 @@ class ConfigureTest extends TestCase {
 		$this->assertNull(Configure::read('Deep.Deeper.Deepest'));
 	}
 
-/**
- * testLoad method
- *
- * @return void
- */
+	/**
+	 * testLoad method
+	 *
+	 * @return void
+	 */
 	public function testLoadPlugin() {
 		Configure::config('test', new PhpConfig());
 		Plugin::load('TestPlugin');
@@ -327,11 +327,11 @@ class ConfigureTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * testStore method
- *
- * @return void
- */
+	/**
+	 * testStore method
+	 *
+	 * @return void
+	 */
 	public function testStoreAndRestore() {
 		Cache::enable();
 		Cache::config('configure', [
@@ -352,11 +352,11 @@ class ConfigureTest extends TestCase {
 		Cache::drop('configure');
 	}
 
-/**
- * test that store and restore only store/restore the provided data.
- *
- * @return void
- */
+	/**
+	 * test that store and restore only store/restore the provided data.
+	 *
+	 * @return void
+	 */
 	public function testStoreAndRestoreWithData() {
 		Cache::enable();
 		Cache::config('configure', [
@@ -377,21 +377,21 @@ class ConfigureTest extends TestCase {
 		Cache::drop('configure');
 	}
 
-/**
- * testVersion method
- *
- * @return void
- */
+	/**
+	 * testVersion method
+	 *
+	 * @return void
+	 */
 	public function testVersion() {
 		$result = Configure::version();
 		$this->assertTrue(version_compare($result, '1.2', '>='));
 	}
 
-/**
- * test adding new engines.
- *
- * @return void
- */
+	/**
+	 * test adding new engines.
+	 *
+	 * @return void
+	 */
 	public function testEngineSetup() {
 		$engine = new PhpConfig();
 		Configure::config('test', $engine);
@@ -406,22 +406,22 @@ class ConfigureTest extends TestCase {
 		$this->assertFalse(Configure::drop('test'), 'dropping things that do not exist should return false.');
 	}
 
-/**
- * test engine() throwing exceptions on missing interface.
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
+	/**
+	 * test engine() throwing exceptions on missing interface.
+	 *
+	 * @expectedException PHPUnit_Framework_Error
+	 * @return void
+	 */
 	public function testEngineExceptionOnIncorrectClass() {
 		$engine = new \StdClass();
 		Configure::config('test', $engine);
 	}
 
-/**
- * Test that clear wipes all values.
- *
- * @return void
- */
+	/**
+	 * Test that clear wipes all values.
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		Configure::write('test', 'value');
 		$this->assertTrue(Configure::clear());
@@ -429,18 +429,18 @@ class ConfigureTest extends TestCase {
 		$this->assertNull(Configure::read('test'));
 	}
 
-/**
- * @expectedException Cake\Error\ConfigureException
- */
+	/**
+	 * @expectedException Cake\Error\ConfigureException
+	 */
 	public function testDumpNoAdapter() {
 		Configure::dump(TMP . 'test.php', 'does_not_exist');
 	}
 
-/**
- * test dump integrated with the PhpConfig.
- *
- * @return void
- */
+	/**
+	 * test dump integrated with the PhpConfig.
+	 *
+	 * @return void
+	 */
 	public function testDump() {
 		Configure::config('test_Engine', new PhpConfig(TMP));
 
@@ -454,11 +454,11 @@ class ConfigureTest extends TestCase {
 		}
 	}
 
-/**
- * Test dumping only some of the data.
- *
- * @return void
- */
+	/**
+	 * Test dumping only some of the data.
+	 *
+	 * @return void
+	 */
 	public function testDumpPartial() {
 		Configure::config('test_Engine', new PhpConfig(TMP));
 		Configure::write('Error', ['test' => 'value']);
@@ -476,11 +476,11 @@ class ConfigureTest extends TestCase {
 		}
 	}
 
-/**
- * Test the consume method.
- *
- * @return void
- */
+	/**
+	 * Test the consume method.
+	 *
+	 * @return void
+	 */
 	public function testConsume() {
 		$this->assertNull(Configure::consume('DoesNotExist'), 'Should be null on empty value');
 		Configure::write('Test', ['key' => 'value', 'key2' => 'value2']);

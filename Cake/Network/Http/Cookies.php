@@ -25,23 +25,23 @@ use DateTime;
  */
 class Cookies {
 
-/**
- * The cookies stored in this jar.
- *
- * @var array
- */
+	/**
+	 * The cookies stored in this jar.
+	 *
+	 * @var array
+	 */
 	protected $_cookies = [];
 
-/**
- * Store the cookies from a response.
- *
- * Store the cookies that haven't expired. If a cookie has been expired
- * and is currently stored, it will be removed.
- *
- * @param Response $response The response to read cookies from
- * @param string $url The request URL used for default host/path values.
- * @return void
- */
+	/**
+	 * Store the cookies from a response.
+	 *
+	 * Store the cookies that haven't expired. If a cookie has been expired
+	 * and is currently stored, it will be removed.
+	 *
+	 * @param Response $response The response to read cookies from
+	 * @param string $url The request URL used for default host/path values.
+	 * @return void
+	 */
 	public function store(Response $response, $url) {
 		$host = parse_url($url, PHP_URL_HOST);
 		$path = parse_url($url, PHP_URL_PATH);
@@ -70,15 +70,15 @@ class Cookies {
 		}
 	}
 
-/**
- * Get stored cookies for a url.
- *
- * Finds matching stored cookies and returns a simple array
- * of name => value
- *
- * @param string $url The url to find cookies for.
- * @return arraty
- */
+	/**
+	 * Get stored cookies for a url.
+	 *
+	 * Finds matching stored cookies and returns a simple array
+	 * of name => value
+	 *
+	 * @param string $url The url to find cookies for.
+	 * @return arraty
+	 */
 	public function get($url) {
 		$path = parse_url($url, PHP_URL_PATH) ?: '/';
 		$host = parse_url($url, PHP_URL_HOST);
@@ -107,11 +107,11 @@ class Cookies {
 		return $out;
 	}
 
-/**
- * Get all the stored cookies.
- *
- * @return array
- */
+	/**
+	 * Get all the stored cookies.
+	 *
+	 * @return array
+	 */
 	public function getAll() {
 		return array_values($this->_cookies);
 	}

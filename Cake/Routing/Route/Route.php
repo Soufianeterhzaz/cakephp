@@ -26,89 +26,89 @@ use Cake\Routing\Router;
  */
 class Route {
 
-/**
- * An array of named segments in a Route.
- * `/:controller/:action/:id` has 3 key elements
- *
- * @var array
- */
+	/**
+	 * An array of named segments in a Route.
+	 * `/:controller/:action/:id` has 3 key elements
+	 *
+	 * @var array
+	 */
 	public $keys = array();
 
-/**
- * An array of additional parameters for the Route.
- *
- * @var array
- */
+	/**
+	 * An array of additional parameters for the Route.
+	 *
+	 * @var array
+	 */
 	public $options = array();
 
-/**
- * Default parameters for a Route
- *
- * @var array
- */
+	/**
+	 * Default parameters for a Route
+	 *
+	 * @var array
+	 */
 	public $defaults = array();
 
-/**
- * The routes template string.
- *
- * @var string
- */
+	/**
+	 * The routes template string.
+	 *
+	 * @var string
+	 */
 	public $template = null;
 
-/**
- * Is this route a greedy route?  Greedy routes have a `/*` in their
- * template
- *
- * @var string
- */
+	/**
+	 * Is this route a greedy route?  Greedy routes have a `/*` in their
+	 * template
+	 *
+	 * @var string
+	 */
 	protected $_greedy = false;
 
-/**
- * The compiled route regular expression
- *
- * @var string
- */
+	/**
+	 * The compiled route regular expression
+	 *
+	 * @var string
+	 */
 	protected $_compiledRoute = null;
 
-/**
- * The name for a route.  Fetch with Route::getName();
- *
- * @var string
- */
+	/**
+	 * The name for a route.  Fetch with Route::getName();
+	 *
+	 * @var string
+	 */
 	protected $_name = null;
 
-/**
- * HTTP header shortcut map. Used for evaluating header-based route expressions.
- *
- * @var array
- */
+	/**
+	 * HTTP header shortcut map. Used for evaluating header-based route expressions.
+	 *
+	 * @var array
+	 */
 	protected $_headerMap = array(
 		'type' => 'content_type',
 		'method' => 'request_method',
 		'server' => 'server_name'
 	);
 
-/**
- * List of connected extensions for this route.
- *
- * @var array
- */
+	/**
+	 * List of connected extensions for this route.
+	 *
+	 * @var array
+	 */
 	protected $_extensions = array();
 
-/**
- * Constructor for a Route
- *
- * ### Options
- *
- * - `_name` - By using $options['_name'] a specific name can be
- *   given to a route. Otherwise a route name will be generated.
- * - `_ext` - Defines the extensions used for this route.
- * - `pass` - Copies the listed parameters into params['pass'].
- *
- * @param string $template Template string with parameter placeholders
- * @param array $defaults Array of defaults for the route.
- * @param array $options Array of additional options for the Route
- */
+	/**
+	 * Constructor for a Route
+	 *
+	 * ### Options
+	 *
+	 * - `_name` - By using $options['_name'] a specific name can be
+	 *   given to a route. Otherwise a route name will be generated.
+	 * - `_ext` - Defines the extensions used for this route.
+	 * - `pass` - Copies the listed parameters into params['pass'].
+	 *
+	 * @param string $template Template string with parameter placeholders
+	 * @param array $defaults Array of defaults for the route.
+	 * @param array $options Array of additional options for the Route
+	 */
 	public function __construct($template, $defaults = array(), $options = array()) {
 		$this->template = $template;
 		$this->defaults = (array)$defaults;
@@ -121,33 +121,33 @@ class Route {
 		}
 	}
 
-/**
- * Sets the supported extensions for this route.
- *
- * @param array $extensions The extensions to set.
- * @return void
- */
+	/**
+	 * Sets the supported extensions for this route.
+	 *
+	 * @param array $extensions The extensions to set.
+	 * @return void
+	 */
 	public function setExtensions(array $extensions) {
 		$this->_extensions = $extensions;
 	}
 
-/**
- * Check if a Route has been compiled into a regular expression.
- *
- * @return boolean
- */
+	/**
+	 * Check if a Route has been compiled into a regular expression.
+	 *
+	 * @return boolean
+	 */
 	public function compiled() {
 		return !empty($this->_compiledRoute);
 	}
 
-/**
- * Compiles the route's regular expression.
- *
- * Modifies defaults property so all necessary keys are set
- * and populates $this->names with the named routing elements.
- *
- * @return array Returns a string regular expression of the compiled route.
- */
+	/**
+	 * Compiles the route's regular expression.
+	 *
+	 * Modifies defaults property so all necessary keys are set
+	 * and populates $this->names with the named routing elements.
+	 *
+	 * @return array Returns a string regular expression of the compiled route.
+	 */
 	public function compile() {
 		if ($this->compiled()) {
 			return $this->_compiledRoute;
@@ -156,14 +156,14 @@ class Route {
 		return $this->_compiledRoute;
 	}
 
-/**
- * Builds a route regular expression.
- *
- * Uses the template, defaults and options properties to compile a
- * regular expression that can be used to parse request strings.
- *
- * @return void
- */
+	/**
+	 * Builds a route regular expression.
+	 *
+	 * Uses the template, defaults and options properties to compile a
+	 * regular expression that can be used to parse request strings.
+	 *
+	 * @return void
+	 */
 	protected function _writeRoute() {
 		if (empty($this->template) || ($this->template === '/')) {
 			$this->_compiledRoute = '#^/*$#';
@@ -212,13 +212,13 @@ class Route {
 		}
 	}
 
-/**
- * Get the standardized plugin.controller:action name
- * for a route. This will compile a route if it has not
- * already been compiled.
- *
- * @return string.
- */
+	/**
+	 * Get the standardized plugin.controller:action name
+	 * for a route. This will compile a route if it has not
+	 * already been compiled.
+	 *
+	 * @return string.
+	 */
 	public function getName() {
 		if (!empty($this->_name)) {
 			return $this->_name;
@@ -244,15 +244,15 @@ class Route {
 		return $this->_name = strtolower($name);
 	}
 
-/**
- * Checks to see if the given URL can be parsed by this route.
- *
- * If the route can be parsed an array of parameters will be returned; if not
- * false will be returned. String URLs are parsed if they match a routes regular expression.
- *
- * @param string $url The URL to attempt to parse.
- * @return mixed Boolean false on failure, otherwise an array or parameters
- */
+	/**
+	 * Checks to see if the given URL can be parsed by this route.
+	 *
+	 * If the route can be parsed an array of parameters will be returned; if not
+	 * false will be returned. String URLs are parsed if they match a routes regular expression.
+	 *
+	 * @param string $url The URL to attempt to parse.
+	 * @return mixed Boolean false on failure, otherwise an array or parameters
+	 */
 	public function parse($url) {
 		if (!$this->compiled()) {
 			$this->compile();
@@ -337,13 +337,13 @@ class Route {
 		return $route;
 	}
 
-/**
- * Removes the extension if the $url contains a known extension.
- * If there are no known extensions all extensions are supported.
- *
- * @param string $url The url to parse.
- * @return array containing url, extension
- */
+	/**
+	 * Removes the extension if the $url contains a known extension.
+	 * If there are no known extensions all extensions are supported.
+	 *
+	 * @param string $url The url to parse.
+	 * @return array containing url, extension
+	 */
 	protected function _parseExtension($url) {
 		if (empty($this->_extensions)) {
 			return array($url, null);
@@ -363,16 +363,16 @@ class Route {
 		return array($url, null);
 	}
 
-/**
- * Parse passed parameters into a list of passed args.
- *
- * Return true if a given named $param's $val matches a given $rule depending on $context.
- * Currently implemented rule types are controller, action and match that can be combined with each other.
- *
- * @param string $args A string with the passed params.  eg. /1/foo
- * @param string $context The current route context, which should contain controller/action keys.
- * @return array Array of passed args.
- */
+	/**
+	 * Parse passed parameters into a list of passed args.
+	 *
+	 * Return true if a given named $param's $val matches a given $rule depending on $context.
+	 * Currently implemented rule types are controller, action and match that can be combined with each other.
+	 *
+	 * @param string $args A string with the passed params.  eg. /1/foo
+	 * @param string $context The current route context, which should contain controller/action keys.
+	 * @return array Array of passed args.
+	 */
 	protected function _parseArgs($args, $context) {
 		$pass = array();
 		$args = explode('/', $args);
@@ -386,19 +386,19 @@ class Route {
 		return $pass;
 	}
 
-/**
- * Check if an URL array matches this route instance.
- *
- * If the URL matches the route parameters and settings, then
- * return a generated string URL. If the URL doesn't match the route parameters, false will be returned.
- * This method handles the reverse routing or conversion of URL arrays into string URLs.
- *
- * @param array $url An array of parameters to check matching with.
- * @param array $context An array of the current request context.
- *   Contains information such as the current host, scheme, port, and base
- *   directory.
- * @return mixed Either a string url for the parameters if they match or false.
- */
+	/**
+	 * Check if an URL array matches this route instance.
+	 *
+	 * If the URL matches the route parameters and settings, then
+	 * return a generated string URL. If the URL doesn't match the route parameters, false will be returned.
+	 * This method handles the reverse routing or conversion of URL arrays into string URLs.
+	 *
+	 * @param array $url An array of parameters to check matching with.
+	 * @param array $context An array of the current request context.
+	 *   Contains information such as the current host, scheme, port, and base
+	 *   directory.
+	 * @return mixed Either a string url for the parameters if they match or false.
+	 */
 	public function match($url, $context = array()) {
 		if (!$this->compiled()) {
 			$this->compile();
@@ -497,16 +497,16 @@ class Route {
 		return $this->_writeUrl($url, $pass, $query);
 	}
 
-/**
- * Converts a matching route array into an URL string.
- *
- * Composes the string URL using the template
- * used to create the route.
- *
- * @param array $params The params to convert to a string url.
- * @param array $pass The additional passed arguments.
- * @return string Composed route string.
- */
+	/**
+	 * Converts a matching route array into an URL string.
+	 *
+	 * Composes the string URL using the template
+	 * used to create the route.
+	 *
+	 * @param array $params The params to convert to a string url.
+	 * @param array $pass The additional passed arguments.
+	 * @return string Composed route string.
+	 */
 	protected function _writeUrl($params, $pass = array(), $query = array()) {
 		$pass = implode('/', array_map('rawurlencode', $pass));
 		$out = $this->template;

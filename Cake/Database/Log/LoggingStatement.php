@@ -25,27 +25,27 @@ use Cake\Database\Statement\StatementDecorator;
  */
 class LoggingStatement extends StatementDecorator {
 
-/**
- * Logger instance responsible for actually doing the logging task
- *
- * @var QueryLogger
- */
+	/**
+	 * Logger instance responsible for actually doing the logging task
+	 *
+	 * @var QueryLogger
+	 */
 	protected $_logger;
 
-/**
- * Holds bound params
- *
- * @return void
- */
+	/**
+	 * Holds bound params
+	 *
+	 * @return void
+	 */
 	protected $_compiledParams = [];
 
-/**
- * Wrapper for the execute function to calculate time spent
- * and log the query afterwards.
- *
- * $param array $params list of values to be bound to query
- * @return boolean true on success, false otherwise
- */
+	/**
+	 * Wrapper for the execute function to calculate time spent
+	 * and log the query afterwards.
+	 *
+	 * $param array $params list of values to be bound to query
+	 * @return boolean true on success, false otherwise
+	 */
 	public function execute($params = null) {
 		$t = microtime(true);
 		$result = parent::execute($params);
@@ -60,15 +60,15 @@ class LoggingStatement extends StatementDecorator {
 		return $result;
 	}
 
-/**
- * Wrapper for bindValue function to gather each parameter to be later used
- * in the logger function.
- *
- * @param string|integer $column name or param position to be bound
- * @param mixed $value the value to bind to variable in query
- * @param string|integer $type PDO type or name of configured Type class
- * @return void 
- */
+	/**
+	 * Wrapper for bindValue function to gather each parameter to be later used
+	 * in the logger function.
+	 *
+	 * @param string|integer $column name or param position to be bound
+	 * @param mixed $value the value to bind to variable in query
+	 * @param string|integer $type PDO type or name of configured Type class
+	 * @return void 
+	 */
 	public function bindValue($column, $value, $type = 'string') {
 		parent::bindValue($column, $value, $type);
 		if ($type === null) {
@@ -80,13 +80,13 @@ class LoggingStatement extends StatementDecorator {
 		$this->_compiledParams[$column] = $value;
 	}
 
-/**
- * Sets the logger object instance. When called with no arguments
- * it returns the currently setup logger instance
- *
- * @param object $instance logger object instance
- * @return object logger instance
- */
+	/**
+	 * Sets the logger object instance. When called with no arguments
+	 * it returns the currently setup logger instance
+	 *
+	 * @param object $instance logger object instance
+	 * @return object logger instance
+	 */
 	public function logger($instance = null) {
 		if ($instance === null) {
 			return $this->_logger;

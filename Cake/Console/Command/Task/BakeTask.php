@@ -28,45 +28,45 @@ use Cake\Core\Configure;
  */
 class BakeTask extends Shell {
 
-/**
- * Name of plugin
- *
- * @var string
- */
+	/**
+	 * Name of plugin
+	 *
+	 * @var string
+	 */
 	public $plugin = null;
 
-/**
- * The db connection being used for baking
- *
- * @var string
- */
+	/**
+	 * The db connection being used for baking
+	 *
+	 * @var string
+	 */
 	public $connection = null;
 
-/**
- * Flag for interactive mode
- *
- * @var boolean
- */
+	/**
+	 * Flag for interactive mode
+	 *
+	 * @var boolean
+	 */
 	public $interactive = false;
 
-/**
- * Disable caching and enable debug for baking.
- * This forces the most current database schema to be used.
- *
- * @return void
- */
+	/**
+	 * Disable caching and enable debug for baking.
+	 * This forces the most current database schema to be used.
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		Configure::write('debug', 2);
 		Cache::disable();
 		parent::startup();
 	}
 
-/**
- * Gets the path for output. Checks the plugin property
- * and returns the correct path.
- *
- * @return string Path to output.
- */
+	/**
+	 * Gets the path for output. Checks the plugin property
+	 * and returns the correct path.
+	 *
+	 * @return string Path to output.
+	 */
 	public function getPath() {
 		$path = $this->path;
 		if (isset($this->plugin)) {
@@ -75,12 +75,12 @@ class BakeTask extends Shell {
 		return $path;
 	}
 
-/**
- * Base execute method parses some parameters and sets some properties on the bake tasks.
- * call when overriding execute()
- *
- * @return void
- */
+	/**
+	 * Base execute method parses some parameters and sets some properties on the bake tasks.
+	 * call when overriding execute()
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		foreach ($this->args as $i => $arg) {
 			if (strpos($arg, '.')) {

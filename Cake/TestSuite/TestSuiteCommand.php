@@ -29,13 +29,13 @@ require_once 'PHPUnit/TextUI/Command.php';
  */
 class TestSuiteCommand extends \PHPUnit_TextUI_Command {
 
-/**
- * Construct method
- *
- * @param mixed $loader
- * @param array $params list of options to be used for this run
- * @throws Cake\Error\MissingTestLoaderException When a loader class could not be found.
- */
+	/**
+	 * Construct method
+	 *
+	 * @param mixed $loader
+	 * @param array $params list of options to be used for this run
+	 * @throws Cake\Error\MissingTestLoaderException When a loader class could not be found.
+	 */
 	public function __construct($loader, $params = array()) {
 		if ($loader && !class_exists($loader)) {
 			throw new Error\MissingTestLoaderException(array('class' => $loader));
@@ -49,12 +49,12 @@ class TestSuiteCommand extends \PHPUnit_TextUI_Command {
 		$this->longOptions['output='] = 'handleReporter';
 	}
 
-/**
- * Ugly hack to get around PHPUnit having a hard coded classname for the Runner. :(
- *
- * @param array   $argv
- * @param boolean $exit
- */
+	/**
+	 * Ugly hack to get around PHPUnit having a hard coded classname for the Runner. :(
+	 *
+	 * @param array   $argv
+	 * @param boolean $exit
+	 */
 	public function run(array $argv, $exit = true) {
 		$this->handleArguments($argv);
 
@@ -106,32 +106,32 @@ class TestSuiteCommand extends \PHPUnit_TextUI_Command {
 		}
 	}
 
-/**
- * Create a runner for the command.
- *
- * @param mixed $loader The loader to be used for the test run.
- * @return Cake\TestSuite\TestRunner
- */
+	/**
+	 * Create a runner for the command.
+	 *
+	 * @param mixed $loader The loader to be used for the test run.
+	 * @return Cake\TestSuite\TestRunner
+	 */
 	public function getRunner($loader) {
 		return new TestRunner($loader, $this->_params);
 	}
 
-/**
- * Handler for customizing the FixtureManager class/
- *
- * @param string $class Name of the class that will be the fixture manager
- * @return void
- */
+	/**
+	 * Handler for customizing the FixtureManager class/
+	 *
+	 * @param string $class Name of the class that will be the fixture manager
+	 * @return void
+	 */
 	public function handleFixture($class) {
 		$this->arguments['fixtureManager'] = $class;
 	}
 
-/**
- * Handles output flag used to change printing on webrunner.
- *
- * @param string $reporter
- * @return void
- */
+	/**
+	 * Handles output flag used to change printing on webrunner.
+	 *
+	 * @param string $reporter
+	 * @return void
+	 */
 	public function handleReporter($reporter) {
 		$reporter = ucwords($reporter);
 		$class = App::classname($reporter, 'TestSuite/Reporter', 'Reporter');

@@ -30,11 +30,11 @@ use Cake\TestSuite\TestCase;
  */
 class CrudAuthorizeTest extends TestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Routing.prefixes', array());
@@ -46,11 +46,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->auth = new CrudAuthorize($this->Components);
 	}
 
-/**
- * setup the mock acl.
- *
- * @return void
- */
+	/**
+	 * setup the mock acl.
+	 *
+	 * @return void
+	 */
 	protected function _mockAcl() {
 		$this->Components->expects($this->any())
 			->method('load')
@@ -58,12 +58,12 @@ class CrudAuthorizeTest extends TestCase {
 			->will($this->returnValue($this->Acl));
 	}
 
-/**
- * test authorize() without a mapped action, ensure an error is generated.
- *
- * @expectedException PHPUnit_Framework_Error_Warning
- * @return void
- */
+	/**
+	 * test authorize() without a mapped action, ensure an error is generated.
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @return void
+	 */
 	public function testAuthorizeNoMappedAction() {
 		$request = new Request('/posts/foobar');
 		$request->addParams(array(
@@ -75,11 +75,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->auth->authorize($user, $request);
 	}
 
-/**
- * test check() passing
- *
- * @return void
- */
+	/**
+	 * test check() passing
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeCheckSuccess() {
 		$request = new Request('posts/index');
 		$request->addParams(array(
@@ -97,11 +97,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->assertTrue($this->auth->authorize($user['User'], $request));
 	}
 
-/**
- * test check() failing
- *
- * @return void
- */
+	/**
+	 * test check() failing
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeCheckFailure() {
 		$request = new Request('posts/index');
 		$request->addParams(array(
@@ -119,11 +119,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->assertFalse($this->auth->authorize($user['User'], $request));
 	}
 
-/**
- * test getting actionMap
- *
- * @return void
- */
+	/**
+	 * test getting actionMap
+	 *
+	 * @return void
+	 */
 	public function testMapActionsGet() {
 		$result = $this->auth->mapActions();
 		$expected = array(
@@ -140,11 +140,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test adding into mapActions
- *
- * @return void
- */
+	/**
+	 * test adding into mapActions
+	 *
+	 * @return void
+	 */
 	public function testMapActionsSet() {
 		$map = array(
 			'create' => array('generate'),
@@ -174,11 +174,11 @@ class CrudAuthorizeTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test prefix routes getting auto mapped.
- *
- * @return void
- */
+	/**
+	 * test prefix routes getting auto mapped.
+	 *
+	 * @return void
+	 */
 	public function testAutoPrefixMapActions() {
 		Configure::write('Routing.prefixes', array('admin', 'manager'));
 		Router::reload();

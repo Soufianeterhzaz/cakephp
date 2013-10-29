@@ -26,20 +26,20 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class ArmorsPlayerFixture extends TestFixture {
 
-/**
- * Datasource
- *
- * Used for Multi database fixture test
- *
- * @var string 'test_database_three'
- */
+	/**
+	 * Datasource
+	 *
+	 * Used for Multi database fixture test
+	 *
+	 * @var string 'test_database_three'
+	 */
 	public $useDbConfig = 'test_database_three';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'player_id' => ['type' => 'integer', 'null' => false],
@@ -50,11 +50,11 @@ class ArmorsPlayerFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('player_id' => 1, 'armor_id' => 1, 'broken' => false),
 		array('player_id' => 2, 'armor_id' => 2, 'broken' => false),

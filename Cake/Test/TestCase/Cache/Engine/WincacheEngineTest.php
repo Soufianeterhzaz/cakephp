@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class WincacheEngineTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->skipIf(!function_exists('wincache_ucache_set'), 'Wincache is not installed or configured properly.');
@@ -40,22 +40,22 @@ class WincacheEngineTest extends TestCase {
 		$this->_configCache();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Cache::drop('wincache');
 		Cache::drop('wincache_groups');
 	}
 
-/**
- * Helper method for testing.
- *
- * @return void
- */
+	/**
+	 * Helper method for testing.
+	 *
+	 * @return void
+	 */
 	protected function _configCache($settings = []) {
 		$defaults = [
 			'className' => 'Wincache',
@@ -65,11 +65,11 @@ class WincacheEngineTest extends TestCase {
 		Cache::config('wincache', array_merge($defaults, $settings));
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		$this->_configCache(['duration' => 1]);
 
@@ -88,11 +88,11 @@ class WincacheEngineTest extends TestCase {
 		Cache::delete('test', 'wincache');
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		$this->_configCache(['duration' => 1]);
 
@@ -116,11 +116,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'wincache');
@@ -130,11 +130,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDecrement method
- *
- * @return void
- */
+	/**
+	 * testDecrement method
+	 *
+	 * @return void
+	 */
 	public function testDecrement() {
 		$this->skipIf(
 			!function_exists('wincache_ucache_dec'),
@@ -157,11 +157,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertEquals(2, $result);
 	}
 
-/**
- * testIncrement method
- *
- * @return void
- */
+	/**
+	 * testIncrement method
+	 *
+	 * @return void
+	 */
 	public function testIncrement() {
 		$this->skipIf(
 			!function_exists('wincache_ucache_inc'),
@@ -184,11 +184,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertEquals(8, $result);
 	}
 
-/**
- * test the clearing of cache keys
- *
- * @return void
- */
+	/**
+	 * test the clearing of cache keys
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		wincache_ucache_set('not_cake', 'safe');
 		Cache::write('some_value', 'value', 'wincache');
@@ -199,13 +199,13 @@ class WincacheEngineTest extends TestCase {
 		$this->assertEquals('safe', wincache_ucache_get('not_cake'));
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- * Shows that altering the group value is equivalent to deleting all keys under the same
- * group
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 * Shows that altering the group value is equivalent to deleting all keys under the same
+	 * group
+	 *
+	 * @return void
+	 */
 	public function testGroupsReadWrite() {
 		Cache::config('wincache_groups', [
 			'engine' => 'Wincache',
@@ -227,11 +227,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertEquals('value3', Cache::read('test_groups', 'wincache_groups'));
 	}
 
-/**
- * Tests that deleteing from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleteing from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('wincache_groups', [
 			'engine' => 'Wincache',
@@ -246,11 +246,11 @@ class WincacheEngineTest extends TestCase {
 		$this->assertFalse(Cache::read('test_groups', 'wincache_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('wincache_groups', [
 			'engine' => 'Wincache',

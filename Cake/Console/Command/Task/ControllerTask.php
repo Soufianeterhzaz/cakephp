@@ -29,34 +29,34 @@ use Cake\Utility\Inflector;
  */
 class ControllerTask extends BakeTask {
 
-/**
- * Tasks to be loaded by this Task
- *
- * @var array
- */
+	/**
+	 * Tasks to be loaded by this Task
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Model', 'Test', 'Template', 'DbConfig', 'Project');
 
-/**
- * path to Controller directory
- *
- * @var array
- */
+	/**
+	 * path to Controller directory
+	 *
+	 * @var array
+	 */
 	public $path = null;
 
-/**
- * Override initialize
- *
- * @return void
- */
+	/**
+	 * Override initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = current(App::path('Controller'));
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		parent::execute();
 		if (empty($this->args)) {
@@ -97,11 +97,11 @@ class ControllerTask extends BakeTask {
 		}
 	}
 
-/**
- * Bake All the controllers at once. Will only bake controllers for models that exist.
- *
- * @return void
- */
+	/**
+	 * Bake All the controllers at once. Will only bake controllers for models that exist.
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->interactive = false;
 		$this->listAll($this->connection, false);
@@ -130,11 +130,11 @@ class ControllerTask extends BakeTask {
 		}
 	}
 
-/**
- * Interactive
- *
- * @return void
- */
+	/**
+	 * Interactive
+	 *
+	 * @return void
+	 */
 	protected function _interactive() {
 		$this->interactive = true;
 		$this->hr();
@@ -214,15 +214,15 @@ class ControllerTask extends BakeTask {
 		return $baked;
 	}
 
-/**
- * Confirm a to be baked controller with the user
- *
- * @param string $controllerName
- * @param string $useDynamicScaffold
- * @param array $helpers
- * @param array $components
- * @return void
- */
+	/**
+	 * Confirm a to be baked controller with the user
+	 *
+	 * @param string $controllerName
+	 * @param string $useDynamicScaffold
+	 * @param array $helpers
+	 * @param array $components
+	 * @return void
+	 */
 	public function confirmController($controllerName, $useDynamicScaffold, $helpers, $components) {
 		$this->out();
 		$this->hr();
@@ -256,11 +256,11 @@ class ControllerTask extends BakeTask {
 		$this->hr();
 	}
 
-/**
- * Interact with the user and ask about which methods (admin or regular they want to bake)
- *
- * @return array Array containing (bakeRegular, bakeAdmin) answers
- */
+	/**
+	 * Interact with the user and ask about which methods (admin or regular they want to bake)
+	 *
+	 * @return array Array containing (bakeRegular, bakeAdmin) answers
+	 */
 	protected function _askAboutMethods() {
 		$wannaBakeCrud = $this->in(
 			__d('cake_console', "Would you like to create some basic class methods \n(index(), add(), view(), edit())?"),
@@ -273,14 +273,14 @@ class ControllerTask extends BakeTask {
 		return array($wannaBakeCrud, $wannaBakeAdminCrud);
 	}
 
-/**
- * Bake scaffold actions
- *
- * @param string $controllerName Controller name
- * @param string $admin Admin route to use
- * @param boolean $wannaUseSession Set to true to use sessions, false otherwise
- * @return string Baked actions
- */
+	/**
+	 * Bake scaffold actions
+	 *
+	 * @param string $controllerName Controller name
+	 * @param string $admin Admin route to use
+	 * @param boolean $wannaUseSession Set to true to use sessions, false otherwise
+	 * @return string Baked actions
+	 */
 	public function bakeActions($controllerName, $admin = null, $wannaUseSession = true) {
 		$currentModelName = $modelImport = $this->_modelName($controllerName);
 		$plugin = $this->plugin;
@@ -311,15 +311,15 @@ class ControllerTask extends BakeTask {
 		return $actions;
 	}
 
-/**
- * Assembles and writes a Controller file
- *
- * @param string $controllerName Controller name already pluralized and correctly cased.
- * @param string $actions Actions to add, or set the whole controller to use $scaffold (set $actions to 'scaffold')
- * @param array $helpers Helpers to use in controller
- * @param array $components Components to use in controller
- * @return string Baked controller
- */
+	/**
+	 * Assembles and writes a Controller file
+	 *
+	 * @param string $controllerName Controller name already pluralized and correctly cased.
+	 * @param string $actions Actions to add, or set the whole controller to use $scaffold (set $actions to 'scaffold')
+	 * @param array $helpers Helpers to use in controller
+	 * @param array $components Components to use in controller
+	 * @return string Baked controller
+	 */
 	public function bake($controllerName, $actions = '', $helpers = null, $components = null) {
 		$this->out("\n" . __d('cake_console', 'Baking controller class for %s...', $controllerName), 1, Shell::QUIET);
 
@@ -345,12 +345,12 @@ class ControllerTask extends BakeTask {
 		return false;
 	}
 
-/**
- * Assembles and writes a unit test file
- *
- * @param string $className Controller class name
- * @return string Baked test
- */
+	/**
+	 * Assembles and writes a unit test file
+	 *
+	 * @param string $className Controller class name
+	 * @return string Baked test
+	 */
 	public function bakeTest($className) {
 		$this->Test->plugin = $this->plugin;
 		$this->Test->connection = $this->connection;
@@ -358,11 +358,11 @@ class ControllerTask extends BakeTask {
 		return $this->Test->bake('Controller', $className);
 	}
 
-/**
- * Interact with the user and get a list of additional helpers
- *
- * @return array Helpers that the user wants to use.
- */
+	/**
+	 * Interact with the user and get a list of additional helpers
+	 *
+	 * @return array Helpers that the user wants to use.
+	 */
 	public function doHelpers() {
 		return $this->_doPropertyChoices(
 			__d('cake_console', "Would you like this controller to use other helpers\nbesides HtmlHelper and FormHelper?"),
@@ -370,11 +370,11 @@ class ControllerTask extends BakeTask {
 		);
 	}
 
-/**
- * Interact with the user and get a list of additional components
- *
- * @return array Components the user wants to use.
- */
+	/**
+	 * Interact with the user and get a list of additional components
+	 *
+	 * @return array Components the user wants to use.
+	 */
 	public function doComponents() {
 		$components = array('Paginator');
 		return array_merge($components, $this->_doPropertyChoices(
@@ -383,13 +383,13 @@ class ControllerTask extends BakeTask {
 		));
 	}
 
-/**
- * Common code for property choice handling.
- *
- * @param string $prompt A yes/no question to precede the list
- * @param string $example A question for a comma separated list, with examples.
- * @return array Array of values for property.
- */
+	/**
+	 * Common code for property choice handling.
+	 *
+	 * @param string $prompt A yes/no question to precede the list
+	 * @param string $example A question for a comma separated list, with examples.
+	 * @return array Array of values for property.
+	 */
 	protected function _doPropertyChoices($prompt, $example) {
 		$proceed = $this->in($prompt, array('y', 'n'), 'n');
 		$property = array();
@@ -401,12 +401,12 @@ class ControllerTask extends BakeTask {
 		return array_filter($property);
 	}
 
-/**
- * Outputs and gets the list of possible controllers from database
- *
- * @param string $useDbConfig Database configuration name
- * @return array Set of controllers
- */
+	/**
+	 * Outputs and gets the list of possible controllers from database
+	 *
+	 * @param string $useDbConfig Database configuration name
+	 * @return array Set of controllers
+	 */
 	public function listAll($useDbConfig = null) {
 		if ($useDbConfig === null) {
 			$useDbConfig = $this->connection;
@@ -427,12 +427,12 @@ class ControllerTask extends BakeTask {
 		return $this->__tables;
 	}
 
-/**
- * Forces the user to specify the controller he wants to bake, and returns the selected controller name.
- *
- * @param string $useDbConfig Connection name to get a controller name for.
- * @return string Controller name
- */
+	/**
+	 * Forces the user to specify the controller he wants to bake, and returns the selected controller name.
+	 *
+	 * @param string $useDbConfig Connection name to get a controller name for.
+	 * @return string Controller name
+	 */
 	public function getName($useDbConfig = null) {
 		$controllers = $this->listAll($useDbConfig);
 		$enteredController = '';
@@ -458,11 +458,11 @@ class ControllerTask extends BakeTask {
 		return $controllerName;
 	}
 
-/**
- * get the option parser.
- *
- * @return void
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(

@@ -37,11 +37,11 @@ class StringTest extends TestCase {
 		unset($this->Text);
 	}
 
-/**
- * testUuidGeneration method
- *
- * @return void
- */
+	/**
+	 * testUuidGeneration method
+	 *
+	 * @return void
+	 */
 	public function testUuidGeneration() {
 		$result = String::uuid();
 		$pattern = "/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/";
@@ -49,11 +49,11 @@ class StringTest extends TestCase {
 		$this->assertTrue($match);
 	}
 
-/**
- * testMultipleUuidGeneration method
- *
- * @return void
- */
+	/**
+	 * testMultipleUuidGeneration method
+	 *
+	 * @return void
+	 */
 	public function testMultipleUuidGeneration() {
 		$check = array();
 		$count = mt_rand(10, 1000);
@@ -68,11 +68,11 @@ class StringTest extends TestCase {
 		}
 	}
 
-/**
- * testInsert method
- *
- * @return void
- */
+	/**
+	 * testInsert method
+	 *
+	 * @return void
+	 */
 	public function testInsert() {
 		$string = 'some string';
 		$expected = 'some string';
@@ -229,11 +229,11 @@ class StringTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Clean Insert
- *
- * @return void
- */
+	/**
+	 * test Clean Insert
+	 *
+	 * @return void
+	 */
 	public function testCleanInsert() {
 		$result = String::cleanInsert(':incomplete', array(
 			'clean' => true, 'before' => ':', 'after' => ''
@@ -268,23 +268,23 @@ class StringTest extends TestCase {
 		$this->assertEquals('<p>Text here</p>', $result);
 	}
 
-/**
- * Tests that non-insertable variables (i.e. arrays) are skipped when used as values in
- * String::insert().
- *
- * @return void
- */
+	/**
+	 * Tests that non-insertable variables (i.e. arrays) are skipped when used as values in
+	 * String::insert().
+	 *
+	 * @return void
+	 */
 	public function testAutoIgnoreBadInsertData() {
 		$data = array('foo' => 'alpha', 'bar' => 'beta', 'fale' => array());
 		$result = String::insert('(:foo > :bar || :fale!)', $data, array('clean' => 'text'));
 		$this->assertEquals('(alpha > beta || !)', $result);
 	}
 
-/**
- * testTokenize method
- *
- * @return void
- */
+	/**
+	 * testTokenize method
+	 *
+	 * @return void
+	 */
 	public function testTokenize() {
 		$result = String::tokenize('A,(short,boring test)');
 		$expected = array('A', '(short,boring test)');
@@ -314,23 +314,23 @@ class StringTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that wordWrap() works the same as built-in wordwrap function
- *
- * @dataProvider wordWrapProvider
- * @return void
- */
+	/**
+	 * test that wordWrap() works the same as built-in wordwrap function
+	 *
+	 * @dataProvider wordWrapProvider
+	 * @return void
+	 */
 	public function testWordWrap($text, $width, $break = "\n", $cut = false) {
 		$result = String::wordWrap($text, $width, $break, $cut);
 		$expected = wordwrap($text, $width, $break, $cut);
 		$this->assertTextEquals($expected, $result, 'Text not wrapped same as built-in function.');
 	}
 
-/**
- * data provider for testWordWrap method
- *
- * @return array
- */
+	/**
+	 * data provider for testWordWrap method
+	 *
+	 * @return array
+	 */
 	public function wordWrapProvider() {
 		return array(
 			array(
@@ -348,11 +348,11 @@ class StringTest extends TestCase {
 		);
 	}
 
-/**
- * test that wordWrap() properly handle unicode strings.
- *
- * @return void
- */
+	/**
+	 * test that wordWrap() properly handle unicode strings.
+	 *
+	 * @return void
+	 */
 	public function testWordWrapUnicodeAware() {
 		$text = 'Но вим омниюм факёльиси элыктрам, мюнырэ лэгыры векж ыт. Выльёт квюандо нюмквуам ты кюм. Зыд эю рыбюм.';
 		$result = String::wordWrap($text, 33, "\n", true);
@@ -375,11 +375,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
 	}
 
-/**
- * test wrap method.
- *
- * @return void
- */
+	/**
+	 * test wrap method.
+	 *
+	 * @return void
+	 */
 	public function testWrap() {
 		$text = 'This is the song that never ends. This is the song that never ends. This is the song that never ends.';
 		$result = String::wrap($text, 33);
@@ -402,11 +402,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Text not wrapped.');
 	}
 
-/**
- * test wrap() indenting
- *
- * @return void
- */
+	/**
+	 * test wrap() indenting
+	 *
+	 * @return void
+	 */
 	public function testWrapIndent() {
 		$text = 'This is the song that never ends. This is the song that never ends. This is the song that never ends.';
 		$result = String::wrap($text, array('width' => 33, 'indent' => "\t", 'indentAt' => 1));
@@ -418,11 +418,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * testTruncate method
- *
- * @return void
- */
+	/**
+	 * testTruncate method
+	 *
+	 * @return void
+	 */
 	public function testTruncate() {
 		$text1 = 'The quick brown fox jumps over the lazy dog';
 		$text2 = 'Heiz&ouml;lr&uuml;cksto&szlig;abd&auml;mpfung';
@@ -522,11 +522,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTruncate method with non utf8 sites
- *
- * @return void
- */
+	/**
+	 * testTruncate method with non utf8 sites
+	 *
+	 * @return void
+	 */
 	public function testTruncateLegacy() {
 		Configure::write('App.encoding', 'ISO-8859-1');
 		$text = '<b>&copy; 2005-2007, Cake Software Foundation, Inc.</b><br />written by Alexander Wegener';
@@ -545,11 +545,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTail method
- *
- * @return void
- */
+	/**
+	 * testTail method
+	 *
+	 * @return void
+	 */
 	public function testTail() {
 		$text1 = 'The quick brown fox jumps over the lazy dog';
 		$text2 = 'Heiz&ouml;lr&uuml;cksto&szlig;abd&auml;mpfung';
@@ -588,11 +588,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals('чшщъыь', $result);
 	}
 
-/**
- * testHighlight method
- *
- * @return void
- */
+	/**
+	 * testHighlight method
+	 *
+	 * @return void
+	 */
 	public function testHighlight() {
 		$text = 'This is a test text';
 		$phrases = array('This', 'text');
@@ -622,11 +622,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHighlightHtml method
- *
- * @return void
- */
+	/**
+	 * testHighlightHtml method
+	 *
+	 * @return void
+	 */
 	public function testHighlightHtml() {
 		$text1 = '<p>strongbow isn&rsquo;t real cider</p>';
 		$text2 = '<p>strongbow <strong>isn&rsquo;t</strong> real cider</p>';
@@ -648,11 +648,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($this->Text->highlight($text4, array('strong', 'what'), $options), $expected);
 	}
 
-/**
- * testHighlightMulti method
- *
- * @return void
- */
+	/**
+	 * testHighlightMulti method
+	 *
+	 * @return void
+	 */
 	public function testHighlightMulti() {
 		$text = 'This is a test text';
 		$phrases = array('This', 'text');
@@ -661,11 +661,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testStripLinks method
- *
- * @return void
- */
+	/**
+	 * testStripLinks method
+	 *
+	 * @return void
+	 */
 	public function testStripLinks() {
 		$text = 'This is a test text';
 		$expected = 'This is a test text';
@@ -688,11 +688,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testHighlightCaseInsensitivity method
- *
- * @return void
- */
+	/**
+	 * testHighlightCaseInsensitivity method
+	 *
+	 * @return void
+	 */
 	public function testHighlightCaseInsensitivity() {
 		$text = 'This is a Test text';
 		$expected = 'This is a <b>Test</b> text';
@@ -704,11 +704,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testExcerpt method
- *
- * @return void
- */
+	/**
+	 * testExcerpt method
+	 *
+	 * @return void
+	 */
 	public function testExcerpt() {
 		$text = 'This is a phrase with test text to play with';
 
@@ -744,11 +744,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testExcerptCaseInsensitivity method
- *
- * @return void
- */
+	/**
+	 * testExcerptCaseInsensitivity method
+	 *
+	 * @return void
+	 */
 	public function testExcerptCaseInsensitivity() {
 		$text = 'This is a phrase with test text to play with';
 
@@ -761,11 +761,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testListGeneration method
- *
- * @return void
- */
+	/**
+	 * testListGeneration method
+	 *
+	 * @return void
+	 */
 	public function testListGeneration() {
 		$result = $this->Text->toList(array());
 		$this->assertEquals('', $result);
@@ -792,11 +792,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals('banana, apple and lemon', $result);
 	}
 
-/**
- * testUtf8 method
- *
- * @return void
- */
+	/**
+	 * testUtf8 method
+	 *
+	 * @return void
+	 */
 	public function testUtf8() {
 		$string = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
 		$result = String::utf8($string);
@@ -1112,11 +1112,11 @@ podeís adquirirla.</span></p>
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAscii method
- *
- * @return void
- */
+	/**
+	 * testAscii method
+	 *
+	 * @return void
+	 */
 	public function testAscii() {
 		$input = array(33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
 							58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82,

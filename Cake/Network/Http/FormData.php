@@ -25,25 +25,25 @@ use Cake\Network\Http\FormData\Part;
  */
 class FormData implements \Countable {
 
-/**
- * Boundary marker.
- *
- * @var string
- */
+	/**
+	 * Boundary marker.
+	 *
+	 * @var string
+	 */
 	protected $_boundary;
 
-/**
- * The parts in the form data.
- *
- * @var array
- */
+	/**
+	 * The parts in the form data.
+	 *
+	 * @var array
+	 */
 	protected $_parts = [];
 
-/**
- * Get the boundary marker
- *
- * @return string
- */
+	/**
+	 * Get the boundary marker
+	 *
+	 * @return string
+	 */
 	public function boundary() {
 		if ($this->_boundary) {
 			return $this->_boundary;
@@ -52,30 +52,30 @@ class FormData implements \Countable {
 		return $this->_boundary;
 	}
 
-/**
- * Method for creating new instances of Part
- *
- * @param string $name The name of the part.
- * @param string $value The value to add.
- * @return Cake\Network\Http\FormData\Part
- */
+	/**
+	 * Method for creating new instances of Part
+	 *
+	 * @param string $name The name of the part.
+	 * @param string $value The value to add.
+	 * @return Cake\Network\Http\FormData\Part
+	 */
 	public function newPart($name, $value) {
 		return new Part($name, $value);
 	}
 
-/**
- * Add a new part to the data.
- *
- * The value for a part can be a string, array, int,
- * float, filehandle, or object implementing __toString()
- *
- * If the $value is an array, multiple parts will be added.
- * Files will be read from their current position and saved in memory.
- *
- * @param string $name The name of the part.
- * @param mixed $value The value for the part.
- * @return FormData $this
- */
+	/**
+	 * Add a new part to the data.
+	 *
+	 * The value for a part can be a string, array, int,
+	 * float, filehandle, or object implementing __toString()
+	 *
+	 * If the $value is an array, multiple parts will be added.
+	 * Files will be read from their current position and saved in memory.
+	 *
+	 * @param string $name The name of the part.
+	 * @param mixed $value The value for the part.
+	 * @return FormData $this
+	 */
 	public function add($name, $value) {
 		if (is_array($value)) {
 			$this->addRecursive($name, $value);
@@ -89,13 +89,13 @@ class FormData implements \Countable {
 		return $this;
 	}
 
-/**
- * Add multiple parts at once.
- *
- * Iterates the parameter and adds all the key/values.
- * @param array $data Array of data to add.
- * @return FormData $this
- */
+	/**
+	 * Add multiple parts at once.
+	 *
+	 * Iterates the parameter and adds all the key/values.
+	 * @param array $data Array of data to add.
+	 * @return FormData $this
+	 */
 	public function addMany(array $data) {
 		foreach ($data as $name => $value) {
 			$this->add($name, $value);
@@ -103,14 +103,14 @@ class FormData implements \Countable {
 		return $this;
 	}
 
-/**
- * Add either a file reference (string starting with @)
- * or a file handle.
- *
- * @param string $name The name to use.
- * @param mixed $value Either a string filename, or a filehandle.
- * @return void
- */
+	/**
+	 * Add either a file reference (string starting with @)
+	 * or a file handle.
+	 *
+	 * @param string $name The name to use.
+	 * @param mixed $value Either a string filename, or a filehandle.
+	 * @return void
+	 */
 	public function addFile($name, $value) {
 		$filename = false;
 		$contentType = 'application/octet-stream';
@@ -131,13 +131,13 @@ class FormData implements \Countable {
 		return $part;
 	}
 
-/**
- * Recursively add data.
- *
- * @param string $name The name to use.
- * @param mixed $value The value to add.
- * @return void
- */
+	/**
+	 * Recursively add data.
+	 *
+	 * @param string $name The name to use.
+	 * @param mixed $value The value to add.
+	 * @return void
+	 */
 	public function addRecursive($name, $value) {
 		foreach ($value as $key => $value) {
 			$key = $name . '[' . $key . ']';
@@ -145,21 +145,21 @@ class FormData implements \Countable {
 		}
 	}
 
-/**
- * Returns the count of parts inside this object.
- *
- * @return int
- */
+	/**
+	 * Returns the count of parts inside this object.
+	 *
+	 * @return int
+	 */
 	public function count() {
 		return count($this->_parts);
 	}
 
-/**
- * Converts the FormData and its parts into a string suitable
- * for use in an HTTP request.
- *
- * @return string
- */
+	/**
+	 * Converts the FormData and its parts into a string suitable
+	 * for use in an HTTP request.
+	 *
+	 * @return string
+	 */
 	public function __toString() {
 		$boundary = $this->boundary();
 		$out = '';

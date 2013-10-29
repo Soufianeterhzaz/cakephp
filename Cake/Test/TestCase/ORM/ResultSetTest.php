@@ -45,12 +45,12 @@ class ResultSetTest extends TestCase {
 		];
 	}
 
-/**
- * Test that result sets can be rewound and re-used.
- *
- * @expectedException Cake\Database\Exception
- * @return void
- */
+	/**
+	 * Test that result sets can be rewound and re-used.
+	 *
+	 * @expectedException Cake\Database\Exception
+	 * @return void
+	 */
 	public function testRewind() {
 		$query = $this->table->find('all');
 		$results = $query->execute();
@@ -63,14 +63,14 @@ class ResultSetTest extends TestCase {
 		}
 	}
 
-/**
- * An integration test for testing serialize and unserialize features.
- *
- * Compare the results of a query with the results iterated, with
- * those of a different query that have been serialized/unserialized.
- *
- * @return void
- */
+	/**
+	 * An integration test for testing serialize and unserialize features.
+	 *
+	 * Compare the results of a query with the results iterated, with
+	 * those of a different query that have been serialized/unserialized.
+	 *
+	 * @return void
+	 */
 	public function testSerialization() {
 		$query = $this->table->find('all');
 		$results = $query->execute();
@@ -83,11 +83,11 @@ class ResultSetTest extends TestCase {
 		$this->assertEquals($expected, $outcome->toArray());
 	}
 
-/**
- * Test iteration after serialization
- *
- * @return void
- */
+	/**
+	 * Test iteration after serialization
+	 *
+	 * @return void
+	 */
 	public function testIteratorAfterSerializationNoHydration() {
 		$query = $this->table->find('all')->hydrate(false);
 		$results = unserialize(serialize($query->execute()));
@@ -98,11 +98,11 @@ class ResultSetTest extends TestCase {
 		}
 	}
 
-/**
- * Test iteration after serialization
- *
- * @return void
- */
+	/**
+	 * Test iteration after serialization
+	 *
+	 * @return void
+	 */
 	public function testIteratorAfterSerializationHydrated() {
 		$query = $this->table->find('all');
 		$results = unserialize(serialize($query->execute()));
@@ -113,11 +113,11 @@ class ResultSetTest extends TestCase {
 		}
 	}
 
-/**
- * Test converting resultsets into json
- *
- * @return void
- */
+	/**
+	 * Test converting resultsets into json
+	 *
+	 * @return void
+	 */
 	public function testJsonSerialize() {
 		$query = $this->table->find('all');
 		$results = $query->execute();

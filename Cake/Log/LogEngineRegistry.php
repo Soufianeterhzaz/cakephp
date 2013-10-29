@@ -24,14 +24,14 @@ use Cake\Utility\ObjectRegistry;
  */
 class LogEngineRegistry extends ObjectRegistry {
 
-/**
- * Resolve a logger classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a logger classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		if (is_object($class)) {
 			return $class;
@@ -40,29 +40,29 @@ class LogEngineRegistry extends ObjectRegistry {
 		return App::classname($class, 'Log/Engine', 'Log');
 	}
 
-/**
- * Throws an exception when a logger is missing.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the logger is missing in.
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Throws an exception when a logger is missing.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the logger is missing in.
+	 * @throws Cake\Error\Exception
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new Error\Exception(__d('cake_dev', 'Could not load class %s', $class));
 	}
 
-/**
- * Create the logger instance.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- * @param string|LogInterface $class The classname or object to make.
- * @param array $settings An array of settings to use for the logger.
- * @return LogEngine The constructed logger class.
- * @throws Cake\Error\Exception when an object doesn't implement
- *    the correct interface.
- */
+	/**
+	 * Create the logger instance.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 * @param string|LogInterface $class The classname or object to make.
+	 * @param array $settings An array of settings to use for the logger.
+	 * @return LogEngine The constructed logger class.
+	 * @throws Cake\Error\Exception when an object doesn't implement
+	 *    the correct interface.
+	 */
 	protected function _create($class, $settings) {
 		if (is_object($class)) {
 			$instance = $class;
@@ -82,12 +82,12 @@ class LogEngineRegistry extends ObjectRegistry {
 		));
 	}
 
-/**
- * Remove a single logger from the registry.
- *
- * @param string $name The logger name.
- * @return void
- */
+	/**
+	 * Remove a single logger from the registry.
+	 *
+	 * @param string $name The logger name.
+	 * @return void
+	 */
 	public function unload($name) {
 		unset($this->_loaded[$name]);
 	}

@@ -31,11 +31,11 @@ require_once CAKE . 'basics.php';
  */
 class BasicsTest extends TestCase {
 
-/**
- * test the array_diff_key compatibility function.
- *
- * @return void
- */
+	/**
+	 * test the array_diff_key compatibility function.
+	 *
+	 * @return void
+	 */
 	public function testArrayDiffKey() {
 		$one = array('one' => 1, 'two' => 2, 'three' => 3);
 		$two = array('one' => 'one', 'two' => 'two');
@@ -61,11 +61,11 @@ class BasicsTest extends TestCase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * testHttpBase method
- *
- * @return void
- */
+	/**
+	 * testHttpBase method
+	 *
+	 * @return void
+	 */
 	public function testEnv() {
 		$this->skipIf(!function_exists('ini_get') || ini_get('safe_mode') === '1', 'Safe mode is on.');
 
@@ -166,11 +166,11 @@ class BasicsTest extends TestCase {
 		$_ENV = $env;
 	}
 
-/**
- * Test h()
- *
- * @return void
- */
+	/**
+	 * Test h()
+	 *
+	 * @return void
+	 */
 	public function testH() {
 		$string = '<foo>';
 		$result = h($string);
@@ -244,11 +244,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals('Body content', $result);
 	}
 
-/**
- * Test am()
- *
- * @return void
- */
+	/**
+	 * Test am()
+	 *
+	 * @return void
+	 */
 	public function testAm() {
 		$result = am(array('one', 'two'), 2, 3, 4);
 		$expected = array('one', 'two', 2, 3, 4);
@@ -259,11 +259,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test cache()
- *
- * @return void
- */
+	/**
+	 * test cache()
+	 *
+	 * @return void
+	 */
 	public function testCache() {
 		Cache::disable();
 		$result = cache('basics_test', 'simple cache write');
@@ -289,11 +289,11 @@ class BasicsTest extends TestCase {
 		$this->assertNull($result);
 	}
 
-/**
- * test clearCache()
- *
- * @return void
- */
+	/**
+	 * test clearCache()
+	 *
+	 * @return void
+	 */
 	public function testClearCache() {
 		$cacheOff = Configure::read('Cache.disable');
 		$this->skipIf($cacheOff, 'Cache is disabled, skipping clearCache() tests.');
@@ -351,11 +351,11 @@ class BasicsTest extends TestCase {
 		}
 	}
 
-/**
- * test __()
- *
- * @return void
- */
+	/**
+	 * test __()
+	 *
+	 * @return void
+	 */
 	public function testTranslate() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -392,11 +392,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __n()
- *
- * @return void
- */
+	/**
+	 * test __n()
+	 *
+	 * @return void
+	 */
 	public function testTranslatePlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -425,11 +425,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __d()
- *
- * @return void
- */
+	/**
+	 * test __d()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomain() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -458,11 +458,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dn()
- *
- * @return void
- */
+	/**
+	 * test __dn()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainPlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -495,11 +495,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __c()
- *
- * @return void
- */
+	/**
+	 * test __c()
+	 *
+	 * @return void
+	 */
 	public function testTranslateCategory() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -524,11 +524,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dc()
- *
- * @return void
- */
+	/**
+	 * test __dc()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainCategory() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -561,11 +561,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dcn()
- *
- * @return void
- */
+	/**
+	 * test __dcn()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainCategoryPlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -594,11 +594,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test fileExistsInPath()
- *
- * @return void
- */
+	/**
+	 * test fileExistsInPath()
+	 *
+	 * @return void
+	 */
 	public function testFileExistsInPath() {
 		if (!function_exists('ini_set')) {
 			$this->markTestSkipped('%s ini_set function not available');
@@ -640,11 +640,11 @@ class BasicsTest extends TestCase {
 		ini_set('include_path', $_includePath);
 	}
 
-/**
- * test convertSlash()
- *
- * @return void
- */
+	/**
+	 * test convertSlash()
+	 *
+	 * @return void
+	 */
 	public function testConvertSlash() {
 		$result = convertSlash('\path\to\location\\');
 		$expected = '\path\to\location\\';
@@ -655,11 +655,11 @@ class BasicsTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test debug()
- *
- * @return void
- */
+	/**
+	 * test debug()
+	 *
+	 * @return void
+	 */
 	public function testDebug() {
 		ob_start();
 		debug('this-is-a-test', false);
@@ -820,11 +820,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test pr()
- *
- * @return void
- */
+	/**
+	 * test pr()
+	 *
+	 * @return void
+	 */
 	public function testPr() {
 		$this->skipIf(php_sapi_name() == 'cli', 'Skipping web test in cli mode');
 		ob_start();
@@ -840,11 +840,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test pr()
- *
- * @return void
- */
+	/**
+	 * test pr()
+	 *
+	 * @return void
+	 */
 	public function testPrCli() {
 		$this->skipIf(php_sapi_name() != 'cli', 'Skipping cli test in web mode');
 		ob_start();
@@ -860,11 +860,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test pluginSplit
- *
- * @return void
- */
+	/**
+	 * test pluginSplit
+	 *
+	 * @return void
+	 */
 	public function testPluginSplit() {
 		$result = pluginSplit('Something.else');
 		$this->assertEquals(array('Something', 'else'), $result);
@@ -888,11 +888,11 @@ EXPECTED;
 		$this->assertEquals(array('Blog', 'Post'), $result);
 	}
 
-/**
- * test namespaceSplit
- *
- * @return void
- */
+	/**
+	 * test namespaceSplit
+	 *
+	 * @return void
+	 */
 	public function testNamespaceSplit() {
 		$result = namespaceSplit('Something');
 		$this->assertEquals(array('', 'Something'), $result);

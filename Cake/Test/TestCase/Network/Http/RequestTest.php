@@ -21,11 +21,11 @@ use Cake\TestSuite\TestCase;
  */
 class RequestTest extends TestCase {
 
-/**
- * test url method
- *
- * @return void
- */
+	/**
+	 * test url method
+	 *
+	 * @return void
+	 */
 	public function testUrl() {
 		$request = new Request();
 		$this->assertSame($request, $request->url('http://example.com'));
@@ -33,11 +33,11 @@ class RequestTest extends TestCase {
 		$this->assertEquals('http://example.com', $request->url());
 	}
 
-/**
- * test method method.
- *
- * @return void
- */
+	/**
+	 * test method method.
+	 *
+	 * @return void
+	 */
 	public function testMethod() {
 		$request = new Request();
 		$this->assertSame($request, $request->method(Request::METHOD_GET));
@@ -45,22 +45,22 @@ class RequestTest extends TestCase {
 		$this->assertEquals(Request::METHOD_GET, $request->method());
 	}
 
-/**
- * test invalid method.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * test invalid method.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testMethodInvalid() {
 		$request = new Request();
 		$request->method('set on fire');
 	}
 
-/**
- * test body method.
- *
- * @return void
- */
+	/**
+	 * test body method.
+	 *
+	 * @return void
+	 */
 	public function testBody() {
 		$data = '{"json":"data"}';
 		$request = new Request();
@@ -69,11 +69,11 @@ class RequestTest extends TestCase {
 		$this->assertEquals($data, $request->body());
 	}
 
-/**
- * test header method.
- *
- * @return void
- */
+	/**
+	 * test header method.
+	 *
+	 * @return void
+	 */
 	public function testHeader() {
 		$request = new Request();
 		$type = 'application/json';
@@ -97,11 +97,11 @@ class RequestTest extends TestCase {
 		$this->assertNull($request->header('not set'));
 	}
 
-/**
- * test cookie method.
- *
- * @return void
- */
+	/**
+	 * test cookie method.
+	 *
+	 * @return void
+	 */
 	public function testCookie() {
 		$request = new Request();
 		$result = $request->cookie('session', '123456');

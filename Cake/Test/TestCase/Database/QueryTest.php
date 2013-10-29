@@ -43,11 +43,11 @@ class QueryTest extends TestCase {
 		unset($this->connection);
 	}
 
-/**
- * Tests that it is possible to obtain expression results from a query
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to obtain expression results from a query
+	 *
+	 * @return void
+	 */
 	public function testSelectFieldsOnly() {
 		$query = new Query($this->connection);
 		$result = $query->select('1 + 1')->execute();
@@ -64,11 +64,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals([3, 6], $result->fetch());
 	}
 
-/**
- * Tests that it is possible to pass a closure as fields in select()
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to pass a closure as fields in select()
+	 *
+	 * @return void
+	 */
 	public function testSelectClosure() {
 		$query = new Query($this->connection);
 		$result = $query->select(function($q) use ($query) {
@@ -78,11 +78,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals([3, 6], $result->fetch());
 	}
 
-/**
- * Tests it is possible to select fields from tables with no conditions
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to select fields from tables with no conditions
+	 *
+	 * @return void
+	 */
 	public function testSelectFieldsFromTable() {
 		$query = new Query($this->connection);
 		$result = $query->select(array('body', 'author_id'))->from('articles')->execute();
@@ -102,11 +102,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(4, $result);
 	}
 
-/**
- * Tests it is possible to select aliased fields
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to select aliased fields
+	 *
+	 * @return void
+	 */
 	public function testSelectAliasedFieldsFromTable() {
 		$query = new Query($this->connection);
 		$result = $query->select(['text' => 'body', 'author_id'])->from('articles')->execute();
@@ -133,11 +133,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(array('text' => 'Second Article Body', 'two' => 2, 'three' => 5), $result->fetch('assoc'));
 	}
 
-/**
- * Tests that tables can also be aliased and referenced in the select clause using such alias
- *
- * @return void
- */
+	/**
+	 * Tests that tables can also be aliased and referenced in the select clause using such alias
+	 *
+	 * @return void
+	 */
 	public function testSelectAliasedTables() {
 		$query = new Query($this->connection);
 		$result = $query->select(['text' => 'a.body', 'a.author_id'])
@@ -158,11 +158,11 @@ class QueryTest extends TestCase {
 		);
 	}
 
-/**
- * Tests it is possible to add joins to a select query
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to add joins to a select query
+	 *
+	 * @return void
+	 */
 	public function testSelectWithJoins() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -187,11 +187,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(array('title' => 'Second Article', 'name' => 'larry'), $result->fetch('assoc'));
 	}
 
-/**
- * Tests it is possible to add joins to a select query using array or expression as conditions
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to add joins to a select query using array or expression as conditions
+	 *
+	 * @return void
+	 */
 	public function testSelectWithJoinsConditions() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -225,11 +225,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['title' => 'First Article', 'comment' => 'First Comment for First Article'], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that joins can be aliased using array keys
- *
- * @return void
- */
+	/**
+	 * Tests that joins can be aliased using array keys
+	 *
+	 * @return void
+	 */
 	public function testSelectAliasedJoins() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -263,11 +263,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(array('title' => 'First Article', 'name' => 'First Comment for First Article'), $result->fetch('assoc'));
 	}
 
-/**
- * Tests it is possible to filter a query by using simple AND joined conditions
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to filter a query by using simple AND joined conditions
+	 *
+	 * @return void
+	 */
 	public function testSelectSimpleWhere() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -286,11 +286,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests using where conditions with operators and scalar values works
- *
- * @return void
- */
+	/**
+	 * Tests using where conditions with operators and scalar values works
+	 *
+	 * @return void
+	 */
 	public function testSelectWhereOperators() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -369,11 +369,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests selecting with conditions and specifying types for those
- *
- * @return void
- **/
+	/**
+	 * Tests selecting with conditions and specifying types for those
+	 *
+	 * @return void
+	 **/
 	public function testSelectWhereTypes() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -440,12 +440,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 1], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that passing an array type to any where condition will replace
- * the passed array accordingly as a proper IN condition
- *
- * @return void
- */
+	/**
+	 * Tests that passing an array type to any where condition will replace
+	 * the passed array accordingly as a proper IN condition
+	 *
+	 * @return void
+	 */
 	public function testSelectWhereArrayType() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -458,11 +458,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 3], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that Query::orWhere() can be used to concatenate conditions with OR
- *
- * @return void
- **/
+	/**
+	 * Tests that Query::orWhere() can be used to concatenate conditions with OR
+	 *
+	 * @return void
+	 **/
 	public function testSelectOrWhere() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -476,11 +476,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 2], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that Query::andWhere() can be used to concatenate conditions with AND
- *
- * @return void
- **/
+	/**
+	 * Tests that Query::andWhere() can be used to concatenate conditions with AND
+	 *
+	 * @return void
+	 **/
 	public function testSelectAndWhere() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -502,12 +502,12 @@ class QueryTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests that combining Query::andWhere() and Query::orWhere() produces
- * correct conditions nesting
- *
- * @return void
- **/
+	/**
+	 * Tests that combining Query::andWhere() and Query::orWhere() produces
+	 * correct conditions nesting
+	 *
+	 * @return void
+	 **/
 	public function testSelectExpressionNesting() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -536,11 +536,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 3], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that Query::orWhere() can be used without calling where() before
- *
- * @return void
- **/
+	/**
+	 * Tests that Query::orWhere() can be used without calling where() before
+	 *
+	 * @return void
+	 **/
 	public function testSelectOrWhereNoPreviousCondition() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -554,11 +554,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 2], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that Query::andWhere() can be used without calling where() before
- *
- * @return void
- **/
+	/**
+	 * Tests that Query::andWhere() can be used without calling where() before
+	 *
+	 * @return void
+	 **/
 	public function testSelectAndWhereNoPreviousCondition() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -571,12 +571,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 1], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that it is possible to pass a closure to where() to build a set of
- * conditions and return the expression to be used
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to pass a closure to where() to build a set of
+	 * conditions and return the expression to be used
+	 *
+	 * @return void
+	 */
 	public function testSelectWhereUsingClosure() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -615,12 +615,12 @@ class QueryTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests that it is possible to pass a closure to andWhere() to build a set of
- * conditions and return the expression to be used
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to pass a closure to andWhere() to build a set of
+	 * conditions and return the expression to be used
+	 *
+	 * @return void
+	 */
 	public function testSelectAndWhereUsingClosure() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -646,12 +646,12 @@ class QueryTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests that it is possible to pass a closure to orWhere() to build a set of
- * conditions and return the expression to be used
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to pass a closure to orWhere() to build a set of
+	 * conditions and return the expression to be used
+	 *
+	 * @return void
+	 */
 	public function testSelectOrWhereUsingClosure() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -681,11 +681,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 1], $result->fetch('assoc'));
 	}
 
-/**
- * Tests using where conditions with operator methods
- *
- * @return void
- */
+	/**
+	 * Tests using where conditions with operator methods
+	 *
+	 * @return void
+	 */
 	public function testSelectWhereOperatorMethods() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -841,11 +841,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 3], $result->fetch('assoc'));
 	}
 
-/**
- * Tests nesting query expressions both using arrays and closures
- *
- * @return void
- **/
+	/**
+	 * Tests nesting query expressions both using arrays and closures
+	 *
+	 * @return void
+	 **/
 	public function testSelectExpressionComposition() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -914,12 +914,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 2], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that conditions can be nested with an unary operator using the array notation
- * and the not() method
- *
- * @return void
- **/
+	/**
+	 * Tests that conditions can be nested with an unary operator using the array notation
+	 * and the not() method
+	 *
+	 * @return void
+	 **/
 	public function testSelectWhereNot() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -960,11 +960,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 2], $result->fetch('assoc'));
 	}
 
-/**
- * Tests order() method both with simple fields and expressions
- *
- * @return void
- **/
+	/**
+	 * Tests order() method both with simple fields and expressions
+	 *
+	 * @return void
+	 **/
 	public function testSelectOrderBy() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1017,12 +1017,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 3], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that group by fields can be passed similar to select fields
- * and that it sends the correct query to the database
- *
- * @return void
- **/
+	/**
+	 * Tests that group by fields can be passed similar to select fields
+	 * and that it sends the correct query to the database
+	 *
+	 * @return void
+	 **/
 	public function testSelectGroup() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1047,12 +1047,12 @@ class QueryTest extends TestCase {
 		$this->assertCount(3, $result);
 	}
 
-/**
- * Tests that it is possible to select distinct rows, even filtering by one column
- * this is testing that there is an specific implementation for DISTINCT ON
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to select distinct rows, even filtering by one column
+	 * this is testing that there is an specific implementation for DISTINCT ON
+	 *
+	 * @return void
+	 */
 	public function testSelectDistinct() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1071,11 +1071,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(2, $result);
 	}
 
-/**
- * Tests that having() behaves pretty much the same as the where() method
- *
- * @return void
- */
+	/**
+	 * Tests that having() behaves pretty much the same as the where() method
+	 *
+	 * @return void
+	 */
 	public function testSelectHaving() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1101,12 +1101,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests that Query::orHaving() can be used to concatenate conditions with OR
- * in the having clause
- *
- * @return void
- */
+	/**
+	 * Tests that Query::orHaving() can be used to concatenate conditions with OR
+	 * in the having clause
+	 *
+	 * @return void
+	 */
 	public function testSelectOrHaving() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1147,12 +1147,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests that Query::andHaving() can be used to concatenate conditions with AND
- * in the having clause
- *
- * @return void
- */
+	/**
+	 * Tests that Query::andHaving() can be used to concatenate conditions with AND
+	 * in the having clause
+	 *
+	 * @return void
+	 */
 	public function testSelectAndHaving() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1191,11 +1191,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests selecting rows using a limit clause
- *
- * @return void
- **/
+	/**
+	 * Tests selecting rows using a limit clause
+	 *
+	 * @return void
+	 **/
 	public function testSelectLimit() {
 		$query = new Query($this->connection);
 		$result = $query->select('id')->from('articles')->limit(1)->execute();
@@ -1211,11 +1211,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(3, $result);
 	}
 
-/**
- * Tests selecting rows combining a limit and offset clause
- *
- * @return void
- **/
+	/**
+	 * Tests selecting rows combining a limit and offset clause
+	 *
+	 * @return void
+	 **/
 	public function testSelectOffset() {
 		$query = new Query($this->connection);
 		$result = $query->select('id')->from('comments')
@@ -1246,12 +1246,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 1], $result->fetch('assoc'));
 	}
 
-/**
- * Tests that Query objects can be included inside the select clause
- * and be used as a normal field, including binding any passed parameter
- *
- * @return void
- */
+	/**
+	 * Tests that Query objects can be included inside the select clause
+	 * and be used as a normal field, including binding any passed parameter
+	 *
+	 * @return void
+	 */
 	public function testSubqueryInSelect() {
 		$query = new Query($this->connection);
 		$subquery = (new Query($this->connection))
@@ -1289,12 +1289,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests that Query objects can be included inside the from clause
- * and be used as a normal table, including binding any passed parameter
- *
- * @return void
- */
+	/**
+	 * Tests that Query objects can be included inside the from clause
+	 * and be used as a normal table, including binding any passed parameter
+	 *
+	 * @return void
+	 */
 	public function testSuqueryInFrom() {
 		$query = new Query($this->connection);
 		$subquery = (new Query($this->connection))
@@ -1316,12 +1316,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests that Query objects can be included inside the where clause
- * and be used as a normal condition, including binding any passed parameter
- *
- * @return void
- */
+	/**
+	 * Tests that Query objects can be included inside the where clause
+	 * and be used as a normal condition, including binding any passed parameter
+	 *
+	 * @return void
+	 */
 	public function testSubqueryInWhere() {
 		$query = new Query($this->connection);
 		$subquery = (new Query($this->connection))
@@ -1358,11 +1358,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetchAll('assoc'));
 	}
 
-/**
- * Tests that it is possible to use a subquery in a join clause
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to use a subquery in a join clause
+	 *
+	 * @return void
+	 */
 	public function testSubqueyInJoin() {
 		$subquery = (new Query($this->connection))->select('*')->from('authors');
 
@@ -1383,11 +1383,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests that it is possible to one or multiple UNION statements in a query
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to one or multiple UNION statements in a query
+	 *
+	 * @return void
+	 */
 	public function testUnion() {
 		$union = (new Query($this->connection))->select(['id', 'title'])->from(['a' => 'articles']);
 		$query = new Query($this->connection);
@@ -1419,11 +1419,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($rows, $result->fetchAll());
 	}
 
-/**
- * Tests that UNION ALL can be built by setting the second param of union() to true
- *
- * @return void
- */
+	/**
+	 * Tests that UNION ALL can be built by setting the second param of union() to true
+	 *
+	 * @return void
+	 */
 	public function testUnionAll() {
 		$union = (new Query($this->connection))->select(['id', 'title'])->from(['a' => 'articles']);
 		$query = new Query($this->connection);
@@ -1447,11 +1447,11 @@ class QueryTest extends TestCase {
 		$this->assertNotEquals($rows, $result->fetchAll());
 	}
 
-/**
- * Tests stacking decorators for results and resetting the list of decorators
- *
- * @return void
- */
+	/**
+	 * Tests stacking decorators for results and resetting the list of decorators
+	 *
+	 * @return void
+	 */
 	public function testDecorateResults() {
 		$query = new Query($this->connection);
 		$result = $query
@@ -1496,11 +1496,11 @@ class QueryTest extends TestCase {
 		}
 	}
 
-/**
- * Test a basic delete using from()
- *
- * @return void
- */
+	/**
+	 * Test a basic delete using from()
+	 *
+	 * @return void
+	 */
 	public function testDeleteWithFrom() {
 		$query = new Query($this->connection);
 
@@ -1516,11 +1516,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(self::AUTHOR_COUNT, $result);
 	}
 
-/**
- * Test a basic delete with no from() call.
- *
- * @return void
- */
+	/**
+	 * Test a basic delete with no from() call.
+	 *
+	 * @return void
+	 */
 	public function testDeleteNoFrom() {
 		$query = new Query($this->connection);
 
@@ -1535,11 +1535,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(self::AUTHOR_COUNT, $result);
 	}
 
-/**
- * Test setting select() & delete() modes.
- *
- * @return void
- */
+	/**
+	 * Test setting select() & delete() modes.
+	 *
+	 * @return void
+	 */
 	public function testSelectAndDeleteOnSameQuery() {
 		$query = new Query($this->connection);
 		$result = $query->select()
@@ -1551,11 +1551,11 @@ class QueryTest extends TestCase {
 		$this->assertContains('authors WHERE 1 = 1', $result);
 	}
 
-/**
- * Test a simple update.
- *
- * @return void
- */
+	/**
+	 * Test a simple update.
+	 *
+	 * @return void
+	 */
 	public function testUpdateSimple() {
 		$query = new Query($this->connection);
 		$query->update('authors')
@@ -1568,11 +1568,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Test update with multiple fields.
- *
- * @return void
- */
+	/**
+	 * Test update with multiple fields.
+	 *
+	 * @return void
+	 */
 	public function testUpdateMultipleFields() {
 		$query = new Query($this->connection);
 		$query->update('articles')
@@ -1590,11 +1590,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Test updating multiple fields with an array.
- *
- * @return void
- */
+	/**
+	 * Test updating multiple fields with an array.
+	 *
+	 * @return void
+	 */
 	public function testUpdateMultipleFieldsArray() {
 		$query = new Query($this->connection);
 		$query->update('articles')
@@ -1615,11 +1615,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Test updates with an expression.
- *
- * @return void
- */
+	/**
+	 * Test updates with an expression.
+	 *
+	 * @return void
+	 */
 	public function testUpdateWithExpression() {
 		$query = new Query($this->connection);
 
@@ -1640,12 +1640,12 @@ class QueryTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * You cannot call values() before insert() it causes all sorts of pain.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * You cannot call values() before insert() it causes all sorts of pain.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testInsertValuesBeforeInsertFailure() {
 		$query = new Query($this->connection);
 		$query->select('*')->values([
@@ -1655,11 +1655,11 @@ class QueryTest extends TestCase {
 			]);
 	}
 
-/**
- * Test inserting a single row.
- *
- * @return void
- */
+	/**
+	 * Test inserting a single row.
+	 *
+	 * @return void
+	 */
 	public function testInsertSimple() {
 		$query = new Query($this->connection);
 		$query->insert('articles', ['title', 'body'])
@@ -1688,12 +1688,12 @@ class QueryTest extends TestCase {
 		$this->assertTable('articles', 1, $expected, ['id >=' => 4]);
 	}
 
-/**
- * Test an insert when not all the listed fields are provided.
- * Columns should be matched up where possible.
- *
- * @return void
- */
+	/**
+	 * Test an insert when not all the listed fields are provided.
+	 * Columns should be matched up where possible.
+	 *
+	 * @return void
+	 */
 	public function testInsertSparseRow() {
 		$query = new Query($this->connection);
 		$query->insert('articles', ['title', 'body'])
@@ -1721,11 +1721,11 @@ class QueryTest extends TestCase {
 		$this->assertTable('articles', 1, $expected, ['id >= 4']);
 	}
 
-/**
- * Test inserting multiple rows with sparse data.
- *
- * @return void
- */
+	/**
+	 * Test inserting multiple rows with sparse data.
+	 *
+	 * @return void
+	 */
 	public function testInsertMultipleRowsSparse() {
 		$query = new Query($this->connection);
 		$query->insert('articles', ['title', 'body'])
@@ -1758,11 +1758,11 @@ class QueryTest extends TestCase {
 		$this->assertTable('articles', 2, $expected, ['id >=' => 4]);
 	}
 
-/**
- * Test that INSERT INTO ... SELECT works.
- *
- * @return void
- */
+	/**
+	 * Test that INSERT INTO ... SELECT works.
+	 *
+	 * @return void
+	 */
 	public function testInsertFromSelect() {
 		$select = (new Query($this->connection))->select("name, 'some text', 99")
 			->from('authors')
@@ -1797,11 +1797,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $result->fetch('assoc'));
 	}
 
-/**
- * Test that an exception is raised when mixing query + array types.
- *
- * @expectedException Cake\Error\Exception
- */
+	/**
+	 * Test that an exception is raised when mixing query + array types.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 */
 	public function testInsertFailureMixingTypesArrayFirst() {
 		$query = new Query($this->connection);
 		$query->insert('articles', ['name'])
@@ -1809,11 +1809,11 @@ class QueryTest extends TestCase {
 			->values(new Query($this->connection));
 	}
 
-/**
- * Test that an exception is raised when mixing query + array types.
- *
- * @expectedException Cake\Error\Exception
- */
+	/**
+	 * Test that an exception is raised when mixing query + array types.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 */
 	public function testInsertFailureMixingTypesQueryFirst() {
 		$query = new Query($this->connection);
 		$query->insert('articles', ['name'])
@@ -1821,12 +1821,12 @@ class QueryTest extends TestCase {
 			->values(['name' => 'mark']);
 	}
 
-/**
- * Tests that functions are correctly transformed and their parameters are bound
- *
- * @group FunctionExpression
- * @return void
- */
+	/**
+	 * Tests that functions are correctly transformed and their parameters are bound
+	 *
+	 * @group FunctionExpression
+	 * @return void
+	 */
 	public function testSQLFunctions() {
 		$query = new Query($this->connection);
 		$result = $query->select(
@@ -1884,11 +1884,11 @@ class QueryTest extends TestCase {
 		);
 	}
 
-/**
- * Tests that default types are passed to functions accepting a $types param
- *
- * @return void
- */
+	/**
+	 * Tests that default types are passed to functions accepting a $types param
+	 *
+	 * @return void
+	 */
 	public function testDefaultTypes() {
 		$query = new Query($this->connection);
 		$this->assertEquals([], $query->defaultTypes());
@@ -1911,11 +1911,11 @@ class QueryTest extends TestCase {
 		$this->assertCount(6, $results, 'All 6 rows should match.');
 	}
 
-/**
- * Tests parameter binding
- *
- * @return void
- */
+	/**
+	 * Tests parameter binding
+	 *
+	 * @return void
+	 */
 	public function testBind() {
 		$query = new Query($this->connection);
 		$results = $query->select(['id', 'comment'])
@@ -1937,14 +1937,14 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results->fetchAll('assoc'));
 	}
 
-/**
- * Assertion for comparing a table's contents with what is in it.
- *
- * @param string $table
- * @param integer $count
- * @param array $rows
- * @return void
- */
+	/**
+	 * Assertion for comparing a table's contents with what is in it.
+	 *
+	 * @param string $table
+	 * @param integer $count
+	 * @param array $rows
+	 * @return void
+	 */
 	public function assertTable($table, $count, $rows, $conditions = []) {
 		$result = (new Query($this->connection))->select('*')
 			->from($table)

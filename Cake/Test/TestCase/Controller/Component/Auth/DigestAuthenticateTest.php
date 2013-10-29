@@ -32,18 +32,18 @@ require_once CAKE . 'Test/TestCase/Model/models.php';
  */
 class DigestAuthenticateTest extends TestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.user', 'core.auth_user');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -66,21 +66,21 @@ class DigestAuthenticateTest extends TestCase {
 		$this->response = $this->getMock('Cake\Network\Response');
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		$_SERVER = $this->server;
 	}
 
-/**
- * test applying settings in the constructor
- *
- * @return void
- */
+	/**
+	 * test applying settings in the constructor
+	 *
+	 * @return void
+	 */
 	public function testConstructor() {
 		$object = new DigestAuthenticate($this->Collection, array(
 			'userModel' => 'AuthUser',
@@ -93,11 +93,11 @@ class DigestAuthenticateTest extends TestCase {
 		$this->assertEquals(env('SERVER_NAME'), $object->settings['realm']);
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoData() {
 		$request = new Request('posts/index');
 
@@ -107,13 +107,13 @@ class DigestAuthenticateTest extends TestCase {
 		$this->assertFalse($this->auth->getUser($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @expectedException Cake\Error\UnauthorizedException
- * @expectedExceptionCode 401
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @expectedException Cake\Error\UnauthorizedException
+	 * @expectedExceptionCode 401
+	 * @return void
+	 */
 	public function testAuthenticateWrongUsername() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -133,11 +133,11 @@ DIGEST;
 		$this->auth->unauthenticated($request, $this->response);
 	}
 
-/**
- * test that challenge headers are sent when no credentials are found.
- *
- * @return void
- */
+	/**
+	 * test that challenge headers are sent when no credentials are found.
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateChallenge() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -153,11 +153,11 @@ DIGEST;
 		$this->assertEquals($expected, $e->responseHeader());
 	}
 
-/**
- * test authenticate success
- *
- * @return void
- */
+	/**
+	 * test authenticate success
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateSuccess() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -184,13 +184,13 @@ DIGEST;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test scope failure.
- *
- * @expectedException Cake\Error\UnauthorizedException
- * @expectedExceptionCode 401
- * @return void
- */
+	/**
+	 * test scope failure.
+	 *
+	 * @expectedException Cake\Error\UnauthorizedException
+	 * @expectedExceptionCode 401
+	 * @return void
+	 */
 	public function testAuthenticateFailReChallenge() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
 		$request = new Request('posts/index');
@@ -211,11 +211,11 @@ DIGEST;
 		$this->auth->unauthenticated($request, $this->response);
 	}
 
-/**
- * testParseDigestAuthData method
- *
- * @return void
- */
+	/**
+	 * testParseDigestAuthData method
+	 *
+	 * @return void
+	 */
 	public function testParseAuthData() {
 		$digest = <<<DIGEST
 			Digest username="Mufasa",
@@ -246,11 +246,11 @@ DIGEST;
 		$this->assertNull($result);
 	}
 
-/**
- * test parsing digest information with email addresses
- *
- * @return void
- */
+	/**
+	 * test parsing digest information with email addresses
+	 *
+	 * @return void
+	 */
 	public function testParseAuthEmailAddress() {
 		$digest = <<<DIGEST
 			Digest username="mark@example.com",
@@ -278,11 +278,11 @@ DIGEST;
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * test password hashing
- *
- * @return void
- */
+	/**
+	 * test password hashing
+	 *
+	 * @return void
+	 */
 	public function testPassword() {
 		$result = DigestAuthenticate::password('mark', 'password', 'localhost');
 		$expected = md5('mark:localhost:password');

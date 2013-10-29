@@ -25,11 +25,11 @@ class Postgres extends \Cake\Database\Driver {
 	use PDODriverTrait;
 	use PostgresDialectTrait;
 
-/**
- * Base configuration settings for Postgres driver
- *
- * @var array
- */
+	/**
+	 * Base configuration settings for Postgres driver
+	 *
+	 * @var array
+	 */
 	protected $_baseConfig = [
 		'persistent' => true,
 		'host' => 'localhost',
@@ -45,11 +45,11 @@ class Postgres extends \Cake\Database\Driver {
 		'dsn' => null
 	];
 
-/**
- * Establishes a connection to the databse server
- *
- * @return boolean true on success
- */
+	/**
+	 * Establishes a connection to the databse server
+	 *
+	 * @return boolean true on success
+	 */
 	public function connect() {
 		if ($this->_connection) {
 			return true;
@@ -84,31 +84,31 @@ class Postgres extends \Cake\Database\Driver {
 		return true;
 	}
 
-/**
- * Returns whether php is able to use this driver for connecting to database
- *
- * @return boolean true if it is valid to use this driver
- */
+	/**
+	 * Returns whether php is able to use this driver for connecting to database
+	 *
+	 * @return boolean true if it is valid to use this driver
+	 */
 	public function enabled() {
 		return in_array('pgsql', PDO::getAvailableDrivers());
 	}
 
-/**
- * Sets connection encoding
- *
- * @return void
- */
+	/**
+	 * Sets connection encoding
+	 *
+	 * @return void
+	 */
 	public function setEncoding($encoding) {
 		$this->connect();
 		$this->_connection->exec('SET NAMES ' . $this->_connection->quote($encoding));
 	}
 
-/**
- * Sets connection default schema, if any relation defined in a query is not fully qualified
- * postgres will fallback to looking the relation into defined default schema
- *
- * @return void
- */
+	/**
+	 * Sets connection default schema, if any relation defined in a query is not fully qualified
+	 * postgres will fallback to looking the relation into defined default schema
+	 *
+	 * @return void
+	 */
 	public function setSchema($schema) {
 		$this->connect();
 		$this->_connection->exec('SET search_path TO ' . $this->_connection->quote($schema));

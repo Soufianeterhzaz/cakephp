@@ -28,22 +28,22 @@ class ContentFixture extends TestFixture {
 
 	public $table = 'Content';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'iContentId' => ['type' => 'integer'],
 		'cDescription' => ['type' => 'string', 'length' => 50, 'null' => true],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['iContentId']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('cDescription' => 'Test Content 1'),
 		array('cDescription' => 'Test Content 2'),

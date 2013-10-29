@@ -26,18 +26,18 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class JoinABFixture extends TestFixture {
 
-/**
- * name property
- *
- * @var string 'JoinAsJoinB'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'JoinAsJoinB'
+	 */
 	public $name = 'JoinAsJoinB';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'join_a_id' => ['type' => 'integer', 'length' => 10, 'null' => true],
@@ -48,11 +48,11 @@ class JoinABFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('join_a_id' => 1, 'join_b_id' => 2, 'other' => 'Data for Join A 1 Join B 2', 'created' => '2008-01-03 10:56:33', 'updated' => '2008-01-03 10:56:33'),
 		array('join_a_id' => 2, 'join_b_id' => 3, 'other' => 'Data for Join A 2 Join B 3', 'created' => '2008-01-03 10:56:34', 'updated' => '2008-01-03 10:56:34'),

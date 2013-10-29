@@ -23,11 +23,11 @@ use Cake\TestSuite\TestCase;
  */
 class DigestTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -38,11 +38,11 @@ class DigestTest extends TestCase {
 		$this->auth = new Digest($this->client);
 	}
 
-/**
- * test getting data from additional request method
- *
- * @return void
- */
+	/**
+	 * test getting data from additional request method
+	 *
+	 * @return void
+	 */
 	public function testRealmAndNonceFromExtraRequest() {
 		$headers = [
 			'WWW-Authenticate: Digest realm="The batcave",nonce="4cded326c6c51"'
@@ -69,11 +69,11 @@ class DigestTest extends TestCase {
 		$this->assertNotContains('nc=', $result);
 	}
 
-/**
- * testQop method
- *
- * @return void
- */
+	/**
+	 * testQop method
+	 *
+	 * @return void
+	 */
 	public function testQop() {
 		$headers = [
 			'WWW-Authenticate: Digest realm="The batcave",nonce="4cded326c6c51",qop="auth"'
@@ -96,11 +96,11 @@ class DigestTest extends TestCase {
 		$this->assertRegexp('/cnonce="[a-z0-9]+"/', $result);
 	}
 
-/**
- * testOpaque method
- *
- * @return void
- */
+	/**
+	 * testOpaque method
+	 *
+	 * @return void
+	 */
 	public function testOpaque() {
 		$headers = [
 			'WWW-Authenticate: Digest realm="The batcave",nonce="4cded326c6c51",opaque="d8ea7aa61a1693024c4cc3a516f49b3c"'

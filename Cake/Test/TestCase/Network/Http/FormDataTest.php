@@ -22,11 +22,11 @@ use Cake\TestSuite\TestCase;
  */
 class FormDataTest extends TestCase {
 
-/**
- * Test getting the boundary.
- *
- * @return void
- */
+	/**
+	 * Test getting the boundary.
+	 *
+	 * @return void
+	 */
 	public function testBoundary() {
 		$data = new FormData();
 		$result = $data->boundary();
@@ -36,22 +36,22 @@ class FormDataTest extends TestCase {
 		$this->assertEquals($result, $result2);
 	}
 
-/**
- * test adding parts returns this.
- *
- * @return void
- */
+	/**
+	 * test adding parts returns this.
+	 *
+	 * @return void
+	 */
 	public function testAddReturnThis() {
 		$data = new FormData();
 		$return = $data->add('test', 'value');
 		$this->assertSame($data, $return);
 	}
 
-/**
- * Test adding parts that are simple.
- *
- * @return void
- */
+	/**
+	 * Test adding parts that are simple.
+	 *
+	 * @return void
+	 */
 	public function testAddSimple() {
 		$data = new FormData();
 		$data->add('test', 'value')
@@ -81,11 +81,11 @@ class FormDataTest extends TestCase {
 		$this->assertEquals(implode("\r\n", $expected), $result);
 	}
 
-/**
- * Test adding parts that are arrays.
- *
- * @return void
- */
+	/**
+	 * Test adding parts that are arrays.
+	 *
+	 * @return void
+	 */
 	public function testAddArray() {
 		$data = new FormData();
 		$data->add('Article', [
@@ -120,11 +120,11 @@ class FormDataTest extends TestCase {
 		$this->assertEquals(implode("\r\n", $expected), $result);
 	}
 
-/**
- * Test adding a part with a file in it.
- *
- * @return void
- */
+	/**
+	 * Test adding a part with a file in it.
+	 *
+	 * @return void
+	 */
 	public function testAddArrayWithFile() {
 		$file = CORE_PATH . 'VERSION.txt';
 		$contents = file_get_contents($file);
@@ -154,11 +154,11 @@ class FormDataTest extends TestCase {
 		$this->assertEquals(implode("\r\n", $expected), $result);
 	}
 
-/**
- * Test adding a part with a file in it.
- *
- * @return void
- */
+	/**
+	 * Test adding a part with a file in it.
+	 *
+	 * @return void
+	 */
 	public function testAddFile() {
 		$file = CORE_PATH . 'VERSION.txt';
 		$contents = file_get_contents($file);
@@ -181,11 +181,11 @@ class FormDataTest extends TestCase {
 		$this->assertEquals(implode("\r\n", $expected), $result);
 	}
 
-/**
- * Test adding a part with a filehandle.
- *
- * @return void
- */
+	/**
+	 * Test adding a part with a filehandle.
+	 *
+	 * @return void
+	 */
 	public function testAddFileHandle() {
 		$file = CORE_PATH . 'VERSION.txt';
 		$fh = fopen($file, 'r');

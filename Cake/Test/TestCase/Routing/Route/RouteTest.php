@@ -30,21 +30,21 @@ use Cake\TestSuite\TestCase;
  **/
 class RouteTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Routing', array('admin' => null, 'prefixes' => array()));
 	}
 
-/**
- * Test the construction of a Route
- *
- * @return void
- */
+	/**
+	 * Test the construction of a Route
+	 *
+	 * @return void
+	 */
 	public function testConstruction() {
 		$route = new Route('/:controller/:action/:id', array(), array('id' => '[0-9]+'));
 
@@ -54,11 +54,11 @@ class RouteTest extends TestCase {
 		$this->assertFalse($route->compiled());
 	}
 
-/**
- * test Route compiling.
- *
- * @return void
- */
+	/**
+	 * test Route compiling.
+	 *
+	 * @return void
+	 */
 	public function testBasicRouteCompiling() {
 		$route = new Route('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 		$result = $route->compile();
@@ -91,11 +91,11 @@ class RouteTest extends TestCase {
 		$this->assertRegExp($result, '/test_plugin/posts/edit/5/name:value/nick:name');
 	}
 
-/**
- * Test parsing routes with extensions.
- *
- * @return void
- */
+	/**
+	 * Test parsing routes with extensions.
+	 *
+	 * @return void
+	 */
 	public function testRouteParsingWithExtensions() {
 		$route = new Route(
 			'/:controller/:action/*',
@@ -120,11 +120,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('xml', $result['_ext']);
 	}
 
-/**
- * test that route parameters that overlap don't cause errors.
- *
- * @return void
- */
+	/**
+	 * test that route parameters that overlap don't cause errors.
+	 *
+	 * @return void
+	 */
 	public function testRouteParameterOverlap() {
 		$route = new Route('/invoices/add/:idd/:id', array('controller' => 'invoices', 'action' => 'add'));
 		$result = $route->compile();
@@ -135,11 +135,11 @@ class RouteTest extends TestCase {
 		$this->assertRegExp($result, '/invoices/add/1/3');
 	}
 
-/**
- * test compiling routes with keys that have patterns
- *
- * @return void
- */
+	/**
+	 * test compiling routes with keys that have patterns
+	 *
+	 * @return void
+	 */
 	public function testRouteCompilingWithParamPatterns() {
 		$route = new Route(
 			'/:controller/:action/:id',
@@ -204,12 +204,12 @@ class RouteTest extends TestCase {
 		$this->assertEquals(array('url_title', 'id'), $route->keys);
 	}
 
-/**
- * test more complex route compiling & parsing with mid route greedy stars
- * and optional routing parameters
- *
- * @return void
- */
+	/**
+	 * test more complex route compiling & parsing with mid route greedy stars
+	 * and optional routing parameters
+	 *
+	 * @return void
+	 */
 	public function testComplexRouteCompilingAndParsing() {
 		$route = new Route(
 			'/posts/:month/:day/:year/*',
@@ -263,11 +263,11 @@ class RouteTest extends TestCase {
 		$this->assertNotRegExp($result, '/source/wierd_action');
 	}
 
-/**
- * test that routes match their pattern.
- *
- * @return void
- */
+	/**
+	 * test that routes match their pattern.
+	 *
+	 * @return void
+	 */
 	public function testMatchBasic() {
 		$route = new Route('/:controller/:action/:id', array('plugin' => null));
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view', 'plugin' => null));
@@ -343,9 +343,9 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test match() with _host and other keys.
- */
+	/**
+	 * Test match() with _host and other keys.
+	 */
 	public function testMatchWithHostKeys() {
 		$context = array(
 			'_host' => 'foo.com',
@@ -392,11 +392,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('https://example.com:8080/dir/posts/index', $result);
 	}
 
-/**
- * test that non-greedy routes fail with extra passed args
- *
- * @return void
- */
+	/**
+	 * test that non-greedy routes fail with extra passed args
+	 *
+	 * @return void
+	 */
 	public function testGreedyRouteFailurePassedArg() {
 		$route = new Route('/:controller/:action', array('plugin' => null));
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view', '0'));
@@ -407,11 +407,11 @@ class RouteTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * test that falsey values do not interrupt a match.
- *
- * @return void
- */
+	/**
+	 * test that falsey values do not interrupt a match.
+	 *
+	 * @return void
+	 */
 	public function testMatchWithFalseyValues() {
 		$route = new Route('/:controller/:action/*', array('plugin' => null));
 		$result = $route->match(array(
@@ -420,11 +420,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('/posts/index/', $result);
 	}
 
-/**
- * test match() with greedy routes, and passed args.
- *
- * @return void
- */
+	/**
+	 * test match() with greedy routes, and passed args.
+	 *
+	 * @return void
+	 */
 	public function testMatchWithPassedArgs() {
 		$route = new Route('/:controller/:action/*', array('plugin' => null));
 
@@ -451,11 +451,11 @@ class RouteTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * Test that extensions work.
- *
- * @return void
- */
+	/**
+	 * Test that extensions work.
+	 *
+	 * @return void
+	 */
 	public function testMatchWithExtension() {
 		$route = new Route('/:controller/:action');
 		$result = $route->match(array(
@@ -482,11 +482,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('/posts/view/1.json', $result);
 	}
 
-/**
- * test that match with patterns works.
- *
- * @return void
- */
+	/**
+	 * test that match with patterns works.
+	 *
+	 * @return void
+	 */
 	public function testMatchWithPatterns() {
 		$route = new Route('/:controller/:action/:id', array('plugin' => null), array('id' => '[0-9]+'));
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view', 'id' => 'foo'));
@@ -502,11 +502,11 @@ class RouteTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * Test that match() pulls out extra arguments as query string params.
- *
- * @return void
- */
+	/**
+	 * Test that match() pulls out extra arguments as query string params.
+	 *
+	 * @return void
+	 */
 	public function testMatchExtractQueryStringArgs() {
 		$route = new Route('/:controller/:action/*');
 		$result = $route->match(array(
@@ -534,11 +534,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('/posts/index/1?page=1&dir=desc&order=title', $result);
 	}
 
-/**
- * Test separartor.
- *
- * @return void
- */
+	/**
+	 * Test separartor.
+	 *
+	 * @return void
+	 */
 	public function testQueryStringGeneration() {
 		$route = new Route('/:controller/:action/*');
 
@@ -558,11 +558,11 @@ class RouteTest extends TestCase {
 		ini_set('arg_separator.output', $restore);
 	}
 
-/**
- * test the parse method of Route.
- *
- * @return void
- */
+	/**
+	 * test the parse method of Route.
+	 *
+	 * @return void
+	 */
 	public function testParse() {
 		$route = new Route(
 			'/:controller/:action/:id',
@@ -588,11 +588,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('index', $result['action']);
 	}
 
-/**
- * Test that :key elements are urldecoded
- *
- * @return void
- */
+	/**
+	 * Test that :key elements are urldecoded
+	 *
+	 * @return void
+	 */
 	public function testParseUrlDecodeElements() {
 		$route = new Route(
 			'/:controller/:slug',
@@ -610,11 +610,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('∂∂', $result['slug']);
 	}
 
-/**
- * test numerically indexed defaults, get appended to pass
- *
- * @return void
- */
+	/**
+	 * test numerically indexed defaults, get appended to pass
+	 *
+	 * @return void
+	 */
 	public function testParseWithPassDefaults() {
 		$route = new Route('/:controller', array('action' => 'display', 'home'));
 		$result = $route->parse('/posts');
@@ -626,11 +626,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that http header conditions can cause route failures.
- *
- * @return void
- */
+	/**
+	 * test that http header conditions can cause route failures.
+	 *
+	 * @return void
+	 */
 	public function testParseWithHttpHeaderConditions() {
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 		$route = new Route('/sample', ['controller' => 'posts', 'action' => 'index', '[method]' => 'POST']);
@@ -646,11 +646,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $route->parse('/sample'));
 	}
 
-/**
- * test that http header conditions can cause route failures.
- *
- * @return void
- */
+	/**
+	 * test that http header conditions can cause route failures.
+	 *
+	 * @return void
+	 */
 	public function testParseWithMultipleHttpMethodConditions() {
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 		$route = new Route('/sample', [
@@ -670,11 +670,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $route->parse('/sample'));
 	}
 
-/**
- * Test that the [type] condition works.
- *
- * @return void
- */
+	/**
+	 * Test that the [type] condition works.
+	 *
+	 * @return void
+	 */
 	public function testParseWithContentTypeCondition() {
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		unset($_SERVER['CONTENT_TYPE']);
@@ -702,11 +702,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $route->parse('/sample'));
 	}
 
-/**
- * test that patterns work for :action
- *
- * @return void
- */
+	/**
+	 * test that patterns work for :action
+	 *
+	 * @return void
+	 */
 	public function testPatternOnAction() {
 		$route = new Route(
 			'/blog/:action/*',
@@ -727,11 +727,11 @@ class RouteTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * test the parseArgs method
- *
- * @return void
- */
+	/**
+	 * test the parseArgs method
+	 *
+	 * @return void
+	 */
 	public function testParsePassedArgument() {
 		$route = new Route('/:controller/:action/*');
 		$result = $route->parse('/posts/edit/1/2/0');
@@ -743,11 +743,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test restructuring args with pass key
- *
- * @return void
- */
+	/**
+	 * test restructuring args with pass key
+	 *
+	 * @return void
+	 */
 	public function testPassArgRestructure() {
 		$route = new Route('/:controller/:action/:slug', array(), array(
 			'pass' => array('slug')
@@ -762,11 +762,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result, 'Slug should have moved');
 	}
 
-/**
- * Test the /** special type on parsing.
- *
- * @return void
- */
+	/**
+	 * Test the /** special type on parsing.
+	 *
+	 * @return void
+	 */
 	public function testParseTrailing() {
 		$route = new Route('/:controller/:action/**');
 		$result = $route->parse('/posts/index/1/2/3/foo:bar');
@@ -786,11 +786,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the /** special type on parsing - UTF8.
- *
- * @return void
- */
+	/**
+	 * Test the /** special type on parsing - UTF8.
+	 *
+	 * @return void
+	 */
 	public function testParseTrailingUTF8() {
 		$route = new Route('/category/**', array('controller' => 'categories', 'action' => 'index'));
 		$result = $route->parse('/category/%D9%85%D9%88%D8%A8%D8%A7%DB%8C%D9%84');
@@ -802,11 +802,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test getName();
- *
- * @return void
- */
+	/**
+	 * test getName();
+	 *
+	 * @return void
+	 */
 	public function testGetName() {
 		$route = new Route('/foo/bar', array(), array('_name' => 'testing'));
 		$this->assertEquals('testing', $route->getName());
@@ -824,11 +824,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('_controller:_action', $route->getName());
 	}
 
-/**
- * Test getName() with plugins.
- *
- * @return void
- */
+	/**
+	 * Test getName() with plugins.
+	 *
+	 * @return void
+	 */
 	public function testGetNamePlugins() {
 		$route = new Route(
 			'/a/:controller/:action',
@@ -849,11 +849,11 @@ class RouteTest extends TestCase {
 		$this->assertEquals('asset.assets:get', $route->getName());
 	}
 
-/**
- * test that utf-8 patterns work for :section
- *
- * @return void
- */
+	/**
+	 * test that utf-8 patterns work for :section
+	 *
+	 * @return void
+	 */
 	public function testUTF8PatternOnSection() {
 		$route = new Route(
 			'/:section',

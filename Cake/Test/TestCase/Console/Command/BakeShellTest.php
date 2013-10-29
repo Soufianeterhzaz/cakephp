@@ -22,18 +22,18 @@ use Cake\TestSuite\TestCase;
 
 class BakeShellTest extends TestCase {
 
-/**
- * fixtures
- *
- * @var array
- */
+	/**
+	 * fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.comment');
 
-/**
- * setup test
- *
- * @return void
- */
+	/**
+	 * setup test
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('Cake\Console\ConsoleOutput', [], [], '', false);
@@ -47,21 +47,21 @@ class BakeShellTest extends TestCase {
 		Configure::write('App.namespace', 'TestApp');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Dispatch, $this->Shell);
 	}
 
-/**
- * test bake all
- *
- * @return void
- */
+	/**
+	 * test bake all
+	 *
+	 * @return void
+	 */
 	public function testAllWithModelName() {
 		$dispatcher =& $this->Dispatcher;
 

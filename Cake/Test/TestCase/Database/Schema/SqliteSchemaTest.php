@@ -28,21 +28,21 @@ use Cake\TestSuite\TestCase;
  */
 class SqliteSchemaTest extends TestCase {
 
-/**
- * Helper method for skipping tests that need a real connection.
- *
- * @return void
- */
+	/**
+	 * Helper method for skipping tests that need a real connection.
+	 *
+	 * @return void
+	 */
 	protected function _needsConnection() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(strpos($config['className'], 'Sqlite') === false, 'Not using Sqlite for test config');
 	}
 
-/**
- * Data provider for convert column testing
- *
- * @return array
- */
+	/**
+	 * Data provider for convert column testing
+	 *
+	 * @return array
+	 */
 	public static function convertColumnProvider() {
 		return [
 			[
@@ -108,12 +108,12 @@ class SqliteSchemaTest extends TestCase {
 		];
 	}
 
-/**
- * Test parsing SQLite column types from field description.
- *
- * @dataProvider convertColumnProvider
- * @return void
- */
+	/**
+	 * Test parsing SQLite column types from field description.
+	 *
+	 * @dataProvider convertColumnProvider
+	 * @return void
+	 */
 	public function testConvertColumn($type, $expected) {
 		$field = [
 			'pk' => false,
@@ -136,12 +136,12 @@ class SqliteSchemaTest extends TestCase {
 		$dialect->convertFieldDescription($table, $field);
 	}
 
-/**
- * Creates tables for testing listTables/describe()
- *
- * @param Connection $connection
- * @return void
- */
+	/**
+	 * Creates tables for testing listTables/describe()
+	 *
+	 * @param Connection $connection
+	 * @return void
+	 */
 	protected function _createTables($connection) {
 		$this->_needsConnection();
 		$connection->execute('DROP TABLE IF EXISTS schema_articles');
@@ -173,11 +173,11 @@ SQL;
 		$connection->execute('CREATE INDEX "created_idx" ON "schema_articles" ("created")');
 	}
 
-/**
- * Test SchemaCollection listing tables with Sqlite
- *
- * @return void
- */
+	/**
+	 * Test SchemaCollection listing tables with Sqlite
+	 *
+	 * @return void
+	 */
 	public function testListTables() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -192,11 +192,11 @@ SQL;
 		$this->assertEquals('sqlite_sequence', $result[2]);
 	}
 
-/**
- * Test describing a table with Sqlite
- *
- * @return void
- */
+	/**
+	 * Test describing a table with Sqlite
+	 *
+	 * @return void
+	 */
 	public function testDescribeTable() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -266,11 +266,11 @@ SQL;
 		}
 	}
 
-/**
- * Test describing a table with indexes
- *
- * @return void
- */
+	/**
+	 * Test describing a table with indexes
+	 *
+	 * @return void
+	 */
 	public function testDescribeTableIndexes() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -318,11 +318,11 @@ SQL;
 		$this->assertEquals($expected, $result->index('created_idx'));
 	}
 
-/**
- * Column provider for creating column sql
- *
- * @return array
- */
+	/**
+	 * Column provider for creating column sql
+	 *
+	 * @return array
+	 */
 	public static function columnSqlProvider() {
 		return [
 			// strings
@@ -432,12 +432,12 @@ SQL;
 		];
 	}
 
-/**
- * Test generating column definitions
- *
- * @dataProvider columnSqlProvider
- * @return void
- */
+	/**
+	 * Test generating column definitions
+	 *
+	 * @dataProvider columnSqlProvider
+	 * @return void
+	 */
 	public function testColumnSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new SqliteSchema($driver);
@@ -446,11 +446,11 @@ SQL;
 		$this->assertEquals($expected, $schema->columnSql($table, $name));
 	}
 
-/**
- * Test generating a column that is a primary key.
- *
- * @return void
- */
+	/**
+	 * Test generating a column that is a primary key.
+	 *
+	 * @return void
+	 */
 	public function testColumnSqlPrimaryKey() {
 		$driver = $this->_getMockedDriver();
 		$schema = new SqliteSchema($driver);
@@ -471,11 +471,11 @@ SQL;
 		$this->assertEquals('', $result, 'Integer primary keys are special in sqlite.');
 	}
 
-/**
- * Test generating a bigint column that is a primary key.
- *
- * @return void
- */
+	/**
+	 * Test generating a bigint column that is a primary key.
+	 *
+	 * @return void
+	 */
 	public function testColumnSqlPrimaryKeyBigInt() {
 		$driver = $this->_getMockedDriver();
 		$schema = new SqliteSchema($driver);
@@ -496,11 +496,11 @@ SQL;
 		$this->assertEquals('CONSTRAINT "primary" PRIMARY KEY ("id")', $result, 'Bigint primary keys are not special.');
 	}
 
-/**
- * Provide data for testing constraintSql
- *
- * @return array
- */
+	/**
+	 * Provide data for testing constraintSql
+	 *
+	 * @return array
+	 */
 	public static function constraintSqlProvider() {
 		return [
 			[
@@ -546,11 +546,11 @@ SQL;
 		];
 	}
 
-/**
- * Test the constraintSql method.
- *
- * @dataProvider constraintSqlProvider
- */
+	/**
+	 * Test the constraintSql method.
+	 *
+	 * @dataProvider constraintSqlProvider
+	 */
 	public function testConstraintSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new SqliteSchema($driver);
@@ -565,11 +565,11 @@ SQL;
 		$this->assertEquals($expected, $schema->constraintSql($table, $name));
 	}
 
-/**
- * Provide data for testing indexSql
- *
- * @return array
- */
+	/**
+	 * Provide data for testing indexSql
+	 *
+	 * @return array
+	 */
 	public static function indexSqlProvider() {
 		return [
 			[
@@ -580,11 +580,11 @@ SQL;
 		];
 	}
 
-/**
- * Test the indexSql method.
- *
- * @dataProvider indexSqlProvider
- */
+	/**
+	 * Test the indexSql method.
+	 *
+	 * @dataProvider indexSqlProvider
+	 */
 	public function testIndexSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new SqliteSchema($driver);
@@ -599,11 +599,11 @@ SQL;
 		$this->assertEquals($expected, $schema->indexSql($table, $name));
 	}
 
-/**
- * Integration test for converting a Schema\Table into MySQL table creates.
- *
- * @return void
- */
+	/**
+	 * Integration test for converting a Schema\Table into MySQL table creates.
+	 *
+	 * @return void
+	 */
 	public function testCreateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -646,11 +646,11 @@ SQL;
 		);
 	}
 
-/**
- * test dropSql
- *
- * @return void
- */
+	/**
+	 * test dropSql
+	 *
+	 * @return void
+	 */
 	public function testDropSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -663,11 +663,11 @@ SQL;
 		$this->assertEquals('DROP TABLE "articles"', $result[0]);
 	}
 
-/**
- * Test truncateSql()
- *
- * @return void
- */
+	/**
+	 * Test truncateSql()
+	 *
+	 * @return void
+	 */
 	public function testTruncateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -681,11 +681,11 @@ SQL;
 		$this->assertEquals('DELETE FROM "articles"', $result[1]);
 	}
 
-/**
- * Get a schema instance with a mocked driver/pdo instances
- *
- * @return Driver
- */
+	/**
+	 * Get a schema instance with a mocked driver/pdo instances
+	 *
+	 * @return Driver
+	 */
 	protected function _getMockedDriver() {
 		$driver = new \Cake\Database\Driver\Sqlite();
 		$mock = $this->getMock('FakePdo', ['quote', 'quoteIdentifier']);

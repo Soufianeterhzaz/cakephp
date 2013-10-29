@@ -31,11 +31,11 @@ use Cake\TestSuite\TestCase;
  */
 class TemplateTaskTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
@@ -47,33 +47,33 @@ class TemplateTaskTest extends TestCase {
 		);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task);
 	}
 
-/**
- * test finding themes installed in
- *
- * @return void
- */
+	/**
+	 * test finding themes installed in
+	 *
+	 * @return void
+	 */
 	public function testFindingInstalledThemesForBake() {
 		$consoleLibs = CAKE . 'Console/';
 		$this->Task->initialize();
 		$this->assertEquals($this->Task->templatePaths['default'], $consoleLibs . 'Templates/default/');
 	}
 
-/**
- * test getting the correct theme name. Ensure that with only one theme, or a theme param
- * that the user is not bugged. If there are more, find and return the correct theme name
- *
- * @return void
- */
+	/**
+	 * test getting the correct theme name. Ensure that with only one theme, or a theme param
+	 * that the user is not bugged. If there are more, find and return the correct theme name
+	 *
+	 * @return void
+	 */
 	public function testGetThemePath() {
 		$defaultTheme = CAKE . 'Console/Templates/default/';
 		$this->Task->templatePaths = array('default' => $defaultTheme);
@@ -94,11 +94,11 @@ class TemplateTaskTest extends TestCase {
 		$this->assertEquals('other', $this->Task->params['theme']);
 	}
 
-/**
- * test generate
- *
- * @return void
- */
+	/**
+	 * test generate
+	 *
+	 * @return void
+	 */
 	public function testGenerate() {
 		$this->Task->initialize();
 		$this->Task->expects($this->any())->method('in')->will($this->returnValue(1));
@@ -108,12 +108,12 @@ class TemplateTaskTest extends TestCase {
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test generate with a missing template in the chosen theme.
- * ensure fallback to default works.
- *
- * @return void
- */
+	/**
+	 * test generate with a missing template in the chosen theme.
+	 * ensure fallback to default works.
+	 *
+	 * @return void
+	 */
 	public function testGenerateWithTemplateFallbacks() {
 		$this->Task->initialize();
 		$this->Task->params['theme'] = 'test';

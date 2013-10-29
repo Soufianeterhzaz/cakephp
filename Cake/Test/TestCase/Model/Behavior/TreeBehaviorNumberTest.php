@@ -31,18 +31,18 @@ require_once dirname(__DIR__) . DS . 'models.php';
  */
 class TreeBehaviorNumberTest extends TestCase {
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var boolean
- */
+	/**
+	 * Whether backup global state for each test method or not
+	 *
+	 * @var boolean
+	 */
 	public $backupGlobals = false;
 
-/**
- * settings property
- *
- * @var array
- */
+	/**
+	 * settings property
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'modelClass' => 'NumberTree',
 		'leftField' => 'lft',
@@ -50,22 +50,22 @@ class TreeBehaviorNumberTest extends TestCase {
 		'parentField' => 'parent_id'
 	);
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.number_tree', 'core.person');
 
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Not runnable until Models are fixed.');
 	}
-/**
- * testInitialize method
- *
- * @return void
- */
+	/**
+	 * testInitialize method
+	 *
+	 * @return void
+	 */
 	public function testInitialize() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -79,11 +79,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testDetectInvalidLeft method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidLeft method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidLeft() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -107,11 +107,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidRight method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidRight method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidRight() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -135,11 +135,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidParent method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidParent method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -161,11 +161,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectNoneExistentParent method
- *
- * @return void
- */
+	/**
+	 * testDetectNoneExistentParent method
+	 *
+	 * @return void
+	 */
 	public function testDetectNoneExistentParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -185,11 +185,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testRecoverUsingParentMode method
- *
- * @return void
- */
+	/**
+	 * testRecoverUsingParentMode method
+	 *
+	 * @return void
+	 */
 	public function testRecoverUsingParentMode() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -241,11 +241,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecoverUsingParentModeAndDelete method
- *
- * @return void
- */
+	/**
+	 * testRecoverUsingParentModeAndDelete method
+	 *
+	 * @return void
+	 */
 	public function testRecoverUsingParentModeAndDelete() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -315,11 +315,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecoverFromMissingParent method
- *
- * @return void
- */
+	/**
+	 * testRecoverFromMissingParent method
+	 *
+	 * @return void
+	 */
 	public function testRecoverFromMissingParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -339,11 +339,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidParents method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidParents method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidParents() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -362,11 +362,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidLftsRghts method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidLftsRghts method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidLftsRghts() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -384,11 +384,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * Reproduces a situation where a single node has lft= rght, and all other lft and rght fields follow sequentially
- *
- * @return void
- */
+	/**
+	 * Reproduces a situation where a single node has lft= rght, and all other lft and rght fields follow sequentially
+	 *
+	 * @return void
+	 */
 	public function testDetectEqualLftsRghts() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -412,11 +412,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testAddOrphan method
- *
- * @return void
- */
+	/**
+	 * testAddOrphan method
+	 *
+	 * @return void
+	 */
 	public function testAddOrphan() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -433,11 +433,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testAddMiddle method
- *
- * @return void
- */
+	/**
+	 * testAddMiddle method
+	 *
+	 * @return void
+	 */
 	public function testAddMiddle() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -465,11 +465,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testAddWithPreSpecifiedId method
- *
- * @return void
- */
+	/**
+	 * testAddWithPreSpecifiedId method
+	 *
+	 * @return void
+	 */
 	public function testAddWithPreSpecifiedId() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -496,11 +496,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($this->Tree->verify());
 	}
 
-/**
- * testAddInvalid method
- *
- * @return void
- */
+	/**
+	 * testAddInvalid method
+	 *
+	 * @return void
+	 */
 	public function testAddInvalid() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -522,11 +522,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testAddNotIndexedByModel method
- *
- * @return void
- */
+	/**
+	 * testAddNotIndexedByModel method
+	 *
+	 * @return void
+	 */
 	public function testAddNotIndexedByModel() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -543,11 +543,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMovePromote method
- *
- * @return void
- */
+	/**
+	 * testMovePromote method
+	 *
+	 * @return void
+	 */
 	public function testMovePromote() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -570,11 +570,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveWithWhitelist method
- *
- * @return void
- */
+	/**
+	 * testMoveWithWhitelist method
+	 *
+	 * @return void
+	 */
 	public function testMoveWithWhitelist() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -598,11 +598,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($this->Tree->verify());
 	}
 
-/**
- * testInsertWithWhitelist method
- *
- * @return void
- */
+	/**
+	 * testInsertWithWhitelist method
+	 *
+	 * @return void
+	 */
 	public function testInsertWithWhitelist() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -618,11 +618,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($this->Tree->verify());
 	}
 
-/**
- * testMoveBefore method
- *
- * @return void
- */
+	/**
+	 * testMoveBefore method
+	 *
+	 * @return void
+	 */
 	public function testMoveBefore() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -647,11 +647,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveAfter method
- *
- * @return void
- */
+	/**
+	 * testMoveAfter method
+	 *
+	 * @return void
+	 */
 	public function testMoveAfter() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -676,11 +676,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveDemoteInvalid method
- *
- * @return void
- */
+	/**
+	 * testMoveDemoteInvalid method
+	 *
+	 * @return void
+	 */
 	public function testMoveDemoteInvalid() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -709,11 +709,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveInvalid method
- *
- * @return void
- */
+	/**
+	 * testMoveInvalid method
+	 *
+	 * @return void
+	 */
 	public function testMoveInvalid() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -734,11 +734,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveSelfInvalid method
- *
- * @return void
- */
+	/**
+	 * testMoveSelfInvalid method
+	 *
+	 * @return void
+	 */
 	public function testMoveSelfInvalid() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -760,11 +760,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveUpSuccess method
- *
- * @return void
- */
+	/**
+	 * testMoveUpSuccess method
+	 *
+	 * @return void
+	 */
 	public function testMoveUpSuccess() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -782,11 +782,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveUpFail method
- *
- * @return void
- */
+	/**
+	 * testMoveUpFail method
+	 *
+	 * @return void
+	 */
 	public function testMoveUpFail() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -805,11 +805,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveUp2 method
- *
- * @return void
- */
+	/**
+	 * testMoveUp2 method
+	 *
+	 * @return void
+	 */
 	public function testMoveUp2() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -836,11 +836,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveUpFirst method
- *
- * @return void
- */
+	/**
+	 * testMoveUpFirst method
+	 *
+	 * @return void
+	 */
 	public function testMoveUpFirst() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -867,11 +867,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveDownSuccess method
- *
- * @return void
- */
+	/**
+	 * testMoveDownSuccess method
+	 *
+	 * @return void
+	 */
 	public function testMoveDownSuccess() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -889,11 +889,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveDownFail method
- *
- * @return void
- */
+	/**
+	 * testMoveDownFail method
+	 *
+	 * @return void
+	 */
 	public function testMoveDownFail() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -911,11 +911,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveDownLast method
- *
- * @return void
- */
+	/**
+	 * testMoveDownLast method
+	 *
+	 * @return void
+	 */
 	public function testMoveDownLast() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -942,11 +942,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveDown2 method
- *
- * @return void
- */
+	/**
+	 * testMoveDown2 method
+	 *
+	 * @return void
+	 */
 	public function testMoveDown2() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -973,11 +973,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testSaveNoMove method
- *
- * @return void
- */
+	/**
+	 * testSaveNoMove method
+	 *
+	 * @return void
+	 */
 	public function testSaveNoMove() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1004,11 +1004,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testMoveToRootAndMoveUp method
- *
- * @return void
- */
+	/**
+	 * testMoveToRootAndMoveUp method
+	 *
+	 * @return void
+	 */
 	public function testMoveToRootAndMoveUp() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1029,11 +1029,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testDelete method
- *
- * @return void
- */
+	/**
+	 * testDelete method
+	 *
+	 * @return void
+	 */
 	public function testDelete() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1065,11 +1065,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * Test deleting a record that doesn't exist.
- *
- * @return void
- */
+	/**
+	 * Test deleting a record that doesn't exist.
+	 *
+	 * @return void
+	 */
 	public function testDeleteDoesNotExist() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1078,11 +1078,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->Tree->delete(99999);
 	}
 
-/**
- * testRemove method
- *
- * @return void
- */
+	/**
+	 * testRemove method
+	 *
+	 * @return void
+	 */
 	public function testRemove() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1111,11 +1111,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testRemoveLastTopParent method
- *
- * @return void
- */
+	/**
+	 * testRemoveLastTopParent method
+	 *
+	 * @return void
+	 */
 	public function testRemoveLastTopParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1145,11 +1145,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testRemoveNoChildren method
- *
- * @return void
- */
+	/**
+	 * testRemoveNoChildren method
+	 *
+	 * @return void
+	 */
 	public function testRemoveNoChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1180,11 +1180,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testRemoveAndDelete method
- *
- * @return void
- */
+	/**
+	 * testRemoveAndDelete method
+	 *
+	 * @return void
+	 */
 	public function testRemoveAndDelete() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1215,11 +1215,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testRemoveAndDeleteNoChildren method
- *
- * @return void
- */
+	/**
+	 * testRemoveAndDeleteNoChildren method
+	 *
+	 * @return void
+	 */
 	public function testRemoveAndDeleteNoChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1248,11 +1248,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testChildren method
- *
- * @return void
- */
+	/**
+	 * testChildren method
+	 *
+	 * @return void
+	 */
 	public function testChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1279,11 +1279,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals(array(), $this->Tree->children(10000));
 	}
 
-/**
- * testCountChildren method
- *
- * @return void
- */
+	/**
+	 * testCountChildren method
+	 *
+	 * @return void
+	 */
 	public function testCountChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1305,11 +1305,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals(2, $total);
 	}
 
-/**
- * testGetParentNode method
- *
- * @return void
- */
+	/**
+	 * testGetParentNode method
+	 *
+	 * @return void
+	 */
 	public function testGetParentNode() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1324,11 +1324,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expects, $result);
 	}
 
-/**
- * testGetPath method
- *
- * @return void
- */
+	/**
+	 * testGetPath method
+	 *
+	 * @return void
+	 */
 	public function testGetPath() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1345,11 +1345,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expects, $result);
 	}
 
-/**
- * testNoAmbiguousColumn method
- *
- * @return void
- */
+	/**
+	 * testNoAmbiguousColumn method
+	 *
+	 * @return void
+	 */
 	public function testNoAmbiguousColumn() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1378,11 +1378,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals($total, $expects);
 	}
 
-/**
- * testReorderTree method
- *
- * @return void
- */
+	/**
+	 * testReorderTree method
+	 *
+	 * @return void
+	 */
 	public function testReorderTree() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1408,13 +1408,13 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($nodes, $sortedNodes);
 	}
 
-/**
- * test reordering large-ish trees with cacheQueries = true.
- * This caused infinite loops when moving down elements as stale data is returned
- * from the memory cache
- *
- * @return void
- */
+	/**
+	 * test reordering large-ish trees with cacheQueries = true.
+	 * This caused infinite loops when moving down elements as stale data is returned
+	 * from the memory cache
+	 *
+	 * @return void
+	 */
 	public function testReorderBigTreeWithQueryCaching() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1428,11 +1428,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->Tree->cacheQueries = $original;
 	}
 
-/**
- * testGenerateTreeListWithSelfJoin method
- *
- * @return void
- */
+	/**
+	 * testGenerateTreeListWithSelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testGenerateTreeListWithSelfJoin() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1446,11 +1446,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * Test the formatting options of generateTreeList()
- *
- * @return void
- */
+	/**
+	 * Test the formatting options of generateTreeList()
+	 *
+	 * @return void
+	 */
 	public function testGenerateTreeListFormatting() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1467,11 +1467,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertEquals('__3 - 1.1.1', $result[3]);
 	}
 
-/**
- * testArraySyntax method
- *
- * @return void
- */
+	/**
+	 * testArraySyntax method
+	 *
+	 * @return void
+	 */
 	public function testArraySyntax() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -1482,11 +1482,11 @@ class TreeBehaviorNumberTest extends TestCase {
 		$this->assertSame($this->Tree->getPath(4), $this->Tree->getPath(array('id' => 4)));
 	}
 
-/**
- * testFindThreaded method
- *
- * @return void
- */
+	/**
+	 * testFindThreaded method
+	 *
+	 * @return void
+	 */
 	public function testFindThreaded() {
 		$Model = new Person();
 		$Model->recursive = -1;

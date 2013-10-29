@@ -22,21 +22,21 @@ use Cake\TestSuite\TestCase;
  */
 class CookiesTest extends TestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->cookies = new Cookies();
 	}
 
-/**
- * test store
- *
- * @return void
- */
+	/**
+	 * test store
+	 *
+	 * @return void
+	 */
 	public function testStore() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -67,11 +67,11 @@ class CookiesTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test store secure.
- *
- * @return void
- */
+	/**
+	 * test store secure.
+	 *
+	 * @return void
+	 */
 	public function testStoreSecure() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -103,11 +103,11 @@ class CookiesTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test storing an expired cookie clears existing ones too.
- *
- * @return void
- */
+	/**
+	 * test storing an expired cookie clears existing ones too.
+	 *
+	 * @return void
+	 */
 	public function testStoreExpiring() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -160,11 +160,11 @@ class CookiesTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test getting cookies with secure flags
- *
- * @return void
- */
+	/**
+	 * test getting cookies with secure flags
+	 *
+	 * @return void
+	 */
 	public function testGetMatchingSecure() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -183,11 +183,11 @@ class CookiesTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test getting cookies with secure flags
- *
- * @return void
- */
+	/**
+	 * test getting cookies with secure flags
+	 *
+	 * @return void
+	 */
 	public function testGetMatchingPath() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -210,11 +210,11 @@ class CookiesTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test getting cookies matching on paths exactly
- *
- * @return void
- */
+	/**
+	 * Test getting cookies matching on paths exactly
+	 *
+	 * @return void
+	 */
 	public function testGetMatchingDomain() {
 		$headers = [
 			'HTTP/1.0 200 Ok',

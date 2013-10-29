@@ -26,12 +26,12 @@ use \ArrayIterator;
  */
 class MapReduceTest extends TestCase {
 
-/**
- * Tests the creation of an inversed index of words to documents using
- * MapReduce
- *
- * @return void
- */
+	/**
+	 * Tests the creation of an inversed index of words to documents using
+	 * MapReduce
+	 *
+	 * @return void
+	 */
 	public function testInvertedIndexCreation() {
 		$data = [
 			'document_1' => 'Dogs are the most amazing animal in history',
@@ -69,11 +69,11 @@ class MapReduceTest extends TestCase {
 		$this->assertEquals($expected, iterator_to_array($results));
 	}
 
-/**
- * Tests that it is possible to use the emit function directly in the mapper
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to use the emit function directly in the mapper
+	 *
+	 * @return void
+	 */
 	public function testEmitFinalInMapper() {
 		$data = ['a' => ['one', 'two'], 'b' => ['three', 'four']];
 		$mapper = function ($key, $row, $mr) {
@@ -86,12 +86,12 @@ class MapReduceTest extends TestCase {
 		$this->assertEquals($expected, iterator_to_array($results));
 	}
 
-/**
- * Tests that a reducer is required when there are intermediate resutls
- *
- * @expectedException \LogicException
- * @return void
- */
+	/**
+	 * Tests that a reducer is required when there are intermediate resutls
+	 *
+	 * @expectedException \LogicException
+	 * @return void
+	 */
 	public function testReducerRequired() {
 		$data = ['a' => ['one', 'two'], 'b' => ['three', 'four']];
 		$mapper = function ($key, $row, $mr) {

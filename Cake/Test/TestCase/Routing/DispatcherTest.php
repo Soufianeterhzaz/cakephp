@@ -47,42 +47,42 @@ class DispatcherMockResponse extends Response {
  */
 class TestDispatcher extends Dispatcher {
 
-/**
- * Controller instance, made publicly available for testing
- *
- * @var Controller
- */
+	/**
+	 * Controller instance, made publicly available for testing
+	 *
+	 * @var Controller
+	 */
 	public $controller;
 
-/**
- * invoke method
- *
- * @param Cake\Controller\Controller $controller
- * @param Cake\Network\Request $request
- * @param Cake\Network\Response $response
- * @return void
- */
+	/**
+	 * invoke method
+	 *
+	 * @param Cake\Controller\Controller $controller
+	 * @param Cake\Network\Request $request
+	 * @param Cake\Network\Response $response
+	 * @return void
+	 */
 	protected function _invoke(Controller $controller, Request $request, Response $response) {
 		$this->controller = $controller;
 		return parent::_invoke($controller, $request, $response);
 	}
 
-/**
- * Helper function to test single method attaching for dispatcher filters
- *
- * @param Cake\Event\Event $event
- * @return void
- */
+	/**
+	 * Helper function to test single method attaching for dispatcher filters
+	 *
+	 * @param Cake\Event\Event $event
+	 * @return void
+	 */
 	public function filterTest($event) {
 		$event->data['request']->params['eventName'] = $event->name();
 	}
 
-/**
- * Helper function to test single method attaching for dispatcher filters
- *
- * @param Cake\Event\Event
- * @return void
- */
+	/**
+	 * Helper function to test single method attaching for dispatcher filters
+	 *
+	 * @param Cake\Event\Event
+	 * @return void
+	 */
 	public function filterTest2($event) {
 		$event->stopPropagation();
 		return $event->data['response'];
@@ -109,44 +109,44 @@ interface DispatcherTestInterfaceController {
  */
 class MyPluginController extends MyPluginAppController {
 
-/**
- * name property
- *
- * @var string 'MyPlugin'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'MyPlugin'
+	 */
 	public $name = 'MyPlugin';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		return true;
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		return true;
 	}
 
-/**
- * admin_add method
- *
- * @param mixed $id
- * @return void
- */
+	/**
+	 * admin_add method
+	 *
+	 * @param mixed $id
+	 * @return void
+	 */
 	public function admin_add($id = null) {
 		return $id;
 	}
@@ -159,35 +159,35 @@ class MyPluginController extends MyPluginAppController {
  */
 class OtherPagesController extends MyPluginAppController {
 
-/**
- * name property
- *
- * @var string 'OtherPages'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'OtherPages'
+	 */
 	public $name = 'OtherPages';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * display method
- *
- * @param string $page
- * @return void
- */
+	/**
+	 * display method
+	 *
+	 * @param string $page
+	 * @return void
+	 */
 	public function display($page = null) {
 		return $page;
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		return true;
 	}
@@ -207,34 +207,34 @@ class ArticlesTestAppController extends Controller {
  */
 class ArticlesTestController extends ArticlesTestAppController {
 
-/**
- * name property
- *
- * @var string 'ArticlesTest'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'ArticlesTest'
+	 */
 	public $name = 'ArticlesTest';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * admin_index method
- *
- * @return void
- */
+	/**
+	 * admin_index method
+	 *
+	 * @return void
+	 */
 	public function admin_index() {
 		return true;
 	}
 
-/**
- * fake index method.
- *
- * @return void
- */
+	/**
+	 * fake index method.
+	 *
+	 * @return void
+	 */
 	public function index() {
 		return true;
 	}
@@ -247,11 +247,11 @@ class ArticlesTestController extends ArticlesTestAppController {
  */
 class DispatcherTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$_GET = array();
@@ -267,22 +267,22 @@ class DispatcherTest extends TestCase {
 		App::objects('Plugin', null, false);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
 		Configure::write('Dispatcher.filters', array());
 	}
 
-/**
- * testParseParamsWithoutZerosAndEmptyPost method
- *
- * @return void
- */
+	/**
+	 * testParseParamsWithoutZerosAndEmptyPost method
+	 *
+	 * @return void
+	 */
 	public function testParseParamsWithoutZerosAndEmptyPost() {
 		Router::connect('/:controller/:action/*');
 		$Dispatcher = new Dispatcher();
@@ -298,11 +298,11 @@ class DispatcherTest extends TestCase {
 		$this->assertFalse(!empty($request['form']));
 	}
 
-/**
- * testQueryStringOnRoot method
- *
- * @return void
- */
+	/**
+	 * testQueryStringOnRoot method
+	 *
+	 * @return void
+	 */
 	public function testQueryStringOnRoot() {
 		Router::reload();
 		Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
@@ -332,13 +332,13 @@ class DispatcherTest extends TestCase {
 		$this->assertEquals('life', $request['url']['coffee']);
 	}
 
-/**
- * testMissingController method
- *
- * @expectedException Cake\Error\MissingControllerException
- * @expectedExceptionMessage Controller class SomeController could not be found.
- * @return void
- */
+	/**
+	 * testMissingController method
+	 *
+	 * @expectedException Cake\Error\MissingControllerException
+	 * @expectedExceptionMessage Controller class SomeController could not be found.
+	 * @return void
+	 */
 	public function testMissingController() {
 		Router::connect('/:controller/:action/*');
 
@@ -350,13 +350,13 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
 
-/**
- * testMissingControllerInterface method
- *
- * @expectedException Cake\Error\MissingControllerException
- * @expectedExceptionMessage Controller class DispatcherTestInterface could not be found.
- * @return void
- */
+	/**
+	 * testMissingControllerInterface method
+	 *
+	 * @expectedException Cake\Error\MissingControllerException
+	 * @expectedExceptionMessage Controller class DispatcherTestInterface could not be found.
+	 * @return void
+	 */
 	public function testMissingControllerInterface() {
 		Router::connect('/:controller/:action/*');
 
@@ -368,13 +368,13 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
 
-/**
- * testMissingControllerInterface method
- *
- * @expectedException Cake\Error\MissingControllerException
- * @expectedExceptionMessage Controller class Abstract could not be found.
- * @return void
- */
+	/**
+	 * testMissingControllerInterface method
+	 *
+	 * @expectedException Cake\Error\MissingControllerException
+	 * @expectedExceptionMessage Controller class Abstract could not be found.
+	 * @return void
+	 */
 	public function testMissingControllerAbstract() {
 		Router::connect('/:controller/:action/*');
 
@@ -385,11 +385,11 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
 
-/**
- * testDispatch method
- *
- * @return void
- */
+	/**
+	 * testDispatch method
+	 *
+	 * @return void
+	 */
 	public function testDispatchBasic() {
 		Router::connect('/pages/*', array('controller' => 'Pages', 'action' => 'display'));
 		Router::connect('/:controller/:action/*');
@@ -438,11 +438,11 @@ class DispatcherTest extends TestCase {
 		);
 	}
 
-/**
- * Test that Dispatcher handles actions that return response objects.
- *
- * @return void
- */
+	/**
+	 * Test that Dispatcher handles actions that return response objects.
+	 *
+	 * @return void
+	 */
 	public function testDispatchActionReturnsResponse() {
 		Router::connect('/:controller/:action');
 		$Dispatcher = new Dispatcher();
@@ -456,11 +456,11 @@ class DispatcherTest extends TestCase {
 		$this->assertEquals('new response', $result);
 	}
 
-/**
- * testPrefixDispatch method
- *
- * @return void
- */
+	/**
+	 * testPrefixDispatch method
+	 *
+	 * @return void
+	 */
 	public function testPrefixDispatch() {
 		$Dispatcher = new TestDispatcher();
 		Configure::write('Routing.prefixes', array('admin'));
@@ -484,11 +484,11 @@ class DispatcherTest extends TestCase {
 		$this->assertSame($expected, $request->here);
 	}
 
-/**
- * test prefix dispatching in a plugin.
- *
- * @return void
- */
+	/**
+	 * test prefix dispatching in a plugin.
+	 *
+	 * @return void
+	 */
 	public function testPrefixDispatchPlugin() {
 		Configure::write('Routing.prefixes', array('admin'));
 		Plugin::load('TestPlugin');
@@ -514,12 +514,12 @@ class DispatcherTest extends TestCase {
 		$this->assertSame($expected, $request->here);
 	}
 
-/**
- * test plugin shortcut urls with controllers that need to be loaded,
- * the above test uses a controller that has already been included.
- *
- * @return void
- */
+	/**
+	 * test plugin shortcut urls with controllers that need to be loaded,
+	 * the above test uses a controller that has already been included.
+	 *
+	 * @return void
+	 */
 	public function testPluginShortCutUrlsWithControllerThatNeedsToBeLoaded() {
 		Router::reload();
 		Plugin::load(['TestPlugin', 'TestPluginTwo']);
@@ -551,11 +551,11 @@ class DispatcherTest extends TestCase {
 		$this->assertEquals('some_param', $url->params['pass'][0]);
 	}
 
-/**
- * Test dispatching into the TestPlugin in the TestApp
- *
- * @return void
- */
+	/**
+	 * Test dispatching into the TestPlugin in the TestApp
+	 *
+	 * @return void
+	 */
 	public function testTestPluginDispatch() {
 		$Dispatcher = new TestDispatcher();
 		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
@@ -574,11 +574,11 @@ class DispatcherTest extends TestCase {
 		$this->assertEquals('index', $url->params['action']);
 	}
 
-/**
- * Tests that it is possible to attach filter classes to the dispatch cycle
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to attach filter classes to the dispatch cycle
+	 *
+	 * @return void
+	 */
 	public function testDispatcherFilterSuscriber() {
 		Plugin::load('TestPlugin');
 		Configure::write('Dispatcher.filters', array(
@@ -608,12 +608,12 @@ class DispatcherTest extends TestCase {
 		$this->assertNull($dispatcher->controller);
 	}
 
-/**
- * Tests that attaching an inexistent class as filter will throw an exception
- *
- * @expectedException Cake\Error\MissingDispatcherFilterException
- * @return void
- */
+	/**
+	 * Tests that attaching an inexistent class as filter will throw an exception
+	 *
+	 * @expectedException Cake\Error\MissingDispatcherFilterException
+	 * @return void
+	 */
 	public function testDispatcherFilterSuscriberMissing() {
 		Plugin::load('TestPlugin');
 		Configure::write('Dispatcher.filters', array(
@@ -625,11 +625,11 @@ class DispatcherTest extends TestCase {
 		$dispatcher->dispatch($request, $response);
 	}
 
-/**
- * Tests it is possible to attach single callables as filters
- *
- * @return void
- */
+	/**
+	 * Tests it is possible to attach single callables as filters
+	 *
+	 * @return void
+	 */
 	public function testDispatcherFilterCallable() {
 		$dispatcher = new TestDispatcher();
 		Configure::write('Dispatcher.filters', array(
@@ -684,11 +684,11 @@ class DispatcherTest extends TestCase {
 		$this->assertNull($result);
 	}
 
-/**
- * testChangingParamsFromBeforeFilter method
- *
- * @return void
- */
+	/**
+	 * testChangingParamsFromBeforeFilter method
+	 *
+	 * @return void
+	 */
 	public function testChangingParamsFromBeforeFilter() {
 		Router::connect('/:controller/:action/*');
 
@@ -716,11 +716,11 @@ class DispatcherTest extends TestCase {
 		$this->assertSame($expected, $url->params['pass']);
 	}
 
-/**
- * testStaticAssets method
- *
- * @return void
- */
+	/**
+	 * testStaticAssets method
+	 *
+	 * @return void
+	 */
 	public function testAssets() {
 		Router::reload();
 		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
@@ -743,16 +743,16 @@ class DispatcherTest extends TestCase {
 		}
 	}
 
-/**
- * Data provider for asset filter
- *
- * - theme assets.
- * - plugin assets.
- * - plugin assets in sub directories.
- * - unknown plugin assets.
- *
- * @return array
- */
+	/**
+	 * Data provider for asset filter
+	 *
+	 * - theme assets.
+	 * - plugin assets.
+	 * - plugin assets in sub directories.
+	 * - unknown plugin assets.
+	 *
+	 * @return array
+	 */
 	public static function assetProvider() {
 		return array(
 			array(
@@ -826,13 +826,13 @@ class DispatcherTest extends TestCase {
 		);
 	}
 
-/**
- * Test assets
- *
- * @dataProvider assetProvider
- * @outputBuffering enabled
- * @return void
- */
+	/**
+	 * Test assets
+	 *
+	 * @dataProvider assetProvider
+	 * @outputBuffering enabled
+	 * @return void
+	 */
 	public function testAsset($url, $file) {
 		Router::reload();
 
@@ -854,17 +854,17 @@ class DispatcherTest extends TestCase {
 		$this->assertEquals($expected, $headers['Content-Length']);
 	}
 
-/**
- * Data provider for cached actions.
- *
- * - Test simple views
- * - Test views with nocache tags
- * - Test requests with named + passed params.
- * - Test requests with query string params
- * - Test themed views.
- *
- * @return array
- */
+	/**
+	 * Data provider for cached actions.
+	 *
+	 * - Test simple views
+	 * - Test views with nocache tags
+	 * - Test requests with named + passed params.
+	 * - Test requests with query string params
+	 * - Test themed views.
+	 *
+	 * @return array
+	 */
 	public static function cacheActionProvider() {
 		return array(
 			array('/'),
@@ -878,12 +878,12 @@ class DispatcherTest extends TestCase {
 		);
 	}
 
-/**
- * testFullPageCachingDispatch method
- *
- * @dataProvider cacheActionProvider
- * @return void
- */
+	/**
+	 * testFullPageCachingDispatch method
+	 *
+	 * @dataProvider cacheActionProvider
+	 * @return void
+	 */
 	public function testFullPageCachingDispatch($url) {
 		Cache::enable();
 		Configure::write('Cache.disable', false);
@@ -916,11 +916,11 @@ class DispatcherTest extends TestCase {
 		unlink($filename);
 	}
 
-/**
- * testHttpMethodOverrides method
- *
- * @return void
- */
+	/**
+	 * testHttpMethodOverrides method
+	 *
+	 * @return void
+	 */
 	public function testHttpMethodOverrides() {
 		Router::reload();
 		Router::mapResources('Posts');
@@ -1021,11 +1021,11 @@ class DispatcherTest extends TestCase {
 		}
 	}
 
-/**
- * backupEnvironment method
- *
- * @return void
- */
+	/**
+	 * backupEnvironment method
+	 *
+	 * @return void
+	 */
 	protected function _backupEnvironment() {
 		return array(
 			'App' => Configure::read('App'),
@@ -1035,11 +1035,11 @@ class DispatcherTest extends TestCase {
 		);
 	}
 
-/**
- * reloadEnvironment method
- *
- * @return void
- */
+	/**
+	 * reloadEnvironment method
+	 *
+	 * @return void
+	 */
 	protected function _reloadEnvironment() {
 		foreach ($_GET as $key => $val) {
 			unset($_GET[$key]);
@@ -1053,12 +1053,12 @@ class DispatcherTest extends TestCase {
 		Configure::write('App', array());
 	}
 
-/**
- * loadEnvironment method
- *
- * @param array $env
- * @return void
- */
+	/**
+	 * loadEnvironment method
+	 *
+	 * @param array $env
+	 * @return void
+	 */
 	protected function _loadEnvironment($env) {
 		if ($env['reload']) {
 			$this->_reloadEnvironment();
@@ -1087,12 +1087,12 @@ class DispatcherTest extends TestCase {
 		}
 	}
 
-/**
- * cachePath method
- *
- * @param string $here
- * @return string
- */
+	/**
+	 * cachePath method
+	 *
+	 * @param string $here
+	 * @return string
+	 */
 	protected function _cachePath($here) {
 		$path = $here;
 		if ($here == '/') {

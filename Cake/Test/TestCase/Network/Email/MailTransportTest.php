@@ -28,22 +28,22 @@ use Cake\TestSuite\TestCase;
  */
 class MailTransportTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->MailTransport = $this->getMock('Cake\Network\Email\MailTransport', array('_mail'));
 		$this->MailTransport->config(array('additionalParameters' => '-f'));
 	}
 
-/**
- * testSend method
- *
- * @return void
- */
+	/**
+	 * testSend method
+	 *
+	 * @return void
+	 */
 	public function testSendData() {
 		$email = $this->getMock('Cake\Network\Email\Email', array('message'), array());
 		$email->from('noreply@cakephp.org', 'CakePHP Test');

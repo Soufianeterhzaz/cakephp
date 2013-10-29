@@ -26,13 +26,13 @@ use Cake\Error;
  */
 class MailTransport extends AbstractTransport {
 
-/**
- * Send mail
- *
- * @param Cake\Network\Email\Email $email Cake Email
- * @return array
- * @throws SocketException When mail cannot be sent.
- */
+	/**
+	 * Send mail
+	 *
+	 * @param Cake\Network\Email\Email $email Cake Email
+	 * @return array
+	 * @throws SocketException When mail cannot be sent.
+	 */
 	public function send(Email $email) {
 		$eol = PHP_EOL;
 		if (isset($this->_config['eol'])) {
@@ -49,17 +49,17 @@ class MailTransport extends AbstractTransport {
 		return array('headers' => $headers, 'message' => $message);
 	}
 
-/**
- * Wraps internal function mail() and throws exception instead of errors if anything goes wrong
- *
- * @param string $to email's recipient
- * @param string $subject email's subject
- * @param string $message email's body
- * @param string $headers email's custom headers
- * @param string $params additional params for sending email
- * @throws Cake\Error\SocketException if mail could not be sent
- * @return void
- */
+	/**
+	 * Wraps internal function mail() and throws exception instead of errors if anything goes wrong
+	 *
+	 * @param string $to email's recipient
+	 * @param string $subject email's subject
+	 * @param string $message email's body
+	 * @param string $headers email's custom headers
+	 * @param string $params additional params for sending email
+	 * @throws Cake\Error\SocketException if mail could not be sent
+	 * @return void
+	 */
 	protected function _mail($to, $subject, $message, $headers, $params = null) {
 		//@codingStandardsIgnoreStart
 		if (!@mail($to, $subject, $message, $headers, $params)) {

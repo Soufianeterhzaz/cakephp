@@ -25,32 +25,32 @@ use Cake\TestSuite\TestCase;
  */
 class ConsoleErrorHandlerTest extends TestCase {
 
-/**
- * setup, create mocks
- *
- * @return Mock object
- */
+	/**
+	 * setup, create mocks
+	 *
+	 * @return Mock object
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->stderr = $this->getMock('Cake\Console\ConsoleOutput', [], [], '', false);
 		$this->Error = $this->getMock('Cake\Console\ConsoleErrorHandler', ['_stop'], [['stderr' => $this->stderr]]);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Error);
 		parent::tearDown();
 	}
 
-/**
- * test that the console error handler can deal with Exceptions.
- *
- * @return void
- */
+	/**
+	 * test that the console error handler can deal with Exceptions.
+	 *
+	 * @return void
+	 */
 	public function testHandleError() {
 		$content = "<error>Notice Error:</error> This is a notice error in [/some/file, line 275]\n";
 		$this->stderr->expects($this->once())->method('write')
@@ -61,11 +61,11 @@ class ConsoleErrorHandlerTest extends TestCase {
 		$this->Error->handleError(E_NOTICE, 'This is a notice error', '/some/file', 275);
 	}
 
-/**
- * test that the console error handler can deal with fatal errors.
- *
- * @return void
- */
+	/**
+	 * test that the console error handler can deal with fatal errors.
+	 *
+	 * @return void
+	 */
 	public function testHandleFatalError() {
 		ob_start();
 		$content = "<error>Fatal Error:</error> This is a fatal error in [/some/file, line 275]";
@@ -75,11 +75,11 @@ class ConsoleErrorHandlerTest extends TestCase {
 		$this->Error->handleError(E_USER_ERROR, 'This is a fatal error', '/some/file', 275);
 	}
 
-/**
- * test that the console error handler can deal with CakeExceptions.
- *
- * @return void
- */
+	/**
+	 * test that the console error handler can deal with CakeExceptions.
+	 *
+	 * @return void
+	 */
 	public function testCakeErrors() {
 		$exception = new Error\MissingActionException('Missing action');
 		$message = sprintf('Missing action in [%s, line %s]', $exception->getFile(), $exception->getLine());
@@ -92,11 +92,11 @@ class ConsoleErrorHandlerTest extends TestCase {
 		$this->Error->handleException($exception);
 	}
 
-/**
- * test a non Cake Exception exception.
- *
- * @return void
- */
+	/**
+	 * test a non Cake Exception exception.
+	 *
+	 * @return void
+	 */
 	public function testNonCakeExceptions() {
 		$exception = new \InvalidArgumentException('Too many parameters.');
 
@@ -106,11 +106,11 @@ class ConsoleErrorHandlerTest extends TestCase {
 		$this->Error->handleException($exception);
 	}
 
-/**
- * test a Error404 exception.
- *
- * @return void
- */
+	/**
+	 * test a Error404 exception.
+	 *
+	 * @return void
+	 */
 	public function testError404Exception() {
 		$exception = new Error\NotFoundException('dont use me in cli.');
 
@@ -120,11 +120,11 @@ class ConsoleErrorHandlerTest extends TestCase {
 		$this->Error->handleException($exception);
 	}
 
-/**
- * test a Error500 exception.
- *
- * @return void
- */
+	/**
+	 * test a Error500 exception.
+	 *
+	 * @return void
+	 */
 	public function testError500Exception() {
 		$exception = new Error\InternalErrorException('dont use me in cli.');
 

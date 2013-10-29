@@ -25,18 +25,18 @@ require_once dirname(__DIR__) . DS . 'models.php';
  */
 class TranslateBehaviorTest extends TestCase {
 
-/**
- * autoFixtures property
- *
- * @var boolean
- */
+	/**
+	 * autoFixtures property
+	 *
+	 * @var boolean
+	 */
 	public $autoFixtures = false;
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.translated_item', 'core.translate', 'core.translate_table',
 		'core.translated_article', 'core.translate_article', 'core.user', 'core.comment', 'core.tag', 'core.articles_tag',
@@ -47,11 +47,11 @@ class TranslateBehaviorTest extends TestCase {
 		parent::setUp();
 		$this->markTestIncomplete('Not runnable until Models are fixed.');
 	}
-/**
- * Test that count queries with conditions get the correct joins
- *
- * @return void
- */
+	/**
+	 * Test that count queries with conditions get the correct joins
+	 *
+	 * @return void
+	 */
 	public function testCountWithConditions() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -65,11 +65,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals(3, $result);
 	}
 
-/**
- * testTranslateModel method
- *
- * @return void
- */
+	/**
+	 * testTranslateModel method
+	 *
+	 * @return void
+	 */
 	public function testTranslateModel() {
 		$this->loadFixtures('TranslateTable', 'Tag', 'TranslatedItem', 'Translate', 'User', 'TranslatedArticle', 'TranslateArticle');
 		$TestModel = new Tag();
@@ -96,11 +96,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals('i18n', $translateModel->useTable);
 	}
 
-/**
- * testLocaleFalsePlain method
- *
- * @return void
- */
+	/**
+	 * testLocaleFalsePlain method
+	 *
+	 * @return void
+	 */
 	public function testLocaleFalsePlain() {
 		$this->loadFixtures('Translate', 'TranslatedItem', 'User');
 
@@ -124,11 +124,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testLocaleFalseAssociations method
- *
- * @return void
- */
+	/**
+	 * testLocaleFalseAssociations method
+	 *
+	 * @return void
+	 */
 	public function testLocaleFalseAssociations() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -178,11 +178,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testLocaleSingle method
- *
- * @return void
- */
+	/**
+	 * testLocaleSingle method
+	 *
+	 * @return void
+	 */
 	public function testLocaleSingle() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -238,11 +238,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testLocaleSingleWithConditions method
- *
- * @return void
- */
+	/**
+	 * testLocaleSingleWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testLocaleSingleWithConditions() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -279,11 +279,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testLocaleSingleAssociations method
- *
- * @return void
- */
+	/**
+	 * testLocaleSingleAssociations method
+	 *
+	 * @return void
+	 */
 	public function testLocaleSingleAssociations() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -358,11 +358,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testLocaleMultiple method
- *
- * @return void
- */
+	/**
+	 * testLocaleMultiple method
+	 *
+	 * @return void
+	 */
 	public function testLocaleMultiple() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -417,11 +417,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertCount(3, $result, '3 records should have been found, no SQL error.');
 	}
 
-/**
- * testMissingTranslation method
- *
- * @return void
- */
+	/**
+	 * testMissingTranslation method
+	 *
+	 * @return void
+	 */
 	public function testMissingTranslation() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -445,11 +445,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTranslatedFindList method
- *
- * @return void
- */
+	/**
+	 * testTranslatedFindList method
+	 *
+	 * @return void
+	 */
 	public function testTranslatedFindList() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -478,11 +478,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testReadSelectedFields method
- *
- * @return void
- */
+	/**
+	 * testReadSelectedFields method
+	 *
+	 * @return void
+	 */
 	public function testReadSelectedFields() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -513,11 +513,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSaveCreate method
- *
- * @return void
- */
+	/**
+	 * testSaveCreate method
+	 *
+	 * @return void
+	 */
 	public function testSaveCreate() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -536,11 +536,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test saving/deleting with an alias, uses the model name.
- *
- * @return void
- */
+	/**
+	 * test saving/deleting with an alias, uses the model name.
+	 *
+	 * @return void
+	 */
 	public function testSaveDeleteIgnoreAlias() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -566,11 +566,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * test save multiple locales method
- *
- * @return void
- */
+	/**
+	 * test save multiple locales method
+	 *
+	 * @return void
+	 */
 	public function testSaveMultipleLocales() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -604,11 +604,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertCount(2, $result['Content']);
 	}
 
-/**
- * testSaveAssociatedCreate method
- *
- * @return void
- */
+	/**
+	 * testSaveAssociatedCreate method
+	 *
+	 * @return void
+	 */
 	public function testSaveAssociatedMultipleLocale() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -636,11 +636,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertCount(2, $result['Content']);
 	}
 
-/**
- * Test that saving only some of the translated fields allows the record to be found again.
- *
- * @return void
- */
+	/**
+	 * Test that saving only some of the translated fields allows the record to be found again.
+	 *
+	 * @return void
+	 */
 	public function testSavePartialFields() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -664,11 +664,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that all fields are create with partial data + multiple locales.
- *
- * @return void
- */
+	/**
+	 * Test that all fields are create with partial data + multiple locales.
+	 *
+	 * @return void
+	 */
 	public function testSavePartialFieldMultipleLocales() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -734,11 +734,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSaveUpdate method
- *
- * @return void
- */
+	/**
+	 * testSaveUpdate method
+	 *
+	 * @return void
+	 */
 	public function testSaveUpdate() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -756,11 +756,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMultipleCreate method
- *
- * @return void
- */
+	/**
+	 * testMultipleCreate method
+	 *
+	 * @return void
+	 */
 	public function testMultipleCreate() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -801,11 +801,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMultipleUpdate method
- *
- * @return void
- */
+	/**
+	 * testMultipleUpdate method
+	 *
+	 * @return void
+	 */
 	public function testMultipleUpdate() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -850,11 +850,11 @@ class TranslateBehaviorTest extends TestCase {
 		$TestModel->bindTranslation(array('title', 'content'), false);
 	}
 
-/**
- * testMixedCreateUpdateWithArrayLocale method
- *
- * @return void
- */
+	/**
+	 * testMixedCreateUpdateWithArrayLocale method
+	 *
+	 * @return void
+	 */
 	public function testMixedCreateUpdateWithArrayLocale() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -898,12 +898,12 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that saveAll() works with hasMany associations that contain
- * translations.
- *
- * @return void
- */
+	/**
+	 * Test that saveAll() works with hasMany associations that contain
+	 * translations.
+	 *
+	 * @return void
+	 */
 	public function testSaveAllTranslatedAssociations() {
 		$this->loadFixtures('Translate', 'TranslateArticle', 'TranslatedItem', 'TranslatedArticle', 'User');
 		$Model = new TranslatedArticle();
@@ -941,11 +941,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($data['TranslatedItem'][1]['title'], $result[1]['TranslatedItem']['title']);
 	}
 
-/**
- * testValidation method
- *
- * @return void
- */
+	/**
+	 * testValidation method
+	 *
+	 * @return void
+	 */
 	public function testValidation() {
 		Configure::write('Config.language', 'eng');
 		$this->loadFixtures('Translate', 'TranslatedItem');
@@ -976,11 +976,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertFalse(empty($result));
 	}
 
-/**
- * testAttachDetach method
- *
- * @return void
- */
+	/**
+	 * testAttachDetach method
+	 *
+	 * @return void
+	 */
 	public function testAttachDetach() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -1025,11 +1025,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testAnotherTranslateTable method
- *
- * @return void
- */
+	/**
+	 * testAnotherTranslateTable method
+	 *
+	 * @return void
+	 */
 	public function testAnotherTranslateTable() {
 		$this->loadFixtures('Translate', 'TranslatedItem', 'TranslateTable');
 
@@ -1049,11 +1049,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTranslateWithAssociations method
- *
- * @return void
- */
+	/**
+	 * testTranslateWithAssociations method
+	 *
+	 * @return void
+	 */
 	public function testTranslateWithAssociations() {
 		$this->loadFixtures('TranslateArticle', 'TranslatedArticle', 'TranslatedItem', 'User', 'Comment', 'ArticlesTag', 'Tag');
 
@@ -1159,12 +1159,12 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testTranslateTableWithPrefix method
- * Tests that is possible to have a translation model with a custom tablePrefix
- *
- * @return void
- */
+	/**
+	 * testTranslateTableWithPrefix method
+	 * Tests that is possible to have a translation model with a custom tablePrefix
+	 *
+	 * @return void
+	 */
 	public function testTranslateTableWithPrefix() {
 		$this->loadFixtures('TranslateWithPrefix', 'TranslatedItem');
 		$TestModel = new TranslatedItem2;
@@ -1181,11 +1181,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test infinite loops not occurring with unbindTranslation()
- *
- * @return void
- */
+	/**
+	 * Test infinite loops not occurring with unbindTranslation()
+	 *
+	 * @return void
+	 */
 	public function testUnbindTranslationInfinteLoop() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 
@@ -1199,23 +1199,23 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * Test that an exception is raised when you try to over-write the name attribute.
- *
- * @expectedException CakeException
- * @return void
- */
+	/**
+	 * Test that an exception is raised when you try to over-write the name attribute.
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
 	public function testExceptionOnNameTranslation() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 		$TestModel = new TranslatedItem();
 		$TestModel->bindTranslation(array('name' => 'name'));
 	}
 
-/**
- * Test that translations can be bound and unbound dynamically.
- *
- * @return void
- */
+	/**
+	 * Test that translations can be bound and unbound dynamically.
+	 *
+	 * @return void
+	 */
 	public function testUnbindTranslation() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 		$Model = new TranslatedItem();
@@ -1234,11 +1234,11 @@ class TranslateBehaviorTest extends TestCase {
 		$this->assertNotContains('slug', $result);
 	}
 
-/**
- * Test that additional records are not inserted for associated translations.
- *
- * @return void
- */
+	/**
+	 * Test that additional records are not inserted for associated translations.
+	 *
+	 * @return void
+	 */
 	public function testNoExtraRowsForAssociatedTranslations() {
 		$this->loadFixtures('Translate', 'TranslatedItem');
 		$TestModel = new TranslatedItem();

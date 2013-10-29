@@ -29,14 +29,14 @@ use Cake\Utility\ObjectRegistry;
  */
 class ConnectionRegistry extends ObjectRegistry {
 
-/**
- * Resolve a driver classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a driver classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		if (is_object($class)) {
 			return $class;
@@ -44,15 +44,15 @@ class ConnectionRegistry extends ObjectRegistry {
 		return App::classname($class, 'Database/Driver');
 	}
 
-/**
- * Throws an exception when a driver is missing
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the driver is missing in.
- * @throws Cake\Database\Exception\MissingDriverException
- */
+	/**
+	 * Throws an exception when a driver is missing
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the driver is missing in.
+	 * @throws Cake\Database\Exception\MissingDriverException
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new MissingDriverException([
 			'class' => $class,
@@ -60,15 +60,15 @@ class ConnectionRegistry extends ObjectRegistry {
 		]);
 	}
 
-/**
- * Create the connection object with the correct driver.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string|Driver $class The classname or object to make.
- * @param array $settings An array of settings to use for the driver.
- * @return Connection A connection with the correct driver.
- */
+	/**
+	 * Create the connection object with the correct driver.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string|Driver $class The classname or object to make.
+	 * @param array $settings An array of settings to use for the driver.
+	 * @return Connection A connection with the correct driver.
+	 */
 	protected function _create($class, $settings) {
 		if (is_object($class)) {
 			$instance = $class;
@@ -82,12 +82,12 @@ class ConnectionRegistry extends ObjectRegistry {
 		return new Connection($settings);
 	}
 
-/**
- * Remove a single adapter from the registry.
- *
- * @param string $name The adapter name.
- * @return void
- */
+	/**
+	 * Remove a single adapter from the registry.
+	 *
+	 * @param string $name The adapter name.
+	 * @return void
+	 */
 	public function unload($name) {
 		unset($this->_loaded[$name]);
 	}

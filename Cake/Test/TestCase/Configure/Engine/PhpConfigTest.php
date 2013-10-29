@@ -27,11 +27,11 @@ use Cake\TestSuite\TestCase;
  */
 class PhpConfigTest extends TestCase {
 
-/**
- * Test data to serialize and unserialize.
- *
- * @var array
- */
+	/**
+	 * Test data to serialize and unserialize.
+	 *
+	 * @var array
+	 */
 	public $testData = array(
 		'One' => array(
 			'two' => 'value',
@@ -47,21 +47,21 @@ class PhpConfigTest extends TestCase {
 		),
 	);
 
-/**
- * Setup.
- *
- * @return void
- */
+	/**
+	 * Setup.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->path = CAKE . 'Test/TestApp/Config' . DS;
 	}
 
-/**
- * Test reading files.
- *
- * @return void
- */
+	/**
+	 * Test reading files.
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$engine = new PhpConfig($this->path);
 		$values = $engine->read('var_test');
@@ -72,55 +72,55 @@ class PhpConfigTest extends TestCase {
 		$this->assertEquals('value', $values['Read']);
 	}
 
-/**
- * Test an exception is thrown by reading files that exist without .php extension.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that exist without .php extension.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithExistentFileWithoutExtension() {
 		$engine = new PhpConfig($this->path);
 		$engine->read('no_php_extension');
 	}
 
-/**
- * Test an exception is thrown by reading files that don't exist.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that don't exist.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithNonExistentFile() {
 		$engine = new PhpConfig($this->path);
 		$engine->read('fake_values');
 	}
 
-/**
- * Test reading an empty file.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test reading an empty file.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadEmptyFile() {
 		$engine = new PhpConfig($this->path);
 		$engine->read('empty');
 	}
 
-/**
- * Test reading keys with ../ doesn't work.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test reading keys with ../ doesn't work.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithDots() {
 		$engine = new PhpConfig($this->path);
 		$engine->read('../empty');
 	}
 
-/**
- * Test reading from plugins.
- *
- * @return void
- */
+	/**
+	 * Test reading from plugins.
+	 *
+	 * @return void
+	 */
 	public function testReadPluginValue() {
 		Plugin::load('TestPlugin');
 		$engine = new PhpConfig($this->path);
@@ -132,11 +132,11 @@ class PhpConfigTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * Test dumping data to PHP format.
- *
- * @return void
- */
+	/**
+	 * Test dumping data to PHP format.
+	 *
+	 * @return void
+	 */
 	public function testDump() {
 		$engine = new PhpConfig(TMP);
 		$result = $engine->dump('test.php', $this->testData);
@@ -175,11 +175,11 @@ PHP;
 		unlink($file);
 	}
 
-/**
- * Test that dump() makes files read() can read.
- *
- * @return void
- */
+	/**
+	 * Test that dump() makes files read() can read.
+	 *
+	 * @return void
+	 */
 	public function testDumpRead() {
 		$engine = new PhpConfig(TMP);
 		$engine->dump('test.php', $this->testData);

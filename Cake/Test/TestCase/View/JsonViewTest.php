@@ -33,13 +33,13 @@ class JsonViewTest extends TestCase {
 		Configure::write('debug', 0);
 	}
 
-/**
- * Generates testRenderWithoutView data.
- *
- * Note: array($data, $serialize, expected)
- *
- * @return void
- */
+	/**
+	 * Generates testRenderWithoutView data.
+	 *
+	 * Note: array($data, $serialize, expected)
+	 *
+	 * @return void
+	 */
 	public static function renderWithoutViewProvider() {
 		return array(
 			// Test render with a valid string in _serialize.
@@ -156,12 +156,12 @@ class JsonViewTest extends TestCase {
 		);
 	}
 
-/**
- * Test render with a valid string in _serialize.
- *
- * @dataProvider renderWithoutViewProvider
- * @return void
- */
+	/**
+	 * Test render with a valid string in _serialize.
+	 *
+	 * @dataProvider renderWithoutViewProvider
+	 * @return void
+	 */
 	public function testRenderWithoutView($data, $serialize, $expected) {
 		$Request = new Request();
 		$Response = new Response();
@@ -175,11 +175,11 @@ class JsonViewTest extends TestCase {
 		$this->assertSame($expected, $output);
 	}
 
-/**
- * Test that rendering with _serialize does not load helpers.
- *
- * @return void
- */
+	/**
+	 * Test that rendering with _serialize does not load helpers.
+	 *
+	 * @return void
+	 */
 	public function testRenderSerializeNoHelpers() {
 		$Request = new Request();
 		$Response = new Response();
@@ -196,11 +196,11 @@ class JsonViewTest extends TestCase {
 		$this->assertFalse(isset($View->Html), 'No helper loaded.');
 	}
 
-/**
- * testJsonpResponse method
- *
- * @return void
- */
+	/**
+	 * testJsonpResponse method
+	 *
+	 * @return void
+	 */
 	public function testJsonpResponse() {
 		$Request = new Request();
 		$Response = new Response();
@@ -231,11 +231,11 @@ class JsonViewTest extends TestCase {
 		$this->assertSame($expected, $output);
 	}
 
-/**
- * Test render with a View file specified.
- *
- * @return void
- */
+	/**
+	 * Test render with a View file specified.
+	 *
+	 * @return void
+	 */
 	public function testRenderWithView() {
 		$Request = new Request();
 		$Response = new Response();

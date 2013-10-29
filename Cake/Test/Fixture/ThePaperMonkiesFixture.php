@@ -26,20 +26,20 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class ThePaperMonkiesFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'apple_id' => ['type' => 'integer', 'length' => 10, 'null' => true],
 		'device_id' => ['type' => 'integer', 'length' => 10, 'null' => true]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array();
 }

@@ -33,61 +33,61 @@ use \DOMDocument;
  */
 class Xml {
 
-/**
- * Initialize SimpleXMLElement or DOMDocument from a given XML string, file path, URL or array.
- *
- * ### Usage:
- *
- * Building XML from a string:
- *
- * `$xml = Xml::build('<example>text</example>');`
- *
- * Building XML from string (output DOMDocument):
- *
- * `$xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));`
- *
- * Building XML from a file path:
- *
- * `$xml = Xml::build('/path/to/an/xml/file.xml');`
- *
- * Building from a remote URL:
- *
- * `$xml = Xml::build('http://example.com/example.xml');`
- *
- * Building from an array:
- *
- * {{{
- * 	$value = array(
- * 		'tags' => array(
- * 			'tag' => array(
- * 				array(
- * 					'id' => '1',
- * 					'name' => 'defect'
- * 				),
- * 				array(
- * 					'id' => '2',
- * 					'name' => 'enhancement'
- *				)
- * 			)
- * 		)
- * 	);
- * $xml = Xml::build($value);
- * }}}
- *
- * When building XML from an array ensure that there is only one top level element.
- *
- * ### Options
- *
- * - `return` Can be 'simplexml' to return object of SimpleXMLElement or 'domdocument' to return DOMDocument.
- * - `loadEntities` Defaults to false. Set to true to enable loading of `<!ENTITY` definitions. This
- *   is disabled by default for security reasons.
- * - If using array as input, you can pass `options` from Xml::fromArray.
- *
- * @param string|array $input XML string, a path to a file, an URL or an array
- * @param array $options The options to use
- * @return SimpleXMLElement|DOMDocument SimpleXMLElement or DOMDocument
- * @throws Cake\Error\XmlException
- */
+	/**
+	 * Initialize SimpleXMLElement or DOMDocument from a given XML string, file path, URL or array.
+	 *
+	 * ### Usage:
+	 *
+	 * Building XML from a string:
+	 *
+	 * `$xml = Xml::build('<example>text</example>');`
+	 *
+	 * Building XML from string (output DOMDocument):
+	 *
+	 * `$xml = Xml::build('<example>text</example>', array('return' => 'domdocument'));`
+	 *
+	 * Building XML from a file path:
+	 *
+	 * `$xml = Xml::build('/path/to/an/xml/file.xml');`
+	 *
+	 * Building from a remote URL:
+	 *
+	 * `$xml = Xml::build('http://example.com/example.xml');`
+	 *
+	 * Building from an array:
+	 *
+	 * {{{
+	 * 	$value = array(
+	 * 		'tags' => array(
+	 * 			'tag' => array(
+	 * 				array(
+	 * 					'id' => '1',
+	 * 					'name' => 'defect'
+	 * 				),
+	 * 				array(
+	 * 					'id' => '2',
+	 * 					'name' => 'enhancement'
+	 *				)
+	 * 			)
+	 * 		)
+	 * 	);
+	 * $xml = Xml::build($value);
+	 * }}}
+	 *
+	 * When building XML from an array ensure that there is only one top level element.
+	 *
+	 * ### Options
+	 *
+	 * - `return` Can be 'simplexml' to return object of SimpleXMLElement or 'domdocument' to return DOMDocument.
+	 * - `loadEntities` Defaults to false. Set to true to enable loading of `<!ENTITY` definitions. This
+	 *   is disabled by default for security reasons.
+	 * - If using array as input, you can pass `options` from Xml::fromArray.
+	 *
+	 * @param string|array $input XML string, a path to a file, an URL or an array
+	 * @param array $options The options to use
+	 * @return SimpleXMLElement|DOMDocument SimpleXMLElement or DOMDocument
+	 * @throws Cake\Error\XmlException
+	 */
 	public static function build($input, $options = array()) {
 		if (!is_array($options)) {
 			$options = array('return' => (string)$options);
@@ -121,14 +121,14 @@ class Xml {
 		throw new Error\XmlException(__d('cake_dev', 'XML cannot be read.'));
 	}
 
-/**
- * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
- *
- * @param string $input The input to load.
- * @param array $options The options to use. See Xml::build()
- * @return SimpleXmlElement|DOMDocument
- * @throws Cake\Error\XmlException
- */
+	/**
+	 * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
+	 *
+	 * @param string $input The input to load.
+	 * @param array $options The options to use. See Xml::build()
+	 * @return SimpleXmlElement|DOMDocument
+	 * @throws Cake\Error\XmlException
+	 */
 	protected static function _loadXml($input, $options) {
 		$hasDisable = function_exists('libxml_disable_entity_loader');
 		$internalErrors = libxml_use_internal_errors(true);
@@ -155,44 +155,44 @@ class Xml {
 		return $xml;
 	}
 
-/**
- * Transform an array into a SimpleXMLElement
- *
- * ### Options
- *
- * - `format` If create childs ('tags') or attributes ('attribute').
- * - `pretty` Returns formatted Xml when set to `true`. Defaults to `false`
- * - `version` Version of XML document. Default is 1.0.
- * - `encoding` Encoding of XML document. If null remove from XML header. Default is the some of application.
- * - `return` If return object of SimpleXMLElement ('simplexml') or DOMDocument ('domdocument'). Default is SimpleXMLElement.
- *
- * Using the following data:
- *
- * {{{
- * $value = array(
- *    'root' => array(
- *        'tag' => array(
- *            'id' => 1,
- *            'value' => 'defect',
- *            '@' => 'description'
- *         )
- *     )
- * );
- * }}}
- *
- * Calling `Xml::fromArray($value, 'tags');`  Will generate:
- *
- * `<root><tag><id>1</id><value>defect</value>description</tag></root>`
- *
- * And calling `Xml::fromArray($value, 'attribute');` Will generate:
- *
- * `<root><tag id="1" value="defect">description</tag></root>`
- *
- * @param array $input Array with data
- * @param array $options The options to use
- * @return SimpleXMLElement|DOMDocument SimpleXMLElement or DOMDocument
- * @throws Cake\Error\XmlException
- */
+	/**
+	 * Transform an array into a SimpleXMLElement
+	 *
+	 * ### Options
+	 *
+	 * - `format` If create childs ('tags') or attributes ('attribute').
+	 * - `pretty` Returns formatted Xml when set to `true`. Defaults to `false`
+	 * - `version` Version of XML document. Default is 1.0.
+	 * - `encoding` Encoding of XML document. If null remove from XML header. Default is the some of application.
+	 * - `return` If return object of SimpleXMLElement ('simplexml') or DOMDocument ('domdocument'). Default is SimpleXMLElement.
+	 *
+	 * Using the following data:
+	 *
+	 * {{{
+	 * $value = array(
+	 *    'root' => array(
+	 *        'tag' => array(
+	 *            'id' => 1,
+	 *            'value' => 'defect',
+	 *            '@' => 'description'
+	 *         )
+	 *     )
+	 * );
+	 * }}}
+	 *
+	 * Calling `Xml::fromArray($value, 'tags');`  Will generate:
+	 *
+	 * `<root><tag><id>1</id><value>defect</value>description</tag></root>`
+	 *
+	 * And calling `Xml::fromArray($value, 'attribute');` Will generate:
+	 *
+	 * `<root><tag id="1" value="defect">description</tag></root>`
+	 *
+	 * @param array $input Array with data
+	 * @param array $options The options to use
+	 * @return SimpleXMLElement|DOMDocument SimpleXMLElement or DOMDocument
+	 * @throws Cake\Error\XmlException
+	 */
 	public static function fromArray($input, $options = array()) {
 		if (!is_array($input) || count($input) !== 1) {
 			throw new Error\XmlException(__d('cake_dev', 'Invalid input.'));
@@ -227,16 +227,16 @@ class Xml {
 		return $dom;
 	}
 
-/**
- * Recursive method to create childs from array
- *
- * @param DOMDocument $dom Handler to DOMDocument
- * @param DOMElement $node Handler to DOMElement (child)
- * @param array $data Array of data to append to the $node.
- * @param string $format Either 'attribute' or 'tags'. This determines where nested keys go.
- * @return void
- * @throws Cake\Error\XmlException
- */
+	/**
+	 * Recursive method to create childs from array
+	 *
+	 * @param DOMDocument $dom Handler to DOMDocument
+	 * @param DOMElement $node Handler to DOMElement (child)
+	 * @param array $data Array of data to append to the $node.
+	 * @param string $format Either 'attribute' or 'tags'. This determines where nested keys go.
+	 * @return void
+	 * @throws Cake\Error\XmlException
+	 */
 	protected static function _fromArray($dom, $node, &$data, $format) {
 		if (empty($data) || !is_array($data)) {
 			return;
@@ -294,12 +294,12 @@ class Xml {
 		}
 	}
 
-/**
- * Helper to _fromArray(). It will create childs of arrays
- *
- * @param array $data Array with informations to create childs
- * @return void
- */
+	/**
+	 * Helper to _fromArray(). It will create childs of arrays
+	 *
+	 * @param array $data Array with informations to create childs
+	 * @return void
+	 */
 	protected static function _createChild($data) {
 		extract($data);
 		$childNS = $childValue = null;
@@ -328,13 +328,13 @@ class Xml {
 		$node->appendChild($child);
 	}
 
-/**
- * Returns this XML structure as a array.
- *
- * @param SimpleXMLElement|DOMDocument|DOMNode $obj SimpleXMLElement, DOMDocument or DOMNode instance
- * @return array Array representation of the XML structure.
- * @throws Cake\Error\XmlException
- */
+	/**
+	 * Returns this XML structure as a array.
+	 *
+	 * @param SimpleXMLElement|DOMDocument|DOMNode $obj SimpleXMLElement, DOMDocument or DOMNode instance
+	 * @return array Array representation of the XML structure.
+	 * @throws Cake\Error\XmlException
+	 */
 	public static function toArray($obj) {
 		if ($obj instanceof \DOMNode) {
 			$obj = simplexml_import_dom($obj);
@@ -348,15 +348,15 @@ class Xml {
 		return $result;
 	}
 
-/**
- * Recursive method to toArray
- *
- * @param SimpleXMLElement $xml SimpleXMLElement object
- * @param array $parentData Parent array with data
- * @param string $ns Namespace of current child
- * @param array $namespaces List of namespaces in XML
- * @return void
- */
+	/**
+	 * Recursive method to toArray
+	 *
+	 * @param SimpleXMLElement $xml SimpleXMLElement object
+	 * @param array $parentData Parent array with data
+	 * @param string $ns Namespace of current child
+	 * @param array $namespaces List of namespaces in XML
+	 * @return void
+	 */
 	protected static function _toArray($xml, &$parentData, $ns, $namespaces) {
 		$data = array();
 

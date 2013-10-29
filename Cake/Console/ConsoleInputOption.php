@@ -28,59 +28,59 @@ use Cake\Error;
  */
 class ConsoleInputOption {
 
-/**
- * Name of the option
- *
- * @var string
- */
+	/**
+	 * Name of the option
+	 *
+	 * @var string
+	 */
 	protected $_name;
 
-/**
- * Short (1 character) alias for the option.
- *
- * @var string
- */
+	/**
+	 * Short (1 character) alias for the option.
+	 *
+	 * @var string
+	 */
 	protected $_short;
 
-/**
- * Help text for the option.
- *
- * @var string
- */
+	/**
+	 * Help text for the option.
+	 *
+	 * @var string
+	 */
 	protected $_help;
 
-/**
- * Is the option a boolean option. Boolean options do not consume a parameter.
- *
- * @var boolean
- */
+	/**
+	 * Is the option a boolean option. Boolean options do not consume a parameter.
+	 *
+	 * @var boolean
+	 */
 	protected $_boolean;
 
-/**
- * Default value for the option
- *
- * @var mixed
- */
+	/**
+	 * Default value for the option
+	 *
+	 * @var mixed
+	 */
 	protected $_default;
 
-/**
- * An array of choices for the option.
- *
- * @var array
- */
+	/**
+	 * An array of choices for the option.
+	 *
+	 * @var array
+	 */
 	protected $_choices;
 
-/**
- * Make a new Input Option
- *
- * @param string|array $name The long name of the option, or an array with all the properties.
- * @param string $short The short alias for this option
- * @param string $help The help text for this option
- * @param boolean $boolean Whether this option is a boolean option. Boolean options don't consume extra tokens
- * @param string $default The default value for this option.
- * @param array $choices Valid choices for this option.
- * @throws Cake\Error\ConsoleException
- */
+	/**
+	 * Make a new Input Option
+	 *
+	 * @param string|array $name The long name of the option, or an array with all the properties.
+	 * @param string $short The short alias for this option
+	 * @param string $help The help text for this option
+	 * @param boolean $boolean Whether this option is a boolean option. Boolean options don't consume extra tokens
+	 * @param string $default The default value for this option.
+	 * @param array $choices Valid choices for this option.
+	 * @throws Cake\Error\ConsoleException
+	 */
 	public function __construct($name, $short = null, $help = '', $boolean = false, $default = '', $choices = array()) {
 		if (is_array($name) && isset($name['name'])) {
 			foreach ($name as $key => $value) {
@@ -101,30 +101,30 @@ class ConsoleInputOption {
 		}
 	}
 
-/**
- * Get the value of the name attribute.
- *
- * @return string Value of this->_name.
- */
+	/**
+	 * Get the value of the name attribute.
+	 *
+	 * @return string Value of this->_name.
+	 */
 	public function name() {
 		return $this->_name;
 	}
 
-/**
- * Get the value of the short attribute.
- *
- * @return string Value of this->_short.
- */
+	/**
+	 * Get the value of the short attribute.
+	 *
+	 * @return string Value of this->_short.
+	 */
 	public function short() {
 		return $this->_short;
 	}
 
-/**
- * Generate the help for this this option.
- *
- * @param integer $width The width to make the name of the option.
- * @return string
- */
+	/**
+	 * Generate the help for this this option.
+	 *
+	 * @param integer $width The width to make the name of the option.
+	 * @return string
+	 */
 	public function help($width = 0) {
 		$default = $short = '';
 		if (!empty($this->_default) && $this->_default !== true) {
@@ -143,11 +143,11 @@ class ConsoleInputOption {
 		return sprintf('%s%s%s', $name, $this->_help, $default);
 	}
 
-/**
- * Get the usage value for this option
- *
- * @return string
- */
+	/**
+	 * Get the usage value for this option
+	 *
+	 * @return string
+	 */
 	public function usage() {
 		$name = empty($this->_short) ? '--' . $this->_name : '-' . $this->_short;
 		$default = '';
@@ -160,31 +160,31 @@ class ConsoleInputOption {
 		return sprintf('[%s%s]', $name, $default);
 	}
 
-/**
- * Get the default value for this option
- *
- * @return mixed
- */
+	/**
+	 * Get the default value for this option
+	 *
+	 * @return mixed
+	 */
 	public function defaultValue() {
 		return $this->_default;
 	}
 
-/**
- * Check if this option is a boolean option
- *
- * @return boolean
- */
+	/**
+	 * Check if this option is a boolean option
+	 *
+	 * @return boolean
+	 */
 	public function isBoolean() {
 		return (bool)$this->_boolean;
 	}
 
-/**
- * Check that a value is a valid choice for this option.
- *
- * @param string $value
- * @return boolean
- * @throws Cake\Error\ConsoleException
- */
+	/**
+	 * Check that a value is a valid choice for this option.
+	 *
+	 * @param string $value
+	 * @return boolean
+	 * @throws Cake\Error\ConsoleException
+	 */
 	public function validChoice($value) {
 		if (empty($this->_choices)) {
 			return true;
@@ -198,12 +198,12 @@ class ConsoleInputOption {
 		return true;
 	}
 
-/**
- * Append the option's xml into the parent.
- *
- * @param SimpleXmlElement $parent The parent element.
- * @return SimpleXmlElement The parent with this option appended.
- */
+	/**
+	 * Append the option's xml into the parent.
+	 *
+	 * @param SimpleXmlElement $parent The parent element.
+	 * @return SimpleXmlElement The parent with this option appended.
+	 */
 	public function xml(\SimpleXmlElement $parent) {
 		$option = $parent->addChild('option');
 		$option->addAttribute('name', '--' . $this->_name);

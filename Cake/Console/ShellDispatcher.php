@@ -24,29 +24,29 @@ use Cake\Utility\Inflector;
  */
 class ShellDispatcher {
 
-/**
- * Contains command switches parsed from the command line.
- *
- * @var array
- */
+	/**
+	 * Contains command switches parsed from the command line.
+	 *
+	 * @var array
+	 */
 	public $params = array();
 
-/**
- * Contains arguments parsed from the command line.
- *
- * @var array
- */
+	/**
+	 * Contains arguments parsed from the command line.
+	 *
+	 * @var array
+	 */
 	public $args = array();
 
-/**
- * Constructor
- *
- * The execution of the script is stopped after dispatching the request with
- * a status code of either 0 or 1 according to the result of the dispatch.
- *
- * @param array $args the argv from PHP
- * @param boolean $bootstrap Should the environment be bootstrapped.
- */
+	/**
+	 * Constructor
+	 *
+	 * The execution of the script is stopped after dispatching the request with
+	 * a status code of either 0 or 1 according to the result of the dispatch.
+	 *
+	 * @param array $args the argv from PHP
+	 * @param boolean $bootstrap Should the environment be bootstrapped.
+	 */
 	public function __construct($args = array(), $bootstrap = true) {
 		set_time_limit(0);
 		$this->parseParams($args);
@@ -57,22 +57,22 @@ class ShellDispatcher {
 		}
 	}
 
-/**
- * Run the dispatcher
- *
- * @param array $argv The argv from PHP
- * @return integer The exit code of the shell process.
- */
+	/**
+	 * Run the dispatcher
+	 *
+	 * @param array $argv The argv from PHP
+	 * @return integer The exit code of the shell process.
+	 */
 	public static function run($argv) {
 		$dispatcher = new ShellDispatcher($argv);
 		return $dispatcher->dispatch();
 	}
 
-/**
- * Defines core configuration.
- *
- * @return void
- */
+	/**
+	 * Defines core configuration.
+	 *
+	 * @return void
+	 */
 	protected function _initConstants() {
 		if (function_exists('ini_set')) {
 			ini_set('html_errors', false);
@@ -81,12 +81,12 @@ class ShellDispatcher {
 		}
 	}
 
-/**
- * Defines current working environment.
- *
- * @return void
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Defines current working environment.
+	 *
+	 * @return void
+	 * @throws Cake\Error\Exception
+	 */
 	protected function _initEnvironment() {
 		if (!$this->_bootstrap()) {
 			$message = "Unable to load CakePHP core.\nMake sure " . DS . 'lib' . DS . 'Cake exists in ' . CAKE_CORE_INCLUDE_PATH;
@@ -104,11 +104,11 @@ class ShellDispatcher {
 		$this->shiftArgs();
 	}
 
-/**
- * Initializes the environment and loads the CakePHP core.
- *
- * @return boolean Success.
- */
+	/**
+	 * Initializes the environment and loads the CakePHP core.
+	 *
+	 * @return boolean Success.
+	 */
 	protected function _bootstrap() {
 		if (!Configure::read('App.fullBaseUrl')) {
 			Configure::write('App.fullBaseUrl', 'http://localhost');
@@ -117,21 +117,21 @@ class ShellDispatcher {
 		return true;
 	}
 
-/**
- * Dispatches a CLI request
- *
- * @return integer The cli command exit code. 0 is success.
- */
+	/**
+	 * Dispatches a CLI request
+	 *
+	 * @return integer The cli command exit code. 0 is success.
+	 */
 	public function dispatch() {
 		return $this->_dispatch() === true ? 0 : 1;
 	}
 
-/**
- * Dispatch a request.
- *
- * @return boolean
- * @throws Cake\Error\MissingShellMethodException
- */
+	/**
+	 * Dispatch a request.
+	 *
+	 * @return boolean
+	 * @throws Cake\Error\MissingShellMethodException
+	 */
 	protected function _dispatch() {
 		$shell = $this->shiftArgs();
 
@@ -175,15 +175,15 @@ class ShellDispatcher {
 		throw new Error\MissingShellMethodException(array('shell' => $shell, 'method' => $command));
 	}
 
-/**
- * Get shell to use, either plugin shell or application shell
- *
- * All paths in the loaded shell paths are searched.
- *
- * @param string $shell Optionally the name of a plugin
- * @return mixed An object
- * @throws Cake\Error\MissingShellException when errors are encountered.
- */
+	/**
+	 * Get shell to use, either plugin shell or application shell
+	 *
+	 * All paths in the loaded shell paths are searched.
+	 *
+	 * @param string $shell Optionally the name of a plugin
+	 * @return mixed An object
+	 * @throws Cake\Error\MissingShellException when errors are encountered.
+	 */
 	protected function _getShell($shell) {
 		list($plugin, $shell) = pluginSplit($shell);
 
@@ -204,12 +204,12 @@ class ShellDispatcher {
 		return $Shell;
 	}
 
-/**
- * Parses command line options and extracts the directory paths from $params
- *
- * @param array $args Parameters to parse
- * @return void
- */
+	/**
+	 * Parses command line options and extracts the directory paths from $params
+	 *
+	 * @param array $args Parameters to parse
+	 * @return void
+	 */
 	public function parseParams($args) {
 		$this->_parsePaths($args);
 
@@ -264,12 +264,12 @@ class ShellDispatcher {
 		$this->params = array_merge($this->params, $params);
 	}
 
-/**
- * Parses out the paths from from the argv
- *
- * @param array $args
- * @return void
- */
+	/**
+	 * Parses out the paths from from the argv
+	 *
+	 * @param array $args
+	 * @return void
+	 */
 	protected function _parsePaths($args) {
 		$parsed = array();
 		$keys = array('-working', '--working', '-app', '--app', '-root', '--root');
@@ -285,31 +285,31 @@ class ShellDispatcher {
 		$this->params = $parsed;
 	}
 
-/**
- * Removes first argument and shifts other arguments up
- *
- * @return mixed Null if there are no arguments otherwise the shifted argument
- */
+	/**
+	 * Removes first argument and shifts other arguments up
+	 *
+	 * @return mixed Null if there are no arguments otherwise the shifted argument
+	 */
 	public function shiftArgs() {
 		return array_shift($this->args);
 	}
 
-/**
- * Shows console help. Performs an internal dispatch to the CommandList Shell
- *
- * @return void
- */
+	/**
+	 * Shows console help. Performs an internal dispatch to the CommandList Shell
+	 *
+	 * @return void
+	 */
 	public function help() {
 		$this->args = array_merge(array('command_list'), $this->args);
 		$this->dispatch();
 	}
 
-/**
- * Stop execution of the current script
- *
- * @param integer|string $status see http://php.net/exit for values
- * @return void
- */
+	/**
+	 * Stop execution of the current script
+	 *
+	 * @param integer|string $status see http://php.net/exit for values
+	 * @return void
+	 */
 	protected function _stop($status = 0) {
 		exit($status);
 	}

@@ -24,16 +24,16 @@ use Cake\Database\Schema\Table;
  */
 class SqliteSchema extends BaseSchema {
 
-/**
- * Convert a column definition to the abstract types.
- *
- * The returned type will be a type that
- * Cake\Database\Type can handle.
- *
- * @param string $column The column type + length
- * @throws Cake\Database\Exception when unable to parse column type
- * @return array Array of column information.
- */
+	/**
+	 * Convert a column definition to the abstract types.
+	 *
+	 * The returned type will be a type that
+	 * Cake\Database\Type can handle.
+	 *
+	 * @param string $column The column type + length
+	 * @throws Cake\Database\Exception when unable to parse column type
+	 * @return array Array of column information.
+	 */
 	protected function _convertColumn($column) {
 		preg_match('/([a-z]+)(?:\(([0-9,]+)\))?/i', $column, $matches);
 		if (empty($matches)) {
@@ -76,18 +76,18 @@ class SqliteSchema extends BaseSchema {
 		return ['type' => 'text', 'length' => null];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function listTablesSql($config) {
 		return ['SELECT name FROM sqlite_master WHERE type="table" ORDER BY name', []];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeTableSql($name, $config) {
 		$sql = sprintf(
 			'PRAGMA table_info(%s)',
@@ -96,10 +96,10 @@ class SqliteSchema extends BaseSchema {
 		return [$sql, []];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertFieldDescription(Table $table, $row) {
 		$field = $this->_convertColumn($row['type']);
 		$field += [
@@ -118,10 +118,10 @@ class SqliteSchema extends BaseSchema {
 		}
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeIndexSql($table, $config) {
 		$sql = sprintf(
 			'PRAGMA index_list(%s)',
@@ -130,15 +130,15 @@ class SqliteSchema extends BaseSchema {
 		return [$sql, []];
 	}
 
-/**
- * {@inheritdoc}
- *
- * Since SQLite does not have a way to get metadata about all indexes at once,
- * additional queries are done here. Sqlite constraint names are not
- * stable, and the names for constraints will not match those used to create
- * the table. This is a limitation in Sqlite's metadata features.
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 * Since SQLite does not have a way to get metadata about all indexes at once,
+	 * additional queries are done here. Sqlite constraint names are not
+	 * stable, and the names for constraints will not match those used to create
+	 * the table. This is a limitation in Sqlite's metadata features.
+	 *
+	 */
 	public function convertIndexDescription(Table $table, $row) {
 		$sql = sprintf(
 			'PRAGMA index_info(%s)',
@@ -163,19 +163,19 @@ class SqliteSchema extends BaseSchema {
 		}
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeForeignKeySql($table, $config) {
 		$sql = sprintf('PRAGMA foreign_key_list(%s)', $this->_driver->quoteIdentifier($table));
 		return [$sql, []];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertForeignKeyDescription(Table $table, $row) {
 		$data = [
 			'type' => Table::CONSTRAINT_FOREIGN,
@@ -188,11 +188,11 @@ class SqliteSchema extends BaseSchema {
 		$table->addConstraint($name, $data);
 	}
 
-/**
- * {@inheritdoc}
- *
- * @throws Cake\Database\Exception when the column type is unknown
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @throws Cake\Database\Exception when the column type is unknown
+	 */
 	public function columnSql(Table $table, $name) {
 		$data = $table->column($name);
 		$typeMap = [
@@ -243,13 +243,13 @@ class SqliteSchema extends BaseSchema {
 		return $out;
 	}
 
-/**
- * {@inheritdoc}
- *
- * Note integer primary keys will return ''. This is intentional as Sqlite requires
- * that integer primary keys be defined in the column definition.
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 * Note integer primary keys will return ''. This is intentional as Sqlite requires
+	 * that integer primary keys be defined in the column definition.
+	 *
+	 */
 	public function constraintSql(Table $table, $name) {
 		$data = $table->constraint($name);
 		if (
@@ -288,10 +288,10 @@ class SqliteSchema extends BaseSchema {
 		);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function indexSql(Table $table, $name) {
 		$data = $table->index($name);
 		$columns = array_map(
@@ -305,10 +305,10 @@ class SqliteSchema extends BaseSchema {
 		);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function createTableSql(Table $table, $columns, $constraints, $indexes) {
 		$lines = array_merge($columns, $constraints);
 		$content = implode(",\n", array_filter($lines));
@@ -320,10 +320,10 @@ class SqliteSchema extends BaseSchema {
 		return $out;
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function truncateTableSql(Table $table) {
 		$name = $table->name();
 		return [

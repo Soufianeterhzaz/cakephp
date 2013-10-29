@@ -25,54 +25,54 @@ use Cake\Routing\Router;
  */
 trait RequestActionTrait {
 
-/**
- * Calls a controller's method from any location. Can be used to connect controllers together
- * or tie plugins into a main application. requestAction can be used to return rendered views
- * or fetch the return value from controller actions.
- *
- * Under the hood this method uses Router::reverse() to convert the $url parameter into a string
- * URL. You should use URL formats that are compatible with Router::reverse()
- *
- * ### Examples
- *
- * A basic example getting the return value of the controller action:
- *
- * {{{
- * $variables = $this->requestAction('/articles/popular');
- * }}}
- *
- * A basic example of request action to fetch a rendered page without the layout.
- *
- * {{{
- * $viewHtml = $this->requestAction('/articles/popular', ['return']);
- * }}}
- *
- * You can also pass the URL as an array:
- *
- * {{{
- * $vars = $this->requestAction(['controller' => 'articles', 'action' => 'popular']);
- * }}}
- *
- * ### Passing other request data
- *
- * You can pass POST, GET, COOKIE and other data into the request using the apporpriate keys.
- * Cookies can be passed using the `cookies` key. Get parameters can be set with `query` and post
- * data can be sent using the `post` key.
- *
- * {{{
- * $vars = $this->requestAction('/articles/popular', [
- *   'query' => ['page' = > 1],
- *   'cookies' => ['remember_me' => 1],
- * ]);
- * }}}
- *
- * @param string|array $url String or array-based url.  Unlike other url arrays in CakePHP, this
- *    url will not automatically handle passed arguments in the $url parameter.
- * @param array $extra if array includes the key "return" it sets the autoRender to true.  Can
- *    also be used to submit GET/POST data, and passed arguments.
- * @return mixed Boolean true or false on success/failure, or contents
- *    of rendered action if 'return' is set in $extra.
- */
+	/**
+	 * Calls a controller's method from any location. Can be used to connect controllers together
+	 * or tie plugins into a main application. requestAction can be used to return rendered views
+	 * or fetch the return value from controller actions.
+	 *
+	 * Under the hood this method uses Router::reverse() to convert the $url parameter into a string
+	 * URL. You should use URL formats that are compatible with Router::reverse()
+	 *
+	 * ### Examples
+	 *
+	 * A basic example getting the return value of the controller action:
+	 *
+	 * {{{
+	 * $variables = $this->requestAction('/articles/popular');
+	 * }}}
+	 *
+	 * A basic example of request action to fetch a rendered page without the layout.
+	 *
+	 * {{{
+	 * $viewHtml = $this->requestAction('/articles/popular', ['return']);
+	 * }}}
+	 *
+	 * You can also pass the URL as an array:
+	 *
+	 * {{{
+	 * $vars = $this->requestAction(['controller' => 'articles', 'action' => 'popular']);
+	 * }}}
+	 *
+	 * ### Passing other request data
+	 *
+	 * You can pass POST, GET, COOKIE and other data into the request using the apporpriate keys.
+	 * Cookies can be passed using the `cookies` key. Get parameters can be set with `query` and post
+	 * data can be sent using the `post` key.
+	 *
+	 * {{{
+	 * $vars = $this->requestAction('/articles/popular', [
+	 *   'query' => ['page' = > 1],
+	 *   'cookies' => ['remember_me' => 1],
+	 * ]);
+	 * }}}
+	 *
+	 * @param string|array $url String or array-based url.  Unlike other url arrays in CakePHP, this
+	 *    url will not automatically handle passed arguments in the $url parameter.
+	 * @param array $extra if array includes the key "return" it sets the autoRender to true.  Can
+	 *    also be used to submit GET/POST data, and passed arguments.
+	 * @return mixed Boolean true or false on success/failure, or contents
+	 *    of rendered action if 'return' is set in $extra.
+	 */
 	public function requestAction($url, $extra = array()) {
 		if (empty($url)) {
 			return false;

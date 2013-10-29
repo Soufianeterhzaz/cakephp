@@ -30,54 +30,54 @@ use \Countable;
  */
 class ValuesExpression implements ExpressionInterface {
 
-/**
- * Array of values to insert.
- *
- * @var array
- */
+	/**
+	 * Array of values to insert.
+	 *
+	 * @var array
+	 */
 	protected $_values = [];
 
-/**
- * List of columns to ensure are part of the insert.
- *
- * @var array
- */
+	/**
+	 * List of columns to ensure are part of the insert.
+	 *
+	 * @var array
+	 */
 	protected $_columns = [];
 
-/**
- * List of column types.
- *
- * @var array
- */
+	/**
+	 * List of column types.
+	 *
+	 * @var array
+	 */
 	protected $_types = [];
 
-/**
- * The Query object to use as a values expression
- *
- * @var Cake\Database\Query
- */
+	/**
+	 * The Query object to use as a values expression
+	 *
+	 * @var Cake\Database\Query
+	 */
 	protected $_query = false;
 
-/**
- * Constructor
- *
- * @param array $columns The list of columns that are going to be part of the values.
- * @param array $types A dictionary of column -> type names
- * @return void
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $columns The list of columns that are going to be part of the values.
+	 * @param array $types A dictionary of column -> type names
+	 * @return void
+	 */
 	public function __construct(array $columns, array $types = []) {
 		$this->_columns = $columns;
 		$this->_types = $types;
 	}
 
-/**
- * Add a row of data to be inserted.
- *
- * @param array|Query $data Array of data to append into the insert, or
- *   a query for doing INSERT INTO .. SELECT style commands
- * @return void
- * @throws Cake\Error\Exception When mixing array + Query data types.
- */
+	/**
+	 * Add a row of data to be inserted.
+	 *
+	 * @param array|Query $data Array of data to append into the insert, or
+	 *   a query for doing INSERT INTO .. SELECT style commands
+	 * @return void
+	 * @throws Cake\Error\Exception When mixing array + Query data types.
+	 */
 	public function add($data) {
 		if (
 			(count($this->_values) && $data instanceof Query) ||
@@ -94,13 +94,13 @@ class ValuesExpression implements ExpressionInterface {
 		$this->_values[] = $data;
 	}
 
-/**
- * Sets the columns to be inserted. If no params are passed, then it returns
- * the currently stored columns
- *
- * @param array $cols arrays with columns to be inserted
- * @return array|ValuesExpression
- */
+	/**
+	 * Sets the columns to be inserted. If no params are passed, then it returns
+	 * the currently stored columns
+	 *
+	 * @param array $cols arrays with columns to be inserted
+	 * @return array|ValuesExpression
+	 */
 	public function columns($cols = null) {
 		if ($cols === null) {
 			return $this->_columns;
@@ -109,13 +109,13 @@ class ValuesExpression implements ExpressionInterface {
 		return $this;
 	}
 
-/**
- * Sets the values to be inserted. If no params are passed, then it returns
- * the currently stored values
- *
- * @param array $cols arrays with values to be inserted
- * @return array|ValuesExpression
- */
+	/**
+	 * Sets the values to be inserted. If no params are passed, then it returns
+	 * the currently stored values
+	 *
+	 * @param array $cols arrays with values to be inserted
+	 * @return array|ValuesExpression
+	 */
 	public function values($values = null) {
 		if ($values === null) {
 			return $this->_values;
@@ -124,14 +124,14 @@ class ValuesExpression implements ExpressionInterface {
 		return $this;
 	}
 
-/**
- * Sets the query object to be used as the values expression to be evaluated
- * to insert records in the table. If no params are passed, then it returns
- * the currently stored query
- *
- * @param Cake\Database\Query $query
- * @return Cake\Database\Query
- */
+	/**
+	 * Sets the query object to be used as the values expression to be evaluated
+	 * to insert records in the table. If no params are passed, then it returns
+	 * the currently stored query
+	 *
+	 * @param Cake\Database\Query $query
+	 * @return Cake\Database\Query
+	 */
 	public function query(Query $query = null) {
 		if ($query === null) {
 			return $this->_query;
@@ -139,12 +139,12 @@ class ValuesExpression implements ExpressionInterface {
 		$this->_query = $query;
 	}
 
-/**
- * Convert the values into a SQL string with placeholders.
- *
- * @param Cake\Database\ValueBinder $generator Placeholder generator object
- * @return string
- */
+	/**
+	 * Convert the values into a SQL string with placeholders.
+	 *
+	 * @param Cake\Database\ValueBinder $generator Placeholder generator object
+	 * @return string
+	 */
 	public function sql(ValueBinder $generator) {
 		if (empty($this->_values) && empty($this->_query)) {
 			return '';
@@ -171,15 +171,15 @@ class ValuesExpression implements ExpressionInterface {
 		return sprintf(' VALUES (%s)', implode('), (', $placeholders));
 	}
 
-/**
- * Traverse the values expression.
- *
- * This method will also traverse any queries that are to be used in the INSERT
- * values.
- *
- * @param callable $visitor The visitor to traverse the expression with.
- * @return void
- */
+	/**
+	 * Traverse the values expression.
+	 *
+	 * This method will also traverse any queries that are to be used in the INSERT
+	 * values.
+	 *
+	 * @param callable $visitor The visitor to traverse the expression with.
+	 * @return void
+	 */
 	public function traverse(callable $visitor) {
 		if ($this->_query) {
 			return;

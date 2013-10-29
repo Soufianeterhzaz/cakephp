@@ -28,35 +28,35 @@ use Cake\Database\Schema\Table;
  */
 class Collection {
 
-/**
- * Connection object
- *
- * @var Cake\Database\Connection
- */
+	/**
+	 * Connection object
+	 *
+	 * @var Cake\Database\Connection
+	 */
 	protected $_connection;
 
-/**
- * Schema dialect instance.
- *
- * @var
- */
+	/**
+	 * Schema dialect instance.
+	 *
+	 * @var
+	 */
 	protected $_dialect;
 
-/**
- * Constructor.
- *
- * @param Cake\Database\Connection $connection
- */
+	/**
+	 * Constructor.
+	 *
+	 * @param Cake\Database\Connection $connection
+	 */
 	public function __construct(Connection $connection) {
 		$this->_connection = $connection;
 		$this->_dialect = $connection->driver()->schemaDialect();
 	}
 
-/**
- * Get the list of tables available in the current connection.
- *
- * @return array The list of tables in the connected database/schema.
- */
+	/**
+	 * Get the list of tables available in the current connection.
+	 *
+	 * @return array The list of tables in the connected database/schema.
+	 */
 	public function listTables() {
 		list($sql, $params) = $this->_dialect->listTablesSql($this->_connection->config());
 		$result = [];
@@ -67,13 +67,13 @@ class Collection {
 		return $result;
 	}
 
-/**
- * Get the column metadata for a table.
- *
- * @param string $name The name of the table to describe.
- * @return Cake\Database\Schema\Table Object with column metadata.
- * @throws Cake\Database\Exception when table cannot be described.
- */
+	/**
+	 * Get the column metadata for a table.
+	 *
+	 * @param string $name The name of the table to describe.
+	 * @return Cake\Database\Schema\Table Object with column metadata.
+	 * @throws Cake\Database\Exception when table cannot be described.
+	 */
 	public function describe($name) {
 		$config = $this->_connection->config();
 
@@ -102,14 +102,14 @@ class Collection {
 		return $table;
 	}
 
-/**
- * Helper method to run queries and convert Exceptions to the correct types.
- *
- * @param string $sql The sql to run.
- * @param array $params Parameters for the statement.
- * @return Cake\Database\Statement Prepared statement
- * @throws Cake\Database\Exception on query failure.
- */
+	/**
+	 * Helper method to run queries and convert Exceptions to the correct types.
+	 *
+	 * @param string $sql The sql to run.
+	 * @param array $params Parameters for the statement.
+	 * @return Cake\Database\Statement Prepared statement
+	 * @throws Cake\Database\Exception on query failure.
+	 */
 	protected function _executeSql($sql, $params) {
 		try {
 			return $this->_connection->execute($sql, $params);

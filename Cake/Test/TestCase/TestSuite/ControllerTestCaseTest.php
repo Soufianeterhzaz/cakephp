@@ -38,25 +38,25 @@ require_once dirname(__DIR__) . DS . 'Model/models.php';
  */
 class AppController extends Controller {
 
-/**
- * helpers property
- *
- * @var array
- */
+	/**
+	 * helpers property
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Html');
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array('ControllerPost');
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Cookie');
 }
 
@@ -67,11 +67,11 @@ class AppController extends Controller {
  */
 class ControllerTestCaseTestController extends AppController {
 
-/**
- * Uses array
- *
- * @param array
- */
+	/**
+	 * Uses array
+	 *
+	 * @param array
+	 */
 	public $uses = array('TestPlugin.TestPluginComment');
 
 }
@@ -82,18 +82,18 @@ class ControllerTestCaseTestController extends AppController {
  */
 class ControllerTestCaseTest extends TestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.post', 'core.author', 'core.test_plugin_comment');
 
-/**
- * reset environment.
- *
- * @return void
- */
+	/**
+	 * reset environment.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -104,20 +104,20 @@ class ControllerTestCaseTest extends TestCase {
 		Router::reload();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
 		$this->Case->controller = null;
 	}
 
-/**
- * Test that ControllerTestCase::generate() creates mock objects correctly
- */
+	/**
+	 * Test that ControllerTestCase::generate() creates mock objects correctly
+	 */
 	public function testGenerate() {
 		$Posts = $this->Case->generate('TestApp\Controller\PostsController');
 		$this->assertEquals('Posts', $Posts->name);
@@ -176,9 +176,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertEquals('written!', $Posts->Auth->Session->write('something'));
 	}
 
-/**
- * testGenerateWithComponentConfig
- */
+	/**
+	 * testGenerateWithComponentConfig
+	 */
 	public function testGenerateWithComponentConfig() {
 		$Tests = $this->Case->generate('TestConfigs', array(
 		));
@@ -198,9 +198,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertSame($expected, $settings, 'A mocked component should have the same config as an unmocked component');
 	}
 
-/**
- * Tests ControllerTestCase::generate() using classes from plugins
- */
+	/**
+	 * Tests ControllerTestCase::generate() using classes from plugins
+	 */
 	public function testGenerateWithPlugin() {
 		$Tests = $this->Case->generate('TestPlugin.Tests', array(
 			'models' => array(
@@ -217,9 +217,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Model\TestPluginComment', $result);
 	}
 
-/**
- * Tests testAction
- */
+	/**
+	 * Tests testAction
+	 */
 	public function testTestAction() {
 		$Controller = $this->Case->generate('TestsApps');
 		$this->Case->testAction('/tests_apps/index');
@@ -244,22 +244,22 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Make sure testAction() can hit plugin controllers.
- *
- * @return void
- */
+	/**
+	 * Make sure testAction() can hit plugin controllers.
+	 *
+	 * @return void
+	 */
 	public function testTestActionWithPlugin() {
 		$this->Case->generate('TestPlugin.Tests');
 		$this->Case->testAction('/test_plugin/tests/index');
 		$this->assertEquals('It is a variable', $this->Case->controller->viewVars['test_value']);
 	}
 
-/**
- * Tests using loaded routes during tests
- *
- * @return void
- */
+	/**
+	 * Tests using loaded routes during tests
+	 *
+	 * @return void
+	 */
 	public function testUseRoutes() {
 		Router::connect('/:controller/:action/*');
 		include CAKE . 'Test/TestApp/Config/routes.php';
@@ -276,11 +276,11 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertEquals(5, $result);
 	}
 
-/**
- * Tests not using loaded routes during tests
- *
- * @expectedException Cake\Error\MissingActionException
- */
+	/**
+	 * Tests not using loaded routes during tests
+	 *
+	 * @expectedException Cake\Error\MissingActionException
+	 */
 	public function testSkipRoutes() {
 		Router::connect('/:controller/:action/*');
 		include CAKE . 'Test/TestApp/Config/routes.php';
@@ -289,9 +289,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->Case->testAction('/tests_apps/missing_action.json', array('return' => 'view'));
 	}
 
-/**
- * Tests backwards compatibility with setting the return type
- */
+	/**
+	 * Tests backwards compatibility with setting the return type
+	 */
 	public function testBCSetReturn() {
 		$this->Case->autoMock = true;
 
@@ -318,9 +318,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertRegExp('/<\/html>/', $result);
 	}
 
-/**
- * Tests sending POST data to testAction
- */
+	/**
+	 * Tests sending POST data to testAction
+	 */
 	public function testTestActionPostData() {
 		$this->Case->autoMock = true;
 
@@ -351,9 +351,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertTrue($this->Case->controller->request->is('post'));
 	}
 
-/**
- * Tests sending GET data to testAction
- */
+	/**
+	 * Tests sending GET data to testAction
+	 */
 	public function testTestActionGetData() {
 		$this->Case->autoMock = true;
 
@@ -386,11 +386,11 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertTrue(isset($query['blue']));
 	}
 
-/**
- * Test that REST actions with XML/JSON input work.
- *
- * @return void
- */
+	/**
+	 * Test that REST actions with XML/JSON input work.
+	 *
+	 * @return void
+	 */
 	public function testTestActionJsonData() {
 		$result = $this->Case->testAction('/tests_apps_posts/input_data', array(
 			'return' => 'vars',
@@ -401,9 +401,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertTrue($result['data']['json']);
 	}
 
-/**
- * Tests autoMock ability
- */
+	/**
+	 * Tests autoMock ability
+	 */
 	public function testAutoMock() {
 		$this->Case->autoMock = true;
 		$this->Case->testAction('/tests_apps/set_action');
@@ -414,9 +414,9 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Test using testAction and not mocking
- */
+	/**
+	 * Test using testAction and not mocking
+	 */
 	public function testNoMocking() {
 		$result = $this->Case->testAction('/tests_apps/some_method');
 		$this->Case->assertEquals(5, $result);
@@ -441,11 +441,11 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertRegExp('/<\/html>/', $result);
 	}
 
-/**
- * Test that controllers don't get reused.
- *
- * @return void
- */
+	/**
+	 * Test that controllers don't get reused.
+	 *
+	 * @return void
+	 */
 	public function testNoControllerReuse() {
 		$this->Case->autoMock = true;
 		$result = $this->Case->testAction('/tests_apps/index', array(
@@ -473,11 +473,11 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertContains('third call', $result);
 	}
 
-/**
- * Test that multiple calls to redirect in the same test method don't cause issues.
- *
- * @return void
- */
+	/**
+	 * Test that multiple calls to redirect in the same test method don't cause issues.
+	 *
+	 * @return void
+	 */
 	public function testTestActionWithMultipleRedirect() {
 		$this->Case->generate('TestsApps');
 
@@ -486,13 +486,13 @@ class ControllerTestCaseTest extends TestCase {
 		$this->Case->testAction('/tests_apps/redirect_to', $options);
 	}
 
-/**
- * Tests that Components storing response or request objects internally during construct
- * will always have a fresh reference to those object available
- *
- * @return void
- * @see https://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/2705-requesthandler-weird-behavior
- */
+	/**
+	 * Tests that Components storing response or request objects internally during construct
+	 * will always have a fresh reference to those object available
+	 *
+	 * @return void
+	 * @see https://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/2705-requesthandler-weird-behavior
+	 */
 	public function testComponentsSameRequestAndResponse() {
 		$this->Case->generate('TestsApps');
 		$options = array('method' => 'get');
@@ -501,11 +501,11 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertSame($this->Case->controller->request, $this->Case->controller->RequestHandler->request);
 	}
 
-/**
- * Test that testAction() doesn't destroy data in GET & POST
- *
- * @return void
- */
+	/**
+	 * Test that testAction() doesn't destroy data in GET & POST
+	 *
+	 * @return void
+	 */
 	public function testRestoreGetPost() {
 		$restored = array('new' => 'value');
 

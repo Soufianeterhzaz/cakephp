@@ -28,22 +28,22 @@ class AccountFixture extends TestFixture {
 
 	public $table = 'Accounts';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'iAccountId' => ['type' => 'integer'],
 		'cDescription' => ['type' => 'string', 'length' => 10, 'null' => true],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['iAccountId']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('cDescription' => 'gwoo'),
 		array('cDescription' => 'phpnut'),

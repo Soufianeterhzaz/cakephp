@@ -26,34 +26,34 @@ use Cake\Network\Socket;
  */
 class SmtpTransport extends AbstractTransport {
 
-/**
- * Socket to SMTP server
- *
- * @var Cake\Network\Socket
- */
+	/**
+	 * Socket to SMTP server
+	 *
+	 * @var Cake\Network\Socket
+	 */
 	protected $_socket;
 
-/**
- * Email Instance
- *
- * @var Cake\Network\Email\Email
- */
+	/**
+	 * Email Instance
+	 *
+	 * @var Cake\Network\Email\Email
+	 */
 	protected $_cakeEmail;
 
-/**
- * Content of email to return
- *
- * @var string
- */
+	/**
+	 * Content of email to return
+	 *
+	 * @var string
+	 */
 	protected $_content;
 
-/**
- * Send mail
- *
- * @param Cake\Network\Email\Email $email Cake Email
- * @return array
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Send mail
+	 *
+	 * @param Cake\Network\Email\Email $email Cake Email
+	 * @return array
+	 * @throws Cake\Error\SocketException
+	 */
 	public function send(Email $email) {
 		$this->_cakeEmail = $email;
 
@@ -66,12 +66,12 @@ class SmtpTransport extends AbstractTransport {
 		return $this->_content;
 	}
 
-/**
- * Set the configuration
- *
- * @param array $config
- * @return array Returns configs
- */
+	/**
+	 * Set the configuration
+	 *
+	 * @param array $config
+	 * @return array Returns configs
+	 */
 	public function config($config = null) {
 		if ($config === null) {
 			return $this->_config;
@@ -89,12 +89,12 @@ class SmtpTransport extends AbstractTransport {
 		return $this->_config;
 	}
 
-/**
- * Connect to SMTP Server
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Connect to SMTP Server
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _connect() {
 		$this->_generateSocket();
 		if (!$this->_socket->connect()) {
@@ -129,12 +129,12 @@ class SmtpTransport extends AbstractTransport {
 		}
 	}
 
-/**
- * Send authentication
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Send authentication
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _auth() {
 		if (isset($this->_config['username']) && isset($this->_config['password'])) {
 			$authRequired = $this->_smtpSend('AUTH LOGIN', '334|503');
@@ -153,12 +153,12 @@ class SmtpTransport extends AbstractTransport {
 		}
 	}
 
-/**
- * Send emails
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Send emails
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _sendRcpt() {
 		$from = $this->_cakeEmail->returnPath();
 		if (empty($from)) {
@@ -175,12 +175,12 @@ class SmtpTransport extends AbstractTransport {
 		}
 	}
 
-/**
- * Send Data
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Send Data
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _sendData() {
 		$this->_smtpSend('DATA', '354');
 
@@ -200,35 +200,35 @@ class SmtpTransport extends AbstractTransport {
 		$this->_content = array('headers' => $headers, 'message' => $message);
 	}
 
-/**
- * Disconnect
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Disconnect
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _disconnect() {
 		$this->_smtpSend('QUIT', false);
 		$this->_socket->disconnect();
 	}
 
-/**
- * Helper method to generate socket
- *
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Helper method to generate socket
+	 *
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _generateSocket() {
 		$this->_socket = new Socket($this->_config);
 	}
 
-/**
- * Protected method for sending data to SMTP connection
- *
- * @param string $data data to be sent to SMTP server
- * @param string|boolean $checkCode code to check for in server response, false to skip
- * @return void
- * @throws Cake\Error\SocketException
- */
+	/**
+	 * Protected method for sending data to SMTP connection
+	 *
+	 * @param string $data data to be sent to SMTP server
+	 * @param string|boolean $checkCode code to check for in server response, false to skip
+	 * @return void
+	 * @throws Cake\Error\SocketException
+	 */
 	protected function _smtpSend($data, $checkCode = '250') {
 		if ($data !== null) {
 			$this->_socket->write($data . "\r\n");

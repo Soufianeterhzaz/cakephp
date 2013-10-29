@@ -26,28 +26,28 @@ trait MysqlDialectTrait {
 
 	use SqlDialectTrait;
 
-/**
- *  String used to start a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 *  String used to start a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_startQuote = '`';
 
-/**
- * String used to end a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 * String used to end a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_endQuote = '`';
 
-/**
- * Get the schema dialect.
- *
- * Used by Cake\Schema package to reflect schema and
- * generate schema.
- *
- * @return Cake\Database\Schema\MysqlSchema
- */
+	/**
+	 * Get the schema dialect.
+	 *
+	 * Used by Cake\Schema package to reflect schema and
+	 * generate schema.
+	 *
+	 * @return Cake\Database\Schema\MysqlSchema
+	 */
 	public function schemaDialect() {
 		return new \Cake\Database\Schema\MysqlSchema($this);
 	}

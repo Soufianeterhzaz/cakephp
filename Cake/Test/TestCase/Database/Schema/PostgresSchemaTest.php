@@ -28,21 +28,21 @@ use Cake\TestSuite\TestCase;
  */
 class PostgresSchemaTest extends TestCase {
 
-/**
- * Helper method for skipping tests that need a real connection.
- *
- * @return void
- */
+	/**
+	 * Helper method for skipping tests that need a real connection.
+	 *
+	 * @return void
+	 */
 	protected function _needsConnection() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(strpos($config['className'], 'Postgres') === false, 'Not using Postgres for test config');
 	}
 
-/**
- * Helper method for testing methods.
- *
- * @return void
- */
+	/**
+	 * Helper method for testing methods.
+	 *
+	 * @return void
+	 */
 	protected function _createTables($connection) {
 		$this->_needsConnection();
 
@@ -78,11 +78,11 @@ SQL;
 		$connection->execute('CREATE INDEX "author_idx" ON "schema_articles" ("author_id")');
 	}
 
-/**
- * Data provider for convert column testing
- *
- * @return array
- */
+	/**
+	 * Data provider for convert column testing
+	 *
+	 * @return array
+	 */
 	public static function convertColumnProvider() {
 		return [
 			[
@@ -184,12 +184,12 @@ SQL;
 		];
 	}
 
-/**
- * Test parsing Postgres column types from field description.
- *
- * @dataProvider convertColumnProvider
- * @return void
- */
+	/**
+	 * Test parsing Postgres column types from field description.
+	 *
+	 * @dataProvider convertColumnProvider
+	 * @return void
+	 */
 	public function testConvertColumn($type, $expected) {
 		$field = [
 			'name' => 'field',
@@ -214,11 +214,11 @@ SQL;
 		$dialect->convertFieldDescription($table, $field);
 	}
 
-/**
- * Test listing tables with Postgres
- *
- * @return void
- */
+	/**
+	 * Test listing tables with Postgres
+	 *
+	 * @return void
+	 */
 	public function testListTables() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -231,11 +231,11 @@ SQL;
 		$this->assertEquals('schema_authors', $result[1]);
 	}
 
-/**
- * Test describing a table with Postgres
- *
- * @return void
- */
+	/**
+	 * Test describing a table with Postgres
+	 *
+	 * @return void
+	 */
 	public function testDescribeTable() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -313,11 +313,11 @@ SQL;
 		}
 	}
 
-/**
- * Test describing a table with indexes
- *
- * @return void
- */
+	/**
+	 * Test describing a table with indexes
+	 *
+	 * @return void
+	 */
 	public function testDescribeTableIndexes() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -371,11 +371,11 @@ SQL;
 		$this->assertEquals($expected, $result->index('author_idx'));
 	}
 
-/**
- * Column provider for creating column sql
- *
- * @return array
- */
+	/**
+	 * Column provider for creating column sql
+	 *
+	 * @return array
+	 */
 	public static function columnSqlProvider() {
 		return [
 			// strings
@@ -496,12 +496,12 @@ SQL;
 		];
 	}
 
-/**
- * Test generating column definitions
- *
- * @dataProvider columnSqlProvider
- * @return void
- */
+	/**
+	 * Test generating column definitions
+	 *
+	 * @dataProvider columnSqlProvider
+	 * @return void
+	 */
 	public function testColumnSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new PostgresSchema($driver);
@@ -510,11 +510,11 @@ SQL;
 		$this->assertEquals($expected, $schema->columnSql($table, $name));
 	}
 
-/**
- * Test generating a column that is a primary key.
- *
- * @return void
- */
+	/**
+	 * Test generating a column that is a primary key.
+	 *
+	 * @return void
+	 */
 	public function testColumnSqlPrimaryKey() {
 		$driver = $this->_getMockedDriver();
 		$schema = new PostgresSchema($driver);
@@ -532,11 +532,11 @@ SQL;
 		$this->assertEquals($result, '"id" SERIAL');
 	}
 
-/**
- * Provide data for testing constraintSql
- *
- * @return array
- */
+	/**
+	 * Provide data for testing constraintSql
+	 *
+	 * @return array
+	 */
 	public static function constraintSqlProvider() {
 		return [
 			[
@@ -582,11 +582,11 @@ SQL;
 		];
 	}
 
-/**
- * Test the constraintSql method.
- *
- * @dataProvider constraintSqlProvider
- */
+	/**
+	 * Test the constraintSql method.
+	 *
+	 * @dataProvider constraintSqlProvider
+	 */
 	public function testConstraintSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new PostgresSchema($driver);
@@ -601,11 +601,11 @@ SQL;
 		$this->assertEquals($expected, $schema->constraintSql($table, $name));
 	}
 
-/**
- * Integration test for converting a Schema\Table into MySQL table creates.
- *
- * @return void
- */
+	/**
+	 * Integration test for converting a Schema\Table into MySQL table creates.
+	 *
+	 * @return void
+	 */
 	public function testCreateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -655,11 +655,11 @@ SQL;
 		);
 	}
 
-/**
- * test dropSql
- *
- * @return void
- */
+	/**
+	 * test dropSql
+	 *
+	 * @return void
+	 */
 	public function testDropSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -672,11 +672,11 @@ SQL;
 		$this->assertEquals('DROP TABLE "schema_articles"', $result[0]);
 	}
 
-/**
- * Test truncateSql()
- *
- * @return void
- */
+	/**
+	 * Test truncateSql()
+	 *
+	 * @return void
+	 */
 	public function testTruncateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -694,11 +694,11 @@ SQL;
 		$this->assertEquals('TRUNCATE "schema_articles" RESTART IDENTITY', $result[0]);
 	}
 
-/**
- * Get a schema instance with a mocked driver/pdo instances
- *
- * @return Driver
- */
+	/**
+	 * Get a schema instance with a mocked driver/pdo instances
+	 *
+	 * @return Driver
+	 */
 	protected function _getMockedDriver() {
 		$driver = new \Cake\Database\Driver\Postgres();
 		$mock = $this->getMock('FakePdo', ['quote', 'quoteIdentifier']);

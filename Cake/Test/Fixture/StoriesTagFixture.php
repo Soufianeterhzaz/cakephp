@@ -26,22 +26,22 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class StoriesTagFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'story' => ['type' => 'integer', 'null' => false],
 		'tag_id' => ['type' => 'integer', 'null' => false],
 		'_constraints' => ['UNIQUE_STORY_TAG' => ['type' => 'unique', 'columns' => ['story', 'tag_id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('story' => 1, 'tag_id' => 1)
 	);

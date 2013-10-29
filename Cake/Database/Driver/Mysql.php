@@ -24,11 +24,11 @@ class Mysql extends \Cake\Database\Driver {
 	use MysqlDialectTrait;
 	use PDODriverTrait;
 
-/**
- * Base configuration settings for MySQL driver
- *
- * @var array
- */
+	/**
+	 * Base configuration settings for MySQL driver
+	 *
+	 * @var array
+	 */
 	protected $_baseConfig = [
 		'persistent' => true,
 		'host' => 'localhost',
@@ -43,11 +43,11 @@ class Mysql extends \Cake\Database\Driver {
 		'dsn' => null
 	];
 
-/**
- * Establishes a connection to the database server
- *
- * @return boolean true on success
- */
+	/**
+	 * Establishes a connection to the database server
+	 *
+	 * @return boolean true on success
+	 */
 	public function connect() {
 		if ($this->_connection) {
 			return true;
@@ -77,11 +77,11 @@ class Mysql extends \Cake\Database\Driver {
 		return $this->_connect($config);
 	}
 
-/**
- * Returns whether php is able to use this driver for connecting to database
- *
- * @return boolean true if it is valid to use this driver
- */
+	/**
+	 * Returns whether php is able to use this driver for connecting to database
+	 *
+	 * @return boolean true if it is valid to use this driver
+	 */
 	public function enabled() {
 		return in_array('mysql', PDO::getAvailableDrivers());
 	}

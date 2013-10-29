@@ -24,28 +24,28 @@ use Cake\Routing\Route\Route;
  */
 class RouteCollection implements \Countable {
 
-/**
- * A hash table of routes indexed by route names.
- * Used for reverse routing.
- *
- * @var array
- */
+	/**
+	 * A hash table of routes indexed by route names.
+	 * Used for reverse routing.
+	 *
+	 * @var array
+	 */
 	protected $_routeTable = array();
 
-/**
- * A list of routes connected, in the order they were connected.
- * Used for parsing incoming urls.
- *
- * @var array
- */
+	/**
+	 * A list of routes connected, in the order they were connected.
+	 * Used for parsing incoming urls.
+	 *
+	 * @var array
+	 */
 	protected $_routes = array();
 
-/**
- * The top most request's context. Updated whenever
- * requests are pushed/popped off the stack in Router.
- *
- * @var array
- */
+	/**
+	 * The top most request's context. Updated whenever
+	 * requests are pushed/popped off the stack in Router.
+	 *
+	 * @var array
+	 */
 	protected $_requestContext = array(
 		'_base' => '',
 		'_port' => 80,
@@ -53,13 +53,13 @@ class RouteCollection implements \Countable {
 		'_host' => 'localhost',
 	);
 
-/**
- * Add a route to the collection.
- *
- * Appends the route to the list of routes, and the route hashtable.
- * @param Cake\Routing\Route\Route $route The route to add
- * @return void
- */
+	/**
+	 * Add a route to the collection.
+	 *
+	 * Appends the route to the list of routes, and the route hashtable.
+	 * @param Cake\Routing\Route\Route $route The route to add
+	 * @return void
+	 */
 	public function add(Route $route) {
 		$name = $route->getName();
 		if (!isset($this->_routeTable[$name])) {
@@ -69,13 +69,13 @@ class RouteCollection implements \Countable {
 		$this->_routes[] = $route;
 	}
 
-/**
- * Reverse route or match a $url array with the defined routes.
- * Returns either the string URL generate by the route, or false on failure.
- *
- * @param array $url The url to match.
- * @return void
- */
+	/**
+	 * Reverse route or match a $url array with the defined routes.
+	 * Returns either the string URL generate by the route, or false on failure.
+	 *
+	 * @param array $url The url to match.
+	 * @return void
+	 */
 	public function match($url) {
 		$names = $this->_getNames($url);
 		unset($url['_name']);
@@ -90,13 +90,13 @@ class RouteCollection implements \Countable {
 		return $this->_matchRoutes($this->_routes, $url);
 	}
 
-/**
- * Matches a set of routes with a given $url and $params
- *
- * @param array $routes An array of routes to match against.
- * @param array $url The url to match.
- * @return mixed Either false on failure, or a string on success.
- */
+	/**
+	 * Matches a set of routes with a given $url and $params
+	 *
+	 * @param array $routes An array of routes to match against.
+	 * @param array $url The url to match.
+	 * @return mixed Either false on failure, or a string on success.
+	 */
 	protected function _matchRoutes($routes, $url) {
 		for ($i = 0, $len = count($routes); $i < $len; $i++) {
 			$match = $routes[$i]->match($url, $this->_requestContext);
@@ -107,13 +107,13 @@ class RouteCollection implements \Countable {
 		return false;
 	}
 
-/**
- * Get the set of names from the $url.  Accepts both older style array urls,
- * and newer style urls containing '_name'
- *
- * @param array $url The url to match.
- * @return string The name of the url
- */
+	/**
+	 * Get the set of names from the $url.  Accepts both older style array urls,
+	 * and newer style urls containing '_name'
+	 *
+	 * @param array $url The url to match.
+	 * @return string The name of the url
+	 */
 	protected function _getNames($url) {
 		$name = false;
 		if (isset($url['_name'])) {
@@ -149,12 +149,12 @@ class RouteCollection implements \Countable {
 		return $fallbacks;
 	}
 
-/**
- * Takes the URL string and iterates the routes until one is able to parse the route.
- *
- * @param string $url Url to parse.
- * @return array An array of request parameters parsed from the url.
- */
+	/**
+	 * Takes the URL string and iterates the routes until one is able to parse the route.
+	 *
+	 * @param string $url Url to parse.
+	 * @return array An array of request parameters parsed from the url.
+	 */
 	public function parse($url) {
 		$queryParameters = null;
 		if (strpos($url, '?') !== false) {
@@ -175,17 +175,17 @@ class RouteCollection implements \Countable {
 		return $out;
 	}
 
-/**
- * Promote a route (by default, the last one added) to the beginning of the list.
- * Also promotes the route to the head of its named slice in the named route
- * table.
- *
- * @param integer $which A zero-based array index representing
- *    the route to move. For example,
- *    if 3 routes have been added, the last route would be 2.
- * @return boolean Returns false if no route exists at the position
- *    specified by $which.
- */
+	/**
+	 * Promote a route (by default, the last one added) to the beginning of the list.
+	 * Also promotes the route to the head of its named slice in the named route
+	 * table.
+	 *
+	 * @param integer $which A zero-based array index representing
+	 *    the route to move. For example,
+	 *    if 3 routes have been added, the last route would be 2.
+	 * @return boolean Returns false if no route exists at the position
+	 *    specified by $which.
+	 */
 	public function promote($which) {
 		if ($which === null) {
 			$which = count($this->_routes) - 1;
@@ -205,18 +205,18 @@ class RouteCollection implements \Countable {
 		return true;
 	}
 
-/**
- * Get route(s) out of the collection.
- *
- * If a string argument is provided, the first matching
- * route for the provided name will be returned.
- *
- * If an integer argument is provided, the route
- * with that index will be returned.
- *
- * @param mixed $index The index or name of the route you want.
- * @return mixed Either the route object or null.
- */
+	/**
+	 * Get route(s) out of the collection.
+	 *
+	 * If a string argument is provided, the first matching
+	 * route for the provided name will be returned.
+	 *
+	 * If an integer argument is provided, the route
+	 * with that index will be returned.
+	 *
+	 * @param mixed $index The index or name of the route you want.
+	 * @return mixed Either the route object or null.
+	 */
 	public function get($index) {
 		if (is_string($index)) {
 			$routes = isset($this->_routeTable[$index]) ? $this->_routeTable[$index] : array(null);
@@ -225,22 +225,22 @@ class RouteCollection implements \Countable {
 		return isset($this->_routes[$index]) ? $this->_routes[$index] : null;
 	}
 
-/**
- * Part of the countable interface.
- *
- * @return integer The number of connected routes.
- */
+	/**
+	 * Part of the countable interface.
+	 *
+	 * @return integer The number of connected routes.
+	 */
 	public function count() {
 		return count($this->_routes);
 	}
 
-/**
- * Populate the request context used to generate URL's
- * Generally set to the last/most recent request.
- *
- * @param Cake\Network\Request $request
- * @return void
- */
+	/**
+	 * Populate the request context used to generate URL's
+	 * Generally set to the last/most recent request.
+	 *
+	 * @param Cake\Network\Request $request
+	 * @return void
+	 */
 	public function setContext(Request $request) {
 		$this->_requestContext = array(
 			'_base' => $request->base,
@@ -250,12 +250,12 @@ class RouteCollection implements \Countable {
 		);
 	}
 
-/**
- * Sets which extensions routes will use.
- *
- * @param array $extensions The extensions for routes to use.
- * @return void
- */
+	/**
+	 * Sets which extensions routes will use.
+	 *
+	 * @param array $extensions The extensions for routes to use.
+	 * @return void
+	 */
 	public function setExtensions(array $extensions) {
 		foreach ($this->_routes as $route) {
 			$route->setExtensions($extensions);

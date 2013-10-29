@@ -21,34 +21,34 @@ use Cake\Controller\Controller;
  */
 class TestDispatchPagesController extends Controller {
 
-/**
- * name property
- *
- * @var string 'TestDispatchPages'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'TestDispatchPages'
+	 */
 	public $name = 'TestDispatchPages';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * admin_index method
- *
- * @return void
- */
+	/**
+	 * admin_index method
+	 *
+	 * @return void
+	 */
 	public function admin_index() {
 		return true;
 	}
 
-/**
- * camelCased method
- *
- * @return void
- */
+	/**
+	 * camelCased method
+	 *
+	 * @return void
+	 */
 	public function camelCased() {
 		return true;
 	}

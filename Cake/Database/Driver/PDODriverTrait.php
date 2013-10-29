@@ -21,19 +21,19 @@ use PDO;
 
 trait PDODriverTrait {
 
-/**
- * Instance of PDO.
- *
- * @var \PDO
- */
+	/**
+	 * Instance of PDO.
+	 *
+	 * @var \PDO
+	 */
 	protected $_connection;
 
-/**
- * Establishes a connection to the databse server
- *
- * @param array $config configuration to be used for creating connection
- * @return boolean true on success
- */
+	/**
+	 * Establishes a connection to the databse server
+	 *
+	 * @param array $config configuration to be used for creating connection
+	 * @return boolean true on success
+	 */
 	protected function _connect(array $config) {
 		$connection = new PDO(
 			$config['dsn'],
@@ -45,13 +45,13 @@ trait PDODriverTrait {
 		return true;
 	}
 
-/**
- * Returns correct connection resource or object that is internally used
- * If first argument is passed, it will set internal conenction object or
- * result to the value passed
- *
- * @return mixed connection object used internally
- */
+	/**
+	 * Returns correct connection resource or object that is internally used
+	 * If first argument is passed, it will set internal conenction object or
+	 * result to the value passed
+	 *
+	 * @return mixed connection object used internally
+	 */
 	public function connection($connection = null) {
 		if ($connection !== null) {
 			$this->_connection = $connection;
@@ -59,83 +59,83 @@ trait PDODriverTrait {
 		return $this->_connection;
 	}
 
-/**
- * Disconnects from database server
- *
- * @return void
- */
+	/**
+	 * Disconnects from database server
+	 *
+	 * @return void
+	 */
 	public function disconnect() {
 		$this->_connection = null;
 	}
 
-/**
- * Prepares a sql statement to be executed
- *
- * @param string $sql
- * @return Cake\Database\Statement
- */
+	/**
+	 * Prepares a sql statement to be executed
+	 *
+	 * @param string $sql
+	 * @return Cake\Database\Statement
+	 */
 	public function prepare($sql) {
 		$this->connect();
 		$statement = $this->_connection->prepare($sql);
 		return new PDOStatement($statement, $this);
 	}
 
-/**
- * Starts a transaction
- *
- * @return boolean true on success, false otherwise
- */
+	/**
+	 * Starts a transaction
+	 *
+	 * @return boolean true on success, false otherwise
+	 */
 	public function beginTransaction() {
 		$this->connect();
 		return $this->_connection->beginTransaction();
 	}
 
-/**
- * Commits a transaction
- *
- * @return boolean true on success, false otherwise
- */
+	/**
+	 * Commits a transaction
+	 *
+	 * @return boolean true on success, false otherwise
+	 */
 	public function commitTransaction() {
 		$this->connect();
 		return $this->_connection->commit();
 	}
 
-/**
- * Rollsback a transaction
- *
- * @return boolean true on success, false otherwise
- */
+	/**
+	 * Rollsback a transaction
+	 *
+	 * @return boolean true on success, false otherwise
+	 */
 	public function rollbackTransaction() {
 		$this->connect();
 		return $this->_connection->rollback();
 	}
 
-/**
- * Returns a value in a safe representation to be used in a query string
- *
- * @return string
- */
+	/**
+	 * Returns a value in a safe representation to be used in a query string
+	 *
+	 * @return string
+	 */
 	public function quote($value, $type) {
 		$this->connect();
 		return $this->_connection->quote($value, $type);
 	}
 
-/**
- * Returns last id generated for a table or sequence in database
- *
- * @param string $table table name or sequence to get last insert value from
- * @return string|integer
- */
+	/**
+	 * Returns last id generated for a table or sequence in database
+	 *
+	 * @param string $table table name or sequence to get last insert value from
+	 * @return string|integer
+	 */
 	public function lastInsertId($table = null) {
 		$this->connect();
 		return $this->_connection->lastInsertId();
 	}
 
-/**
- * Checks if the driver supports quoting, as PDO_ODBC does not support it.
- *
- * @return boolean
- */
+	/**
+	 * Checks if the driver supports quoting, as PDO_ODBC does not support it.
+	 *
+	 * @return boolean
+	 */
 	public function supportsQuoting() {
 		$this->connect();
 		return $this->_connection->getAttribute(PDO::ATTR_DRIVER_NAME) !== 'odbc';

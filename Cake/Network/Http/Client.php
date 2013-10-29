@@ -87,11 +87,11 @@ use Cake\Utility\Hash;
  */
 class Client {
 
-/**
- * Stored configuration for the client.
- *
- * @var array
- */
+	/**
+	 * Stored configuration for the client.
+	 *
+	 * @var array
+	 */
 	protected $_config = [
 		'host' => null,
 		'port' => null,
@@ -103,45 +103,45 @@ class Client {
 		'redirect' => false,
 	];
 
-/**
- * List of cookies from responses made with this client.
- *
- * Cookies are indexed by the cookie's domain or 
- * request host name.
- *
- * @var Cake\Network\Http\Cookies
- */
+	/**
+	 * List of cookies from responses made with this client.
+	 *
+	 * Cookies are indexed by the cookie's domain or 
+	 * request host name.
+	 *
+	 * @var Cake\Network\Http\Cookies
+	 */
 	protected $_cookies;
 
-/**
- * Adapter for sending requests. Defaults to
- * Cake\Network\Http\Stream
- *
- * @var Cake\Network\Http\Stream
- */
+	/**
+	 * Adapter for sending requests. Defaults to
+	 * Cake\Network\Http\Stream
+	 *
+	 * @var Cake\Network\Http\Stream
+	 */
 	protected $_adapter;
 
-/**
- * Create a new HTTP Client.
- *
- * ### Config options
- *
- * You can set the following options when creating a client:
- *
- * - host - The hostname to do requests on.
- * - port - The port to use.
- * - scheme - The default scheme/protocol to use. Defaults to http.
- * - timeout - The timeout in seconds. Defaults to 30
- * - ssl_verify_peer - Whether or not SSL certificates should be validated.
- *   Defaults to true.
- * - ssl_verify_depth - The maximum certificate chain depth to travers.
- *   Defaults to 5.
- * - ssl_verify_host - Verify that the certificate and hostname match.
- *   Defaults to true.
- * - redirect - Number of redirects to follow. Defaults to false.
- *
- * @param array $config Config options for scoped clients.
- */
+	/**
+	 * Create a new HTTP Client.
+	 *
+	 * ### Config options
+	 *
+	 * You can set the following options when creating a client:
+	 *
+	 * - host - The hostname to do requests on.
+	 * - port - The port to use.
+	 * - scheme - The default scheme/protocol to use. Defaults to http.
+	 * - timeout - The timeout in seconds. Defaults to 30
+	 * - ssl_verify_peer - Whether or not SSL certificates should be validated.
+	 *   Defaults to true.
+	 * - ssl_verify_depth - The maximum certificate chain depth to travers.
+	 *   Defaults to 5.
+	 * - ssl_verify_host - Verify that the certificate and hostname match.
+	 *   Defaults to true.
+	 * - redirect - Number of redirects to follow. Defaults to false.
+	 *
+	 * @param array $config Config options for scoped clients.
+	 */
 	public function __construct($config = []) {
 		$adapter = 'Cake\Network\Http\Adapter\Stream';
 		if (isset($config['adapter'])) {
@@ -164,15 +164,15 @@ class Client {
 		$this->_adapter = $adapter;
 	}
 
-/**
- * Get or set additional config options.
- *
- * Setting config will use Hash::merge() for appending into
- * the existing configuration.
- *
- * @param array|null $config Configuration options. null to get.
- * @return this|array
- */
+	/**
+	 * Get or set additional config options.
+	 *
+	 * Setting config will use Hash::merge() for appending into
+	 * the existing configuration.
+	 *
+	 * @param array|null $config Configuration options. null to get.
+	 * @return this|array
+	 */
 	public function config($config = null) {
 		if ($config === null) {
 			return $this->_config;
@@ -181,30 +181,30 @@ class Client {
 		return $this;
 	}
 
-/**
- * Get the cookies stored in the Client.
- *
- * Returns an array of cookie data arrays.
- *
- * @return Cake\Network\Http\Cookies
- */
+	/**
+	 * Get the cookies stored in the Client.
+	 *
+	 * Returns an array of cookie data arrays.
+	 *
+	 * @return Cake\Network\Http\Cookies
+	 */
 	public function cookies() {
 		return $this->_cookies;
 	}
 
-/**
- * Do a GET request.
- *
- * The $data argument supports a special `_content` key
- * for providing a request body in a GET request. This is
- * generally not used but services like ElasticSearch use 
- * this feature.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The query data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a GET request.
+	 *
+	 * The $data argument supports a special `_content` key
+	 * for providing a request body in a GET request. This is
+	 * generally not used but services like ElasticSearch use 
+	 * this feature.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The query data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function get($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$body = [];
@@ -221,82 +221,82 @@ class Client {
 		);
 	}
 
-/**
- * Do a POST request.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The post data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a POST request.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The post data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function post($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$url = $this->buildUrl($url, [], $options);
 		return $this->_doRequest(Request::METHOD_POST, $url, $data, $options);
 	}
 
-/**
- * Do a PUT request.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The request data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a PUT request.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The request data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function put($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$url = $this->buildUrl($url, [], $options);
 		return $this->_doRequest(Request::METHOD_PUT, $url, $data, $options);
 	}
 
-/**
- * Do a PATCH request.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The request data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a PATCH request.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The request data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function patch($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$url = $this->buildUrl($url, [], $options);
 		return $this->_doRequest(Request::METHOD_PATCH, $url, $data, $options);
 	}
 
-/**
- * Do a DELETE request.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The request data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a DELETE request.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The request data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function delete($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$url = $this->buildUrl($url, [], $options);
 		return $this->_doRequest(Request::METHOD_DELETE, $url, $data, $options);
 	}
 
-/**
- * Do a HEAD request.
- *
- * @param string $url The url or path you want to request.
- * @param array $data The query string data you want to send.
- * @param array $options Additional options for the request.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Do a HEAD request.
+	 *
+	 * @param string $url The url or path you want to request.
+	 * @param array $data The query string data you want to send.
+	 * @param array $options Additional options for the request.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function head($url, $data = [], $options = []) {
 		$options = $this->_mergeOptions($options);
 		$url = $this->buildUrl($url, $data, $options);
 		return $this->_doRequest(Request::METHOD_HEAD, $url, '', $options);
 	}
 
-/**
- * Helper method for doing non-GET requests.
- *
- * @param string $method HTTP method.
- * @param string $url URL to request.
- */
+	/**
+	 * Helper method for doing non-GET requests.
+	 *
+	 * @param string $method HTTP method.
+	 * @param string $url URL to request.
+	 */
 	protected function _doRequest($method, $url, $data, $options) {
 		$request = $this->_createRequest(
 			$method,
@@ -307,26 +307,26 @@ class Client {
 		return $this->send($request, $options);
 	}
 
-/**
- * Does a recursive merge of the parameter with the scope config.
- *
- * @param array $options Options to merge.
- * @return array Options merged with set config.
- */
+	/**
+	 * Does a recursive merge of the parameter with the scope config.
+	 *
+	 * @param array $options Options to merge.
+	 * @return array Options merged with set config.
+	 */
 	protected function _mergeOptions($options) {
 		return Hash::merge($this->_config, $options);
 	}
 
-/**
- * Send a request.
- *
- * Used internally by other methods, but can also be used to send
- * handcrafted Request objects.
- *
- * @param Cake\Network\Http\Request $request The request to send.
- * @param array $options Additional options to use.
- * @return Cake\Network\Http\Response
- */
+	/**
+	 * Send a request.
+	 *
+	 * Used internally by other methods, but can also be used to send
+	 * handcrafted Request objects.
+	 *
+	 * @param Cake\Network\Http\Request $request The request to send.
+	 * @param array $options Additional options to use.
+	 * @return Cake\Network\Http\Response
+	 */
 	public function send(Request $request, $options = []) {
 		$responses = $this->_adapter->send($request, $options);
 		$url = $request->url();
@@ -336,14 +336,14 @@ class Client {
 		return array_pop($responses);
 	}
 
-/**
- * Generate a URL based on the scoped client options.
- *
- * @param string $url Either a full URL or just the path.
- * @param array $query The query data for the URL.
- * @param array $options The config options stored with Client::config()
- * @return string A complete url with scheme, port, host, path.
- */
+	/**
+	 * Generate a URL based on the scoped client options.
+	 *
+	 * @param string $url Either a full URL or just the path.
+	 * @param array $query The query data for the URL.
+	 * @param array $options The config options stored with Client::config()
+	 * @return string A complete url with scheme, port, host, path.
+	 */
 	public function buildUrl($url, $query = [], $options = []) {
 		if (empty($options) && empty($query)) {
 			return $url;
@@ -373,15 +373,15 @@ class Client {
 		return $out;
 	}
 
-/**
- * Creates a new request object based on the parameters.
- *
- * @param string $method HTTP method name.
- * @param string $url The url including query string.
- * @param mixed $data The request body.
- * @param array $options The options to use. Contains auth, proxy etc.
- * @return Cake\Network\Http\Request
- */
+	/**
+	 * Creates a new request object based on the parameters.
+	 *
+	 * @param string $method HTTP method name.
+	 * @param string $url The url including query string.
+	 * @param mixed $data The request body.
+	 * @param array $options The options to use. Contains auth, proxy etc.
+	 * @return Cake\Network\Http\Request
+	 */
 	protected function _createRequest($method, $url, $data, $options) {
 		$request = new Request();
 		$request->method($method)
@@ -406,14 +406,14 @@ class Client {
 		return $request;
 	}
 
-/**
- * Returns headers for Accept/Content-Type based on a short type
- * or full mime-type.
- *
- * @param string $type short type alias or full mimetype.
- * @return array Headers to set on the request.
- * @throws Cake\Error\Exception When an unknown type alias is used.
- */
+	/**
+	 * Returns headers for Accept/Content-Type based on a short type
+	 * or full mime-type.
+	 *
+	 * @param string $type short type alias or full mimetype.
+	 * @return array Headers to set on the request.
+	 * @throws Cake\Error\Exception When an unknown type alias is used.
+	 */
 	protected function _typeHeaders($type) {
 		if (strpos($type, '/') !== false) {
 			return [
@@ -434,49 +434,49 @@ class Client {
 		];
 	}
 
-/**
- * Add authentication headers to the request.
- *
- * Uses the authentication type to choose the correct strategy
- * and use its methods to add headers.
- *
- * @param Request $request The request to modify.
- * @param array $options Array of options containing the 'auth' key.
- * @return void
- */
+	/**
+	 * Add authentication headers to the request.
+	 *
+	 * Uses the authentication type to choose the correct strategy
+	 * and use its methods to add headers.
+	 *
+	 * @param Request $request The request to modify.
+	 * @param array $options Array of options containing the 'auth' key.
+	 * @return void
+	 */
 	protected function _addAuthentication(Request $request, $options) {
 		$auth = $options['auth'];
 		$adapter = $this->_createAuth($auth, $options);
 		$adapter->authentication($request, $options['auth']);
 	}
 
-/**
- * Add proxy authentication headers.
- *
- * Uses the authentication type to choose the correct strategy
- * and use its methods to add headers.
- *
- * @param Request $request The request to modify.
- * @param array $options Array of options containing the 'proxy' key.
- * @return void
- */
+	/**
+	 * Add proxy authentication headers.
+	 *
+	 * Uses the authentication type to choose the correct strategy
+	 * and use its methods to add headers.
+	 *
+	 * @param Request $request The request to modify.
+	 * @param array $options Array of options containing the 'proxy' key.
+	 * @return void
+	 */
 	protected function _addProxy(Request $request, $options) {
 		$auth = $options['proxy'];
 		$adapter = $this->_createAuth($auth, $options);
 		$adapter->proxyAuthentication($request, $options['proxy']);
 	}
 
-/**
- * Create the authentication strategy.
- *
- * Use the configuration options to create the correct
- * authentication strategy handler.
- *
- * @param array $auth The authentication options to use.
- * @param array $options The overall request options to use.
- * @return mixed Authentication strategy instance.
- * @throws Cake\Error\Exception when an invalid stratgey is chosen.
- */
+	/**
+	 * Create the authentication strategy.
+	 *
+	 * Use the configuration options to create the correct
+	 * authentication strategy handler.
+	 *
+	 * @param array $auth The authentication options to use.
+	 * @param array $options The overall request options to use.
+	 * @return mixed Authentication strategy instance.
+	 * @throws Cake\Error\Exception when an invalid stratgey is chosen.
+	 */
 	protected function _createAuth($auth, $options) {
 		if (empty($auth['type'])) {
 			$auth['type'] = 'basic';

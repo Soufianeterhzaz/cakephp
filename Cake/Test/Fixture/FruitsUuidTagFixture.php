@@ -26,22 +26,22 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class FruitsUuidTagFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'fruit_id' => ['type' => 'string', 'null' => false, 'length' => 36],
 		'uuid_tag_id' => ['type' => 'string', 'null' => false, 'length' => 36],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['uuid_tag_id']], 'unique_fruits_tags' => ['type' => 'unique', 'columns' => ['fruit_id', 'uuid_tag_id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('fruit_id' => '481fc6d0-b920-43e0-a40d-6d1740cf8569', 'uuid_tag_id' => '481fc6d0-b920-43e0-e50f-6d1740cf8569')
 	);

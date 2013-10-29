@@ -41,13 +41,13 @@ use Cake\Network\Request;
  */
 class ControllerAuthorize extends BaseAuthorize {
 
-/**
- * Get/set the controller this authorize object will be working with. Also checks that isAuthorized is implemented.
- *
- * @param Controller $controller null to get, a controller to set.
- * @return mixed
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Get/set the controller this authorize object will be working with. Also checks that isAuthorized is implemented.
+	 *
+	 * @param Controller $controller null to get, a controller to set.
+	 * @return mixed
+	 * @throws Cake\Error\Exception
+	 */
 	public function controller(Controller $controller = null) {
 		if ($controller) {
 			if (!method_exists($controller, 'isAuthorized')) {
@@ -57,13 +57,13 @@ class ControllerAuthorize extends BaseAuthorize {
 		return parent::controller($controller);
 	}
 
-/**
- * Checks user authorization using a controller callback.
- *
- * @param array $user Active user data
- * @param Cake\Network\Request $request
- * @return boolean
- */
+	/**
+	 * Checks user authorization using a controller callback.
+	 *
+	 * @param array $user Active user data
+	 * @param Cake\Network\Request $request
+	 * @return boolean
+	 */
 	public function authorize($user, Request $request) {
 		return (bool)$this->_Controller->isAuthorized($user);
 	}

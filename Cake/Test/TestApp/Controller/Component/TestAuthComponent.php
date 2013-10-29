@@ -25,18 +25,18 @@ use Cake\Controller\Component\AuthComponent;
  */
 class TestAuthComponent extends AuthComponent {
 
-/**
- * testStop property
- *
- * @var bool false
- */
+	/**
+	 * testStop property
+	 *
+	 * @var bool false
+	 */
 	public $testStop = false;
 
-/**
- * stop method
- *
- * @return void
- */
+	/**
+	 * stop method
+	 *
+	 * @return void
+	 */
 	protected function _stop($status = 0) {
 		$this->testStop = true;
 	}

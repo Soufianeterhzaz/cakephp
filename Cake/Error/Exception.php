@@ -24,31 +24,31 @@ namespace Cake\Error;
  */
 class Exception extends BaseException {
 
-/**
- * Array of attributes that are passed in from the constructor, and
- * made available in the view when a development error is displayed.
- *
- * @var array
- */
+	/**
+	 * Array of attributes that are passed in from the constructor, and
+	 * made available in the view when a development error is displayed.
+	 *
+	 * @var array
+	 */
 	protected $_attributes = array();
 
-/**
- * Template string that has attributes sprintf()'ed into it.
- *
- * @var string
- */
+	/**
+	 * Template string that has attributes sprintf()'ed into it.
+	 *
+	 * @var string
+	 */
 	protected $_messageTemplate = '';
 
-/**
- * Constructor.
- *
- * Allows you to create exceptions that are treated as framework errors and disabled
- * when debug = 0.
- *
- * @param string|array $message Either the string of the error message, or an array of attributes
- *   that are made available in the view, and sprintf()'d into Exception::$_messageTemplate
- * @param string $code The code of the error, is also the HTTP status code for the error.
- */
+	/**
+	 * Constructor.
+	 *
+	 * Allows you to create exceptions that are treated as framework errors and disabled
+	 * when debug = 0.
+	 *
+	 * @param string|array $message Either the string of the error message, or an array of attributes
+	 *   that are made available in the view, and sprintf()'d into Exception::$_messageTemplate
+	 * @param string $code The code of the error, is also the HTTP status code for the error.
+	 */
 	public function __construct($message, $code = 500) {
 		if (is_array($message)) {
 			$this->_attributes = $message;
@@ -57,11 +57,11 @@ class Exception extends BaseException {
 		parent::__construct($message, $code);
 	}
 
-/**
- * Get the passed in attributes
- *
- * @return array
- */
+	/**
+	 * Get the passed in attributes
+	 *
+	 * @return array
+	 */
 	public function getAttributes() {
 		return $this->_attributes;
 	}

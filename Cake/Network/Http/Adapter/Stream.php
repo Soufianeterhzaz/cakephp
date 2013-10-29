@@ -26,41 +26,41 @@ use Cake\Network\Http\Response;
  */
 class Stream {
 
-/**
- * Context resource used by the stream API.
- *
- * @var resource
- */
+	/**
+	 * Context resource used by the stream API.
+	 *
+	 * @var resource
+	 */
 	protected $_context;
 
-/**
- * Array of options/content for the stream context.
- *
- * @var array
- */
+	/**
+	 * Array of options/content for the stream context.
+	 *
+	 * @var array
+	 */
 	protected $_contextOptions;
 
-/**
- * The stream resource.
- *
- * @var resource
- */
+	/**
+	 * The stream resource.
+	 *
+	 * @var resource
+	 */
 	protected $_stream;
 
-/**
- * Connection error list.
- *
- * @var array
- */
+	/**
+	 * Connection error list.
+	 *
+	 * @var array
+	 */
 	protected $_connectionErrors = [];
 
-/**
- * Send a request and get a response back.
- *
- * @param Cake\Network\Http\Request $request The request object to send.
- * @param array $options Array of options for the stream.
- * @return array Array of populated Response objects
- */
+	/**
+	 * Send a request and get a response back.
+	 *
+	 * @param Cake\Network\Http\Request $request The request object to send.
+	 * @param array $options Array of options for the stream.
+	 * @return array Array of populated Response objects
+	 */
 	public function send(Request $request, $options) {
 		$this->_stream = null;
 		$this->_context = [];
@@ -70,16 +70,16 @@ class Stream {
 		return $this->_send($request);
 	}
 
-/**
- * Create the response list based on the headers & content
- *
- * Creates one or many response objects based on the number
- * of redirects that occured.
- *
- * @param array $headers The list of headers from the request(s)
- * @param string $content The response content.
- * @return array The list of responses from the request(s)
- */
+	/**
+	 * Create the response list based on the headers & content
+	 *
+	 * Creates one or many response objects based on the number
+	 * of redirects that occured.
+	 *
+	 * @param array $headers The list of headers from the request(s)
+	 * @param string $content The response content.
+	 * @return array The list of responses from the request(s)
+	 */
 	public function createResponses($headers, $content) {
 		$indexes = $responses = [];
 		foreach ($headers as $i => $header) {
@@ -97,13 +97,13 @@ class Stream {
 		return $responses;
 	}
 
-/**
- * Build the stream context out of the request object.
- *
- * @param Cake\Network\Http\Request $request The request to build context from.
- * @param array $options Additional request options.
- * @return void
- */
+	/**
+	 * Build the stream context out of the request object.
+	 *
+	 * @param Cake\Network\Http\Request $request The request to build context from.
+	 * @param array $options Additional request options.
+	 * @return void
+	 */
 	protected function _buildContext(Request $request, $options) {
 		$this->_buildContent($request, $options);
 		$this->_buildHeaders($request, $options);
@@ -119,15 +119,15 @@ class Stream {
 		]);
 	}
 
-/**
- * Build the header context for the request.
- *
- * Creates cookies & headers.
- *
- * @param Cake\Network\Http\Request $request The request being sent.
- * @param array $options Array of options to use.
- * @return void
- */
+	/**
+	 * Build the header context for the request.
+	 *
+	 * Creates cookies & headers.
+	 *
+	 * @param Cake\Network\Http\Request $request The request being sent.
+	 * @param array $options Array of options to use.
+	 * @return void
+	 */
 	protected function _buildHeaders(Request $request, $options) {
 		$headers = [];
 		foreach ($request->headers() as $name => $value) {
@@ -144,16 +144,16 @@ class Stream {
 		$this->_contextOptions['header'] = implode("\r\n", $headers);
 	}
 
-/**
- * Builds the request content based on the request object.
- *
- * If the $request->body() is a string, it will be used as is.
- * Array data will be processed with Cake\Network\Http\FormData
- *
- * @param Cake\Network\Http\Request $request The request being sent.
- * @param array $options Array of options to use.
- * @return void
- */
+	/**
+	 * Builds the request content based on the request object.
+	 *
+	 * If the $request->body() is a string, it will be used as is.
+	 * Array data will be processed with Cake\Network\Http\FormData
+	 *
+	 * @param Cake\Network\Http\Request $request The request being sent.
+	 * @param array $options Array of options to use.
+	 * @return void
+	 */
 	protected function _buildContent(Request $request, $options) {
 		$content = $request->body();
 		if (empty($content)) {
@@ -174,13 +174,13 @@ class Stream {
 		$this->_contextOptions['content'] = $content;
 	}
 
-/**
- * Build miscellaneous options for the request.
- *
- * @param Cake\Network\Http\Request $request The request being sent.
- * @param array $options Array of options to use.
- * @return void
- */
+	/**
+	 * Build miscellaneous options for the request.
+	 *
+	 * @param Cake\Network\Http\Request $request The request being sent.
+	 * @param array $options Array of options to use.
+	 * @return void
+	 */
 	protected function _buildOptions(Request $request, $options) {
 		$this->_contextOptions['method'] = $request->method();
 		$this->_contextOptions['protocol_version'] = $request->version();
@@ -194,13 +194,13 @@ class Stream {
 		}
 	}
 
-/**
- * Build SSL options for the request.
- *
- * @param Cake\Network\Http\Request $request The request being sent.
- * @param array $options Array of options to use.
- * @return void
- */
+	/**
+	 * Build SSL options for the request.
+	 *
+	 * @param Cake\Network\Http\Request $request The request being sent.
+	 * @param array $options Array of options to use.
+	 * @return void
+	 */
 	protected function _buildSslContext(Request $request, $options) {
 		$sslOptions = [
 			'ssl_verify_peer',
@@ -226,13 +226,13 @@ class Stream {
 		}
 	}
 
-/**
- * Open the stream and send the request.
- *
- * @param Request $request
- * @return array Array of populated Response objects
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Open the stream and send the request.
+	 *
+	 * @param Request $request
+	 * @return array Array of populated Response objects
+	 * @throws Cake\Error\Exception
+	 */
 	protected function _send(Request $request) {
 		$url = $request->url();
 		$this->_open($url);
@@ -253,13 +253,13 @@ class Stream {
 		return $this->createResponses($headers, $content);
 	}
 
-/**
- * Open the socket and handle any connection errors.
- *
- * @param string $url The url to connect to.
- * @return void
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Open the socket and handle any connection errors.
+	 *
+	 * @param string $url The url to connect to.
+	 * @return void
+	 * @throws Cake\Error\Exception
+	 */
 	protected function _open($url) {
 		set_error_handler([$this, '_connectionErrorHandler']);
 		$this->_stream = fopen($url, 'rb', false, $this->_context);
@@ -270,25 +270,25 @@ class Stream {
 		}
 	}
 
-/**
- * Local error handler to capture errors triggered during
- * stream connection.
- *
- * @param integer $code
- * @param string $message
- * @return void
- */
+	/**
+	 * Local error handler to capture errors triggered during
+	 * stream connection.
+	 *
+	 * @param integer $code
+	 * @param string $message
+	 * @return void
+	 */
 	protected function _connectionErrorHandler($code, $message) {
 		$this->_connectionErrors[] = $message;
 	}
 
-/**
- * Get the context options
- *
- * Useful for debugging and testing context creation.
- *
- * @return array
- */
+	/**
+	 * Get the context options
+	 *
+	 * Useful for debugging and testing context creation.
+	 *
+	 * @return array
+	 */
 	public function contextOptions() {
 		return $this->_contextOptions;
 	}

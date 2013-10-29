@@ -31,11 +31,11 @@ class LogTest extends TestCase {
 		Log::reset();
 	}
 
-/**
- * test importing loggers from app/libs and plugins.
- *
- * @return void
- */
+	/**
+	 * test importing loggers from app/libs and plugins.
+	 *
+	 * @return void
+	 */
 	public function testImportingLoggers() {
 		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
@@ -61,44 +61,44 @@ class LogTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * test all the errors from failed logger imports
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * test all the errors from failed logger imports
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testImportingLoggerFailure() {
 		Log::config('fail', []);
 		Log::engine('fail');
 	}
 
-/**
- * test config() with valid key name
- *
- * @return void
- */
+	/**
+	 * test config() with valid key name
+	 *
+	 * @return void
+	 */
 	public function testValidKeyName() {
 		Log::config('valid', array('engine' => 'File'));
 		$stream = Log::engine('valid');
 		$this->assertInstanceOf('Cake\Log\Engine\FileLog', $stream);
 	}
 
-/**
- * test that loggers have to implement the correct interface.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * test that loggers have to implement the correct interface.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testNotImplementingInterface() {
 		Log::config('fail', array('engine' => '\stdClass'));
 		Log::engine('fail');
 	}
 
-/**
- * explicit tests for drop()
- *
- * @return void
- **/
+	/**
+	 * explicit tests for drop()
+	 *
+	 * @return void
+	 **/
 	public function testDrop() {
 		Log::config('file', array(
 			'engine' => 'File',
@@ -114,11 +114,11 @@ class LogTest extends TestCase {
 		$this->assertNotContains('file', $result);
 	}
 
-/**
- * Provider for config() tests.
- *
- * @return array
- */
+	/**
+	 * Provider for config() tests.
+	 *
+	 * @return array
+	 */
 	public static function configProvider() {
 		return [
 			'Array of data using engine key.' => [[
@@ -133,12 +133,12 @@ class LogTest extends TestCase {
 		];
 	}
 
-/**
- * Test the various config call signatures.
- *
- * @dataProvider configProvider
- * @return void
- */
+	/**
+	 * Test the various config call signatures.
+	 *
+	 * @dataProvider configProvider
+	 * @return void
+	 */
 	public function testConfigVariants($settings) {
 		Log::config('test', $settings);
 		$this->assertContains('test', Log::configured());
@@ -146,23 +146,23 @@ class LogTest extends TestCase {
 		Log::drop('test');
 	}
 
-/**
- * Test that config() throws an exception when adding an
- * adapter with the wrong type.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * Test that config() throws an exception when adding an
+	 * adapter with the wrong type.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testConfigInjectErrorOnWrongType() {
 		Log::config('test', new \StdClass);
 		Log::info('testing');
 	}
 
-/**
- * Test that config() can read data back
- *
- * @return void
- */
+	/**
+	 * Test that config() can read data back
+	 *
+	 * @return void
+	 */
 	public function testConfigRead() {
 		$config = [
 			'engine' => 'File',
@@ -176,22 +176,22 @@ class LogTest extends TestCase {
 		$this->assertSame($expected, Log::config('tests'));
 	}
 
-/**
- * Ensure you cannot reconfigure a log adapter.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * Ensure you cannot reconfigure a log adapter.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testConfigErrorOnReconfigure() {
 		Log::config('tests', ['engine' => 'File', 'path' => TMP]);
 		Log::config('tests', ['engine' => 'Apc']);
 	}
 
-/**
- * testLogFileWriting method
- *
- * @return void
- */
+	/**
+	 * testLogFileWriting method
+	 *
+	 * @return void
+	 */
 	public function testLogFileWriting() {
 		$this->_resetLogConfig();
 		if (file_exists(LOGS . 'error.log')) {
@@ -210,11 +210,11 @@ class LogTest extends TestCase {
 		unlink(LOGS . 'error.log');
 	}
 
-/**
- * test selective logging by level/type
- *
- * @return void
- */
+	/**
+	 * test selective logging by level/type
+	 *
+	 * @return void
+	 */
 	public function testSelectiveLoggingByLevel() {
 		if (file_exists(LOGS . 'spam.log')) {
 			unlink(LOGS . 'spam.log');
@@ -289,11 +289,11 @@ class LogTest extends TestCase {
 		}
 	}
 
-/**
- * test scoped logging
- *
- * @return void
- */
+	/**
+	 * test scoped logging
+	 *
+	 * @return void
+	 */
 	public function testScopedLogging() {
 		$this->_deleteLogs();
 		$this->_resetLogConfig();
@@ -328,9 +328,9 @@ class LogTest extends TestCase {
 		Log::drop('shops');
 	}
 
-/**
- * test scoped logging with convenience methods
- */
+	/**
+	 * test scoped logging with convenience methods
+	 */
 	public function testConvenienceScopedLogging() {
 		if (file_exists(LOGS . 'shops.log')) {
 			unlink(LOGS . 'shops.log');
@@ -374,11 +374,11 @@ class LogTest extends TestCase {
 		Log::drop('shops');
 	}
 
-/**
- * Test that scopes are exclusive and don't bleed.
- *
- * @return void
- */
+	/**
+	 * Test that scopes are exclusive and don't bleed.
+	 *
+	 * @return void
+	 */
 	public function testScopedLoggingExclusive() {
 		$this->_deleteLogs();
 
@@ -406,9 +406,9 @@ class LogTest extends TestCase {
 		$this->assertFalse(file_exists(LOGS . 'shops.log'));
 	}
 
-/**
- * test convenience methods
- */
+	/**
+	 * test convenience methods
+	 */
 	public function testConvenienceMethods() {
 		$this->_deleteLogs();
 
@@ -480,11 +480,11 @@ class LogTest extends TestCase {
 		$this->_deleteLogs();
 	}
 
-/**
- * Test that write() returns false on an unhandled message.
- *
- * @return false
- */
+	/**
+	 * Test that write() returns false on an unhandled message.
+	 *
+	 * @return false
+	 */
 	public function testWriteUnhandled() {
 		Log::drop('error');
 		Log::drop('debug');

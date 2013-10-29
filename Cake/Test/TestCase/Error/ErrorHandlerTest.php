@@ -34,11 +34,11 @@ class ErrorHandlerTest extends TestCase {
 
 	protected $_restoreError = false;
 
-/**
- * setup create a request object to get out of router later.
- *
- * @return void
- */
+	/**
+	 * setup create a request object to get out of router later.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Router::reload();
@@ -54,11 +54,11 @@ class ErrorHandlerTest extends TestCase {
 		]);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Log::drop('error_test');
@@ -67,11 +67,11 @@ class ErrorHandlerTest extends TestCase {
 		}
 	}
 
-/**
- * test error handling when debug is on, an error should be printed from Debugger.
- *
- * @return void
- */
+	/**
+	 * test error handling when debug is on, an error should be printed from Debugger.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorDebugOn() {
 		$errorHandler = new ErrorHandler();
 		$errorHandler->register();
@@ -86,11 +86,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertRegExp('/variable:\s+wrong/', $result);
 	}
 
-/**
- * provides errors for mapping tests.
- *
- * @return void
- */
+	/**
+	 * provides errors for mapping tests.
+	 *
+	 * @return void
+	 */
 	public static function errorProvider() {
 		return array(
 			array(E_USER_NOTICE, 'Notice'),
@@ -98,12 +98,12 @@ class ErrorHandlerTest extends TestCase {
 		);
 	}
 
-/**
- * test error mappings
- *
- * @dataProvider errorProvider
- * @return void
- */
+	/**
+	 * test error mappings
+	 *
+	 * @dataProvider errorProvider
+	 * @return void
+	 */
 	public function testErrorMapping($error, $expected) {
 		$errorHandler = new ErrorHandler();
 		$errorHandler->register();
@@ -116,11 +116,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertRegExp('/<b>' . $expected . '<\/b>/', $result);
 	}
 
-/**
- * test error prepended by @
- *
- * @return void
- */
+	/**
+	 * test error prepended by @
+	 *
+	 * @return void
+	 */
 	public function testErrorSuppressed() {
 		$errorHandler = new ErrorHandler();
 		$errorHandler->register();
@@ -134,11 +134,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertTrue(empty($result));
 	}
 
-/**
- * Test that errors go into Cake Log when debug = 0.
- *
- * @return void
- */
+	/**
+	 * Test that errors go into Cake Log when debug = 0.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorDebugOff() {
 		Configure::write('debug', 0);
 		$errorHandler = new ErrorHandler();
@@ -152,11 +152,11 @@ class ErrorHandlerTest extends TestCase {
 		$out .= '';
 	}
 
-/**
- * Test that errors going into Cake Log include traces.
- *
- * @return void
- */
+	/**
+	 * Test that errors going into Cake Log include traces.
+	 *
+	 * @return void
+	 */
 	public function testHandleErrorLoggingTrace() {
 		Configure::write('debug', 0);
 		$errorHandler = new ErrorHandler(['trace' => true]);
@@ -174,11 +174,11 @@ class ErrorHandlerTest extends TestCase {
 		$out .= '';
 	}
 
-/**
- * test handleException generating a page.
- *
- * @return void
- */
+	/**
+	 * test handleException generating a page.
+	 *
+	 * @return void
+	 */
 	public function testHandleException() {
 		$error = new Error\NotFoundException('Kaboom!');
 		$errorHandler = new ErrorHandler();
@@ -189,11 +189,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertRegExp('/Kaboom!/', $result, 'message missing.');
 	}
 
-/**
- * test handleException generating log.
- *
- * @return void
- */
+	/**
+	 * test handleException generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleExceptionLog() {
 		$errorHandler = new ErrorHandler(['log' => true]);
 
@@ -212,11 +212,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertRegExp('/Kaboom!/', $result, 'message missing.');
 	}
 
-/**
- * test handleException generating log.
- *
- * @return void
- */
+	/**
+	 * test handleException generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleExceptionLogSkipping() {
 		$notFound = new Error\NotFoundException('Kaboom!');
 		$forbidden = new Error\ForbiddenException('Fooled you!');
@@ -244,11 +244,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertRegExp('/Fooled you!/', $result, 'message missing.');
 	}
 
-/**
- * tests it is possible to load a plugin exception renderer
- *
- * @return void
- */
+	/**
+	 * tests it is possible to load a plugin exception renderer
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginHandler() {
 		Plugin::load('TestPlugin');
 		$errorHandler = new ErrorHandler([
@@ -263,13 +263,13 @@ class ErrorHandlerTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * test handleFatalError generating a page.
- *
- * These tests start two buffers as handleFatalError blows the outer one up.
- *
- * @return void
- */
+	/**
+	 * test handleFatalError generating a page.
+	 *
+	 * These tests start two buffers as handleFatalError blows the outer one up.
+	 *
+	 * @return void
+	 */
 	public function testHandleFatalErrorPage() {
 		$line = __LINE__;
 		$errorHandler = new ErrorHandler();
@@ -292,11 +292,11 @@ class ErrorHandlerTest extends TestCase {
 		$this->assertContains('An Internal Error Has Occurred', $result);
 	}
 
-/**
- * test handleFatalError generating log.
- *
- * @return void
- */
+	/**
+	 * test handleFatalError generating log.
+	 *
+	 * @return void
+	 */
 	public function testHandleFatalErrorLog() {
 		$this->_logger->expects($this->at(0))
 			->method('write')

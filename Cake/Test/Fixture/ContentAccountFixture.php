@@ -28,11 +28,11 @@ class ContentAccountFixture extends TestFixture {
 
 	public $table = 'ContentAccounts';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'iContentAccountsId' => ['type' => 'integer'],
 		'iContentId' => ['type' => 'integer'],
@@ -40,11 +40,11 @@ class ContentAccountFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['iContentAccountsId']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('iContentId' => 1, 'iAccountId' => 1),
 		array('iContentId' => 2, 'iAccountId' => 2),

@@ -28,21 +28,21 @@ use \PDO;
  */
 class MysqlTest extends TestCase {
 
-/**
- * Helper method for skipping tests that need a real connection.
- *
- * @return void
- */
+	/**
+	 * Helper method for skipping tests that need a real connection.
+	 *
+	 * @return void
+	 */
 	protected function _needsConnection() {
 		$config = Configure::read('Datasource.test');
 		$this->skipIf(strpos($config['datasource'], 'Mysql') === false, 'Not using Mysql for test config');
 	}
 
-/**
- * Test connecting to Mysql with default configuration
- *
- * @return void
- */
+	/**
+	 * Test connecting to Mysql with default configuration
+	 *
+	 * @return void
+	 */
 	public function testConnectionConfigDefault() {
 		$driver = $this->getMock('Cake\Database\Driver\Mysql', ['_connect']);
 		$expected = [
@@ -70,11 +70,11 @@ class MysqlTest extends TestCase {
 		$driver->connect([]);
 	}
 
-/**
- * Test connecting to Mysql with custom configuration
- *
- * @return void
- */
+	/**
+	 * Test connecting to Mysql with custom configuration
+	 *
+	 * @return void
+	 */
 	public function testConnectionConfigCustom() {
 		$config = [
 			'persistent' => false,

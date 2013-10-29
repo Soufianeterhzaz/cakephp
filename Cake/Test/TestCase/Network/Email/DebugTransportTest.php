@@ -28,21 +28,21 @@ use Cake\TestSuite\TestCase;
  */
 class DebugTransportTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->DebugTransport = new DebugTransport();
 	}
 
-/**
- * testSend method
- *
- * @return void
- */
+	/**
+	 * testSend method
+	 *
+	 * @return void
+	 */
 	public function testSend() {
 		$this->getMock('Cake\Network\Email\Email', array('message'), array(), 'DebugCakeEmail');
 		$email = new \DebugCakeEmail();

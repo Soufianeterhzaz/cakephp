@@ -26,21 +26,21 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class MyCategoriesMyUsersFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'my_category_id' => ['type' => 'integer'],
 		'my_user_id' => ['type' => 'integer']
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('my_category_id' => 1, 'my_user_id' => 1),
 		array('my_category_id' => 3, 'my_user_id' => 1),

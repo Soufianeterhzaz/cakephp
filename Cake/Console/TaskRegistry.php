@@ -24,43 +24,43 @@ use Cake\Utility\ObjectRegistry;
  */
 class TaskRegistry extends ObjectRegistry {
 
-/**
- * Shell to use to set params to tasks.
- *
- * @var Shell
- */
+	/**
+	 * Shell to use to set params to tasks.
+	 *
+	 * @var Shell
+	 */
 	protected $_Shell;
 
-/**
- * Constructor
- *
- * @param Shell $Shell
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Shell $Shell
+	 */
 	public function __construct(Shell $Shell) {
 		$this->_Shell = $Shell;
 	}
 
-/**
- * Resolve a task classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a task classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		return App::classname($class, 'Console/Command/Task', 'Task');
 	}
 
-/**
- * Throws an exception when a task is missing.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the task is missing in.
- * @throws Cake\Error\MissingTaskException
- */
+	/**
+	 * Throws an exception when a task is missing.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the task is missing in.
+	 * @throws Cake\Error\MissingTaskException
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new Error\MissingTaskException([
 			'class' => $class,
@@ -68,15 +68,15 @@ class TaskRegistry extends ObjectRegistry {
 		]);
 	}
 
-/**
- * Create the task instance.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param array $settings An array of settings to use for the task.
- * @return Component The constructed task class.
- */
+	/**
+	 * Create the task instance.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param array $settings An array of settings to use for the task.
+	 * @return Component The constructed task class.
+	 */
 	protected function _create($class, $settings) {
 		return new $class(
 			$this->_Shell->stdout,

@@ -27,23 +27,23 @@ use Cake\Error;
  */
 class StringTemplate {
 
-/**
- * The templates this instance holds.
- *
- * @var array
- */
+	/**
+	 * The templates this instance holds.
+	 *
+	 * @var array
+	 */
 	protected $_templates = [];
 
-/**
- * Load a config file containing templates.
- *
- * Template files should define a `$config` variable containing
- * all the templates to load. Loaded templates will be merged with existing
- * templates.
- *
- * @param string $file The file to load
- * @return void
- */
+	/**
+	 * Load a config file containing templates.
+	 *
+	 * Template files should define a `$config` variable containing
+	 * all the templates to load. Loaded templates will be merged with existing
+	 * templates.
+	 *
+	 * @param string $file The file to load
+	 * @return void
+	 */
 	public function load($file) {
 		list($plugin, $file) = pluginSplit($file);
 		$path = APP . 'Config/';
@@ -55,22 +55,22 @@ class StringTemplate {
 		$this->add($templates);
 	}
 
-/**
- * Add one or more template strings.
- *
- * @param array $templates The templates to add.
- * @return void
- */
+	/**
+	 * Add one or more template strings.
+	 *
+	 * @param array $templates The templates to add.
+	 * @return void
+	 */
 	public function add(array $templates) {
 		$this->_templates = array_merge($this->_templates, $templates);
 	}
 
-/**
- * Get one or all templates.
- *
- * @param string $name Leave null to get all templates, provide a name to get a single template.
- * @return string|array|null Either the template(s) or null
- */
+	/**
+	 * Get one or all templates.
+	 *
+	 * @param string $name Leave null to get all templates, provide a name to get a single template.
+	 * @return string|array|null Either the template(s) or null
+	 */
 	public function get($name = null) {
 		if ($name === null) {
 			return $this->_templates;
@@ -81,23 +81,23 @@ class StringTemplate {
 		return $this->_templates[$name];
 	}
 
-/**
- * Remove the named template.
- *
- * @param string $name The template to remove.
- * @return void
- */
+	/**
+	 * Remove the named template.
+	 *
+	 * @param string $name The template to remove.
+	 * @return void
+	 */
 	public function remove($name) {
 		unset($this->_templates[$name]);
 	}
 
-/**
- * Format a template string with $data
- *
- * @param string $name The template name.
- * @param array $data The data to insert.
- * @return string
- */
+	/**
+	 * Format a template string with $data
+	 *
+	 * @param string $name The template name.
+	 * @param array $data The data to insert.
+	 * @return string
+	 */
 	public function format($name, array $data) {
 		$template = $this->get($name);
 		if ($template === null) {

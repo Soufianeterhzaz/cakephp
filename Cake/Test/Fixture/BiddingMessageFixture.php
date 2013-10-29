@@ -26,22 +26,22 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class BiddingMessageFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'bidding' => ['type' => 'string', 'null' => false],
 		'name' => ['type' => 'string', 'null' => false],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['bidding']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('bidding' => 'One', 'name' => 'Message 1'),
 		array('bidding' => 'Two', 'name' => 'Message 2'),

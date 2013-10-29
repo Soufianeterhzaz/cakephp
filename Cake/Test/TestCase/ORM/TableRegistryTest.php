@@ -27,11 +27,11 @@ use Cake\TestSuite\TestCase;
  */
 class MyUsersTable extends Table {
 
-/**
- * Overrides default table name
- *
- * @var string
- */
+	/**
+	 * Overrides default table name
+	 *
+	 * @var string
+	 */
 	protected $_table = 'users';
 
 }
@@ -42,31 +42,31 @@ class MyUsersTable extends Table {
  */
 class TableRegistryTest extends TestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('App.namespace', 'TestApp');
 	}
 
-/**
- * tear down
- *
- * @return void
- */
+	/**
+	 * tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Test config() method.
- *
- * @return void
- */
+	/**
+	 * Test config() method.
+	 *
+	 * @return void
+	 */
 	public function testConfig() {
 		$this->assertEquals([], TableRegistry::config('Test'));
 
@@ -82,11 +82,11 @@ class TableRegistryTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test getting instances from the registry.
- *
- * @return void
- */
+	/**
+	 * Test getting instances from the registry.
+	 *
+	 * @return void
+	 */
 	public function testGet() {
 		$result = TableRegistry::get('Article', [
 			'table' => 'my_articles',
@@ -101,11 +101,11 @@ class TableRegistryTest extends TestCase {
 		$this->assertEquals('my_articles', $result->table());
 	}
 
-/**
- * Test that get() uses config data set with config()
- *
- * @return void
- */
+	/**
+	 * Test that get() uses config data set with config()
+	 *
+	 * @return void
+	 */
 	public function testGetWithConfig() {
 		TableRegistry::config('Article', [
 			'table' => 'my_articles',
@@ -114,12 +114,12 @@ class TableRegistryTest extends TestCase {
 		$this->assertEquals('my_articles', $result->table(), 'Should use config() data.');
 	}
 
-/**
- * Tests that tables can be instantiated based on conventions
- * and using plugin notation
- *
- * @return void
- */
+	/**
+	 * Tests that tables can be instantiated based on conventions
+	 * and using plugin notation
+	 *
+	 * @return void
+	 */
 	public function testBuildConvention() {
 		$table = TableRegistry::get('article');
 		$this->assertInstanceOf('\TestApp\Model\Repository\ArticleTable', $table);
@@ -141,11 +141,11 @@ class TableRegistryTest extends TestCase {
 		$this->assertInstanceOf($class, $table);
 	}
 
-/**
- * Tests that table options can be pre-configured for the factory method
- *
- * @return void
- */
+	/**
+	 * Tests that table options can be pre-configured for the factory method
+	 *
+	 * @return void
+	 */
 	public function testConfigAndBuild() {
 		TableRegistry::clear();
 		$map = TableRegistry::config();
@@ -182,11 +182,11 @@ class TableRegistryTest extends TestCase {
 		$this->assertEquals(array_keys($schema), $table->schema()->columns());
 	}
 
-/**
- * Test setting an instance.
- *
- * @return void
- */
+	/**
+	 * Test setting an instance.
+	 *
+	 * @return void
+	 */
 	public function testSet() {
 		$mock = $this->getMock('Cake\ORM\Table');
 		$this->assertSame($mock, TableRegistry::set('Article', $mock));

@@ -25,18 +25,18 @@ use Cake\Controller\Controller;
  */
 class ComponentTestController extends Controller {
 
-/**
- * name property
- *
- * @var string 'ComponentTest'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'ComponentTest'
+	 */
 	public $name = 'ComponentTest';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
 }

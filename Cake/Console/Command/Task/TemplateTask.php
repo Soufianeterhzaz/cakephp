@@ -32,31 +32,31 @@ class TemplateTask extends Shell {
 
 	use ViewVarsTrait;
 
-/**
- * Paths to look for templates on.
- * Contains a list of $theme => $path
- *
- * @var array
- */
+	/**
+	 * Paths to look for templates on.
+	 * Contains a list of $theme => $path
+	 *
+	 * @var array
+	 */
 	public $templatePaths = array();
 
-/**
- * Initialize callback. Setup paths for the template task.
- *
- * @return void
- */
+	/**
+	 * Initialize callback. Setup paths for the template task.
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->templatePaths = $this->_findThemes();
 	}
 
-/**
- * Find the paths to all the installed shell themes in the app.
- *
- * Bake themes are directories not named `skel` inside a `Console/Templates` path.
- * They are listed in this order: app -> plugin -> default
- *
- * @return array Array of bake themes that are installed.
- */
+	/**
+	 * Find the paths to all the installed shell themes in the app.
+	 *
+	 * Bake themes are directories not named `skel` inside a `Console/Templates` path.
+	 * They are listed in this order: app -> plugin -> default
+	 *
+	 * @return array Array of bake themes that are installed.
+	 */
 	protected function _findThemes() {
 		$paths = App::path('Console');
 
@@ -101,14 +101,14 @@ class TemplateTask extends Shell {
 		return $themes;
 	}
 
-/**
- * Runs the template
- *
- * @param string $directory directory / type of thing you want
- * @param string $filename template name
- * @param array $vars Additional vars to set to template scope.
- * @return string contents of generated code template
- */
+	/**
+	 * Runs the template
+	 *
+	 * @param string $directory directory / type of thing you want
+	 * @param string $filename template name
+	 * @param array $vars Additional vars to set to template scope.
+	 * @return string contents of generated code template
+	 */
 	public function generate($directory, $filename, $vars = null) {
 		if ($vars !== null) {
 			$this->set($vars);
@@ -129,14 +129,14 @@ class TemplateTask extends Shell {
 		return '';
 	}
 
-/**
- * Find the theme name for the current operation.
- * If there is only one theme in $templatePaths it will be used.
- * If there is a -theme param in the cli args, it will be used.
- * If there is more than one installed theme user interaction will happen
- *
- * @return string returns the path to the selected theme.
- */
+	/**
+	 * Find the theme name for the current operation.
+	 * If there is only one theme in $templatePaths it will be used.
+	 * If there is a -theme param in the cli args, it will be used.
+	 * If there is more than one installed theme user interaction will happen
+	 *
+	 * @return string returns the path to the selected theme.
+	 */
 	public function getThemePath() {
 		if (count($this->templatePaths) === 1) {
 			$paths = array_values($this->templatePaths);
@@ -164,15 +164,15 @@ class TemplateTask extends Shell {
 		return $indexedPaths[$index];
 	}
 
-/**
- * Find a template inside a directory inside a path.
- * Will scan all other theme dirs if the template is not found in the first directory.
- *
- * @param string $path The initial path to look for the file on. If it is not found fallbacks will be used.
- * @param string $directory Subdirectory to look for ie. 'views', 'objects'
- * @param string $filename lower_case_underscored filename you want.
- * @return string filename will exit program if template is not found.
- */
+	/**
+	 * Find a template inside a directory inside a path.
+	 * Will scan all other theme dirs if the template is not found in the first directory.
+	 *
+	 * @param string $path The initial path to look for the file on. If it is not found fallbacks will be used.
+	 * @param string $directory Subdirectory to look for ie. 'views', 'objects'
+	 * @param string $filename lower_case_underscored filename you want.
+	 * @return string filename will exit program if template is not found.
+	 */
 	protected function _findTemplate($path, $directory, $filename) {
 		$themeFile = $path . $directory . DS . $filename . '.ctp';
 		if (file_exists($themeFile)) {

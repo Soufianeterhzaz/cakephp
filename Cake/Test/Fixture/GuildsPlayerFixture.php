@@ -28,11 +28,11 @@ class GuildsPlayerFixture extends TestFixture {
 
 	public $useDbConfig = 'test2';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'player_id' => ['type' => 'integer', 'null' => false],
@@ -40,11 +40,11 @@ class GuildsPlayerFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('player_id' => 1, 'guild_id' => 1),
 		array('player_id' => 1, 'guild_id' => 2),

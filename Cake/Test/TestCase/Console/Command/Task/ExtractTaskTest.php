@@ -27,11 +27,11 @@ use Cake\Utility\Folder;
  */
 class ExtractTaskTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
@@ -46,11 +46,11 @@ class ExtractTaskTest extends TestCase {
 		new Folder($this->path . DS . 'locale', true);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task);
@@ -60,11 +60,11 @@ class ExtractTaskTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * testExecute method
- *
- * @return void
- */
+	/**
+	 * testExecute method
+	 *
+	 * @return void
+	 */
 	public function testExecute() {
 		$this->Task->interactive = false;
 
@@ -168,11 +168,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertRegExp($pattern, $result);
 	}
 
-/**
- * testExtractCategory method
- *
- * @return void
- */
+	/**
+	 * testExtractCategory method
+	 *
+	 * @return void
+	 */
 	public function testExtractCategory() {
 		$this->Task->interactive = false;
 
@@ -194,11 +194,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertNotRegExp($pattern, $result);
 	}
 
-/**
- * test exclusions
- *
- * @return void
- */
+	/**
+	 * test exclusions
+	 *
+	 * @return void
+	 */
 	public function testExtractWithExclude() {
 		$this->Task->interactive = false;
 
@@ -221,11 +221,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertNotRegExp($pattern, $result);
 	}
 
-/**
- * test extract can read more than one path.
- *
- * @return void
- */
+	/**
+	 * test extract can read more than one path.
+	 *
+	 * @return void
+	 */
 	public function testExtractMultiplePaths() {
 		$this->Task->interactive = false;
 
@@ -245,11 +245,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertRegExp($pattern, $result);
 	}
 
-/**
- * Tests that it is possible to exclude plugin paths by enabling the param option for the ExtractTask
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to exclude plugin paths by enabling the param option for the ExtractTask
+	 *
+	 * @return void
+	 */
 	public function testExtractExcludePlugins() {
 		Configure::write('App.namespace', 'TestApp');
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
@@ -271,11 +271,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertNotRegExp('#TestPlugin#', $result);
 	}
 
-/**
- * Test that is possible to extract messages form a single plugin
- *
- * @return void
- */
+	/**
+	 * Test that is possible to extract messages form a single plugin
+	 *
+	 * @return void
+	 */
 	public function testExtractPlugin() {
 		Configure::write('App.namespace', 'TestApp');
 
@@ -297,11 +297,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertContains('I can haz plugin model validation message', $result);
 	}
 
-/**
- * Tests that the task will inspect application models and extract the validation messages from them
- *
- * @return void
- */
+	/**
+	 * Tests that the task will inspect application models and extract the validation messages from them
+	 *
+	 * @return void
+	 */
 	public function testExtractModelValidation() {
 		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
@@ -344,11 +344,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertRegExp($pattern, $result);
 	}
 
-/**
- *  Test that the extract shell can obtain validation messages from models inside a specific plugin
- *
- * @return void
- */
+	/**
+	 *  Test that the extract shell can obtain validation messages from models inside a specific plugin
+	 *
+	 * @return void
+	 */
 	public function testExtractModelValidationInPlugin() {
 		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
@@ -385,11 +385,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertNotRegExp($pattern, $result);
 	}
 
-/**
- *  Test that the extract shell overwrites existing files with the overwrite parameter
- *
- * @return void
- */
+	/**
+	 *  Test that the extract shell overwrites existing files with the overwrite parameter
+	 *
+	 * @return void
+	 */
 	public function testExtractOverwrite() {
 		Configure::write('App.namespace', 'TestApp');
 		$this->Task->interactive = false;
@@ -408,11 +408,11 @@ class ExtractTaskTest extends TestCase {
 		$this->assertNotEquals($original, $result);
 	}
 
-/**
- *  Test that the extract shell scans the core libs
- *
- * @return void
- */
+	/**
+	 *  Test that the extract shell scans the core libs
+	 *
+	 * @return void
+	 */
 	public function testExtractCore() {
 		Configure::write('App.namespace', 'TestApp');
 		$this->Task->interactive = false;

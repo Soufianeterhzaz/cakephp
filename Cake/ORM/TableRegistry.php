@@ -54,35 +54,35 @@ use Cake\Utility\Inflector;
  */
 class TableRegistry {
 
-/**
- * Configuration for aliases.
- *
- * @var array
- */
+	/**
+	 * Configuration for aliases.
+	 *
+	 * @var array
+	 */
 	protected static $_config = [];
 
-/**
- * Instances that belong to the registry.
- *
- * @var array
- */
+	/**
+	 * Instances that belong to the registry.
+	 *
+	 * @var array
+	 */
 	protected static $_instances = [];
 
-/**
- * Stores a list of options to be used when instantiating an object
- * with a matching alias.
- *
- * The options that can be stored are those that are recognized by `build()`
- * If second argument is omitted, it will return the current settings
- * for $alias.
- *
- * If no arguments are passed it will return the full configuration array for
- * all aliases
- *
- * @param string $alias Name of the alias
- * @param null|array $options list of options for the alias
- * @return array The config data.
- */
+	/**
+	 * Stores a list of options to be used when instantiating an object
+	 * with a matching alias.
+	 *
+	 * The options that can be stored are those that are recognized by `build()`
+	 * If second argument is omitted, it will return the current settings
+	 * for $alias.
+	 *
+	 * If no arguments are passed it will return the full configuration array for
+	 * all aliases
+	 *
+	 * @param string $alias Name of the alias
+	 * @param null|array $options list of options for the alias
+	 * @return array The config data.
+	 */
 	public static function config($alias = null, $options = null) {
 		if ($alias === null) {
 			return static::$_config;
@@ -96,35 +96,35 @@ class TableRegistry {
 		return static::$_config[$alias] = $options;
 	}
 
-/**
- * Get a table instance from the registry.
- *
- * Tables are only created once until the registry is flushed.
- * This means that aliases must be unique across your application.
- * This is important because table associations are resolved at runtime
- * and cyclic references need to be handled correctly.
- *
- * The options that can be passed are the same as in `Table::__construct()`, but the
- * key `className` is also recognized.
- *
- * If $options does not contain `className` CakePHP will attempt to inflect the
- * class name based on the alias. For example 'User' would result in
- * `App\Model\Repository\UserTable` being attempted. If this class does not exist,
- * then the default `Cake\ORM\Table` class will be used. By setting the `className`
- * option you can define the specific class to use. This className can
- * use a short class reference.
- *
- * If no `table` option is passed, the table name will be the tableized version
- * of the provided $alias.
- *
- * If no `connection` option is passed the table's defaultConnectionName() method
- * will be called to get the default connection name to use.
- *
- * @param string $alias The alias you want to get.
- * @param array $options The options you want to build the table with.
- *   If a table has already been loaded the options will be ignored.
- * @return Cake\Database\Table
- */
+	/**
+	 * Get a table instance from the registry.
+	 *
+	 * Tables are only created once until the registry is flushed.
+	 * This means that aliases must be unique across your application.
+	 * This is important because table associations are resolved at runtime
+	 * and cyclic references need to be handled correctly.
+	 *
+	 * The options that can be passed are the same as in `Table::__construct()`, but the
+	 * key `className` is also recognized.
+	 *
+	 * If $options does not contain `className` CakePHP will attempt to inflect the
+	 * class name based on the alias. For example 'User' would result in
+	 * `App\Model\Repository\UserTable` being attempted. If this class does not exist,
+	 * then the default `Cake\ORM\Table` class will be used. By setting the `className`
+	 * option you can define the specific class to use. This className can
+	 * use a short class reference.
+	 *
+	 * If no `table` option is passed, the table name will be the tableized version
+	 * of the provided $alias.
+	 *
+	 * If no `connection` option is passed the table's defaultConnectionName() method
+	 * will be called to get the default connection name to use.
+	 *
+	 * @param string $alias The alias you want to get.
+	 * @param array $options The options you want to build the table with.
+	 *   If a table has already been loaded the options will be ignored.
+	 * @return Cake\Database\Table
+	 */
 	public static function get($alias, $options = []) {
 		if (isset(static::$_instances[$alias])) {
 			return static::$_instances[$alias];
@@ -149,22 +149,22 @@ class TableRegistry {
 		return static::$_instances[$alias] = new $options['className']($options);
 	}
 
-/**
- * Set an instance.
- *
- * @param string $alias The alias to set.
- * @param Cake\ORM\Table The table to set.
- * @return void
- */
+	/**
+	 * Set an instance.
+	 *
+	 * @param string $alias The alias to set.
+	 * @param Cake\ORM\Table The table to set.
+	 * @return void
+	 */
 	public static function set($alias, Table $object) {
 		return static::$_instances[$alias] = $object;
 	}
 
-/**
- * Clears the registry of configuration and instances.
- *
- * @return void
- */
+	/**
+	 * Clears the registry of configuration and instances.
+	 *
+	 * @return void
+	 */
 	public static function clear() {
 		static::$_instances = [];
 		static::$_config = [];

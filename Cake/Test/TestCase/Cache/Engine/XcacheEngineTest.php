@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class XcacheEngineTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		if (!function_exists('xcache_set')) {
@@ -42,11 +42,11 @@ class XcacheEngineTest extends TestCase {
 		Cache::config('xcache', ['engine' => 'Xcache', 'prefix' => 'cake_']);
 	}
 
-/**
- * Helper method for testing.
- *
- * @return void
- */
+	/**
+	 * Helper method for testing.
+	 *
+	 * @return void
+	 */
 	protected function _configCache($settings = []) {
 		$defaults = [
 			'className' => 'Xcache',
@@ -56,22 +56,22 @@ class XcacheEngineTest extends TestCase {
 		Cache::config('xcache', array_merge($defaults, $settings));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Cache::drop('xcache');
 		Cache::drop('xcache_groups');
 	}
 
-/**
- * testSettings method
- *
- * @return void
- */
+	/**
+	 * testSettings method
+	 *
+	 * @return void
+	 */
 	public function testSettings() {
 		$settings = Cache::settings();
 		$expecting = [
@@ -86,11 +86,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertEquals($settings, $expecting);
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		$result = Cache::read('test', 'xcache');
 		$expecting = '';
@@ -107,11 +107,11 @@ class XcacheEngineTest extends TestCase {
 		Cache::delete('test', 'xcache');
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		$this->_configCache(['duration' => 1]);
 		$result = Cache::read('test', 'xcache');
@@ -136,11 +136,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'xcache');
@@ -150,11 +150,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testClearCache method
- *
- * @return void
- */
+	/**
+	 * testClearCache method
+	 *
+	 * @return void
+	 */
 	public function testClearCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('clear_test_1', $data, 'xcache');
@@ -167,11 +167,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDecrement method
- *
- * @return void
- */
+	/**
+	 * testDecrement method
+	 *
+	 * @return void
+	 */
 	public function testDecrement() {
 		$result = Cache::write('test_decrement', 5, 'xcache');
 		$this->assertTrue($result);
@@ -189,11 +189,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertEquals(2, $result);
 	}
 
-/**
- * testIncrement method
- *
- * @return void
- */
+	/**
+	 * testIncrement method
+	 *
+	 * @return void
+	 */
 	public function testIncrement() {
 		$result = Cache::write('test_increment', 5, 'xcache');
 		$this->assertTrue($result);
@@ -211,13 +211,13 @@ class XcacheEngineTest extends TestCase {
 		$this->assertEquals(8, $result);
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- * Shows that altering the group value is equivalent to deleting all keys under the same
- * group
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 * Shows that altering the group value is equivalent to deleting all keys under the same
+	 * group
+	 *
+	 * @return void
+	 */
 	public function testGroupsReadWrite() {
 		Cache::config('xcache_groups', [
 			'engine' => 'Xcache',
@@ -239,11 +239,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertEquals('value3', Cache::read('test_groups', 'xcache_groups'));
 	}
 
-/**
- * Tests that deleteing from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleteing from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('xcache_groups', [
 			'engine' => 'Xcache',
@@ -258,11 +258,11 @@ class XcacheEngineTest extends TestCase {
 		$this->assertFalse(Cache::read('test_groups', 'xcache_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('xcache_groups', [
 			'engine' => 'Xcache',

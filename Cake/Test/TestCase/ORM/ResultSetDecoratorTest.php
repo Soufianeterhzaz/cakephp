@@ -25,44 +25,44 @@ use Cake\TestSuite\TestCase;
  */
 class ResultSetDecoratorTest extends TestCase {
 
-/**
- * Tests the decorator can wrap a simple iterator
- *
- * @return void
- */
+	/**
+	 * Tests the decorator can wrap a simple iterator
+	 *
+	 * @return void
+	 */
 	public function testDecorateSimpleIterator() {
 		$data = new \ArrayIterator([1, 2, 3]);
 		$decorator = new ResultSetDecorator($data);
 		$this->assertEquals([1, 2, 3], iterator_to_array($decorator));
 	}
 
-/**
- * Tests it toArray() method
- *
- * @return void
- */
+	/**
+	 * Tests it toArray() method
+	 *
+	 * @return void
+	 */
 	public function testToArray() {
 		$data = new \ArrayIterator([1, 2, 3]);
 		$decorator = new ResultSetDecorator($data);
 		$this->assertEquals([1, 2, 3], $decorator->toArray());
 	}
 
-/**
- * Tests json encoding method
- *
- * @return void
- */
+	/**
+	 * Tests json encoding method
+	 *
+	 * @return void
+	 */
 	public function testToJson() {
 		$data = new \ArrayIterator([1, 2, 3]);
 		$decorator = new ResultSetDecorator($data);
 		$this->assertEquals(json_encode([1, 2, 3]), json_encode($decorator));
 	}
 
-/**
- * Tests serializing and unserializing the decorator
- *
- * @return void
- */
+	/**
+	 * Tests serializing and unserializing the decorator
+	 *
+	 * @return void
+	 */
 	public function testSerialization() {
 		$data = new \ArrayIterator([1, 2, 3]);
 		$decorator = new ResultSetDecorator($data);

@@ -29,14 +29,14 @@ use Cake\Network\Http\Request;
  */
 class Oauth {
 
-/**
- * Add headers for Oauth authorization.
- *
- * @param Request $request
- * @param array $options
- * @return void
- * @throws Cake\Error\Exception On invalid signature types.
- */
+	/**
+	 * Add headers for Oauth authorization.
+	 *
+	 * @param Request $request
+	 * @param array $options
+	 * @return void
+	 * @throws Cake\Error\Exception On invalid signature types.
+	 */
 	public function authentication(Request $request, $credentials) {
 		$hasKeys = isset(
 			$credentials['consumerSecret'],
@@ -67,17 +67,17 @@ class Oauth {
 		$request->header('Authorization', $value);
 	}
 
-/**
- * Plaintext signing
- *
- * This method is **not** suitable for plain HTTP.
- * You should only ever use PLAINTEXT when dealing with SSL
- * services.
- *
- * @param Request $request
- * @param array $credentials
- * @return string Authorization header.
- */
+	/**
+	 * Plaintext signing
+	 *
+	 * This method is **not** suitable for plain HTTP.
+	 * You should only ever use PLAINTEXT when dealing with SSL
+	 * services.
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 * @return string Authorization header.
+	 */
 	protected function _plaintext($request, $credentials) {
 		$values = [
 			'oauth_version' => '1.0',
@@ -97,14 +97,14 @@ class Oauth {
 		return $this->_buildAuth($values);
 	}
 
-/**
- * Use HMAC-SHA1 signing.
- *
- * This method is suitable for plain HTTP or HTTPS.
- *
- * @param Request $request
- * @param array $credentials
- */
+	/**
+	 * Use HMAC-SHA1 signing.
+	 *
+	 * This method is suitable for plain HTTP or HTTPS.
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 */
 	protected function _hmacSha1($request, $credentials) {
 		$nonce = isset($credentials['nonce']) ? $credentials['nonce'] : uniqid();
 		$timestamp = isset($credentials['timestamp']) ? $credentials['timestamp'] : time();
@@ -131,19 +131,19 @@ class Oauth {
 		return $this->_buildAuth($values);
 	}
 
-/**
- * Generate the Oauth basestring
- *
- * - Querystring, request data and oauth_* parameters are combined.
- * - Values are sorted by name and then value.
- * - Request values are concatenated and urlencoded.
- * - The request URL (without querystring) is normalized.
- * - The HTTP method, URL and request parameters are concatenated and returnned.
- *
- * @param Request $request
- * @param array $oauthValues
- * @return string
- */
+	/**
+	 * Generate the Oauth basestring
+	 *
+	 * - Querystring, request data and oauth_* parameters are combined.
+	 * - Values are sorted by name and then value.
+	 * - Request values are concatenated and urlencoded.
+	 * - The request URL (without querystring) is normalized.
+	 * - The HTTP method, URL and request parameters are concatenated and returnned.
+	 *
+	 * @param Request $request
+	 * @param array $oauthValues
+	 * @return string
+	 */
 	public function baseString($request, $oauthValues) {
 		$parts = [
 			$request->method(),
@@ -154,15 +154,15 @@ class Oauth {
 		return implode('&', $parts);
 	}
 
-/**
- * Builds a normalized URL
- *
- * Section 9.1.2. of the Oauth spec
- *
- * @param string $url
- * @return string Normalized URL
- * @throws Cake\Error\Exception On invalid URLs
- */
+	/**
+	 * Builds a normalized URL
+	 *
+	 * Section 9.1.2. of the Oauth spec
+	 *
+	 * @param string $url
+	 * @return string Normalized URL
+	 * @throws Cake\Error\Exception On invalid URLs
+	 */
 	protected function _normalizedUrl($url) {
 		$parts = parse_url($url);
 		if (!$parts) {
@@ -183,18 +183,18 @@ class Oauth {
 		return $out;
 	}
 
-/**
- * Sorts and normalizes request data and oauthValues
- *
- * Section 9.1.1 of Oauth spec.
- *
- * - URL encode keys + values.
- * - Sort keys & values by byte value.
- *
- * @param Request $request
- * @param array $oauthValues
- * @return string sorted and normalized values
- */
+	/**
+	 * Sorts and normalizes request data and oauthValues
+	 *
+	 * Section 9.1.1 of Oauth spec.
+	 *
+	 * - URL encode keys + values.
+	 * - Sort keys & values by byte value.
+	 *
+	 * @param Request $request
+	 * @param array $oauthValues
+	 * @return string sorted and normalized values
+	 */
 	protected function _normalizedParams($request, $oauthValues) {
 		$query = parse_url($request->url(), PHP_URL_QUERY);
 		parse_str($query, $queryArgs);
@@ -224,12 +224,12 @@ class Oauth {
 		return implode('&', $pairs);
 	}
 
-/**
- * Builds the Oauth Authorization header value.
- *
- * @param array $values The oauth_* values to build
- * @return string
- */
+	/**
+	 * Builds the Oauth Authorization header value.
+	 *
+	 * @param array $values The oauth_* values to build
+	 * @return string
+	 */
 	protected function _buildAuth($data) {
 		$out = 'OAuth ';
 		$params = [];
@@ -240,12 +240,12 @@ class Oauth {
 		return $out;
 	}
 
-/**
- * URL Encodes a value based on rules of rfc3986
- *
- * @param string $value
- * @return string
- */
+	/**
+	 * URL Encodes a value based on rules of rfc3986
+	 *
+	 * @param string $value
+	 * @return string
+	 */
 	protected function _encode($value) {
 		return str_replace(
 			'+',

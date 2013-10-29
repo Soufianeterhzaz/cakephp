@@ -30,13 +30,13 @@ use Cake\Utility\Inflector;
  */
 class ScaffoldView extends View {
 
-/**
- * Override _getViewFileName Appends special scaffolding views in.
- *
- * @param string $name name of the view file to get.
- * @return string action
- * @throws Cake\Error\MissingViewException
- */
+	/**
+	 * Override _getViewFileName Appends special scaffolding views in.
+	 *
+	 * @param string $name name of the view file to get.
+	 * @return string action
+	 * @throws Cake\Error\MissingViewException
+	 */
 	protected function _getViewFileName($name = null) {
 		if ($name === null) {
 			$name = $this->action;

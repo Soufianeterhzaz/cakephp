@@ -27,38 +27,38 @@ use Cake\Utility\Hash;
  */
 class Permission extends Model {
 
-/**
- * Explicitly disable in-memory query caching
- *
- * @var boolean
- */
+	/**
+	 * Explicitly disable in-memory query caching
+	 *
+	 * @var boolean
+	 */
 	public $cacheQueries = false;
 
-/**
- * Override default table name
- *
- * @var string
- */
+	/**
+	 * Override default table name
+	 *
+	 * @var string
+	 */
 	public $useTable = 'aros_acos';
 
-/**
- * Permissions link AROs with ACOs
- *
- * @var array
- */
+	/**
+	 * Permissions link AROs with ACOs
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('Aro', 'Aco');
 
-/**
- * No behaviors for this model
- *
- * @var array
- */
+	/**
+	 * No behaviors for this model
+	 *
+	 * @var array
+	 */
 	public $actsAs = null;
 
-/**
- * Constructor, used to tell this model to use the
- * database configured for ACL
- */
+	/**
+	 * Constructor, used to tell this model to use the
+	 * database configured for ACL
+	 */
 	public function __construct() {
 		$config = Configure::read('Acl.database');
 		if (!empty($config)) {
@@ -67,14 +67,14 @@ class Permission extends Model {
 		parent::__construct();
 	}
 
-/**
- * Checks if the given $aro has access to action $action in $aco
- *
- * @param string $aro ARO The requesting object identifier.
- * @param string $aco ACO The controlled object identifier.
- * @param string $action Action (defaults to *)
- * @return boolean Success (true if ARO has access to action in ACO, false otherwise)
- */
+	/**
+	 * Checks if the given $aro has access to action $action in $aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 * @param string $action Action (defaults to *)
+	 * @return boolean Success (true if ARO has access to action in ACO, false otherwise)
+	 */
 	public function check($aro, $aco, $action = '*') {
 		if (!$aro || !$aco) {
 			return false;
@@ -162,16 +162,16 @@ class Permission extends Model {
 		return false;
 	}
 
-/**
- * Allow $aro to have access to action $actions in $aco
- *
- * @param string $aro ARO The requesting object identifier.
- * @param string $aco ACO The controlled object identifier.
- * @param string $actions Action (defaults to *) Invalid permissions will result in an exception
- * @param integer $value Value to indicate access type (1 to give access, -1 to deny, 0 to inherit)
- * @return boolean Success
- * @throws Cake\Error\AclException on Invalid permission key.
- */
+	/**
+	 * Allow $aro to have access to action $actions in $aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 * @param string $actions Action (defaults to *) Invalid permissions will result in an exception
+	 * @param integer $value Value to indicate access type (1 to give access, -1 to deny, 0 to inherit)
+	 * @return boolean Success
+	 * @throws Cake\Error\AclException on Invalid permission key.
+	 */
 	public function allow($aro, $aco, $actions = '*', $value = 1) {
 		$perms = $this->getAclLink($aro, $aco);
 		$permKeys = $this->getAcoKeys($this->schema());
@@ -212,13 +212,13 @@ class Permission extends Model {
 		return ($this->save($save) !== false);
 	}
 
-/**
- * Get an array of access-control links between the given Aro and Aco
- *
- * @param string $aro ARO The requesting object identifier.
- * @param string $aco ACO The controlled object identifier.
- * @return array Indexed array with: 'aro', 'aco' and 'link'
- */
+	/**
+	 * Get an array of access-control links between the given Aro and Aco
+	 *
+	 * @param string $aro ARO The requesting object identifier.
+	 * @param string $aco ACO The controlled object identifier.
+	 * @return array Indexed array with: 'aro', 'aco' and 'link'
+	 */
 	public function getAclLink($aro, $aco) {
 		$obj = array();
 		$obj['Aro'] = $this->Aro->node($aro);
@@ -242,12 +242,12 @@ class Permission extends Model {
 		);
 	}
 
-/**
- * Get the crud type keys
- *
- * @param array $keys Permission schema
- * @return array permission keys
- */
+	/**
+	 * Get the crud type keys
+	 *
+	 * @param array $keys Permission schema
+	 * @return array permission keys
+	 */
 	public function getAcoKeys($keys) {
 		$newKeys = array();
 		$keys = array_keys($keys);

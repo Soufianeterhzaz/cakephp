@@ -83,18 +83,18 @@ use Cake\Utility\Debugger;
  */
 class ErrorHandler extends BaseErrorHandler {
 
-/**
- * Options to use for the Error handling.
- *
- * @var array
- */
+	/**
+	 * Options to use for the Error handling.
+	 *
+	 * @var array
+	 */
 	protected $_options = [];
 
-/**
- * Constructor
- *
- * @param array $options The options for error handling.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $options The options for error handling.
+	 */
 	public function __construct($options = []) {
 		$defaults = [
 			'log' => true,
@@ -104,17 +104,17 @@ class ErrorHandler extends BaseErrorHandler {
 		$this->_options = array_merge($defaults, $options);
 	}
 
-/**
- * Display an error.
- *
- * Template method of BaseErrorHandler.
- *
- * Only when debug > 2 will a formatted error be displayed.
- *
- * @param array $error An array of error data.
- * @param boolean $debug Whether or not the app is in debug mode.
- * @return void
- */
+	/**
+	 * Display an error.
+	 *
+	 * Template method of BaseErrorHandler.
+	 *
+	 * Only when debug > 2 will a formatted error be displayed.
+	 *
+	 * @param array $error An array of error data.
+	 * @param boolean $debug Whether or not the app is in debug mode.
+	 * @return void
+	 */
 	protected function _displayError($error, $debug) {
 		if (!$debug) {
 			return;
@@ -122,13 +122,13 @@ class ErrorHandler extends BaseErrorHandler {
 		Debugger::getInstance()->outputError($error);
 	}
 
-/**
- * Displays an exception response body.
- *
- * @param \Exception $exception The exception to display
- * @return void
- * @throws \Exception When the chosen exception renderer is invalid.
- */
+	/**
+	 * Displays an exception response body.
+	 *
+	 * @param \Exception $exception The exception to display
+	 * @return void
+	 * @throws \Exception When the chosen exception renderer is invalid.
+	 */
 	protected function _displayException($exception) {
 		$renderer = App::classname($this->_options['exceptionRenderer'], 'Error');
 		try {

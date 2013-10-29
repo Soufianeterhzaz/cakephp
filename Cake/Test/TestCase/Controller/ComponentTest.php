@@ -34,11 +34,11 @@ use TestApp\Controller\Component\OrangeComponent;
  */
 class ComponentTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('App.namespace', 'TestApp');
@@ -46,11 +46,11 @@ class ComponentTest extends TestCase {
 		$this->_pluginPaths = App::path('Plugin');
 	}
 
-/**
- * test accessing inner components.
- *
- * @return void
- */
+	/**
+	 * test accessing inner components.
+	 *
+	 * @return void
+	 */
 	public function testInnerComponentConstruction() {
 		$Collection = new ComponentRegistry();
 		$Component = new AppleComponent($Collection);
@@ -58,11 +58,11 @@ class ComponentTest extends TestCase {
 		$this->assertInstanceOf('TestApp\Controller\Component\OrangeComponent', $Component->Orange, 'class is wrong');
 	}
 
-/**
- * test component loading
- *
- * @return void
- */
+	/**
+	 * test component loading
+	 *
+	 * @return void
+	 */
 	public function testNestedComponentLoading() {
 		$Collection = new ComponentRegistry();
 		$Apple = new AppleComponent($Collection);
@@ -73,11 +73,11 @@ class ComponentTest extends TestCase {
 		$this->assertTrue(empty($Apple->Orange->Session));
 	}
 
-/**
- * test that component components are not enabled in the collection.
- *
- * @return void
- */
+	/**
+	 * test that component components are not enabled in the collection.
+	 *
+	 * @return void
+	 */
 	public function testInnerComponentsAreNotEnabled() {
 		$mock = $this->getMock('Cake\Event\EventManager');
 		$controller = new Controller();
@@ -93,11 +93,11 @@ class ComponentTest extends TestCase {
 		$this->assertInstanceOf('TestApp\Controller\Component\OrangeComponent', $Apple->Orange, 'class is wrong');
 	}
 
-/**
- * test a component being used more than once.
- *
- * @return void
- */
+	/**
+	 * test a component being used more than once.
+	 *
+	 * @return void
+	 */
 	public function testMultipleComponentInitialize() {
 		$Collection = new ComponentRegistry();
 		$Banana = $Collection->load('Banana');
@@ -109,11 +109,11 @@ class ComponentTest extends TestCase {
 		$this->assertSame($Banana->testField, $Orange->Banana->testField, 'References are broken');
 	}
 
-/**
- * Test mutually referencing components.
- *
- * @return void
- */
+	/**
+	 * Test mutually referencing components.
+	 *
+	 * @return void
+	 */
 	public function testSomethingReferencingCookieComponent() {
 		$Controller = new ComponentTestController();
 		$Controller->components = array('SomethingWithCookie');

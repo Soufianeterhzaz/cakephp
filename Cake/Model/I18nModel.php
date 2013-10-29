@@ -20,25 +20,25 @@ namespace Cake\Model;
  */
 class I18nModel extends Model {
 
-/**
- * Model name
- *
- * @var string
- */
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
 	public $name = 'I18nModel';
 
-/**
- * Table name
- *
- * @var string
- */
+	/**
+	 * Table name
+	 *
+	 * @var string
+	 */
 	public $useTable = 'i18n';
 
-/**
- * Display field
- *
- * @var string
- */
+	/**
+	 * Display field
+	 *
+	 * @var string
+	 */
 	public $displayField = 'field';
 
 }

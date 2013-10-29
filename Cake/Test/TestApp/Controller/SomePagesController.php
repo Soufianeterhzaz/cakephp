@@ -22,44 +22,44 @@ use Cake\Network\Response;
  */
 class SomePagesController extends Controller {
 
-/**
- * name property
- *
- * @var string 'SomePages'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'SomePages'
+	 */
 	public $name = 'SomePages';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * display method
- *
- * @param mixed $page
- * @return void
- */
+	/**
+	 * display method
+	 *
+	 * @param mixed $page
+	 * @return void
+	 */
 	public function display($page = null) {
 		return $page;
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		return true;
 	}
 
-/**
- * Test method for returning responses.
- *
- * @return Cake\Network\Response
- */
+	/**
+	 * Test method for returning responses.
+	 *
+	 * @return Cake\Network\Response
+	 */
 	public function responseGenerator() {
 		return new Response(array('body' => 'new response'));
 	}

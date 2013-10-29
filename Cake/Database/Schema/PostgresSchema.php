@@ -24,20 +24,20 @@ use Cake\Database\Schema\Table;
  */
 class PostgresSchema extends BaseSchema {
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function listTablesSql($config) {
 		$sql = 'SELECT table_name as name FROM information_schema.tables WHERE table_schema = ? ORDER BY name';
 		$schema = empty($config['schema']) ? 'public' : $config['schema'];
 		return [$sql, [$schema]];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeTableSql($name, $config) {
 		$sql =
 		'SELECT DISTINCT table_schema AS schema, column_name AS name, data_type AS type,
@@ -57,16 +57,16 @@ class PostgresSchema extends BaseSchema {
 		return [$sql, [$name, $schema, $config['database']]];
 	}
 
-/**
- * Convert a column definition to the abstract types.
- *
- * The returned type will be a type that
- * Cake\Database\Type can handle.
- *
- * @param string $column The column type + length
- * @throws Cake\Database\Exception when column cannot be parsed.
- * @return array Array of column information.
- */
+	/**
+	 * Convert a column definition to the abstract types.
+	 *
+	 * The returned type will be a type that
+	 * Cake\Database\Type can handle.
+	 *
+	 * @param string $column The column type + length
+	 * @throws Cake\Database\Exception when column cannot be parsed.
+	 * @return array Array of column information.
+	 */
 	protected function _convertColumn($column) {
 		preg_match('/([a-z\s]+)(?:\(([0-9,]+)\))?/i', $column, $matches);
 		if (empty($matches)) {
@@ -125,10 +125,10 @@ class PostgresSchema extends BaseSchema {
 		return ['type' => 'text', 'length' => null];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertFieldDescription(Table $table, $row) {
 		$field = $this->_convertColumn($row['type']);
 
@@ -150,10 +150,10 @@ class PostgresSchema extends BaseSchema {
 		$table->addColumn($row['name'], $field);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeIndexSql($table, $config) {
 		$sql = 'SELECT
 			c2.relname,
@@ -183,10 +183,10 @@ class PostgresSchema extends BaseSchema {
 		return [$sql, [$table, $schema]];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertIndexDescription(Table $table, $row) {
 		$type = Table::INDEX_INDEX;
 		$name = $row['relname'];
@@ -211,10 +211,10 @@ class PostgresSchema extends BaseSchema {
 		]);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeForeignKeySql($table, $config) {
 		$sql = "SELECT
 			r.conname AS name,
@@ -236,10 +236,10 @@ class PostgresSchema extends BaseSchema {
 		return [$sql, [$table, $schema]];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertForeignKeyDescription(Table $table, $row) {
 		preg_match('/REFERENCES ([^\)]+)\(([^\)]+)\)/', $row['definition'], $matches);
 		$tableName = $matches[1];
@@ -259,10 +259,10 @@ class PostgresSchema extends BaseSchema {
 		$table->addConstraint($name, $data);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	protected function _convertOnClause($clause) {
 		if ($clause === 'r') {
 			return Table::ACTION_RESTRICT;
@@ -276,10 +276,10 @@ class PostgresSchema extends BaseSchema {
 		return Table::ACTION_SET_NULL;
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function columnSql(Table $table, $name) {
 		$data = $table->column($name);
 		$out = $this->_driver->quoteIdentifier($name);
@@ -347,10 +347,10 @@ class PostgresSchema extends BaseSchema {
 		return $out;
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function indexSql(Table $table, $name) {
 		$data = $table->index($name);
 		$columns = array_map(
@@ -364,10 +364,10 @@ class PostgresSchema extends BaseSchema {
 		);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function constraintSql(Table $table, $name) {
 		$data = $table->constraint($name);
 		$out = 'CONSTRAINT ' . $this->_driver->quoteIdentifier($name);
@@ -380,13 +380,13 @@ class PostgresSchema extends BaseSchema {
 		return $this->_keySql($out, $data);
 	}
 
-/**
- * Helper method for generating key SQL snippets.
- *
- * @param string $prefix The key prefix
- * @param array $data Key data.
- * @return string
- */
+	/**
+	 * Helper method for generating key SQL snippets.
+	 *
+	 * @param string $prefix The key prefix
+	 * @param array $data Key data.
+	 * @return string
+	 */
 	protected function _keySql($prefix, $data) {
 		$columns = array_map(
 			[$this->_driver, 'quoteIdentifier'],
@@ -405,10 +405,10 @@ class PostgresSchema extends BaseSchema {
 		return $prefix . ' (' . implode(', ', $columns) . ')';
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function createTableSql(Table $table, $columns, $constraints, $indexes) {
 		$content = array_merge($columns, $constraints);
 		$content = implode(",\n", array_filter($content));
@@ -431,10 +431,10 @@ class PostgresSchema extends BaseSchema {
 		return $out;
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function truncateTableSql(Table $table) {
 		$name = $this->_driver->quoteIdentifier($table->name());
 		return [

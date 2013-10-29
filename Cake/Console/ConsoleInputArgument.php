@@ -28,42 +28,42 @@ use Cake\Error;
  */
 class ConsoleInputArgument {
 
-/**
- * Name of the argument.
- *
- * @var string
- */
+	/**
+	 * Name of the argument.
+	 *
+	 * @var string
+	 */
 	protected $_name;
 
-/**
- * Help string
- *
- * @var string
- */
+	/**
+	 * Help string
+	 *
+	 * @var string
+	 */
 	protected $_help;
 
-/**
- * Is this option required?
- *
- * @var boolean
- */
+	/**
+	 * Is this option required?
+	 *
+	 * @var boolean
+	 */
 	protected $_required;
 
-/**
- * An array of valid choices for this argument.
- *
- * @var array
- */
+	/**
+	 * An array of valid choices for this argument.
+	 *
+	 * @var array
+	 */
 	protected $_choices;
 
-/**
- * Make a new Input Argument
- *
- * @param string|array $name The long name of the option, or an array with all the properties.
- * @param string $help The help text for this option
- * @param boolean $required Whether this argument is required. Missing required args will trigger exceptions
- * @param array $choices Valid choices for this option.
- */
+	/**
+	 * Make a new Input Argument
+	 *
+	 * @param string|array $name The long name of the option, or an array with all the properties.
+	 * @param string $help The help text for this option
+	 * @param boolean $required Whether this argument is required. Missing required args will trigger exceptions
+	 * @param array $choices Valid choices for this option.
+	 */
 	public function __construct($name, $help = '', $required = false, $choices = array()) {
 		if (is_array($name) && isset($name['name'])) {
 			foreach ($name as $key => $value) {
@@ -77,21 +77,21 @@ class ConsoleInputArgument {
 		}
 	}
 
-/**
- * Get the value of the name attribute.
- *
- * @return string Value of this->_name.
- */
+	/**
+	 * Get the value of the name attribute.
+	 *
+	 * @return string Value of this->_name.
+	 */
 	public function name() {
 		return $this->_name;
 	}
 
-/**
- * Generate the help for this argument.
- *
- * @param integer $width The width to make the name of the option.
- * @return string
- */
+	/**
+	 * Generate the help for this argument.
+	 *
+	 * @param integer $width The width to make the name of the option.
+	 * @return string
+	 */
 	public function help($width = 0) {
 		$name = $this->_name;
 		if (strlen($name) < $width) {
@@ -107,11 +107,11 @@ class ConsoleInputArgument {
 		return sprintf('%s%s%s', $name, $this->_help, $optional);
 	}
 
-/**
- * Get the usage value for this argument
- *
- * @return string
- */
+	/**
+	 * Get the usage value for this argument
+	 *
+	 * @return string
+	 */
 	public function usage() {
 		$name = $this->_name;
 		if (!empty($this->_choices)) {
@@ -124,22 +124,22 @@ class ConsoleInputArgument {
 		return $name;
 	}
 
-/**
- * Check if this argument is a required argument
- *
- * @return boolean
- */
+	/**
+	 * Check if this argument is a required argument
+	 *
+	 * @return boolean
+	 */
 	public function isRequired() {
 		return (bool)$this->_required;
 	}
 
-/**
- * Check that $value is a valid choice for this argument.
- *
- * @param string $value
- * @return boolean
- * @throws Cake\Error\ConsoleException
- */
+	/**
+	 * Check that $value is a valid choice for this argument.
+	 *
+	 * @param string $value
+	 * @return boolean
+	 * @throws Cake\Error\ConsoleException
+	 */
 	public function validChoice($value) {
 		if (empty($this->_choices)) {
 			return true;
@@ -153,12 +153,12 @@ class ConsoleInputArgument {
 		return true;
 	}
 
-/**
- * Append this arguments XML representation to the passed in SimpleXml object.
- *
- * @param SimpleXmlElement $parent The parent element.
- * @return SimpleXmlElement The parent with this argument appended.
- */
+	/**
+	 * Append this arguments XML representation to the passed in SimpleXml object.
+	 *
+	 * @param SimpleXmlElement $parent The parent element.
+	 * @return SimpleXmlElement The parent with this argument appended.
+	 */
 	public function xml(\SimpleXmlElement $parent) {
 		$option = $parent->addChild('argument');
 		$option->addAttribute('name', $this->_name);

@@ -32,11 +32,11 @@ use Cake\View\View;
  */
 class SessionHelperTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$controller = null;
@@ -76,11 +76,11 @@ class SessionHelperTest extends TestCase {
 		);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		$_SESSION = array();
 		unset($this->View, $this->Session);
@@ -88,11 +88,11 @@ class SessionHelperTest extends TestCase {
 		parent::tearDown();
 	}
 
-/**
- * testRead method
- *
- * @return void
- */
+	/**
+	 * testRead method
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$result = $this->Session->read('Deeply.nested.key');
 		$this->assertEquals('value', $result);
@@ -101,11 +101,11 @@ class SessionHelperTest extends TestCase {
 		$this->assertEquals('info', $result);
 	}
 
-/**
- * testCheck method
- *
- * @return void
- */
+	/**
+	 * testCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$this->assertTrue($this->Session->check('test'));
 
@@ -116,11 +116,11 @@ class SessionHelperTest extends TestCase {
 		$this->assertFalse($this->Session->check('Nope'));
 	}
 
-/**
- * testFlash method
- *
- * @return void
- */
+	/**
+	 * testFlash method
+	 *
+	 * @return void
+	 */
 	public function testFlash() {
 		$result = $this->Session->flash('flash');
 		$expected = '<div id="flashMessage" class="message">This is a calling</div>';
@@ -143,11 +143,11 @@ class SessionHelperTest extends TestCase {
 		$this->assertFalse($this->Session->check('Message.bare'));
 	}
 
-/**
- * test flash() with the attributes.
- *
- * @return void
- */
+	/**
+	 * test flash() with the attributes.
+	 *
+	 * @return void
+	 */
 	public function testFlashAttributes() {
 		$result = $this->Session->flash('flash', array('params' => array('class' => 'test-message')));
 		$expected = '<div id="flashMessage" class="test-message">This is a calling</div>';
@@ -155,11 +155,11 @@ class SessionHelperTest extends TestCase {
 		$this->assertFalse($this->Session->check('Message.flash'));
 	}
 
-/**
- * test setting the element from the attrs.
- *
- * @return void
- */
+	/**
+	 * test setting the element from the attrs.
+	 *
+	 * @return void
+	 */
 	public function testFlashElementInAttrs() {
 		$result = $this->Session->flash('flash', array(
 			'element' => 'session_helper',
@@ -169,11 +169,11 @@ class SessionHelperTest extends TestCase {
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test using elements in plugins.
- *
- * @return void
- */
+	/**
+	 * test using elements in plugins.
+	 *
+	 * @return void
+	 */
 	public function testFlashWithPluginElement() {
 		Plugin::load('TestPlugin');
 

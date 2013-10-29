@@ -25,24 +25,24 @@ use Cake\TestSuite\Fixture\TestModel;
  */
 class PaginatorControllerComment extends TestModel {
 
-/**
- * name property
- *
- * @var string 'Comment'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'Comment'
+	 */
 	public $name = 'Comment';
 
-/**
- * useTable property
- *
- * @var string 'comments'
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string 'comments'
+	 */
 	public $useTable = 'comments';
 
-/**
- * alias property
- *
- * @var string 'PaginatorControllerComment'
- */
+	/**
+	 * alias property
+	 *
+	 * @var string 'PaginatorControllerComment'
+	 */
 	public $alias = 'PaginatorControllerComment';
 }

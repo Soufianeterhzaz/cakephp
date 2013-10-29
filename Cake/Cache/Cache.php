@@ -84,50 +84,50 @@ class Cache {
 
 	use StaticConfigTrait;
 
-/**
- * Flag for tracking whether or not caching is enabled.
- *
- * @var boolean
- */
+	/**
+	 * Flag for tracking whether or not caching is enabled.
+	 *
+	 * @var boolean
+	 */
 	protected static $_enabled = true;
 
-/**
- * Cache configuration.
- *
- * Keeps the permanent/default settings for each cache engine.
- * These settings are used to reset the engines after temporary modification.
- *
- * @var array
- */
+	/**
+	 * Cache configuration.
+	 *
+	 * Keeps the permanent/default settings for each cache engine.
+	 * These settings are used to reset the engines after temporary modification.
+	 *
+	 * @var array
+	 */
 	protected static $_config = array();
 
-/**
- * Group to Config mapping
- *
- * @var array
- */
+	/**
+	 * Group to Config mapping
+	 *
+	 * @var array
+	 */
 	protected static $_groups = array();
 
-/**
- * Whether to reset the settings with the next call to Cache::set();
- *
- * @var array
- */
+	/**
+	 * Whether to reset the settings with the next call to Cache::set();
+	 *
+	 * @var array
+	 */
 	protected static $_reset = false;
 
-/**
- * Cache Registry used for creating and using cache adapters.
- *
- * @var Cake\Cache\CacheRegistry
- */
+	/**
+	 * Cache Registry used for creating and using cache adapters.
+	 *
+	 * @var Cake\Cache\CacheRegistry
+	 */
 	protected static $_registry;
 
-/**
- * Finds and builds the instance of the required engine class.
- *
- * @param string $name Name of the config array that needs an engine instance built
- * @throws Cake\Error\Exception When a cache engine cannot be created.
- */
+	/**
+	 * Finds and builds the instance of the required engine class.
+	 *
+	 * @param string $name Name of the config array that needs an engine instance built
+	 * @throws Cake\Error\Exception When a cache engine cannot be created.
+	 */
 	protected static function _buildEngine($name) {
 		if (empty(static::$_registry)) {
 			static::$_registry = new CacheRegistry();
@@ -148,15 +148,15 @@ class Cache {
 		}
 	}
 
-/**
- * Fetch the engine attached to a specific configuration name.
- *
- * If the cache engine & configuration are missing an error will be
- * triggered.
- *
- * @param string $config The configuration name you want an engine for.
- * @return Cake\Cache\Engine
- */
+	/**
+	 * Fetch the engine attached to a specific configuration name.
+	 *
+	 * If the cache engine & configuration are missing an error will be
+	 * triggered.
+	 *
+	 * @param string $config The configuration name you want an engine for.
+	 * @return Cake\Cache\Engine
+	 */
 	public static function engine($config) {
 		if (!static::$_enabled) {
 			return false;
@@ -170,15 +170,15 @@ class Cache {
 		return static::$_registry->{$config};
 	}
 
-/**
- * Garbage collection
- *
- * Permanently remove all expired and deleted data
- *
- * @param string $config [optional] The config name you wish to have garbage collected. Defaults to 'default'
- * @param integer $expires [optional] An expires timestamp. Defaults to NULL
- * @return void
- */
+	/**
+	 * Garbage collection
+	 *
+	 * Permanently remove all expired and deleted data
+	 *
+	 * @param string $config [optional] The config name you wish to have garbage collected. Defaults to 'default'
+	 * @param integer $expires [optional] An expires timestamp. Defaults to NULL
+	 * @return void
+	 */
 	public static function gc($config = 'default', $expires = null) {
 		$engine = static::engine($config);
 		if (!$engine) {
@@ -188,24 +188,24 @@ class Cache {
 		$engine->gc($expires);
 	}
 
-/**
- * Write data for key into cache.
- *
- * ### Usage:
- *
- * Writing to the active cache config:
- *
- * `Cache::write('cached_data', $data);`
- *
- * Writing to a specific cache config:
- *
- * `Cache::write('cached_data', $data, 'long_term');`
- *
- * @param string $key Identifier for the data
- * @param mixed $value Data to be cached - anything except a resource
- * @param string $config Optional string configuration name to write to. Defaults to 'default'
- * @return boolean True if the data was successfully cached, false on failure
- */
+	/**
+	 * Write data for key into cache.
+	 *
+	 * ### Usage:
+	 *
+	 * Writing to the active cache config:
+	 *
+	 * `Cache::write('cached_data', $data);`
+	 *
+	 * Writing to a specific cache config:
+	 *
+	 * `Cache::write('cached_data', $data, 'long_term');`
+	 *
+	 * @param string $key Identifier for the data
+	 * @param mixed $value Data to be cached - anything except a resource
+	 * @param string $config Optional string configuration name to write to. Defaults to 'default'
+	 * @return boolean True if the data was successfully cached, false on failure
+	 */
 	public static function write($key, $value, $config = 'default') {
 		$engine = static::engine($config);
 		$settings = static::settings($config);
@@ -233,23 +233,23 @@ class Cache {
 		return $success;
 	}
 
-/**
- * Read a key from the cache.
- *
- * ### Usage:
- *
- * Reading from the active cache configuration.
- *
- * `Cache::read('my_data');`
- *
- * Reading from a specific cache configuration.
- *
- * `Cache::read('my_data', 'long_term');`
- *
- * @param string $key Identifier for the data
- * @param string $config optional name of the configuration to use. Defaults to 'default'
- * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
- */
+	/**
+	 * Read a key from the cache.
+	 *
+	 * ### Usage:
+	 *
+	 * Reading from the active cache configuration.
+	 *
+	 * `Cache::read('my_data');`
+	 *
+	 * Reading from a specific cache configuration.
+	 *
+	 * `Cache::read('my_data', 'long_term');`
+	 *
+	 * @param string $key Identifier for the data
+	 * @param string $config optional name of the configuration to use. Defaults to 'default'
+	 * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
+	 */
 	public static function read($key, $config = 'default') {
 		$engine = static::engine($config);
 		$settings = static::settings($config);
@@ -265,15 +265,15 @@ class Cache {
 		return $engine->read($settings['prefix'] . $key);
 	}
 
-/**
- * Increment a number under the key and return incremented value.
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to add
- * @param string $config Optional string configuration name. Defaults to 'default'
- * @return mixed new value, or false if the data doesn't exist, is not integer,
- *    or if there was an error fetching it.
- */
+	/**
+	 * Increment a number under the key and return incremented value.
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to add
+	 * @param string $config Optional string configuration name. Defaults to 'default'
+	 * @return mixed new value, or false if the data doesn't exist, is not integer,
+	 *    or if there was an error fetching it.
+	 */
 	public static function increment($key, $offset = 1, $config = 'default') {
 		$engine = static::engine($config);
 		$settings = static::settings($config);
@@ -289,15 +289,15 @@ class Cache {
 		return $engine->increment($settings['prefix'] . $key, $offset);
 	}
 
-/**
- * Decrement a number under the key and return decremented value.
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to subtract
- * @param string $config Optional string configuration name. Defaults to 'default'
- * @return mixed new value, or false if the data doesn't exist, is not integer,
- *   or if there was an error fetching it
- */
+	/**
+	 * Decrement a number under the key and return decremented value.
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to subtract
+	 * @param string $config Optional string configuration name. Defaults to 'default'
+	 * @return mixed new value, or false if the data doesn't exist, is not integer,
+	 *   or if there was an error fetching it
+	 */
 	public static function decrement($key, $offset = 1, $config = 'default') {
 		$engine = static::engine($config);
 		$settings = static::settings($config);
@@ -313,23 +313,23 @@ class Cache {
 		return $engine->decrement($settings['prefix'] . $key, $offset);
 	}
 
-/**
- * Delete a key from the cache.
- *
- * ### Usage:
- *
- * Deleting from the active cache configuration.
- *
- * `Cache::delete('my_data');`
- *
- * Deleting from a specific cache configuration.
- *
- * `Cache::delete('my_data', 'long_term');`
- *
- * @param string $key Identifier for the data
- * @param string $config name of the configuration to use. Defaults to 'default'
- * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
- */
+	/**
+	 * Delete a key from the cache.
+	 *
+	 * ### Usage:
+	 *
+	 * Deleting from the active cache configuration.
+	 *
+	 * `Cache::delete('my_data');`
+	 *
+	 * Deleting from a specific cache configuration.
+	 *
+	 * `Cache::delete('my_data', 'long_term');`
+	 *
+	 * @param string $key Identifier for the data
+	 * @param string $config name of the configuration to use. Defaults to 'default'
+	 * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
+	 */
 	public static function delete($key, $config = 'default') {
 		$settings = static::settings($config);
 		$engine = static::engine($config);
@@ -346,13 +346,13 @@ class Cache {
 		return $engine->delete($settings['prefix'] . $key);
 	}
 
-/**
- * Delete all keys from the cache.
- *
- * @param boolean $check if true will check expiration, otherwise delete all
- * @param string $config name of the configuration to use. Defaults to 'default'
- * @return boolean True if the cache was successfully cleared, false otherwise
- */
+	/**
+	 * Delete all keys from the cache.
+	 *
+	 * @param boolean $check if true will check expiration, otherwise delete all
+	 * @param string $config name of the configuration to use. Defaults to 'default'
+	 * @return boolean True if the cache was successfully cleared, false otherwise
+	 */
 	public static function clear($check = false, $config = 'default') {
 		$engine = static::engine($config);
 		if (!$engine) {
@@ -362,13 +362,13 @@ class Cache {
 		return $engine->clear($check);
 	}
 
-/**
- * Delete all keys from the cache belonging to the same group.
- *
- * @param string $group name of the group to be cleared
- * @param string $config name of the configuration to use. Defaults to 'default'
- * @return boolean True if the cache group was successfully cleared, false otherwise
- */
+	/**
+	 * Delete all keys from the cache belonging to the same group.
+	 *
+	 * @param string $group name of the group to be cleared
+	 * @param string $config name of the configuration to use. Defaults to 'default'
+	 * @return boolean True if the cache group was successfully cleared, false otherwise
+	 */
 	public static function clearGroup($group, $config = 'default') {
 		$engine = static::engine($config);
 		if (!$engine) {
@@ -379,13 +379,13 @@ class Cache {
 		return $success;
 	}
 
-/**
- * Return the settings for the named cache engine.
- *
- * @param string $name Name of the configuration to get settings for. Defaults to 'default'
- * @return array list of settings for this engine
- * @see Cache::config()
- */
+	/**
+	 * Return the settings for the named cache engine.
+	 *
+	 * @param string $name Name of the configuration to get settings for. Defaults to 'default'
+	 * @return array list of settings for this engine
+	 * @see Cache::config()
+	 */
 	public static function settings($config = 'default') {
 		$engine = static::engine($config);
 		if (!$engine) {
@@ -395,21 +395,21 @@ class Cache {
 		return $engine->settings();
 	}
 
-/**
- * Retrieve group names to config mapping.
- *
- * {{{
- *	Cache::config('daily', ['duration' => '1 day', 'groups' => ['posts']]);
- *	Cache::config('weekly', ['duration' => '1 week', 'groups' => ['posts', 'archive']]);
- *	$configs = Cache::groupConfigs('posts');
- * }}}
- *
- * $config will equal to `['posts' => ['daily', 'weekly']]`
- *
- * @param string $group group name or null to retrieve all group mappings
- * @return array map of group and all configuration that has the same group
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Retrieve group names to config mapping.
+	 *
+	 * {{{
+	 *	Cache::config('daily', ['duration' => '1 day', 'groups' => ['posts']]);
+	 *	Cache::config('weekly', ['duration' => '1 week', 'groups' => ['posts', 'archive']]);
+	 *	$configs = Cache::groupConfigs('posts');
+	 * }}}
+	 *
+	 * $config will equal to `['posts' => ['daily', 'weekly']]`
+	 *
+	 * @param string $group group name or null to retrieve all group mappings
+	 * @return array map of group and all configuration that has the same group
+	 * @throws Cake\Error\Exception
+	 */
 	public static function groupConfigs($group = null) {
 		if ($group == null) {
 			return static::$_groups;
@@ -422,61 +422,61 @@ class Cache {
 		throw new Error\Exception(__d('cake_dev', 'Invalid cache group %s', $group));
 	}
 
-/**
- * Re-enable caching.
- *
- * If caching has been disabled with Cache::disable() this method will reverse that effect.
- *
- * @return void
- */
+	/**
+	 * Re-enable caching.
+	 *
+	 * If caching has been disabled with Cache::disable() this method will reverse that effect.
+	 *
+	 * @return void
+	 */
 	public static function enable() {
 		static::$_enabled = true;
 	}
 
-/**
- * Disable caching.
- *
- * When disabled all cache operations will return null.
- *
- * @return void
- */
+	/**
+	 * Disable caching.
+	 *
+	 * When disabled all cache operations will return null.
+	 *
+	 * @return void
+	 */
 	public static function disable() {
 		static::$_enabled = false;
 	}
 
-/**
- * Check whether or not caching is enabled.
- *
- * @return boolean
- */
+	/**
+	 * Check whether or not caching is enabled.
+	 *
+	 * @return boolean
+	 */
 	public static function enabled() {
 		return static::$_enabled;
 	}
 
-/**
- * Provides the ability to easily do read-through caching.
- *
- * When called if the $key is not set in $config, the $callable function
- * will be invoked. The results will then be stored into the cache config
- * at key.
- *
- * Examples:
- *
- * Using a Closure to provide data, assume $this is a Model:
- *
- * {{{
- * $model = $this;
- * $results = Cache::remember('all_articles', function() use ($model) {
- *      return $model->find('all');
- * });
- * }}}
- *
- * @param string $key The cache key to read/store data at.
- * @param callable $callable The callable that provides data in the case when
- *   the cache key is empty. Can be any callable type supported by your PHP.
- * @param string $config The cache configuration to use for this operation.
- *   Defaults to default.
- */
+	/**
+	 * Provides the ability to easily do read-through caching.
+	 *
+	 * When called if the $key is not set in $config, the $callable function
+	 * will be invoked. The results will then be stored into the cache config
+	 * at key.
+	 *
+	 * Examples:
+	 *
+	 * Using a Closure to provide data, assume $this is a Model:
+	 *
+	 * {{{
+	 * $model = $this;
+	 * $results = Cache::remember('all_articles', function() use ($model) {
+	 *      return $model->find('all');
+	 * });
+	 * }}}
+	 *
+	 * @param string $key The cache key to read/store data at.
+	 * @param callable $callable The callable that provides data in the case when
+	 *   the cache key is empty. Can be any callable type supported by your PHP.
+	 * @param string $config The cache configuration to use for this operation.
+	 *   Defaults to default.
+	 */
 	public static function remember($key, $callable, $config = 'default') {
 		$existing = self::read($key, $config);
 		if ($existing !== false) {

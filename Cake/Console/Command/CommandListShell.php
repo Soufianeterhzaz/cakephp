@@ -26,29 +26,29 @@ use Cake\Utility\Inflector;
  */
 class CommandListShell extends Shell {
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Command');
 
-/**
- * startup
- *
- * @return void
- */
+	/**
+	 * startup
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		if (empty($this->params['xml'])) {
 			parent::startup();
 		}
 	}
 
-/**
- * Main function Prints out the list of shells.
- *
- * @return void
- */
+	/**
+	 * Main function Prints out the list of shells.
+	 *
+	 * @return void
+	 */
 	public function main() {
 		if (empty($this->params['xml'])) {
 			$this->out(__d('cake_console', "<info>Current Paths:</info>"), 2);
@@ -76,12 +76,12 @@ class CommandListShell extends Shell {
 		}
 	}
 
-/**
- * Output text.
- *
- * @param array $shellList
- * @return void
- */
+	/**
+	 * Output text.
+	 *
+	 * @param array $shellList
+	 * @return void
+	 */
 	protected function _asText($shellList) {
 		foreach ($shellList as $plugin => $commands) {
 			sort($commands);
@@ -94,12 +94,12 @@ class CommandListShell extends Shell {
 		$this->out(__d('cake_console', "To get help on a specific command, type <info>cake shell_name --help</info>"), 2);
 	}
 
-/**
- * Output as XML
- *
- * @param array $shellList
- * @return void
- */
+	/**
+	 * Output as XML
+	 *
+	 * @param array $shellList
+	 * @return void
+	 */
 	protected function _asXml($shellList) {
 		$plugins = Plugin::loaded();
 		$shells = new \SimpleXmlElement('<shells></shells>');
@@ -121,11 +121,11 @@ class CommandListShell extends Shell {
 		$this->out($shells->saveXml());
 	}
 
-/**
- * get the option parser
- *
- * @return void
- */
+	/**
+	 * get the option parser
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(__d('cake_console', 'Get the list of available shells for this CakePHP application.'))

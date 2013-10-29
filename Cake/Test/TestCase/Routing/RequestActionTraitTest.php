@@ -24,18 +24,18 @@ use Cake\TestSuite\TestCase;
  */
 class RequestActionTraitTest extends TestCase {
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = array('core.post', 'core.test_plugin_comment', 'core.comment');
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -44,11 +44,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->object = $this->getObjectForTrait('Cake\Routing\RequestActionTrait');
 	}
 
-/**
- * testRequestAction method
- *
- * @return void
- */
+	/**
+	 * testRequestAction method
+	 *
+	 * @return void
+	 */
 	public function testRequestAction() {
 		$this->assertNull(Router::getRequest(), 'request stack should be empty.');
 
@@ -85,11 +85,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertNull(Router::getRequest(), 'requests were not popped off the stack, this will break url generation');
 	}
 
-/**
- * test requestAction() and plugins.
- *
- * @return void
- */
+	/**
+	 * test requestAction() and plugins.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionPlugins() {
 		Plugin::load('TestPlugin');
 		Router::reload();
@@ -119,11 +119,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test requestAction() with arrays.
- *
- * @return void
- */
+	/**
+	 * test requestAction() with arrays.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionArray() {
 		Plugin::load(array('TestPlugin'));
 
@@ -168,11 +168,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * Test that requestAction() does not forward the 0 => return value.
- *
- * @return void
- */
+	/**
+	 * Test that requestAction() does not forward the 0 => return value.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionRemoveReturnParam() {
 		$result = $this->object->requestAction(
 			'/request_action/param_check', array('return')
@@ -180,11 +180,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals('', $result, 'Return key was found');
 	}
 
-/**
- * Test that requestAction() is populating $this->params properly
- *
- * @return void
- */
+	/**
+	 * Test that requestAction() is populating $this->params properly
+	 *
+	 * @return void
+	 */
 	public function testRequestActionParamParseAndPass() {
 		$result = $this->object->requestAction('/request_action/params_pass');
 		$this->assertEquals('request_action/params_pass', $result->url);
@@ -193,12 +193,12 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals(null, $result['plugin']);
 	}
 
-/**
- * test that requestAction does not fish data out of the POST
- * superglobal.
- *
- * @return void
- */
+	/**
+	 * test that requestAction does not fish data out of the POST
+	 * superglobal.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionNoPostPassing() {
 		$_POST = array(
 			'item' => 'value'
@@ -215,12 +215,12 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that requestAction() can get query data from the query string and
- * query option.
- *
- * @return void
- */
+	/**
+	 * test that requestAction() can get query data from the query string and
+	 * query option.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionWithQueryString() {
 		Router::reload();
 		require CAKE . 'Config/routes.php';
@@ -238,11 +238,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test requestAction with post data.
- *
- * @return void
- */
+	/**
+	 * Test requestAction with post data.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionPostWithData() {
 		$data = array(
 			'Post' => array('id' => 2)
@@ -260,11 +260,11 @@ class RequestActionTraitTest extends TestCase {
 		$this->assertEquals($data, $result);
 	}
 
-/**
- * Test that requestAction handles get parameters correctly.
- *
- * @return void
- */
+	/**
+	 * Test that requestAction handles get parameters correctly.
+	 *
+	 * @return void
+	 */
 	public function testRequestActionGetParameters() {
 		$result = $this->object->requestAction(
 			'/request_action/params_pass?get=value&limit=5'

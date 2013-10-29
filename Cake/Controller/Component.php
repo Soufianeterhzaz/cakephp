@@ -63,40 +63,40 @@ use Cake\Event\EventListener;
  */
 class Component extends Object implements EventListener {
 
-/**
- * Component registry class used to lazy load components.
- *
- * @var ComponentRegistry
- */
+	/**
+	 * Component registry class used to lazy load components.
+	 *
+	 * @var ComponentRegistry
+	 */
 	protected $_registry;
 
-/**
- * Settings for this Component
- *
- * @var array
- */
+	/**
+	 * Settings for this Component
+	 *
+	 * @var array
+	 */
 	public $settings = array();
 
-/**
- * Other Components this component uses.
- *
- * @var array
- */
+	/**
+	 * Other Components this component uses.
+	 *
+	 * @var array
+	 */
 	public $components = array();
 
-/**
- * A component lookup table used to lazy load component objects.
- *
- * @var array
- */
+	/**
+	 * A component lookup table used to lazy load component objects.
+	 *
+	 * @var array
+	 */
 	protected $_componentMap = array();
 
-/**
- * Constructor
- *
- * @param ComponentRegistry $registry A ComponentRegistry this component can use to lazy load its components
- * @param array $settings Array of configuration settings.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param ComponentRegistry $registry A ComponentRegistry this component can use to lazy load its components
+	 * @param array $settings Array of configuration settings.
+	 */
 	public function __construct(ComponentRegistry $registry, $settings = []) {
 		$this->_registry = $registry;
 		$this->settings = $settings;
@@ -106,12 +106,12 @@ class Component extends Object implements EventListener {
 		}
 	}
 
-/**
- * Magic method for lazy loading $components.
- *
- * @param string $name Name of component to get.
- * @return mixed A Component object or null.
- */
+	/**
+	 * Magic method for lazy loading $components.
+	 *
+	 * @param string $name Name of component to get.
+	 * @return mixed A Component object or null.
+	 */
 	public function __get($name) {
 		if (isset($this->_componentMap[$name]) && !isset($this->{$name})) {
 			$settings = array_merge((array)$this->_componentMap[$name]['settings'], array('enabled' => false));
@@ -122,18 +122,18 @@ class Component extends Object implements EventListener {
 		}
 	}
 
-/**
- * Get the Controller callbacks this Component is interested in.
- *
- * Uses Conventions to map controller events to standard component
- * callback method names. By defining one of the callback methods a 
- * component is assumed to be interested in the related event.
- *
- * Override this method if you need to add non-conventional event listeners.
- * Or if you want components to listen to non-standard events.
- *
- * @return array
- */
+	/**
+	 * Get the Controller callbacks this Component is interested in.
+	 *
+	 * Uses Conventions to map controller events to standard component
+	 * callback method names. By defining one of the callback methods a 
+	 * component is assumed to be interested in the related event.
+	 *
+	 * Override this method if you need to add non-conventional event listeners.
+	 * Or if you want components to listen to non-standard events.
+	 *
+	 * @return array
+	 */
 	public function implementedEvents() {
 		$eventMap = [
 			'Controller.initialize' => 'initialize',

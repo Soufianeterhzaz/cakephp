@@ -24,26 +24,26 @@ use Cake\Utility\Hash;
  */
 class ConsoleLog extends BaseLog {
 
-/**
- * Output stream
- *
- * @var Cake\Console\ConsoleOutput
- */
+	/**
+	 * Output stream
+	 *
+	 * @var Cake\Console\ConsoleOutput
+	 */
 	protected $_output = null;
 
-/**
- * Constructs a new Console Logger.
- *
- * Config
- *
- * - `types` string or array, levels the engine is interested in
- * - `scopes` string or array, scopes the engine is interested in
- * - `stream` the path to save logs on.
- * - `outputAs` integer or ConsoleOutput::[RAW|PLAIN|COLOR]
- *
- * @param array $config Options for the FileLog, see above.
- * @throws Cake\Error\Exception
- */
+	/**
+	 * Constructs a new Console Logger.
+	 *
+	 * Config
+	 *
+	 * - `types` string or array, levels the engine is interested in
+	 * - `scopes` string or array, scopes the engine is interested in
+	 * - `stream` the path to save logs on.
+	 * - `outputAs` integer or ConsoleOutput::[RAW|PLAIN|COLOR]
+	 *
+	 * @param array $config Options for the FileLog, see above.
+	 * @throws Cake\Error\Exception
+	 */
 	public function __construct($config = array()) {
 		parent::__construct($config);
 		if (DS === '\\' && !(bool)env('ANSICON')) {
@@ -68,13 +68,13 @@ class ConsoleLog extends BaseLog {
 		$this->_output->outputAs($config['outputAs']);
 	}
 
-/**
- * Implements writing to console.
- *
- * @param string $type The type of log you are making.
- * @param string $message The message you want to log.
- * @return boolean success of write.
- */
+	/**
+	 * Implements writing to console.
+	 *
+	 * @param string $type The type of log you are making.
+	 * @param string $message The message you want to log.
+	 * @return boolean success of write.
+	 */
 	public function write($type, $message) {
 		$output = date('Y-m-d H:i:s') . ' ' . ucfirst($type) . ': ' . $message . "\n";
 		return $this->_output->write(sprintf('<%s>%s</%s>', $type, $output, $type), false);

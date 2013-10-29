@@ -27,11 +27,11 @@ use \PDO;
  */
 class PostgresTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Test connecting to Postgres with default configuration
- *
- * @return void
- */
+	/**
+	 * Test connecting to Postgres with default configuration
+	 *
+	 * @return void
+	 */
 	public function testConnectionConfigDefault() {
 		$driver = $this->getMock('Cake\Database\Driver\Postgres', ['_connect', 'connection']);
 		$expected = [
@@ -76,11 +76,11 @@ class PostgresTest extends \Cake\TestSuite\TestCase {
 		$driver->connect();
 	}
 
-/**
- * Test connecting to Postgres with custom configuration
- *
- * @return void
- */
+	/**
+	 * Test connecting to Postgres with custom configuration
+	 *
+	 * @return void
+	 */
 	public function testConnectionConfigCustom() {
 		$config = [
 			'persistent' => false,

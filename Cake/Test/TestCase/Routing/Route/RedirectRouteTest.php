@@ -31,22 +31,22 @@ use Cake\TestSuite\TestCase;
  */
 class RedirectRouteTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Routing', array('admin' => null, 'prefixes' => array()));
 		Router::reload();
 	}
 
-/**
- * test the parsing of routes.
- *
- * @return void
- */
+	/**
+	 * test the parsing of routes.
+	 *
+	 * @return void
+	 */
 	public function testParsing() {
 		Router::connect('/:controller', array('action' => 'index'));
 		Router::connect('/:controller/:action/*');

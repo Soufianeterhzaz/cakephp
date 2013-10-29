@@ -24,21 +24,21 @@ namespace Cake\ORM;
  */
 class BufferedResultSet extends ResultSet {
 
-/**
- * Rewind the ResultSet
- *
- * @return void
- */
+	/**
+	 * Rewind the ResultSet
+	 *
+	 * @return void
+	 */
 	public function rewind() {
 		$this->_index = 0;
 		$this->_lastIndex = -1;
 	}
 
-/**
- * Fetch a result and buffer the fetched row.
- *
- * @return mixed
- */
+	/**
+	 * Fetch a result and buffer the fetched row.
+	 *
+	 * @return mixed
+	 */
 	public function valid() {
 		$result = parent::valid();
 		if (!isset($this->_results[$this->_index])) {

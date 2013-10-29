@@ -50,11 +50,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		TableRegistry::clear();
 	}
 
-/**
- * Tests the table method
- *
- * @return void
- */
+	/**
+	 * Tests the table method
+	 *
+	 * @return void
+	 */
 	public function testTableMethod() {
 		$table = new Table(['table' => 'users']);
 		$this->assertEquals('users', $table->table());
@@ -75,11 +75,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('other', $table->table());
 	}
 
-/**
- * Tests the alias method
- *
- * @return void
- */
+	/**
+	 * Tests the alias method
+	 *
+	 * @return void
+	 */
 	public function testAliasMethod() {
 		$table = new Table(['alias' => 'users']);
 		$this->assertEquals('users', $table->alias());
@@ -100,11 +100,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('AnotherOne', $table->alias());
 	}
 
-/**
- * Tests connection method
- *
- * @return void
- */
+	/**
+	 * Tests connection method
+	 *
+	 * @return void
+	 */
 	public function testConnection() {
 		$table = new Table(['table' => 'users']);
 		$this->assertNull($table->connection());
@@ -112,11 +112,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($this->connection, $table->connection());
 	}
 
-/**
- * Tests primaryKey method
- *
- * @return void
- */
+	/**
+	 * Tests primaryKey method
+	 *
+	 * @return void
+	 */
 	public function testPrimaryKey() {
 		$table = new Table(['table' => 'users']);
 		$this->assertEquals('id', $table->primaryKey());
@@ -124,11 +124,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('thingID', $table->primaryKey());
 	}
 
-/**
- * Tests that name will be selected as a displayField
- *
- * @return void
- */
+	/**
+	 * Tests that name will be selected as a displayField
+	 *
+	 * @return void
+	 */
 	public function testDisplayFieldName() {
 		$table = new Table([
 			'table' => 'users',
@@ -140,11 +140,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('name', $table->displayField());
 	}
 
-/**
- * Tests that title will be selected as a displayField
- *
- * @return void
- */
+	/**
+	 * Tests that title will be selected as a displayField
+	 *
+	 * @return void
+	 */
 	public function testDisplayFieldTitle() {
 		$table = new Table([
 			'table' => 'users',
@@ -156,11 +156,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('title', $table->displayField());
 	}
 
-/**
- * Tests that no displayField will fallback to primary key
- *
- * @return void
- */
+	/**
+	 * Tests that no displayField will fallback to primary key
+	 *
+	 * @return void
+	 */
 	public function testDisplayFallback() {
 		$table = new Table([
 			'table' => 'users',
@@ -172,11 +172,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('id', $table->displayField());
 	}
 
-/**
- * Tests that displayField can be changed
- *
- * @return void
- */
+	/**
+	 * Tests that displayField can be changed
+	 *
+	 * @return void
+	 */
 	public function testDisplaySet() {
 		$table = new Table([
 			'table' => 'users',
@@ -190,11 +190,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('foo', $table->displayField());
 	}
 
-/**
- * Tests schema method
- *
- * @return void
- */
+	/**
+	 * Tests schema method
+	 *
+	 * @return void
+	 */
 	public function testSchema() {
 		$schema = $this->connection->schemaCollection()->describe('users');
 		$table = new Table([
@@ -216,12 +216,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		);
 	}
 
-/**
- * Tests that all fields for a table are added by default in a find when no
- * other fields are specified
- *
- * @return void
- */
+	/**
+	 * Tests that all fields for a table are added by default in a find when no
+	 * other fields are specified
+	 *
+	 * @return void
+	 */
 	public function testFindAllNoFieldsAndNoHydration() {
 		$table = new Table([
 			'table' => 'users',
@@ -252,11 +252,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that it is possible to select only a few fields when finding over a table
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to select only a few fields when finding over a table
+	 *
+	 * @return void
+	 */
 	public function testFindAllSomeFieldsNoHydration() {
 		$table = new Table([
 			'table' => 'users',
@@ -288,12 +288,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($expected, $results);
 	}
 
-/**
- * Tests that the query will automatically casts complex conditions to the correct
- * types when the columns belong to the default table
- *
- * @return void
- */
+	/**
+	 * Tests that the query will automatically casts complex conditions to the correct
+	 * types when the columns belong to the default table
+	 *
+	 * @return void
+	 */
 	public function testFindAllConditionAutoTypes() {
 		$table = new Table([
 			'table' => 'users',
@@ -319,11 +319,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($expected, $query->toArray());
 	}
 
-/**
- * Test that beforeFind events can mutate the query.
- *
- * @return void
- */
+	/**
+	 * Test that beforeFind events can mutate the query.
+	 *
+	 * @return void
+	 */
 	public function testFindBeforeFindEventMutateQuery() {
 		$table = new Table([
 			'table' => 'users',
@@ -337,12 +337,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertCount(1, $result, 'Should only have 1 record, limit 1 applied.');
 	}
 
-/**
- * Test that beforeFind events are fired and can stop the find and
- * return custom results.
- *
- * @return void
- */
+	/**
+	 * Test that beforeFind events are fired and can stop the find and
+	 * return custom results.
+	 *
+	 * @return void
+	 */
 	public function testFindBeforeFindEventOverrideReturn() {
 		$table = new Table([
 			'table' => 'users',
@@ -359,11 +359,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, $query->execute());
 	}
 
-/**
- * Tests that belongsTo() creates and configures correctly the association
- *
- * @return void
- */
+	/**
+	 * Tests that belongsTo() creates and configures correctly the association
+	 *
+	 * @return void
+	 */
 	public function testBelongsTo() {
 		$options = ['foreignKey' => 'fake_id', 'conditions' => ['a' => 'b']];
 		$table = new Table(['table' => 'dates']);
@@ -376,11 +376,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($table, $belongsTo->source());
 	}
 
-/**
- * Tests that hasOne() creates and configures correctly the association
- *
- * @return void
- */
+	/**
+	 * Tests that hasOne() creates and configures correctly the association
+	 *
+	 * @return void
+	 */
 	public function testHasOne() {
 		$options = ['foreignKey' => 'user_id', 'conditions' => ['b' => 'c']];
 		$table = new Table(['table' => 'users']);
@@ -393,11 +393,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($table, $hasOne->source());
 	}
 
-/**
- * Tests that hasMany() creates and configures correctly the association
- *
- * @return void
- */
+	/**
+	 * Tests that hasMany() creates and configures correctly the association
+	 *
+	 * @return void
+	 */
 	public function testHasMany() {
 		$options = [
 			'foreignKey' => 'author_id',
@@ -415,11 +415,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($table, $hasMany->source());
 	}
 
-/**
- * Tests that BelongsToMany() creates and configures correctly the association
- *
- * @return void
- */
+	/**
+	 * Tests that BelongsToMany() creates and configures correctly the association
+	 *
+	 * @return void
+	 */
 	public function testBelongsToMany() {
 		$options = [
 			'foreignKey' => 'thing_id',
@@ -439,11 +439,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame('things_tags', $belongsToMany->pivot()->table());
 	}
 
-/**
- * Test basic multi row updates.
- *
- * @return void
- */
+	/**
+	 * Test basic multi row updates.
+	 *
+	 * @return void
+	 */
 	public function testUpdateAll() {
 		$table = new Table([
 			'table' => 'users',
@@ -463,11 +463,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that exceptions from the Query bubble up.
- *
- * @expectedException Cake\Database\Exception
- */
+	/**
+	 * Test that exceptions from the Query bubble up.
+	 *
+	 * @expectedException Cake\Database\Exception
+	 */
 	public function testUpdateAllFailure() {
 		$table = $this->getMock(
 			'Cake\ORM\Table',
@@ -484,11 +484,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$table->updateAll(['username' => 'mark'], []);
 	}
 
-/**
- * Test deleting many records.
- *
- * @return void
- */
+	/**
+	 * Test deleting many records.
+	 *
+	 * @return void
+	 */
 	public function testDeleteAll() {
 		$table = new Table([
 			'table' => 'users',
@@ -502,11 +502,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals(4, $result[0]['id']);
 	}
 
-/**
- * Test that exceptions from the Query bubble up.
- *
- * @expectedException Cake\Database\Exception
- */
+	/**
+	 * Test that exceptions from the Query bubble up.
+	 *
+	 * @expectedException Cake\Database\Exception
+	 */
 	public function testDeleteAllFailure() {
 		$table = $this->getMock(
 			'Cake\ORM\Table',
@@ -523,11 +523,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$table->deleteAll(['id >' => 4]);
 	}
 
-/**
- * Tests that array options are passed to the query object using applyOptions
- *
- * @return void
- */
+	/**
+	 * Tests that array options are passed to the query object using applyOptions
+	 *
+	 * @return void
+	 */
 	public function testFindApplyOptions() {
 		$table = $this->getMock(
 			'Cake\ORM\Table',
@@ -549,11 +549,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$table->find('all', $options);
 	}
 
-/**
- * Tests find('list')
- *
- * @return void
- */
+	/**
+	 * Tests find('list')
+	 *
+	 * @return void
+	 */
 	public function testFindListNoHydration() {
 		$table = new Table([
 			'table' => 'users',
@@ -588,11 +588,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($expected, $query->toArray());
 	}
 
-/**
- * Tests find('threaded')
- *
- * @return void
- */
+	/**
+	 * Tests find('threaded')
+	 *
+	 * @return void
+	 */
 	public function testFindThreadedNoHydration() {
 		$table = new Table([
 			'table' => 'categories',
@@ -659,11 +659,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that finders can be called directly
- *
- * @return void
- */
+	/**
+	 * Tests that finders can be called directly
+	 *
+	 * @return void
+	 */
 	public function testCallingFindersDirectly() {
 		$table = $this->getMock('\Cake\ORM\Table', ['find'], [], '', false);
 		$query = $this->getMock('\Cake\ORM\Query', [], [$this->connection, $table]);
@@ -681,11 +681,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($query, $table->threaded(['order' => ['name' => 'ASC']]));
 	}
 
-/**
- * Tests that finders can be stacked
- *
- * @return void
- */
+	/**
+	 * Tests that finders can be stacked
+	 *
+	 * @return void
+	 */
 	public function testStackingFinders() {
 		$table = $this->getMock('\Cake\ORM\Table', ['find', 'findList'], [], '', false);
 		$params = [$this->connection, $table];
@@ -707,11 +707,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($query, $result);
 	}
 
-/**
- * Tests find('threaded') with hydrated results
- *
- * @return void
- */
+	/**
+	 * Tests find('threaded') with hydrated results
+	 *
+	 * @return void
+	 */
 	public function testFindThreadedHydrated() {
 		$table = new Table([
 			'table' => 'categories',
@@ -732,11 +732,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($expected, $results[0]->children[0]->children[1]->toArray());
 	}
 
-/**
- * Tests find('list') with hydrated records
- *
- * @return void
- */
+	/**
+	 * Tests find('list') with hydrated records
+	 *
+	 * @return void
+	 */
 	public function testFindListHydrated() {
 		$table = new Table([
 			'table' => 'users',
@@ -776,12 +776,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('\Cake\ORM\Entity', $table->entityClass());
 	}
 
-/**
- * Tests that using a simple string for entityClass will try to
- * load the class from the App namespace
- *
- * @return void
- */
+	/**
+	 * Tests that using a simple string for entityClass will try to
+	 * load the class from the App namespace
+	 *
+	 * @return void
+	 */
 	public function testRepositoryClassInAPP() {
 		$class = $this->getMockClass('\Cake\ORM\Entity');
 		class_alias($class, 'TestApp\Model\Entity\TestUser');
@@ -789,12 +789,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('TestApp\Model\Entity\TestUser', $table->entityClass('TestUser'));
 	}
 
-/**
- * Tests that using a simple string for entityClass will try to
- * load the class from the Plugin namespace when using plugin notation
- *
- * @return void
- */
+	/**
+	 * Tests that using a simple string for entityClass will try to
+	 * load the class from the Plugin namespace when using plugin notation
+	 *
+	 * @return void
+	 */
 	public function testRepositoryClassInPlugin() {
 		$class = $this->getMockClass('\Cake\ORM\Entity');
 		class_alias($class, 'MyPlugin\Model\Entity\SuperUser');
@@ -805,35 +805,35 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		);
 	}
 
-/**
- * Tests that using a simple string for entityClass will throw an exception
- * when the class does not exist in the namespace
- *
- * @expectedException Cake\ORM\Error\MissingEntityException
- * @expectedExceptionMessage Entity class FooUser could not be found.
- * @return void
- */
+	/**
+	 * Tests that using a simple string for entityClass will throw an exception
+	 * when the class does not exist in the namespace
+	 *
+	 * @expectedException Cake\ORM\Error\MissingEntityException
+	 * @expectedExceptionMessage Entity class FooUser could not be found.
+	 * @return void
+	 */
 	public function testRepositoryClassNonExisting() {
 		$table = new Table;
 		$this->assertFalse($table->entityClass('FooUser'));
 	}
 
-/**
- * Tests getting the entityClass based on conventions for the entity
- * namespace
- *
- * @return void
- */
+	/**
+	 * Tests getting the entityClass based on conventions for the entity
+	 * namespace
+	 *
+	 * @return void
+	 */
 	public function testRepositoryClassConventionForAPP() {
 		$table = new \TestApp\Model\Repository\ArticleTable;
 		$this->assertEquals('TestApp\Model\Entity\Article', $table->entityClass());
 	}
 
-/**
- * Tests setting a entity class object using the setter method
- *
- * @return void
- */
+	/**
+	 * Tests setting a entity class object using the setter method
+	 *
+	 * @return void
+	 */
 	public function testSetEntityClass() {
 		$table = new Table;
 		$class = '\\' . $this->getMockClass('\Cake\ORM\Entity');
@@ -841,12 +841,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($class, $table->entityClass());
 	}
 
-/**
- * Proves that associations, even though they are lazy loaded, will fetch
- * records using the correct table class and hydrate with the correct entity
- *
- * @return void
- */
+	/**
+	 * Proves that associations, even though they are lazy loaded, will fetch
+	 * records using the correct table class and hydrate with the correct entity
+	 *
+	 * @return void
+	 */
 	public function testReciprocalBelongsToLoading() {
 		$table = new \TestApp\Model\Repository\ArticleTable([
 			'connection' => $this->connection,
@@ -855,12 +855,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertInstanceOf('TestApp\Model\Entity\Author', $result->author);
 	}
 
-/**
- * Proves that associations, even though they are lazy loaded, will fetch
- * records using the correct table class and hydrate with the correct entity
- *
- * @return void
- */
+	/**
+	 * Proves that associations, even though they are lazy loaded, will fetch
+	 * records using the correct table class and hydrate with the correct entity
+	 *
+	 * @return void
+	 */
 	public function testReciprocalHasManyLoading() {
 		$table = new \TestApp\Model\Repository\ArticleTable([
 			'connection' => $this->connection,
@@ -872,12 +872,12 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		}
 	}
 
-/**
- * Tests that the correct table and entity are loaded for the pivot association in
- * a belongsToMany setup
- *
- * @return void
- */
+	/**
+	 * Tests that the correct table and entity are loaded for the pivot association in
+	 * a belongsToMany setup
+	 *
+	 * @return void
+	 */
 	public function testReciprocalBelongsToMany() {
 		$table = new \TestApp\Model\Repository\ArticleTable([
 			'connection' => $this->connection,
@@ -887,11 +887,11 @@ class TableTest extends \Cake\TestSuite\TestCase {
 		$this->assertInstanceOf('TestApp\Model\Entity\ArticlesTag', $result->tags[0]->extraInfo);
 	}
 
-/**
- * Tests that it is possible to insert a new row using the save method
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to insert a new row using the save method
+	 *
+	 * @return void
+	 */
 	public function testSaveNewEntity() {
 		$entity = new \Cake\ORM\Entity([
 			'username' => 'superuser',

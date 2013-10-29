@@ -25,26 +25,26 @@ trait SqliteDialectTrait {
 
 	use SqlDialectTrait;
 
-/**
- *  String used to start a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 *  String used to start a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_startQuote = '"';
 
-/**
- * String used to end a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 * String used to end a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_endQuote = '"';
 
-/**
- * Returns an dictionary of expressions to be transformed when compiling a Query
- * to SQL. Array keys are method names to be called in this class
- *
- * @return array
- */
+	/**
+	 * Returns an dictionary of expressions to be transformed when compiling a Query
+	 * to SQL. Array keys are method names to be called in this class
+	 *
+	 * @return array
+	 */
 	protected function _expressionTranslators() {
 		$namespace = 'Cake\Database\Expression';
 		return [
@@ -52,13 +52,13 @@ trait SqliteDialectTrait {
 		];
 	}
 
-/**
- * Receives a FunctionExpression and changes it so that it conforms to this
- * SQL dialect.
- *
- * @param Cake\Database\Expression\FunctionExpression
- * @return void
- */
+	/**
+	 * Receives a FunctionExpression and changes it so that it conforms to this
+	 * SQL dialect.
+	 *
+	 * @param Cake\Database\Expression\FunctionExpression
+	 * @return void
+	 */
 	protected function _transformFunctionExpression(FunctionExpression $expression) {
 		switch ($expression->name()) {
 			case 'CONCAT':
@@ -85,15 +85,15 @@ trait SqliteDialectTrait {
 		}
 	}
 
-/**
- * Transforms an insert query that is meant to insert multiple rows at a time,
- * otherwise it leaves the query untouched.
- *
- * The way SQLite works with multi insert is by having multiple select statements
- * joined with UNION.
- *
- * @return Query
- */
+	/**
+	 * Transforms an insert query that is meant to insert multiple rows at a time,
+	 * otherwise it leaves the query untouched.
+	 *
+	 * The way SQLite works with multi insert is by having multiple select statements
+	 * joined with UNION.
+	 *
+	 * @return Query
+	 */
 	protected function _insertQueryTranslator($query) {
 		$v = $query->clause('values');
 		if (count($v->values()) === 1 || $v->query()) {
@@ -125,14 +125,14 @@ trait SqliteDialectTrait {
 		return $query;
 	}
 
-/**
- * Get the schema dialect.
- *
- * Used by Cake\Schema package to reflect schema and
- * generate schema.
- *
- * @return Cake\Database\Schema\SqliteSchema
- */
+	/**
+	 * Get the schema dialect.
+	 *
+	 * Used by Cake\Schema package to reflect schema and
+	 * generate schema.
+	 *
+	 * @return Cake\Database\Schema\SqliteSchema
+	 */
 	public function schemaDialect() {
 		return new \Cake\Database\Schema\SqliteSchema($this);
 	}

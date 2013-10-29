@@ -26,58 +26,58 @@ use Cake\Utility\Hash;
  */
 class PaginatorControllerPost extends TestModel {
 
-/**
- * name property
- *
- * @var string 'PaginatorControllerPost'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'PaginatorControllerPost'
+	 */
 	public $name = 'PaginatorControllerPost';
 
-/**
- * useTable property
- *
- * @var string 'posts'
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string 'posts'
+	 */
 	public $useTable = 'posts';
 
-/**
- * invalidFields property
- *
- * @var array
- */
+	/**
+	 * invalidFields property
+	 *
+	 * @var array
+	 */
 	public $invalidFields = array('name' => 'error_msg');
 
-/**
- * lastQueries property
- *
- * @var array
- */
+	/**
+	 * lastQueries property
+	 *
+	 * @var array
+	 */
 	public $lastQueries = array();
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('PaginatorAuthor' => array('foreignKey' => 'author_id'));
 
-/**
- * beforeFind method
- *
- * @param mixed $query
- * @return void
- */
+	/**
+	 * beforeFind method
+	 *
+	 * @param mixed $query
+	 * @return void
+	 */
 	public function beforeFind($query) {
 		array_unshift($this->lastQueries, $query);
 	}
 
-/**
- * find method
- *
- * @param mixed $type
- * @param array $options
- * @return void
- */
+	/**
+	 * find method
+	 *
+	 * @param mixed $type
+	 * @param array $options
+	 * @return void
+	 */
 	public function find($conditions = null, $fields = array(), $order = null, $recursive = null) {
 		if ($conditions == 'popular') {
 			$conditions = array($this->name . '.' . $this->primaryKey . ' > ' => '1');

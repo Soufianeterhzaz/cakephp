@@ -28,31 +28,31 @@ class Object {
 
 	use LogTrait;
 
-/**
- * constructor, no-op
- *
- */
+	/**
+	 * constructor, no-op
+	 *
+	 */
 	public function __construct() {
 	}
 
-/**
- * Object-to-string conversion.
- * Each class can override this method as necessary.
- *
- * @return string The name of this class
- */
+	/**
+	 * Object-to-string conversion.
+	 * Each class can override this method as necessary.
+	 *
+	 * @return string The name of this class
+	 */
 	public function toString() {
 		return get_class($this);
 	}
 
-/**
- * Calls a method on this object with the given parameters. Provides an OO wrapper
- * for `call_user_func_array`
- *
- * @param string $method Name of the method to call
- * @param array $params Parameter list to use when calling $method
- * @return mixed Returns the result of the method call
- */
+	/**
+	 * Calls a method on this object with the given parameters. Provides an OO wrapper
+	 * for `call_user_func_array`
+	 *
+	 * @param string $method Name of the method to call
+	 * @param array $params Parameter list to use when calling $method
+	 * @return mixed Returns the result of the method call
+	 */
 	public function dispatchMethod($method, $params = []) {
 		switch (count($params)) {
 			case 0:
@@ -72,24 +72,24 @@ class Object {
 		}
 	}
 
-/**
- * Stop execution of the current script. Wraps exit() making
- * testing easier.
- *
- * @param integer|string $status see http://php.net/exit for values
- * @return void
- */
+	/**
+	 * Stop execution of the current script. Wraps exit() making
+	 * testing easier.
+	 *
+	 * @param integer|string $status see http://php.net/exit for values
+	 * @return void
+	 */
 	protected function _stop($status = 0) {
 		exit($status);
 	}
 
-/**
- * Allows setting of multiple properties of the object in a single line of code. Will only set
- * properties that are part of a class declaration.
- *
- * @param array $properties An associative array containing properties and corresponding values.
- * @return void
- */
+	/**
+	 * Allows setting of multiple properties of the object in a single line of code. Will only set
+	 * properties that are part of a class declaration.
+	 *
+	 * @param array $properties An associative array containing properties and corresponding values.
+	 * @return void
+	 */
 	protected function _set($properties = []) {
 		if (is_array($properties) && !empty($properties)) {
 			$vars = get_object_vars($this);

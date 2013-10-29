@@ -26,25 +26,25 @@ use Cake\Console\Shell;
  */
 class I18nShell extends Shell {
 
-/**
- * Contains database source to use
- *
- * @var string
- */
+	/**
+	 * Contains database source to use
+	 *
+	 * @var string
+	 */
 	public $dataSource = 'default';
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('DbConfig', 'Extract');
 
-/**
- * Override startup of the Shell
- *
- * @return mixed
- */
+	/**
+	 * Override startup of the Shell
+	 *
+	 * @return mixed
+	 */
 	public function startup() {
 		$this->_welcome();
 		if (isset($this->params['datasource'])) {
@@ -59,11 +59,11 @@ class I18nShell extends Shell {
 		}
 	}
 
-/**
- * Override main() for help message hook
- *
- * @return void
- */
+	/**
+	 * Override main() for help message hook
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out(__d('cake_console', '<info>I18n Shell</info>'));
 		$this->hr();
@@ -92,20 +92,20 @@ class I18nShell extends Shell {
 		$this->main();
 	}
 
-/**
- * Initialize I18N database.
- *
- * @return void
- */
+	/**
+	 * Initialize I18N database.
+	 *
+	 * @return void
+	 */
 	public function initdb() {
 		$this->dispatchShell('schema create i18n');
 	}
 
-/**
- * Get and configure the Option parser
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Get and configure the Option parser
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(

@@ -26,11 +26,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class ArticleFeaturedsTagsFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'article_featured_id' => ['type' => 'integer', 'null' => false],
 		'tag_id' => ['type' => 'integer', 'null' => false],

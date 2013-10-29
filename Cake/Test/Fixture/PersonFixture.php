@@ -26,11 +26,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class PersonFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer', 'null' => false],
 		'name' => ['type' => 'string', 'null' => false, 'length' => 32],
@@ -42,11 +42,11 @@ class PersonFixture extends TestFixture {
 		]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'person', 'mother_id' => 2, 'father_id' => 3),
 		array('name' => 'mother', 'mother_id' => 4, 'father_id' => 5),

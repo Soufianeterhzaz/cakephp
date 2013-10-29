@@ -27,21 +27,21 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class DependencyFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'child_id' => 'integer',
 		'parent_id' => 'integer'
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('child_id' => 1, 'parent_id' => 2),
 	);

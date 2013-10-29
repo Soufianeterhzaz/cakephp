@@ -27,13 +27,13 @@ use Cake\Network\Request;
  */
 class ActionsAuthorize extends BaseAuthorize {
 
-/**
- * Authorize a user using the AclComponent.
- *
- * @param array $user The user to authorize
- * @param Cake\Network\Request $request The request needing authorization.
- * @return boolean
- */
+	/**
+	 * Authorize a user using the AclComponent.
+	 *
+	 * @param array $user The user to authorize
+	 * @param Cake\Network\Request $request The request needing authorization.
+	 * @return boolean
+	 */
 	public function authorize($user, Request $request) {
 		$Acl = $this->_registry->load('Acl');
 		$user = array($this->settings['userModel'] => $user);

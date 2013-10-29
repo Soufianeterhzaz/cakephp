@@ -26,22 +26,22 @@ use \PDO;
  */
 class BinaryTypeTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->type = Type::build('binary');
 		$this->driver = $this->getMock('Cake\Database\Driver');
 	}
 
-/**
- * Test toPHP
- *
- * @return void
- */
+	/**
+	 * Test toPHP
+	 *
+	 * @return void
+	 */
 	public function testToPHP() {
 		$this->assertNull($this->type->toPHP(null, $this->driver));
 
@@ -54,21 +54,21 @@ class BinaryTypeTest extends TestCase {
 		fclose($fh);
 	}
 
-/**
- * Test exceptions on invalid data.
- *
- * @expectedException \Cake\Error\Exception
- * @expectedExceptionMessage Unable to convert array into binary.
- */
+	/**
+	 * Test exceptions on invalid data.
+	 *
+	 * @expectedException \Cake\Error\Exception
+	 * @expectedExceptionMessage Unable to convert array into binary.
+	 */
 	public function testToPHPFailure() {
 		$this->type->toPHP([], $this->driver);
 	}
 
-/**
- * Test converting to database format
- *
- * @return void
- */
+	/**
+	 * Test converting to database format
+	 *
+	 * @return void
+	 */
 	public function testToDatabase() {
 		$value = 'some data';
 		$result = $this->type->toDatabase($value, $this->driver);
@@ -79,11 +79,11 @@ class BinaryTypeTest extends TestCase {
 		$this->assertSame($fh, $result);
 	}
 
-/**
- * Test that the PDO binding type is correct.
- *
- * @return void
- */
+	/**
+	 * Test that the PDO binding type is correct.
+	 *
+	 * @return void
+	 */
 	public function testToStatement() {
 		$this->assertEquals(PDO::PARAM_LOB, $this->type->toStatement('', $this->driver));
 	}

@@ -33,91 +33,91 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 
 	use ResultCollectionTrait;
 
-/**
- * Original query from where results where generated
- *
- * @var Query
- */
+	/**
+	 * Original query from where results where generated
+	 *
+	 * @var Query
+	 */
 	protected $_query;
 
-/**
- * Database statement holding the results
- *
- * @var \Cake\Database\Statement
- */
+	/**
+	 * Database statement holding the results
+	 *
+	 * @var \Cake\Database\Statement
+	 */
 	protected $_statement;
 
-/**
- * Points to the next record number that should be fetched
- *
- * @var integer
- */
+	/**
+	 * Points to the next record number that should be fetched
+	 *
+	 * @var integer
+	 */
 	protected $_index = 0;
 
-/**
- * Points to the last record number that was fetched
- *
- * @var integer
- */
+	/**
+	 * Points to the last record number that was fetched
+	 *
+	 * @var integer
+	 */
 	protected $_lastIndex = -1;
 
-/**
- * Last record fetched from the statement
- *
- * @var array
- */
+	/**
+	 * Last record fetched from the statement
+	 *
+	 * @var array
+	 */
 	protected $_current;
 
-/**
- * Default table instance
- *
- * @var \Cake\ORM\Table
- */
+	/**
+	 * Default table instance
+	 *
+	 * @var \Cake\ORM\Table
+	 */
 	protected $_defaultTable;
 
-/**
- * List of associations that should be eager loaded
- *
- * @var array
- */
+	/**
+	 * List of associations that should be eager loaded
+	 *
+	 * @var array
+	 */
 	protected $_associationMap = [];
 
-/**
- * Map of fields that are fetched from the statement with
- * their type and the table they belong to
- *
- * @var string
- */
+	/**
+	 * Map of fields that are fetched from the statement with
+	 * their type and the table they belong to
+	 *
+	 * @var string
+	 */
 	protected $_map;
 
-/**
- * Results that have been fetched or hydrated into the results.
- *
- * @var array
- */
+	/**
+	 * Results that have been fetched or hydrated into the results.
+	 *
+	 * @var array
+	 */
 	protected $_results = [];
 
-/**
- * Whether to hydrate results into objects or not
- *
- * @var boolean
- */
+	/**
+	 * Whether to hydrate results into objects or not
+	 *
+	 * @var boolean
+	 */
 	protected $_hydrate = true;
 
-/**
- * The fully namespaced name of the class to use for hydrating results
- *
- * @var string
- */
+	/**
+	 * The fully namespaced name of the class to use for hydrating results
+	 *
+	 * @var string
+	 */
 	protected $_entityClass;
 
-/**
- * Constructor
- *
- * @param Query from where results come
- * @param \Cake\Database\Statement $statement
- * @return void
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Query from where results come
+	 * @param \Cake\Database\Statement $statement
+	 * @return void
+	 */
 	public function __construct($query, $statement) {
 		$this->_query = $query;
 		$this->_statement = $statement;
@@ -127,42 +127,42 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 		$this->_entityClass = $query->repository()->entityClass();
 	}
 
-/**
- * Returns the current record in the result iterator
- *
- * @return array|object
- */
+	/**
+	 * Returns the current record in the result iterator
+	 *
+	 * @return array|object
+	 */
 	public function current() {
 		return $this->_current;
 	}
 
-/**
- * Returns the key of the current record in the iterator
- *
- * @return integer
- */
+	/**
+	 * Returns the key of the current record in the iterator
+	 *
+	 * @return integer
+	 */
 	public function key() {
 		return $this->_index;
 	}
 
-/**
- * Advances the iterator pointer to the next record
- *
- * @return void
- */
+	/**
+	 * Advances the iterator pointer to the next record
+	 *
+	 * @return void
+	 */
 	public function next() {
 		$this->_index++;
 		$this->_lastIndex = $this->_index;
 	}
 
-/**
- * Rewind a ResultSet.
- *
- * Not implemented, Use a BufferedResultSet for a rewindable
- * ResultSet.
- *
- * @throws Cake\Database\Exception
- */
+	/**
+	 * Rewind a ResultSet.
+	 *
+	 * Not implemented, Use a BufferedResultSet for a rewindable
+	 * ResultSet.
+	 *
+	 * @throws Cake\Database\Exception
+	 */
 	public function rewind() {
 		if ($this->_index == 0) {
 			return;
@@ -174,22 +174,22 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 		throw new Exception($msg);
 	}
 
-/**
- * Whether there are more results to be fetched from the iterator
- *
- * @return boolean
- */
+	/**
+	 * Whether there are more results to be fetched from the iterator
+	 *
+	 * @return boolean
+	 */
 	public function valid() {
 		$this->_current = $this->_fetchResult();
 		return $this->_current !== false;
 	}
 
-/**
- * Calculates the list of associations that should get eager loaded
- * when fetching each record
- *
- * @return void
- */
+	/**
+	 * Calculates the list of associations that should get eager loaded
+	 * when fetching each record
+	 *
+	 * @return void
+	 */
 	protected function _calculateAssociationMap() {
 		$contain = $this->_query->normalizedContainments();
 
@@ -214,12 +214,12 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 		$this->_associationMap = $map;
 	}
 
-/**
- * Helper function to fetch the next result from the statement or
- * seeded results.
- *
- * @return mixed
- */
+	/**
+	 * Helper function to fetch the next result from the statement or
+	 * seeded results.
+	 *
+	 * @return mixed
+	 */
 	protected function _fetchResult() {
 		if (!empty($this->_results) && isset($this->_results[$this->_index])) {
 			return $this->_results[$this->_index];
@@ -234,11 +234,11 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 		return $this->_groupResult($row);
 	}
 
-/**
- * Correctly nest results keys including those coming from associations
- *
- * @return array
- */
+	/**
+	 * Correctly nest results keys including those coming from associations
+	 *
+	 * @return array
+	 */
 	protected function _groupResult($row) {
 		$defaultAlias = $this->_defaultTable->alias();
 		$results = [];
@@ -285,14 +285,14 @@ class ResultSet implements Iterator, Serializable, JsonSerializable {
 		return $results;
 	}
 
-/**
- * Casts all values from a row brought from a table to the correct
- * PHP type.
- *
- * @param Table $table
- * @param array $values
- * @return array
- */
+	/**
+	 * Casts all values from a row brought from a table to the correct
+	 * PHP type.
+	 *
+	 * @param Table $table
+	 * @param array $values
+	 * @return array
+	 */
 	protected function _castValues($table, $values) {
 		$alias = $table->alias();
 		$driver = $this->_query->connection()->driver();

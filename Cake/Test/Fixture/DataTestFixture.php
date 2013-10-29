@@ -26,11 +26,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class DataTestFixture extends TestFixture {
 
-/**
- * Fields property
- *
- * @var array
- */
+	/**
+	 * Fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'count' => ['type' => 'integer', 'default' => 0],
@@ -40,11 +40,11 @@ class DataTestFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * Records property
- *
- * @var array
- */
+	/**
+	 * Records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array(
 			'count' => 2,

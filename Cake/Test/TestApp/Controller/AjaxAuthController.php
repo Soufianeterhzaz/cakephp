@@ -25,64 +25,64 @@ use Cake\Controller\Controller;
  */
 class AjaxAuthController extends Controller {
 
-/**
- * name property
- *
- * @var string 'AjaxAuth'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'AjaxAuth'
+	 */
 	public $name = 'AjaxAuth';
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Session', 'TestAuth');
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * testUrl property
- *
- * @var mixed null
- */
+	/**
+	 * testUrl property
+	 *
+	 * @var mixed null
+	 */
 	public $testUrl = null;
 
-/**
- * beforeFilter method
- *
- * @return void
- */
+	/**
+	 * beforeFilter method
+	 *
+	 * @return void
+	 */
 	public function beforeFilter() {
 		$this->TestAuth->ajaxLogin = 'test_element';
 		$this->TestAuth->userModel = 'AuthUser';
 		$this->TestAuth->RequestHandler->ajaxLayout = 'ajax2';
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		if ($this->TestAuth->testStop !== true) {
 			echo 'Added Record';
 		}
 	}
 
-/**
- * redirect method
- *
- * @param mixed $url
- * @param mixed $status
- * @param mixed $exit
- * @return void
- */
+	/**
+	 * redirect method
+	 *
+	 * @param mixed $url
+	 * @param mixed $status
+	 * @param mixed $exit
+	 * @return void
+	 */
 	public function redirect($url, $status = null, $exit = true) {
 		$this->testUrl = Router::url($url);
 		return false;

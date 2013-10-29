@@ -26,25 +26,25 @@ use Cake\Utility\Inflector;
  */
 class UpgradeShell extends Shell {
 
-/**
- * Files
- *
- * @var array
- */
+	/**
+	 * Files
+	 *
+	 * @var array
+	 */
 	protected $_files = [];
 
-/**
- * Paths
- *
- * @var array
- */
+	/**
+	 * Paths
+	 *
+	 * @var array
+	 */
 	protected $_paths = [];
 
-/**
- * Shell startup, prints info message about dry run.
- *
- * @return void
- */
+	/**
+	 * Shell startup, prints info message about dry run.
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		parent::startup();
 		if ($this->params['dryRun']) {
@@ -52,11 +52,11 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Run all upgrade steps one at a time.
- *
- * @return void
- */
+	/**
+	 * Run all upgrade steps one at a time.
+	 *
+	 * @return void
+	 */
 	public function all() {
 		foreach ($this->OptionParser->subcommands() as $command) {
 			$name = $command->name();
@@ -68,11 +68,11 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Move files and folders to their new homes.
- *
- * @return void
- */
+	/**
+	 * Move files and folders to their new homes.
+	 *
+	 * @return void
+	 */
 	public function locations() {
 		$path = $this->_getPath();
 
@@ -107,11 +107,11 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Rename classes that have moved during 3.0
- *
- * @return void
- */
+	/**
+	 * Rename classes that have moved during 3.0
+	 *
+	 * @return void
+	 */
 	public function rename_classes() {
 		$path = $this->_getPath();
 		$Folder = new Folder($path);
@@ -123,13 +123,13 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Class names updated.</success>'));
 	}
 
-/**
- * Rename the classes in a given file.
- *
- * @param string $path The path to operate on.
- * @param boolean $dryRun Whether or not dry run is on.
- * @return void
- */
+	/**
+	 * Rename the classes in a given file.
+	 *
+	 * @param string $path The path to operate on.
+	 * @param boolean $dryRun Whether or not dry run is on.
+	 * @return void
+	 */
 	protected function _renameClasses($path, $dryRun) {
 		$replacements = [
 			'Cake\Network\Http\HttpSocket' => 'Cake\Network\Http\Client',
@@ -160,13 +160,13 @@ class UpgradeShell extends Shell {
 		$this->_saveFile($path, $contents);
 	}
 
-/**
- * Save a file conditionally depending on dryRun flag.
- *
- * @param string $path The path to update.
- * @param string $contents The contents to put in the file.
- * @return boolean
- */
+	/**
+	 * Save a file conditionally depending on dryRun flag.
+	 *
+	 * @param string $path The path to update.
+	 * @param string $contents The contents to put in the file.
+	 * @return boolean
+	 */
 	protected function _saveFile($path, $contents) {
 		$result = true;
 		if (!$this->params['dryRun']) {
@@ -184,11 +184,11 @@ class UpgradeShell extends Shell {
 		return $result;
 	}
 
-/**
- * Convert App::uses() to normal use statements.
- *
- * @return void
- */
+	/**
+	 * Convert App::uses() to normal use statements.
+	 *
+	 * @return void
+	 */
 	public function app_uses() {
 		$path = $this->_getPath();
 		$Folder = new Folder($path);
@@ -200,12 +200,12 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>App::uses() replaced successfully</success>'));
 	}
 
-/**
- * Replace all the App::uses() calls with `use`.
- *
- * @param string $file The file to search and replace.
- * @param boolean $dryRun Whether or not to do the thing.
- */
+	/**
+	 * Replace all the App::uses() calls with `use`.
+	 *
+	 * @param string $file The file to search and replace.
+	 * @param boolean $dryRun Whether or not to do the thing.
+	 */
 	protected function _replaceUses($file) {
 		$pattern = '#App::uses\([\'"]([a-z0-9_]+)[\'"],\s*[\'"]([a-z0-9/_]+)(?:\.([a-z0-9/_]+))?[\'"]\)#i';
 		$contents = file_get_contents($file);
@@ -249,12 +249,12 @@ class UpgradeShell extends Shell {
 		$this->_saveFile($file, $contents);
 	}
 
-/**
- * Convert old classnames to new ones.
- * Strips the Cake prefix off of classes that no longer have it.
- *
- * @param array $matches
- */
+	/**
+	 * Convert old classnames to new ones.
+	 * Strips the Cake prefix off of classes that no longer have it.
+	 *
+	 * @param array $matches
+	 */
 	protected function _mapClassName($matches) {
 		$rename = [
 			'CakePlugin',
@@ -284,11 +284,11 @@ class UpgradeShell extends Shell {
 		return $matches;
 	}
 
-/**
- * Add namespaces to files.
- *
- * @return void
- */
+	/**
+	 * Add namespaces to files.
+	 *
+	 * @return void
+	 */
 	public function namespaces() {
 		$path = $this->_getPath();
 		$ns = $this->params['namespace'];
@@ -313,11 +313,11 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Namespaces added successfully</success>'));
 	}
 
-/**
- * Update fixtures
- *
- * @return void
- */
+	/**
+	 * Update fixtures
+	 *
+	 * @return void
+	 */
 	public function fixtures() {
 		$path = $this->_getPath();
 
@@ -335,12 +335,12 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Process fixture content and update it for 3.x
- *
- * @param string $content Fixture content.
- * @return string
- */
+	/**
+	 * Process fixture content and update it for 3.x
+	 *
+	 * @param string $content Fixture content.
+	 * @return string
+	 */
 	protected function _processFixture($content) {
 		// Serializes data from PHP data into PHP code.
 		// Basically a code style conformant version of var_export()
@@ -430,11 +430,11 @@ class UpgradeShell extends Shell {
 		return $content;
 	}
 
-/**
- * Rename collection classes
- *
- * @return void
- */
+	/**
+	 * Rename collection classes
+	 *
+	 * @return void
+	 */
 	public function rename_collections() {
 		$path = $this->_getPath();
 
@@ -474,11 +474,11 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Collection class uses renamed successfully.</success>'));
 	}
 
-/**
- * Update test case assertion methods.
- *
- * @return void
- */
+	/**
+	 * Update test case assertion methods.
+	 *
+	 * @return void
+	 */
 	public function tests() {
 		$path = $this->_getPath();
 
@@ -538,11 +538,11 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Assertion methods renamed successfully.</success>'));
 	}
 
-/**
- * Filter paths to remove webroot, Plugin, tmp directories.
- *
- * @return array
- */
+	/**
+	 * Filter paths to remove webroot, Plugin, tmp directories.
+	 *
+	 * @return array
+	 */
 	protected function _filterPaths($paths, $directories) {
 		return array_filter($paths, function ($path) use ($directories) {
 			foreach ($directories as $dir) {
@@ -554,14 +554,14 @@ class UpgradeShell extends Shell {
 		});
 	}
 
-/**
- * Adds the namespace to a given file.
- *
- * @param string $filePath The file to add a namespace to.
- * @param string $ns The base namespace to use.
- * @param boolean $dry Whether or not to operate in dry-run mode.
- * @return void
- */
+	/**
+	 * Adds the namespace to a given file.
+	 *
+	 * @param string $filePath The file to add a namespace to.
+	 * @param string $ns The base namespace to use.
+	 * @param boolean $dry Whether or not to operate in dry-run mode.
+	 * @return void
+	 */
 	protected function _addNamespace($path, $filePath, $ns, $dry) {
 		$result = true;
 		$shortPath = str_replace($path, '', $filePath);
@@ -585,12 +585,12 @@ class UpgradeShell extends Shell {
 		$this->_updateFileRegexp($filePath, $patterns);
 	}
 
-/**
- * Updates files based on regular expressions.
- *
- * @param array $patterns Array of search and replacement patterns.
- * @return void
- */
+	/**
+	 * Updates files based on regular expressions.
+	 *
+	 * @param array $patterns Array of search and replacement patterns.
+	 * @return void
+	 */
 	protected function _filesRegexpUpdate($patterns) {
 		$this->_findFiles($this->params['ext']);
 		foreach ($this->_files as $file) {
@@ -599,12 +599,12 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Searches the paths and finds files based on extension.
- *
- * @param string $extensions
- * @return void
- */
+	/**
+	 * Searches the paths and finds files based on extension.
+	 *
+	 * @param string $extensions
+	 * @return void
+	 */
 	protected function _findFiles($extensions = '', $exclude = []) {
 		$this->_files = array();
 		foreach ($this->_paths as $path) {
@@ -624,13 +624,13 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-/**
- * Update a single file with an number of pcre pattern replacements.
- *
- * @param string $file The file to update
- * @param array $patterns The replacement patterns to run.
- * @return void
- */
+	/**
+	 * Update a single file with an number of pcre pattern replacements.
+	 *
+	 * @param string $file The file to update
+	 * @param array $patterns The replacement patterns to run.
+	 * @return void
+	 */
 	protected function _updateFileRegexp($file, $patterns) {
 		$contents = file_get_contents($file);
 
@@ -641,12 +641,12 @@ class UpgradeShell extends Shell {
 		$this->_saveFile($file, $contents);
 	}
 
-/**
- * Get the path to operate on. Uses either the first argument,
- * or the plugin parameter if its set.
- *
- * @return string
- */
+	/**
+	 * Get the path to operate on. Uses either the first argument,
+	 * or the plugin parameter if its set.
+	 *
+	 * @return string
+	 */
 	protected function _getPath() {
 		$path = isset($this->args[0]) ? $this->args[0] : APP;
 		if (isset($this->params['plugin'])) {
@@ -655,11 +655,11 @@ class UpgradeShell extends Shell {
 		return rtrim($path, DS);
 	}
 
-/**
- * Get the option parser.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Get the option parser.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$plugin = [
 			'short' => 'p',

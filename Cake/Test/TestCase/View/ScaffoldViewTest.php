@@ -36,12 +36,12 @@ if (!class_exists('Cake\Model\ScaffoldMock')) {
  */
 class TestScaffoldView extends ScaffoldView {
 
-/**
- * testGetFilename method
- *
- * @param string $action
- * @return void
- */
+	/**
+	 * testGetFilename method
+	 *
+	 * @param string $action
+	 * @return void
+	 */
 	public function testGetFilename($action) {
 		return $this->_getViewFileName($action);
 	}
@@ -55,11 +55,11 @@ class TestScaffoldView extends ScaffoldView {
  */
 class ScaffoldViewTest extends TestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = [
 		'core.article',
 		'core.user',
@@ -68,11 +68,11 @@ class ScaffoldViewTest extends TestCase {
 		'core.tag'
 	];
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -88,21 +88,21 @@ class ScaffoldViewTest extends TestCase {
 		Plugin::load('TestPlugin');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Controller, $this->request);
 		parent::tearDown();
 	}
 
-/**
- * testGetViewFilename method
- *
- * @return void
- */
+	/**
+	 * testGetViewFilename method
+	 *
+	 * @return void
+	 */
 	public function testGetViewFilename() {
 		Configure::write('Routing.prefixes', array('admin'));
 
@@ -180,11 +180,11 @@ class ScaffoldViewTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test getting the view file name for themed scaffolds.
- *
- * @return void
- */
+	/**
+	 * test getting the view file name for themed scaffolds.
+	 *
+	 * @return void
+	 */
 	public function testGetViewFileNameWithTheme() {
 		$this->Controller->request['action'] = 'index';
 		$this->Controller->viewPath = 'Posts';
@@ -197,11 +197,11 @@ class ScaffoldViewTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test default index scaffold generation
- *
- * @return void
- */
+	/**
+	 * test default index scaffold generation
+	 *
+	 * @return void
+	 */
 	public function testIndexScaffold() {
 		$params = [
 			'plugin' => null,
@@ -231,11 +231,11 @@ class ScaffoldViewTest extends TestCase {
 		$this->assertRegExp('#<li><a href="/comments/add">New Comment</a></li>#', $result);
 	}
 
-/**
- * test default view scaffold generation
- *
- * @return void
- */
+	/**
+	 * test default view scaffold generation
+	 *
+	 * @return void
+	 */
 	public function testViewScaffold() {
 		$this->Controller->request->base = '';
 		$this->Controller->request->webroot = '/';
@@ -268,11 +268,11 @@ class ScaffoldViewTest extends TestCase {
 		$this->assertNotRegExp('#<th>JoinThing</th>#', $result);
 	}
 
-/**
- * test default edit scaffold generation
- *
- * @return void
- */
+	/**
+	 * test default edit scaffold generation
+	 *
+	 * @return void
+	 */
 	public function testEditScaffold() {
 		$this->Controller->request->base = '';
 		$this->Controller->request->webroot = '/';

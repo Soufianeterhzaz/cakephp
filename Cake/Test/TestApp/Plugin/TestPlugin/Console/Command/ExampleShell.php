@@ -26,11 +26,11 @@ use Cake\Console\Shell;
 
 class ExampleShell extends Shell {
 
-/**
- * main method
- *
- * @return void
- */
+	/**
+	 * main method
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out('This is the main method called from TestPlugin.ExampleShell');
 	}

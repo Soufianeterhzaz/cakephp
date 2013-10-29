@@ -43,19 +43,19 @@ class TestsAppsPostsController extends AppController {
 		$this->render('index');
 	}
 
-/**
- * check URL params
- *
- */
+	/**
+	 * check URL params
+	 *
+	 */
 	public function url_var() {
 		$this->set('params', $this->request->params);
 		$this->render('index');
 	}
 
-/**
- * post var testing
- *
- */
+	/**
+	 * post var testing
+	 *
+	 */
 	public function post_var() {
 		$this->set('data', $this->request->data);
 		$this->render('index');
@@ -66,10 +66,10 @@ class TestsAppsPostsController extends AppController {
 		$this->render('index');
 	}
 
-/**
- * Fixturized action for testAction()
- *
- */
+	/**
+	 * Fixturized action for testAction()
+	 *
+	 */
 	public function fixtured() {
 		$this->set('posts', $this->Post->find('all'));
 		$this->render('index');

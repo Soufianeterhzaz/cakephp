@@ -27,11 +27,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class NodeFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'name' => 'string',
@@ -39,11 +39,11 @@ class NodeFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'name' => 'First', 'state' => 50),
 		array('id' => 2, 'name' => 'Second', 'state' => 60),

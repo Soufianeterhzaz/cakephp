@@ -22,21 +22,21 @@ namespace Cake\Utility;
  */
 trait ViewVarsTrait {
 
-/**
- * Variables for the view
- *
- * @var array
- */
+	/**
+	 * Variables for the view
+	 *
+	 * @var array
+	 */
 	public $viewVars = [];
 
-/**
- * Saves a variable for use inside a template.
- *
- * @param string|array $name A string or an array of data.
- * @param string|array $val Value in case $name is a string (which then works as the key).
- *   Unused if $name is an associative array, otherwise serves as the values to $name's keys.
- * @return void
- */
+	/**
+	 * Saves a variable for use inside a template.
+	 *
+	 * @param string|array $name A string or an array of data.
+	 * @param string|array $val Value in case $name is a string (which then works as the key).
+	 *   Unused if $name is an associative array, otherwise serves as the values to $name's keys.
+	 * @return void
+	 */
 	public function set($name, $val = null) {
 		if (is_array($name)) {
 			if (is_array($val)) {

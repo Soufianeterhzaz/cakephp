@@ -26,46 +26,46 @@ use Cake\Routing\Route\Route;
  */
 class RedirectRoute extends Route {
 
-/**
- * A Response object
- *
- * @var Cake\Network\Response
- */
+	/**
+	 * A Response object
+	 *
+	 * @var Cake\Network\Response
+	 */
 	public $response = null;
 
-/**
- * The location to redirect to. Either a string or a CakePHP array URL.
- *
- * @var mixed
- */
+	/**
+	 * The location to redirect to. Either a string or a CakePHP array URL.
+	 *
+	 * @var mixed
+	 */
 	public $redirect;
 
-/**
- * Flag for disabling exit() when this route parses an URL.
- *
- * @var boolean
- */
+	/**
+	 * Flag for disabling exit() when this route parses an URL.
+	 *
+	 * @var boolean
+	 */
 	public $stop = true;
 
-/**
- * Constructor
- *
- * @param string $template Template string with parameter placeholders
- * @param array $defaults Array of defaults for the route.
- * @param array $options Array of additional options for the Route
- */
+	/**
+	 * Constructor
+	 *
+	 * @param string $template Template string with parameter placeholders
+	 * @param array $defaults Array of defaults for the route.
+	 * @param array $options Array of additional options for the Route
+	 */
 	public function __construct($template, $defaults = array(), $options = array()) {
 		parent::__construct($template, $defaults, $options);
 		$this->redirect = (array)$defaults;
 	}
 
-/**
- * Parses a string URL into an array. Parsed URLs will result in an automatic
- * redirection
- *
- * @param string $url The URL to parse
- * @return boolean False on failure
- */
+	/**
+	 * Parses a string URL into an array. Parsed URLs will result in an automatic
+	 * redirection
+	 *
+	 * @param string $url The URL to parse
+	 * @return boolean False on failure
+	 */
 	public function parse($url) {
 		$params = parent::parse($url);
 		if (!$params) {
@@ -101,24 +101,24 @@ class RedirectRoute extends Route {
 		$this->_stop();
 	}
 
-/**
- * There is no reverse routing redirection routes
- *
- * @param array $url Array of parameters to convert to a string.
- * @param array $context Array of request context parameters.
- * @return mixed either false or a string url.
- */
+	/**
+	 * There is no reverse routing redirection routes
+	 *
+	 * @param array $url Array of parameters to convert to a string.
+	 * @param array $context Array of request context parameters.
+	 * @return mixed either false or a string url.
+	 */
 	public function match($url, $context = array()) {
 		return false;
 	}
 
-/**
- * Stop execution of the current script. Wraps exit() making
- * testing easier.
- *
- * @param integer|string $status see http://php.net/exit for values
- * @return void
- */
+	/**
+	 * Stop execution of the current script. Wraps exit() making
+	 * testing easier.
+	 *
+	 * @param integer|string $status see http://php.net/exit for values
+	 * @return void
+	 */
 	protected function _stop($code = 0) {
 		if ($this->stop) {
 			exit($code);

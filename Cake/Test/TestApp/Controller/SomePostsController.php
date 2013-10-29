@@ -22,32 +22,32 @@ use Cake\Event\Event;
  */
 class SomePostsController extends Controller {
 
-/**
- * name property
- *
- * @var string 'SomePosts'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'SomePosts'
+	 */
 	public $name = 'SomePosts';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * autoRender property
- *
- * @var bool false
- */
+	/**
+	 * autoRender property
+	 *
+	 * @var bool false
+	 */
 	public $autoRender = false;
 
-/**
- * beforeFilter method
- *
- * @return void
- */
+	/**
+	 * beforeFilter method
+	 *
+	 * @return void
+	 */
 	public function beforeFilter(Event $event) {
 		if ($this->request->params['action'] == 'index') {
 			$this->request->params['action'] = 'view';
@@ -57,20 +57,20 @@ class SomePostsController extends Controller {
 		$this->request->params['pass'] = array('changed');
 	}
 
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
 		return true;
 	}
 
-/**
- * change method
- *
- * @return void
- */
+	/**
+	 * change method
+	 *
+	 * @return void
+	 */
 	public function change() {
 		return true;
 	}

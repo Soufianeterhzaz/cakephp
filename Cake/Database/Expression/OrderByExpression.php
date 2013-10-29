@@ -21,23 +21,23 @@ use Cake\Database\ValueBinder;
 
 class OrderByExpression extends QueryExpression {
 
-/**
- * Constructor
- *
- * @param array $conditions
- * @param array $types
- * @param string $conjunction The glue used to join conditions together.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $conditions
+	 * @param array $types
+	 * @param string $conjunction The glue used to join conditions together.
+	 */
 	public function __construct($conditions = [], $types = [], $conjunction = '') {
 		parent::__construct($conditions, $types, $conjunction);
 	}
 
-/**
- * Convert the expression into a SQL fragment.
- *
- * @param Cake\Database\ValueBinder $generator Placeholder generator object
- * @return string
- */
+	/**
+	 * Convert the expression into a SQL fragment.
+	 *
+	 * @param Cake\Database\ValueBinder $generator Placeholder generator object
+	 * @return string
+	 */
 	public function sql(ValueBinder $generator) {
 		$order = [];
 		foreach ($this->_conditions as $k => $direction) {

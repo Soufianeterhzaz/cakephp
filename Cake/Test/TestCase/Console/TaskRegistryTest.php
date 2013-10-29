@@ -25,32 +25,32 @@ use Cake\TestSuite\TestCase;
  */
 class TaskRegistryTest extends TestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$shell = $this->getMock('Cake\Console\Shell', array(), array(), '', false);
 		$this->Tasks = new TaskRegistry($shell);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Tasks);
 		parent::tearDown();
 	}
 
-/**
- * test triggering callbacks on loaded tasks
- *
- * @return void
- */
+	/**
+	 * test triggering callbacks on loaded tasks
+	 *
+	 * @return void
+	 */
 	public function testLoad() {
 		$result = $this->Tasks->load('DbConfig');
 		$this->assertInstanceOf('Cake\Console\Command\Task\DbConfigTask', $result);
@@ -60,21 +60,21 @@ class TaskRegistryTest extends TestCase {
 		$this->assertEquals(array('DbConfig'), $result, 'loaded() results are wrong.');
 	}
 
-/**
- * test missingtask exception
- *
- * @expectedException Cake\Error\MissingTaskException
- * @return void
- */
+	/**
+	 * test missingtask exception
+	 *
+	 * @expectedException Cake\Error\MissingTaskException
+	 * @return void
+	 */
 	public function testLoadMissingTask() {
 		$this->Tasks->load('ThisTaskShouldAlwaysBeMissing');
 	}
 
-/**
- * test loading a plugin helper.
- *
- * @return void
- */
+	/**
+	 * test loading a plugin helper.
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginTask() {
 		$dispatcher = $this->getMock('Cake\Console\ShellDispatcher', array(), array(), '', false);
 		$shell = $this->getMock('Cake\Console\Shell', array(), array(), '', false);
@@ -87,11 +87,11 @@ class TaskRegistryTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * Tests loading as an alias
- *
- * @return void
- */
+	/**
+	 * Tests loading as an alias
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAlias() {
 		Plugin::load('TestPlugin');
 

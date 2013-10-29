@@ -25,39 +25,39 @@ use Cake\Database\Schema\Table;
  */
 class MysqlSchema extends BaseSchema {
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function listTablesSql($config) {
 		return ['SHOW TABLES FROM ' . $this->_driver->quoteIdentifier($config['database']), []];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeTableSql($name, $config) {
 		return ['SHOW FULL COLUMNS FROM ' . $this->_driver->quoteIdentifier($name), []];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeIndexSql($table, $config) {
 		return ['SHOW INDEXES FROM ' . $this->_driver->quoteIdentifier($table), []];
 	}
 
-/**
- * Convert a MySQL column type into an abstract type.
- *
- * The returned type will be a type that Cake\Database\Type can handle.
- *
- * @param string $column The column type + length
- * @return array Array of column information.
- * @throws Cake\Database\Exception When column type cannot be parsed.
- */
+	/**
+	 * Convert a MySQL column type into an abstract type.
+	 *
+	 * The returned type will be a type that Cake\Database\Type can handle.
+	 *
+	 * @param string $column The column type + length
+	 * @return array Array of column information.
+	 * @throws Cake\Database\Exception When column type cannot be parsed.
+	 */
 	protected function _convertColumn($column) {
 		preg_match('/([a-z]+)(?:\(([0-9,]+)\))?/i', $column, $matches);
 		if (empty($matches)) {
@@ -108,10 +108,10 @@ class MysqlSchema extends BaseSchema {
 		return ['type' => 'text', 'length' => null];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertFieldDescription(Table $table, $row) {
 		$field = $this->_convertColumn($row['Type']);
 		$field += [
@@ -123,10 +123,10 @@ class MysqlSchema extends BaseSchema {
 		$table->addColumn($row['Field'], $field);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertIndexDescription(Table $table, $row) {
 		$type = null;
 		$columns = $length = [];
@@ -179,10 +179,10 @@ class MysqlSchema extends BaseSchema {
 		}
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function describeForeignKeySql($table, $config) {
 		$sql = 'SELECT * FROM information_schema.key_column_usage AS kcu
 			INNER JOIN information_schema.referential_constraints AS rc
@@ -192,10 +192,10 @@ class MysqlSchema extends BaseSchema {
 		return [$sql, [$config['database'], $table]];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function convertForeignKeyDescription(Table $table, $row) {
 		$data = [
 			'type' => Table::CONSTRAINT_FOREIGN,
@@ -208,18 +208,18 @@ class MysqlSchema extends BaseSchema {
 		$table->addConstraint($name, $data);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function truncateTableSql(Table $table) {
 		return [sprintf('TRUNCATE TABLE `%s`', $table->name())];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function createTableSql(Table $table, $columns, $constraints, $indexes) {
 		$content = implode(",\n", array_merge($columns, $constraints, $indexes));
 		$content = sprintf("CREATE TABLE `%s` (\n%s\n)", $table->name(), $content);
@@ -236,10 +236,10 @@ class MysqlSchema extends BaseSchema {
 		return [$content];
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function columnSql(Table $table, $name) {
 		$data = $table->column($name);
 		$out = $this->_driver->quoteIdentifier($name);
@@ -309,10 +309,10 @@ class MysqlSchema extends BaseSchema {
 		return $out;
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function constraintSql(Table $table, $name) {
 		$data = $table->constraint($name);
 		if ($data['type'] === Table::CONSTRAINT_PRIMARY) {
@@ -332,10 +332,10 @@ class MysqlSchema extends BaseSchema {
 		return $this->_keySql($out, $data);
 	}
 
-/**
- * {@inheritdoc}
- *
- */
+	/**
+	 * {@inheritdoc}
+	 *
+	 */
 	public function indexSql(Table $table, $name) {
 		$data = $table->index($name);
 		if ($data['type'] === Table::INDEX_INDEX) {
@@ -348,13 +348,13 @@ class MysqlSchema extends BaseSchema {
 		return $this->_keySql($out, $data);
 	}
 
-/**
- * Helper method for generating key SQL snippets.
- *
- * @param string $prefix The key prefix
- * @param array $data Key data.
- * @return string
- */
+	/**
+	 * Helper method for generating key SQL snippets.
+	 *
+	 * @param string $prefix The key prefix
+	 * @param array $data Key data.
+	 * @return string
+	 */
 	protected function _keySql($prefix, $data) {
 		$columns = array_map(
 			[$this->_driver, 'quoteIdentifier'],

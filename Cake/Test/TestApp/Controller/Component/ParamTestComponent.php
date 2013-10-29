@@ -25,17 +25,17 @@ use Cake\Controller\Component;
  */
 class ParamTestComponent extends Component {
 
-/**
- * name property
- *
- * @var string 'ParamTest'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'ParamTest'
+	 */
 	public $name = 'ParamTest';
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Banana' => array('config' => 'value'));
 }

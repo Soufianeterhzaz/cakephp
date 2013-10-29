@@ -31,11 +31,11 @@ class StreamTest extends TestCase {
 		);
 	}
 
-/**
- * Test the send method
- *
- * @return void
- */
+	/**
+	 * Test the send method
+	 *
+	 * @return void
+	 */
 	public function testSend() {
 		$stream = new Stream();
 		$request = new Request();
@@ -47,11 +47,11 @@ class StreamTest extends TestCase {
 		$this->assertInstanceOf('Cake\Network\Http\Response', $responses[0]);
 	}
 
-/**
- * Test building the context headers
- *
- * @return void
- */
+	/**
+	 * Test building the context headers
+	 *
+	 * @return void
+	 */
 	public function testBuildingContextHeader() {
 		$request = new Request();
 		$request->url('http://localhost')
@@ -80,11 +80,11 @@ class StreamTest extends TestCase {
 		$this->assertTrue($result['ignore_errors']);
 	}
 
-/**
- * Test send() + context options with string content.
- *
- * @return void
- */
+	/**
+	 * Test send() + context options with string content.
+	 *
+	 * @return void
+	 */
 	public function testSendContextContentString() {
 		$content = json_encode(['a' => 'b']);
 		$request = new Request();
@@ -108,11 +108,11 @@ class StreamTest extends TestCase {
 		$this->assertEquals($content, $result['content']);
 	}
 
-/**
- * Test send() + context options with array content.
- *
- * @return void
- */
+	/**
+	 * Test send() + context options with array content.
+	 *
+	 * @return void
+	 */
 	public function testSendContextContentArray() {
 		$request = new Request();
 		$request->url('http://localhost')
@@ -133,11 +133,11 @@ class StreamTest extends TestCase {
 		$this->assertContains('my value', $result['content']);
 	}
 
-/**
- * Test send() + context options for SSL.
- *
- * @return void
- */
+	/**
+	 * Test send() + context options for SSL.
+	 *
+	 * @return void
+	 */
 	public function testSendContextSsl() {
 		$request = new Request();
 		$request->url('https://localhost.com/test.html');
@@ -161,12 +161,12 @@ class StreamTest extends TestCase {
 		}
 	}
 
-/**
- * The PHP stream API returns ALL the headers for ALL the requests when
- * there are redirects.
- *
- * @return void
- */
+	/**
+	 * The PHP stream API returns ALL the headers for ALL the requests when
+	 * there are redirects.
+	 *
+	 * @return void
+	 */
 	public function testCreateResponseWithRedirects() {
 		$headers = [
 			'HTTP/1.1 302 Found',

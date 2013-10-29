@@ -21,39 +21,39 @@ namespace Cake\Core;
  */
 class ClassLoader {
 
-/**
- * File extension
- *
- * @var string
- */
+	/**
+	 * File extension
+	 *
+	 * @var string
+	 */
 	protected $_fileExtension;
 
-/**
- * The path a given namespace maps to.
- *
- * @var string
- */
+	/**
+	 * The path a given namespace maps to.
+	 *
+	 * @var string
+	 */
 	protected $_path;
 
-/**
- * Registered namespace
- *
- * @var string
- */
+	/**
+	 * Registered namespace
+	 *
+	 * @var string
+	 */
 	protected $_namespace;
 
-/**
- * Store the namespace length for performance
- *
- * @var integer
- */
+	/**
+	 * Store the namespace length for performance
+	 *
+	 * @var integer
+	 */
 	protected $_namespaceLength;
 
-/**
- * Constructor
- *
- * @param string $ns The _namespace to use.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param string $ns The _namespace to use.
+	 */
 	public function __construct($ns = null, $path = null, $fileExtension = '.php') {
 		$this->_namespace = rtrim($ns, '\\') . '\\';
 		$this->_namespaceLength = strlen($this->_namespace);
@@ -61,48 +61,48 @@ class ClassLoader {
 		$this->_fileExtension = '.php';
 	}
 
-/**
- * Gets the base include path for all class files in the _namespace of this class loader.
- *
- * @return string
- */
+	/**
+	 * Gets the base include path for all class files in the _namespace of this class loader.
+	 *
+	 * @return string
+	 */
 	public function getIncludePath() {
 		return $this->_includePath;
 	}
 
-/**
- * Gets the file extension of class files in the _namespace of this class loader.
- *
- * @return string
- */
+	/**
+	 * Gets the file extension of class files in the _namespace of this class loader.
+	 *
+	 * @return string
+	 */
 	public function getFileExtension() {
 		return $this->_fileExtension;
 	}
 
-/**
- * Installs this class loader on the SPL autoload stack.
- *
- * @return void
- */
+	/**
+	 * Installs this class loader on the SPL autoload stack.
+	 *
+	 * @return void
+	 */
 	public function register() {
 		spl_autoload_register([$this, 'loadClass']);
 	}
 
-/**
- * Uninstalls this class loader from the SPL autoloader stack.
- *
- * @return void
- */
+	/**
+	 * Uninstalls this class loader from the SPL autoloader stack.
+	 *
+	 * @return void
+	 */
 	public function unregister() {
 		spl_autoload_unregister([$this, 'loadClass']);
 	}
 
-/**
- * Loads the given class or interface.
- *
- * @param string $className The name of the class to load.
- * @return boolean
- */
+	/**
+	 * Loads the given class or interface.
+	 *
+	 * @param string $className The name of the class to load.
+	 * @return boolean
+	 */
 	public function loadClass($className) {
 		if (substr($className, 0, $this->_namespaceLength) !== $this->_namespace) {
 			return false;

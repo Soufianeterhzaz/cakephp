@@ -29,11 +29,11 @@ use Cake\TestSuite\TestCase;
  */
 class ControllerAuthorizeTest extends TestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->controller = $this->getMock('Cake\Controller\Controller', array('isAuthorized'), array(), '', false);
@@ -45,36 +45,36 @@ class ControllerAuthorizeTest extends TestCase {
 		$this->auth = new ControllerAuthorize($this->components);
 	}
 
-/**
- * @expectedException \PHPUnit_Framework_Error
- */
+	/**
+	 * @expectedException \PHPUnit_Framework_Error
+	 */
 	public function testControllerTypeError() {
 		$this->auth->controller(new \StdClass());
 	}
 
-/**
- * @expectedException Cake\Error\Exception
- */
+	/**
+	 * @expectedException Cake\Error\Exception
+	 */
 	public function testControllerErrorOnMissingMethod() {
 		$this->auth->controller(new Controller());
 	}
 
-/**
- * test failure
- *
- * @return void
- */
+	/**
+	 * test failure
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeFailure() {
 		$user = array();
 		$request = new Request('/posts/index');
 		$this->assertFalse($this->auth->authorize($user, $request));
 	}
 
-/**
- * test isAuthorized working.
- *
- * @return void
- */
+	/**
+	 * test isAuthorized working.
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeSuccess() {
 		$user = array('User' => array('username' => 'mark'));
 		$request = new Request('/posts/index');

@@ -39,14 +39,14 @@ use Cake\Network\Response;
  */
 class FormAuthenticate extends BaseAuthenticate {
 
-/**
- * Checks the fields to ensure they are supplied.
- *
- * @param Cake\Network\Request $request The request that contains login information.
- * @param string $model The model used for login verification.
- * @param array $fields The fields to be checked.
- * @return boolean False if the fields have not been supplied. True if they exist.
- */
+	/**
+	 * Checks the fields to ensure they are supplied.
+	 *
+	 * @param Cake\Network\Request $request The request that contains login information.
+	 * @param string $model The model used for login verification.
+	 * @param array $fields The fields to be checked.
+	 * @return boolean False if the fields have not been supplied. True if they exist.
+	 */
 	protected function _checkFields(Request $request, $model, $fields) {
 		if (empty($request->data[$model])) {
 			return false;
@@ -60,15 +60,15 @@ class FormAuthenticate extends BaseAuthenticate {
 		return true;
 	}
 
-/**
- * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
- * to find POST data that is used to find a matching record in the `settings.userModel`. Will return false if
- * there is no post data, either username or password is missing, or if the scope conditions have not been met.
- *
- * @param Cake\Network\Request $request The request that contains login information.
- * @param Cake\Network\Response $response Unused response object.
- * @return mixed False on login failure.  An array of User data on success.
- */
+	/**
+	 * Authenticates the identity contained in a request. Will use the `settings.userModel`, and `settings.fields`
+	 * to find POST data that is used to find a matching record in the `settings.userModel`. Will return false if
+	 * there is no post data, either username or password is missing, or if the scope conditions have not been met.
+	 *
+	 * @param Cake\Network\Request $request The request that contains login information.
+	 * @param Cake\Network\Response $response Unused response object.
+	 * @return mixed False on login failure.  An array of User data on success.
+	 */
 	public function authenticate(Request $request, Response $response) {
 		$userModel = $this->settings['userModel'];
 		list(, $model) = pluginSplit($userModel);

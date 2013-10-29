@@ -36,25 +36,25 @@ use TestPlugin\Controller\TestPluginController;
  */
 class ControllerTestAppController extends Controller {
 
-/**
- * helpers property
- *
- * @var array
- */
+	/**
+	 * helpers property
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Html');
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = ['Post'];
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Cookie');
 }
 
@@ -63,34 +63,34 @@ class ControllerTestAppController extends Controller {
  */
 class TestController extends ControllerTestAppController {
 
-/**
- * helpers property
- *
- * @var array
- */
+	/**
+	 * helpers property
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Session');
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Security');
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array('Comment');
 
-/**
- * index method
- *
- * @param mixed $testId
- * @param mixed $test2Id
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @param mixed $testId
+	 * @param mixed $test2Id
+	 * @return void
+	 */
 	public function index($testId, $testTwoId) {
 		$this->request->data = array(
 			'testId' => $testId,
@@ -98,13 +98,13 @@ class TestController extends ControllerTestAppController {
 		);
 	}
 
-/**
- * view method
- *
- * @param mixed $testId
- * @param mixed $test2Id
- * @return void
- */
+	/**
+	 * view method
+	 *
+	 * @param mixed $testId
+	 * @param mixed $test2Id
+	 * @return void
+	 */
 	public function view($testId, $testTwoId) {
 		$this->request->data = array(
 			'testId' => $testId,
@@ -137,43 +137,43 @@ class TestController extends ControllerTestAppController {
  */
 class TestComponent extends Component {
 
-/**
- * beforeRedirect method
- *
- * @return void
- */
+	/**
+	 * beforeRedirect method
+	 *
+	 * @return void
+	 */
 	public function beforeRedirect() {
 	}
 
-/**
- * initialize method
- *
- * @return void
- */
+	/**
+	 * initialize method
+	 *
+	 * @return void
+	 */
 	public function initialize(Event $event) {
 	}
 
-/**
- * startup method
- *
- * @return void
- */
+	/**
+	 * startup method
+	 *
+	 * @return void
+	 */
 	public function startup(Event $event) {
 	}
 
-/**
- * shutdown method
- *
- * @return void
- */
+	/**
+	 * shutdown method
+	 *
+	 * @return void
+	 */
 	public function shutdown(Event $event) {
 	}
 
-/**
- * beforeRender callback
- *
- * @return void
- */
+	/**
+	 * beforeRender callback
+	 *
+	 * @return void
+	 */
 	public function beforeRender(Event $event) {
 		$controller = $event->subject();
 		if ($this->viewclass) {
@@ -196,21 +196,21 @@ class AnotherTestController extends ControllerTestAppController {
  */
 class ControllerTest extends TestCase {
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.post',
 		'core.comment'
 	);
 
-/**
- * reset environment.
- *
- * @return void
- */
+	/**
+	 * reset environment.
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -218,21 +218,21 @@ class ControllerTest extends TestCase {
 		Router::reload();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
 	}
 
-/**
- * testLoadModel method
- *
- * @return void
- */
+	/**
+	 * testLoadModel method
+	 *
+	 * @return void
+	 */
 	public function testLoadModel() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		Configure::write('App.namespace', 'TestApp');
@@ -251,11 +251,11 @@ class ControllerTest extends TestCase {
 		unset($Controller);
 	}
 
-/**
- * Test loadModel() when uses = true.
- *
- * @return void
- */
+	/**
+	 * Test loadModel() when uses = true.
+	 *
+	 * @return void
+	 */
 	public function testLoadModelUsesTrue() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		Configure::write('App.namespace', 'TestApp');
@@ -272,11 +272,11 @@ class ControllerTest extends TestCase {
 		unset($Controller);
 	}
 
-/**
- * testLoadModel method from a plugin controller
- *
- * @return void
- */
+	/**
+	 * testLoadModel method from a plugin controller
+	 *
+	 * @return void
+	 */
 	public function testLoadModelInPlugins() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		Configure::write('App.namespace', 'TestApp');
@@ -297,11 +297,11 @@ class ControllerTest extends TestCase {
 		unset($Controller);
 	}
 
-/**
- * testConstructClasses method
- *
- * @return void
- */
+	/**
+	 * testConstructClasses method
+	 *
+	 * @return void
+	 */
 	public function testConstructClasses() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		Configure::write('App.namespace', 'TestApp');
@@ -327,11 +327,11 @@ class ControllerTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Model\TestPluginPost', $Controller->TestPluginPost);
 	}
 
-/**
- * testConstructClassesWithComponents method
- *
- * @return void
- */
+	/**
+	 * testConstructClassesWithComponents method
+	 *
+	 * @return void
+	 */
 	public function testConstructClassesWithComponents() {
 		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
@@ -344,11 +344,11 @@ class ControllerTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $Controller->Other);
 	}
 
-/**
- * testAliasName method
- *
- * @return void
- */
+	/**
+	 * testAliasName method
+	 *
+	 * @return void
+	 */
 	public function testAliasName() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		$request = new Request('controller_posts/index');
@@ -362,11 +362,11 @@ class ControllerTest extends TestCase {
 		unset($Controller);
 	}
 
-/**
- * testFlash method
- *
- * @return void
- */
+	/**
+	 * testFlash method
+	 *
+	 * @return void
+	 */
 	public function testFlash() {
 		$request = new Request('controller_posts/index');
 		$request->webroot = '/';
@@ -402,11 +402,11 @@ class ControllerTest extends TestCase {
 		$this->assertRegExp('/Ajax!/', $result);
 	}
 
-/**
- * testRender method
- *
- * @return void
- */
+	/**
+	 * testRender method
+	 *
+	 * @return void
+	 */
 	public function testRender() {
 		Configure::write('App.namespace', 'TestApp');
 		ClassRegistry::flush();
@@ -453,11 +453,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals($expectedModels, $Controller->request->params['models']);
 	}
 
-/**
- * test that a component beforeRender can change the controller view class.
- *
- * @return void
- */
+	/**
+	 * test that a component beforeRender can change the controller view class.
+	 *
+	 * @return void
+	 */
 	public function testBeforeRenderCallbackChangingViewClass() {
 		Configure::write('App.namespace', 'TestApp');
 		$Controller = new Controller($this->getMock('Cake\Network\Request'), new Response());
@@ -478,11 +478,11 @@ class ControllerTest extends TestCase {
 		Configure::write('debug', $debug);
 	}
 
-/**
- * test that a component beforeRender can change the controller view class.
- *
- * @return void
- */
+	/**
+	 * test that a component beforeRender can change the controller view class.
+	 *
+	 * @return void
+	 */
 	public function testBeforeRenderEventCancelsRender() {
 		$Controller = new Controller($this->getMock('Cake\Network\Request'), new Response());
 
@@ -494,11 +494,11 @@ class ControllerTest extends TestCase {
 		$this->assertInstanceOf('Cake\Network\Response', $result);
 	}
 
-/**
- * testToBeInheritedGuardmethods method
- *
- * @return void
- */
+	/**
+	 * testToBeInheritedGuardmethods method
+	 *
+	 * @return void
+	 */
 	public function testToBeInheritedGuardmethods() {
 		$request = new Request('controller_posts/index');
 
@@ -509,11 +509,11 @@ class ControllerTest extends TestCase {
 		$this->assertFalse($Controller->scaffoldError(''));
 	}
 
-/**
- * Generates status codes for redirect test.
- *
- * @return void
- */
+	/**
+	 * Generates status codes for redirect test.
+	 *
+	 * @return void
+	 */
 	public static function statusCodeProvider() {
 		return array(
 			array(300, "Multiple Choices"),
@@ -527,12 +527,12 @@ class ControllerTest extends TestCase {
 		);
 	}
 
-/**
- * testRedirect method
- *
- * @dataProvider statusCodeProvider
- * @return void
- */
+	/**
+	 * testRedirect method
+	 *
+	 * @dataProvider statusCodeProvider
+	 * @return void
+	 */
 	public function testRedirectByCode($code, $msg) {
 		$Controller = new Controller(null);
 		$Controller->response = new Response();
@@ -543,11 +543,11 @@ class ControllerTest extends TestCase {
 		$this->assertFalse($Controller->autoRender);
 	}
 
-/**
- * test that beforeRedirect callbacks can set the URL that is being redirected to.
- *
- * @return void
- */
+	/**
+	 * test that beforeRedirect callbacks can set the URL that is being redirected to.
+	 *
+	 * @return void
+	 */
 	public function testRedirectBeforeRedirectModifyingUrl() {
 		$Controller = new Controller(null);
 		$Controller->response = new Response();
@@ -561,11 +561,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals(301, $Controller->response->statusCode());
 	}
 
-/**
- * test that beforeRedirect callback returning null doesn't affect things.
- *
- * @return void
- */
+	/**
+	 * test that beforeRedirect callback returning null doesn't affect things.
+	 *
+	 * @return void
+	 */
 	public function testRedirectBeforeRedirectModifyingStatusCode() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('_stop'));
 		$Controller->response = new Response();
@@ -580,11 +580,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals(302, $Controller->response->statusCode());
 	}
 
-/**
- * test that beforeRedirect callback returning false in controller
- *
- * @return void
- */
+	/**
+	 * test that beforeRedirect callback returning false in controller
+	 *
+	 * @return void
+	 */
 	public function testRedirectBeforeRedirectListenerReturnFalse() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('_stop'));
 		$Controller->response = $this->getMock('Cake\Network\Response', array('header'));
@@ -602,11 +602,11 @@ class ControllerTest extends TestCase {
 		$Controller->redirect('http://cakephp.org');
 	}
 
-/**
- * testMergeVars method
- *
- * @return void
- */
+	/**
+	 * testMergeVars method
+	 *
+	 * @return void
+	 */
 	public function testMergeVars() {
 		$request = new Request();
 
@@ -644,11 +644,11 @@ class ControllerTest extends TestCase {
 		);
 	}
 
-/**
- * test that options from child classes replace those in the parent classes.
- *
- * @return void
- */
+	/**
+	 * test that options from child classes replace those in the parent classes.
+	 *
+	 * @return void
+	 */
 	public function testChildComponentOptionsSupercedeParents() {
 		$request = new Request('controller_posts/index');
 
@@ -660,12 +660,12 @@ class ControllerTest extends TestCase {
 		$this->assertEquals($expected, $TestController->components['Cookie']);
 	}
 
-/**
- * Ensure that _mergeControllerVars is not being greedy and merging with
- * ControllerTestAppController when you make an instance of Controller
- *
- * @return void
- */
+	/**
+	 * Ensure that _mergeControllerVars is not being greedy and merging with
+	 * ControllerTestAppController when you make an instance of Controller
+	 *
+	 * @return void
+	 */
 	public function testMergeVarsNotGreedy() {
 		$request = new Request('controller_posts/index');
 
@@ -677,12 +677,12 @@ class ControllerTest extends TestCase {
 		$this->assertFalse(isset($Controller->Session));
 	}
 
-/**
- * Ensure that $modelClass is correct even when Controller::$uses
- * has been iterated, eg: by a Component, or event handlers.
- *
- * @return void
- */
+	/**
+	 * Ensure that $modelClass is correct even when Controller::$uses
+	 * has been iterated, eg: by a Component, or event handlers.
+	 *
+	 * @return void
+	 */
 	public function testMergeVarsModelClass() {
 		$request = new Request();
 
@@ -693,11 +693,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals($Controller->uses[0], $Controller->modelClass);
 	}
 
-/**
- * testReferer method
- *
- * @return void
- */
+	/**
+	 * testReferer method
+	 *
+	 * @return void
+	 */
 	public function testReferer() {
 		$request = $this->getMock('Cake\Network\Request');
 
@@ -729,11 +729,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals('/', $result);
 	}
 
-/**
- * testSetAction method
- *
- * @return void
- */
+	/**
+	 * testSetAction method
+	 *
+	 * @return void
+	 */
 	public function testSetAction() {
 		$request = new Request('controller_posts/index');
 
@@ -745,11 +745,11 @@ class ControllerTest extends TestCase {
 		$this->assertSame('view', $TestController->view);
 	}
 
-/**
- * testValidateErrors method
- *
- * @return void
- */
+	/**
+	 * testValidateErrors method
+	 *
+	 * @return void
+	 */
 	public function testValidateErrors() {
 		ClassRegistry::flush();
 		$request = new Request('controller_posts/index');
@@ -770,11 +770,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals(2, $TestController->validate($comment));
 	}
 
-/**
- * test that validateErrors works with any old model.
- *
- * @return void
- */
+	/**
+	 * test that validateErrors works with any old model.
+	 *
+	 * @return void
+	 */
 	public function testValidateErrorsOnArbitraryModels() {
 		Configure::write('Config.language', 'eng');
 		$TestController = new TestController();
@@ -788,11 +788,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests that the startup process calls the correct functions
- *
- * @return void
- */
+	/**
+	 * Tests that the startup process calls the correct functions
+	 *
+	 * @return void
+	 */
 	public function testStartupProcess() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('getEventManager'));
 
@@ -818,11 +818,11 @@ class ControllerTest extends TestCase {
 		$Controller->startupProcess();
 	}
 
-/**
- * Tests that the shutdown process calls the correct functions
- *
- * @return void
- */
+	/**
+	 * Tests that the shutdown process calls the correct functions
+	 *
+	 * @return void
+	 */
 	public function testShutdownProcess() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('getEventManager'));
 
@@ -840,11 +840,11 @@ class ControllerTest extends TestCase {
 		$Controller->shutdownProcess();
 	}
 
-/**
- * test that using Controller::paginate() falls back to PaginatorComponent
- *
- * @return void
- */
+	/**
+	 * test that using Controller::paginate() falls back to PaginatorComponent
+	 *
+	 * @return void
+	 */
 	public function testPaginateBackwardsCompatibility() {
 		$this->markTestIncomplete('Need to revisit once models work again.');
 		$request = new Request('controller_posts/index');
@@ -871,13 +871,13 @@ class ControllerTest extends TestCase {
 		$this->assertSame($Controller->request->params['paging']['Post']['nextPage'], true);
 	}
 
-/**
- * testMissingAction method
- *
- * @expectedException Cake\Error\MissingActionException
- * @expectedExceptionMessage Action TestController::missing() could not be found.
- * @return void
- */
+	/**
+	 * testMissingAction method
+	 *
+	 * @expectedException Cake\Error\MissingActionException
+	 * @expectedExceptionMessage Action TestController::missing() could not be found.
+	 * @return void
+	 */
 	public function testInvokeActionMissingAction() {
 		$url = new Request('test/missing');
 		$url->addParams(array('controller' => 'test_controller', 'action' => 'missing'));
@@ -887,13 +887,13 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking private methods.
- *
- * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::private_m() is not directly accessible.
- * @return void
- */
+	/**
+	 * test invoking private methods.
+	 *
+	 * @expectedException Cake\Error\PrivateActionException
+	 * @expectedExceptionMessage Private Action TestController::private_m() is not directly accessible.
+	 * @return void
+	 */
 	public function testInvokeActionPrivate() {
 		$url = new Request('test/private_m/');
 		$url->addParams(array('controller' => 'test_controller', 'action' => 'private_m'));
@@ -903,13 +903,13 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking protected methods.
- *
- * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::protected_m() is not directly accessible.
- * @return void
- */
+	/**
+	 * test invoking protected methods.
+	 *
+	 * @expectedException Cake\Error\PrivateActionException
+	 * @expectedExceptionMessage Private Action TestController::protected_m() is not directly accessible.
+	 * @return void
+	 */
 	public function testInvokeActionProtected() {
 		$url = new Request('test/protected_m/');
 		$url->addParams(array('controller' => 'test_controller', 'action' => 'protected_m'));
@@ -919,13 +919,13 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking hidden methods.
- *
- * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::_hidden() is not directly accessible.
- * @return void
- */
+	/**
+	 * test invoking hidden methods.
+	 *
+	 * @expectedException Cake\Error\PrivateActionException
+	 * @expectedExceptionMessage Private Action TestController::_hidden() is not directly accessible.
+	 * @return void
+	 */
 	public function testInvokeActionHidden() {
 		$url = new Request('test/_hidden/');
 		$url->addParams(array('controller' => 'test_controller', 'action' => '_hidden'));
@@ -935,13 +935,13 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking controller methods.
- *
- * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::redirect() is not directly accessible.
- * @return void
- */
+	/**
+	 * test invoking controller methods.
+	 *
+	 * @expectedException Cake\Error\PrivateActionException
+	 * @expectedExceptionMessage Private Action TestController::redirect() is not directly accessible.
+	 * @return void
+	 */
 	public function testInvokeActionBaseMethods() {
 		$url = new Request('test/redirect/');
 		$url->addParams(array('controller' => 'test_controller', 'action' => 'redirect'));
@@ -951,13 +951,13 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking controller methods.
- *
- * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::admin_add() is not directly accessible.
- * @return void
- */
+	/**
+	 * test invoking controller methods.
+	 *
+	 * @expectedException Cake\Error\PrivateActionException
+	 * @expectedExceptionMessage Private Action TestController::admin_add() is not directly accessible.
+	 * @return void
+	 */
 	public function testInvokeActionPrefixProtection() {
 		Router::reload();
 		Router::connect('/admin/:controller/:action/*', array('prefix' => 'admin'));
@@ -970,11 +970,11 @@ class ControllerTest extends TestCase {
 		$Controller->invokeAction($url);
 	}
 
-/**
- * test invoking controller methods.
- *
- * @return void
- */
+	/**
+	 * test invoking controller methods.
+	 *
+	 * @return void
+	 */
 	public function testInvokeActionReturnValue() {
 		$url = new Request('test/returner/');
 		$url->addParams(array(
@@ -989,11 +989,11 @@ class ControllerTest extends TestCase {
 		$this->assertEquals('I am from the controller.', $result);
 	}
 
-/**
- * test that a classes namespace is used in the viewPath.
- *
- * @return void
- */
+	/**
+	 * test that a classes namespace is used in the viewPath.
+	 *
+	 * @return void
+	 */
 	public function testViewPathConventions() {
 		$request = new Request('admin/posts');
 		$request->addParams(array(

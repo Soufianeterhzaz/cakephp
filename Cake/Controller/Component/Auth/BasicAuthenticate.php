@@ -46,12 +46,12 @@ use Cake\Network\Response;
  */
 class BasicAuthenticate extends BaseAuthenticate {
 
-/**
- * Constructor, completes configuration for basic authentication.
- *
- * @param ComponentRegistry $registry The Component registry used on this request.
- * @param array $settings An array of settings.
- */
+	/**
+	 * Constructor, completes configuration for basic authentication.
+	 *
+	 * @param ComponentRegistry $registry The Component registry used on this request.
+	 * @param array $settings An array of settings.
+	 */
 	public function __construct(ComponentRegistry $registry, $settings) {
 		parent::__construct($registry, $settings);
 		if (empty($this->settings['realm'])) {
@@ -59,24 +59,24 @@ class BasicAuthenticate extends BaseAuthenticate {
 		}
 	}
 
-/**
- * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
- * login using HTTP auth.
- *
- * @param Cake\Network\Request $request The request to authenticate with.
- * @param Cake\Network\Response $response The response to add headers to.
- * @return mixed Either false on failure, or an array of user data on success.
- */
+	/**
+	 * Authenticate a user using HTTP auth. Will use the configured User model and attempt a
+	 * login using HTTP auth.
+	 *
+	 * @param Cake\Network\Request $request The request to authenticate with.
+	 * @param Cake\Network\Response $response The response to add headers to.
+	 * @return mixed Either false on failure, or an array of user data on success.
+	 */
 	public function authenticate(Request $request, Response $response) {
 		return $this->getUser($request);
 	}
 
-/**
- * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
- *
- * @param Cake\Network\Request $request Request object.
- * @return mixed Either false or an array of user information
- */
+	/**
+	 * Get a user based on information in the request. Used by cookie-less auth for stateless clients.
+	 *
+	 * @param Cake\Network\Request $request Request object.
+	 * @return mixed Either false or an array of user information
+	 */
 	public function getUser(Request $request) {
 		$username = env('PHP_AUTH_USER');
 		$pass = env('PHP_AUTH_PW');
@@ -87,25 +87,25 @@ class BasicAuthenticate extends BaseAuthenticate {
 		return $this->_findUser($username, $pass);
 	}
 
-/**
- * Handles an unauthenticated access attempt by sending appropriate login headers
- *
- * @param CakeRequest $request A request object.
- * @param CakeResponse $response A response object.
- * @return void
- * @throws Cake\Error\UnauthorizedException
- */
+	/**
+	 * Handles an unauthenticated access attempt by sending appropriate login headers
+	 *
+	 * @param CakeRequest $request A request object.
+	 * @param CakeResponse $response A response object.
+	 * @return void
+	 * @throws Cake\Error\UnauthorizedException
+	 */
 	public function unauthenticated(Request $request, Response $response) {
 		$Exception = new Error\UnauthorizedException();
 		$Exception->responseHeader(array($this->loginHeaders()));
 		throw $Exception;
 	}
 
-/**
- * Generate the login headers
- *
- * @return string Headers for logging in.
- */
+	/**
+	 * Generate the login headers
+	 *
+	 * @return string Headers for logging in.
+	 */
 	public function loginHeaders() {
 		return sprintf('WWW-Authenticate: Basic realm="%s"', $this->settings['realm']);
 	}

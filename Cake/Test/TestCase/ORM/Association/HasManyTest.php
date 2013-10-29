@@ -27,11 +27,11 @@ use Cake\ORM\TableRegistry;
  */
 class HasManyTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Set up
- *
- * @return void
- */
+	/**
+	 * Set up
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->author = TableRegistry::get('Author', [
@@ -50,31 +50,31 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		]);
 	}
 
-/**
- * Tear down
- *
- * @return void
- */
+	/**
+	 * Tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Tests that the association reports it can be joined
- *
- * @return void
- */
+	/**
+	 * Tests that the association reports it can be joined
+	 *
+	 * @return void
+	 */
 	public function testCanBeJoined() {
 		$assoc = new HasMany('Test');
 		$this->assertFalse($assoc->canBeJoined());
 	}
 
-/**
- * Tests sort() method
- *
- * @return void
- */
+	/**
+	 * Tests sort() method
+	 *
+	 * @return void
+	 */
 	public function testSort() {
 		$assoc = new HasMany('Test');
 		$this->assertNull($assoc->sort());
@@ -82,11 +82,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals(['id' => 'ASC'], $assoc->sort());
 	}
 
-/**
- * Tests requiresKeys() method
- *
- * @return void
- */
+	/**
+	 * Tests requiresKeys() method
+	 *
+	 * @return void
+	 */
 	public function testRequiresKeys() {
 		$assoc = new HasMany('Test');
 		$this->assertTrue($assoc->requiresKeys());
@@ -96,11 +96,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$this->assertTrue($assoc->requiresKeys());
 	}
 
-/**
- * Test the eager loader method with no extra options
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with no extra options
+	 *
+	 * @return void
+	 */
 	public function testEagerLoader() {
 		$config = [
 			'sourceTable' => $this->author,
@@ -135,11 +135,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($row, $result);
 	}
 
-/**
- * Test the eager loader method with default query clauses
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with default query clauses
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderWithDefaults() {
 		$config = [
 			'sourceTable' => $this->author,
@@ -180,11 +180,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$association->eagerLoader(compact('keys', 'query'));
 	}
 
-/**
- * Test the eager loader method with overridden query clauses
- *
- * @return void
- */
+	/**
+	 * Test the eager loader method with overridden query clauses
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderWithOverrides() {
 		$config = [
 			'sourceTable' => $this->author,
@@ -245,14 +245,14 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		]);
 	}
 
-/**
- * Test that failing to add the foreignKey to the list of fields will throw an
- * exception
- *
- * @expectedException \InvalidArgumentException
- * @expectedExceptionMessage You are required to select the "Article.author_id"
- * @return void
- */
+	/**
+	 * Test that failing to add the foreignKey to the list of fields will throw an
+	 * exception
+	 *
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage You are required to select the "Article.author_id"
+	 * @return void
+	 */
 	public function testEagerLoaderFieldsException() {
 		$config = [
 			'sourceTable' => $this->author,
@@ -276,11 +276,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		]);
 	}
 
-/**
- * Tests eager loading using subquery
- *
- * @return void
- */
+	/**
+	 * Tests eager loading using subquery
+	 *
+	 * @return void
+	 */
 	public function testEagerLoaderSubquery() {
 		$config = [
 			'sourceTable' => $this->author,
@@ -339,12 +339,12 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($row, $result);
 	}
 
-/**
- * Tests that the correct join and fields are attached to a query depending on
- * the association config
- *
- * @return void
- */
+	/**
+	 * Tests that the correct join and fields are attached to a query depending on
+	 * the association config
+	 *
+	 * @return void
+	 */
 	public function testAttachTo() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -371,11 +371,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$association->attachTo($query);
 	}
 
-/**
- * Tests that default config defined in the association can be overridden
- *
- * @return void
- */
+	/**
+	 * Tests that default config defined in the association can be overridden
+	 *
+	 * @return void
+	 */
 	public function testAttachToConfigOverride() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -405,11 +405,11 @@ class HasManyTest extends \Cake\TestSuite\TestCase {
 		$association->attachTo($query, $override);
 	}
 
-/**
- * Tests that it is possible to avoid fields inclusion for the associated table
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to avoid fields inclusion for the associated table
+	 *
+	 * @return void
+	 */
 	public function testAttachToNoFields() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [

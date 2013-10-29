@@ -30,11 +30,11 @@ define('APP_TEST_CASES', TESTS . 'TestCase');
  */
 class TestSuiteDispatcher {
 
-/**
- * 'Request' parameters
- *
- * @var array
- */
+	/**
+	 * 'Request' parameters
+	 *
+	 * @var array
+	 */
 	public $params = array(
 		'codeCoverage' => false,
 		'case' => null,
@@ -48,49 +48,49 @@ class TestSuiteDispatcher {
 		'fixture' => null
 	);
 
-/**
- * Baseurl for the request
- *
- * @var string
- */
+	/**
+	 * Baseurl for the request
+	 *
+	 * @var string
+	 */
 	protected $_baseUrl;
 
-/**
- * Base dir of the request. Used for accessing assets.
- *
- * @var string
- */
+	/**
+	 * Base dir of the request. Used for accessing assets.
+	 *
+	 * @var string
+	 */
 	protected $_baseDir;
 
-/**
- * boolean to set auto parsing of params.
- *
- * @var boolean
- */
+	/**
+	 * boolean to set auto parsing of params.
+	 *
+	 * @var boolean
+	 */
 	protected $_paramsParsed = false;
 
-/**
- * reporter instance used for the request
- *
- * @var Cake\TestSuite\Reporter\BaseReporter
- */
+	/**
+	 * reporter instance used for the request
+	 *
+	 * @var Cake\TestSuite\Reporter\BaseReporter
+	 */
 	protected static $_Reporter = null;
 
-/**
- * constructor
- *
- */
+	/**
+	 * constructor
+	 *
+	 */
 	public function __construct() {
 		$this->_baseUrl = $_SERVER['PHP_SELF'];
 		$dir = rtrim(dirname($this->_baseUrl), '\\');
 		$this->_baseDir = ($dir === '/') ? $dir : $dir . '/';
 	}
 
-/**
- * Runs the actions required by the URL parameters.
- *
- * @return void
- */
+	/**
+	 * Runs the actions required by the URL parameters.
+	 *
+	 * @return void
+	 */
 	public function dispatch() {
 		$this->_checkPHPUnit();
 		$this->_parseParams();
@@ -106,21 +106,21 @@ class TestSuiteDispatcher {
 		return $value;
 	}
 
-/**
- * Static method to initialize the test runner, keeps global space clean
- *
- * @return void
- */
+	/**
+	 * Static method to initialize the test runner, keeps global space clean
+	 *
+	 * @return void
+	 */
 	public static function run() {
 		$dispatcher = new TestSuiteDispatcher();
 		$dispatcher->dispatch();
 	}
 
-/**
- * Checks that PHPUnit is installed. Will exit if it doesn't
- *
- * @return void
- */
+	/**
+	 * Checks that PHPUnit is installed. Will exit if it doesn't
+	 *
+	 * @return void
+	 */
 	protected function _checkPHPUnit() {
 		$found = $this->loadTestFramework();
 		if (!$found) {
@@ -130,11 +130,11 @@ class TestSuiteDispatcher {
 		}
 	}
 
-/**
- * Checks for the existence of the test framework files
- *
- * @return boolean true if found, false otherwise
- */
+	/**
+	 * Checks for the existence of the test framework files
+	 *
+	 * @return boolean true if found, false otherwise
+	 */
 	public function loadTestFramework() {
 		if (class_exists('PHPUnit_Framework_TestCase')) {
 			return true;
@@ -150,12 +150,12 @@ class TestSuiteDispatcher {
 		return class_exists('PHPUnit_Framework_TestCase');
 	}
 
-/**
- * Checks for the xdebug extension required to do code coverage. Displays an error
- * if xdebug isn't installed.
- *
- * @return void
- */
+	/**
+	 * Checks for the xdebug extension required to do code coverage. Displays an error
+	 * if xdebug isn't installed.
+	 *
+	 * @return void
+	 */
 	protected function _checkXdebug() {
 		if (!extension_loaded('xdebug')) {
 			$baseDir = $this->_baseDir;
@@ -164,11 +164,11 @@ class TestSuiteDispatcher {
 		}
 	}
 
-/**
- * Generates a page containing the a list of test cases that could be run.
- *
- * @return void
- */
+	/**
+	 * Generates a page containing the a list of test cases that could be run.
+	 *
+	 * @return void
+	 */
 	protected function _testCaseList() {
 		$command = new TestSuiteCommand('', $this->params);
 		$Reporter = $command->handleReporter($this->params['output']);
@@ -178,22 +178,22 @@ class TestSuiteDispatcher {
 		$Reporter->paintDocumentEnd();
 	}
 
-/**
- * Sets the params, calling this will bypass the auto parameter parsing.
- *
- * @param array $params Array of parameters for the dispatcher
- * @return void
- */
+	/**
+	 * Sets the params, calling this will bypass the auto parameter parsing.
+	 *
+	 * @param array $params Array of parameters for the dispatcher
+	 * @return void
+	 */
 	public function setParams($params) {
 		$this->params = $params;
 		$this->_paramsParsed = true;
 	}
 
-/**
- * Parse URL params into a 'request'
- *
- * @return void
- */
+	/**
+	 * Parse URL params into a 'request'
+	 *
+	 * @return void
+	 */
 	protected function _parseParams() {
 		if (!$this->_paramsParsed) {
 			if (!isset($_SERVER['SERVER_NAME'])) {
@@ -216,11 +216,11 @@ class TestSuiteDispatcher {
 		$this->params['baseDir'] = $this->_baseDir;
 	}
 
-/**
- * Runs a test case file.
- *
- * @return void
- */
+	/**
+	 * Runs a test case file.
+	 *
+	 * @return void
+	 */
 	protected function _runTestCase() {
 		$commandArgs = array(
 			'case' => $this->params['case'],
@@ -252,12 +252,12 @@ class TestSuiteDispatcher {
 		}
 	}
 
-/**
- * Sets a static timestamp
- *
- * @param boolean $reset to set new static timestamp.
- * @return integer timestamp
- */
+	/**
+	 * Sets a static timestamp
+	 *
+	 * @param boolean $reset to set new static timestamp.
+	 * @return integer timestamp
+	 */
 	public static function time($reset = false) {
 		static $now;
 		if ($reset || !$now) {
@@ -266,13 +266,13 @@ class TestSuiteDispatcher {
 		return $now;
 	}
 
-/**
- * Returns formatted date string using static time
- * This method is being used as formatter for created, modified and updated fields in Model::save()
- *
- * @param string $format format to be used.
- * @return string formatted date
- */
+	/**
+	 * Returns formatted date string using static time
+	 * This method is being used as formatter for created, modified and updated fields in Model::save()
+	 *
+	 * @param string $format format to be used.
+	 * @return string formatted date
+	 */
 	public static function date($format) {
 		return date($format, static::time());
 	}

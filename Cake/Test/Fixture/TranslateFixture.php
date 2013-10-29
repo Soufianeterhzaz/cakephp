@@ -26,18 +26,18 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class TranslateFixture extends TestFixture {
 
-/**
- * table property
- *
- * @var string 'i18n'
- */
+	/**
+	 * table property
+	 *
+	 * @var string 'i18n'
+	 */
 	public $table = 'i18n';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'locale' => ['type' => 'string', 'length' => 6, 'null' => false],
@@ -48,11 +48,11 @@ class TranslateFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('locale' => 'eng', 'model' => 'TranslatedItem', 'foreign_key' => 1, 'field' => 'title', 'content' => 'Title #1'),
 		array('locale' => 'eng', 'model' => 'TranslatedItem', 'foreign_key' => 1, 'field' => 'content', 'content' => 'Content #1'),

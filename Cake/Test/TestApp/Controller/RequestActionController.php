@@ -23,87 +23,87 @@ namespace TestApp\Controller;
  */
 class RequestActionController extends AppController {
 
-/**
- * uses property
- *
- * @var array
- * @access public
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 * @access public
+	 */
 	public $uses = ['Post'];
 
-/**
- * test_request_action method
- *
- * @access public
- * @return void
- */
+	/**
+	 * test_request_action method
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function test_request_action() {
 		return 'This is a test';
 	}
 
-/**
- * another_ra_test method
- *
- * @param mixed $id
- * @param mixed $other
- * @access public
- * @return void
- */
+	/**
+	 * another_ra_test method
+	 *
+	 * @param mixed $id
+	 * @param mixed $other
+	 * @access public
+	 * @return void
+	 */
 	public function another_ra_test($id, $other) {
 		return $id + $other;
 	}
 
-/**
- * normal_request_action method
- *
- * @return void
- */
+	/**
+	 * normal_request_action method
+	 *
+	 * @return void
+	 */
 	public function normal_request_action() {
 		return 'Hello World';
 	}
 
-/**
- * returns $this->here
- *
- * @return void
- */
+	/**
+	 * returns $this->here
+	 *
+	 * @return void
+	 */
 	public function return_here() {
 		return $this->here;
 	}
 
-/**
- * paginate_request_action method
- *
- * @return void
- */
+	/**
+	 * paginate_request_action method
+	 *
+	 * @return void
+	 */
 	public function paginate_request_action() {
 		$data = $this->paginate();
 		return true;
 	}
 
-/**
- * post pass, testing post passing
- *
- * @return array
- */
+	/**
+	 * post pass, testing post passing
+	 *
+	 * @return array
+	 */
 	public function post_pass() {
 		return $this->request->data;
 	}
 
-/**
- * query pass, testing query passing
- *
- * @return array
- */
+	/**
+	 * query pass, testing query passing
+	 *
+	 * @return array
+	 */
 	public function query_pass() {
 		return $this->request->query;
 	}
 
-/**
- * test param passing and parsing.
- *
- * @return array
- */
+	/**
+	 * test param passing and parsing.
+	 *
+	 * @return array
+	 */
 	public function params_pass() {
 		return $this->request;
 	}

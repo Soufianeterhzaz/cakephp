@@ -30,68 +30,68 @@ use Cake\Utility\Inflector;
  */
 class TestFixture {
 
-/**
- * Fixture Datasource
- *
- * @var string
- */
+	/**
+	 * Fixture Datasource
+	 *
+	 * @var string
+	 */
 	public $connection = 'test';
 
-/**
- * Full Table Name
- *
- * @var string
- */
+	/**
+	 * Full Table Name
+	 *
+	 * @var string
+	 */
 	public $table = null;
 
-/**
- * List of datasources where this fixture has been created
- *
- * @var array
- */
+	/**
+	 * List of datasources where this fixture has been created
+	 *
+	 * @var array
+	 */
 	public $created = array();
 
-/**
- * Fields / Schema for the fixture.
- *
- * This array should be compatible with Cake\Database\Schema\Table.
- * The `_constraints`, `_options` and `_indexes` keys are reserved for defining
- * constraints, options and indexes respectively.
- *
- * @var array
- */
+	/**
+	 * Fields / Schema for the fixture.
+	 *
+	 * This array should be compatible with Cake\Database\Schema\Table.
+	 * The `_constraints`, `_options` and `_indexes` keys are reserved for defining
+	 * constraints, options and indexes respectively.
+	 *
+	 * @var array
+	 */
 	public $fields = array();
 
-/**
- * Configuration for importing fixture schema
- *
- * Accepts a `connection` and `table` key, to define
- * which table and which connection contain the schema to be
- * imported.
- *
- * @var array
- */
+	/**
+	 * Configuration for importing fixture schema
+	 *
+	 * Accepts a `connection` and `table` key, to define
+	 * which table and which connection contain the schema to be
+	 * imported.
+	 *
+	 * @var array
+	 */
 	public $import = null;
 
-/**
- * Fixture records to be inserted.
- *
- * @var array
- */
+	/**
+	 * Fixture records to be inserted.
+	 *
+	 * @var array
+	 */
 	public $records = array();
 
-/**
- * The Cake\Database\Schema\Table for this fixture.
- *
- * @var Cake\Database\Schema\Table;
- */
+	/**
+	 * The Cake\Database\Schema\Table for this fixture.
+	 *
+	 * @var Cake\Database\Schema\Table;
+	 */
 	protected $_schema;
 
-/**
- * Instantiate the fixture.
- *
- * @throws Cake\Error\Exception on invalid datasource usage.
- */
+	/**
+	 * Instantiate the fixture.
+	 *
+	 * @throws Cake\Error\Exception on invalid datasource usage.
+	 */
 	public function __construct() {
 		$connection = 'test';
 		if (!empty($this->connection)) {
@@ -109,12 +109,12 @@ class TestFixture {
 		$this->init();
 	}
 
-/**
- * Initialize the fixture.
- *
- * @return void
- * @throws Cake\Error\MissingModelException Whe importing from a model that does not exist.
- */
+	/**
+	 * Initialize the fixture.
+	 *
+	 * @return void
+	 * @throws Cake\Error\MissingModelException Whe importing from a model that does not exist.
+	 */
 	public function init() {
 		if ($this->table === null) {
 			list($namespace, $class) = namespaceSplit(get_class($this));
@@ -135,11 +135,11 @@ class TestFixture {
 		}
 	}
 
-/**
- * Build the fixtures table schema from the fields property.
- *
- * @return void
- */
+	/**
+	 * Build the fixtures table schema from the fields property.
+	 *
+	 * @return void
+	 */
 	protected function _schemaFromFields() {
 		$this->_schema = new Table($this->table);
 		foreach ($this->fields as $field => $data) {
@@ -173,12 +173,12 @@ class TestFixture {
 		}
 	}
 
-/**
- * Build fixture schema from a table in another datasource.
- *
- * @return void
- * @throws Cake\Error\Exception when trying to import from an empty table.
- */
+	/**
+	 * Build fixture schema from a table in another datasource.
+	 *
+	 * @return void
+	 * @throws Cake\Error\Exception when trying to import from an empty table.
+	 */
 	protected function _schemaFromImport() {
 		if (!is_array($this->import)) {
 			return;
@@ -198,12 +198,12 @@ class TestFixture {
 		$this->_schema = $table;
 	}
 
-/**
- * Get/Set the Cake\Database\Schema\Table instance used by this fixture.
- *
- * @param Cake\Database\Schema\Table $schema The table to set.
- * @return Cake\Database\Schema\Table|null
- */
+	/**
+	 * Get/Set the Cake\Database\Schema\Table instance used by this fixture.
+	 *
+	 * @param Cake\Database\Schema\Table $schema The table to set.
+	 * @return Cake\Database\Schema\Table|null
+	 */
 	public function schema(Table $schema = null) {
 		if ($schema) {
 			$this->_schema = $schema;
@@ -212,12 +212,12 @@ class TestFixture {
 		return $this->_schema;
 	}
 
-/**
- * Run before all tests execute, should return SQL statement to create table for this fixture could be executed successfully.
- *
- * @param Connection $db An instance of the database object used to create the fixture table
- * @return boolean True on success, false on failure
- */
+	/**
+	 * Run before all tests execute, should return SQL statement to create table for this fixture could be executed successfully.
+	 *
+	 * @param Connection $db An instance of the database object used to create the fixture table
+	 * @return boolean True on success, false on failure
+	 */
 	public function create(Connection $db) {
 		if (empty($this->_schema)) {
 			return false;
@@ -243,12 +243,12 @@ class TestFixture {
 		return true;
 	}
 
-/**
- * Run after all tests executed, should return SQL statement to drop table for this fixture.
- *
- * @param Connection $db An instance of the database object used to create the fixture table
- * @return boolean True on success, false on failure
- */
+	/**
+	 * Run after all tests executed, should return SQL statement to drop table for this fixture.
+	 *
+	 * @param Connection $db An instance of the database object used to create the fixture table
+	 * @return boolean True on success, false on failure
+	 */
 	public function drop(Connection $db) {
 		if (empty($this->_schema)) {
 			return false;
@@ -265,13 +265,13 @@ class TestFixture {
 		return true;
 	}
 
-/**
- * Run before each tests is executed, should return a set of SQL statements to insert records for the table
- * of this fixture could be executed successfully.
- *
- * @param Connection $db An instance of the database into which the records will be inserted
- * @return boolean on success or if there are no records to insert, or false on failure
- */
+	/**
+	 * Run before each tests is executed, should return a set of SQL statements to insert records for the table
+	 * of this fixture could be executed successfully.
+	 *
+	 * @param Connection $db An instance of the database into which the records will be inserted
+	 * @return boolean on success or if there are no records to insert, or false on failure
+	 */
 	public function insert(Connection $db) {
 		if (isset($this->records) && !empty($this->records)) {
 			list($fields, $values, $types) = $this->_getRecords();
@@ -287,11 +287,11 @@ class TestFixture {
 		return true;
 	}
 
-/**
- * Converts the internal records into data used to generate a query.
- *
- * @return array
- */
+	/**
+	 * Converts the internal records into data used to generate a query.
+	 *
+	 * @return array
+	 */
 	protected function _getRecords() {
 		$fields = $values = $types = [];
 		foreach ($this->records as $record) {
@@ -308,13 +308,13 @@ class TestFixture {
 		return [$fields, $values, $types];
 	}
 
-/**
- * Truncates the current fixture. Can be overwritten by classes extending
- * CakeFixture to trigger other events before / after truncate.
- *
- * @param Connection DboSource $db A reference to a db instance
- * @return boolean
- */
+	/**
+	 * Truncates the current fixture. Can be overwritten by classes extending
+	 * CakeFixture to trigger other events before / after truncate.
+	 *
+	 * @param Connection DboSource $db A reference to a db instance
+	 * @return boolean
+	 */
 	public function truncate(Connection $db) {
 		$sql = $this->_schema->truncateSql($db);
 		foreach ($sql as $stmt) {

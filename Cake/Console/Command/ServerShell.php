@@ -28,58 +28,58 @@ use Cake\Core\Configure;
  */
 class ServerShell extends Shell {
 
-/**
- * Default ServerHost
- */
+	/**
+	 * Default ServerHost
+	 */
 	const DEFAULT_HOST = 'localhost';
 
-/**
- * Default ListenPort
- */
+	/**
+	 * Default ListenPort
+	 */
 	const DEFAULT_PORT = 80;
 
-/**
- * server host
- *
- * @var string
- */
+	/**
+	 * server host
+	 *
+	 * @var string
+	 */
 	protected $_host = null;
 
-/**
- * listen port
- *
- * @var string
- */
+	/**
+	 * listen port
+	 *
+	 * @var string
+	 */
 	protected $_port = null;
 
-/**
- * document root
- *
- * @var string
- */
+	/**
+	 * document root
+	 *
+	 * @var string
+	 */
 	protected $_documentRoot = null;
 
-/**
- * Override initialize of the Shell
- *
- * @return void
- */
+	/**
+	 * Override initialize of the Shell
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->_host = self::DEFAULT_HOST;
 		$this->_port = self::DEFAULT_PORT;
 		$this->_documentRoot = WWW_ROOT;
 	}
 
-/**
- * Starts up the Shell and displays the welcome message.
- * Allows for checking and configuring prior to command or main execution
- *
- * Override this method if you want to remove the welcome information,
- * or otherwise modify the pre-command flow.
- *
- * @return void
- * @link http://book.cakephp.org/2.0/en/console-and-shells.html#Shell::startup
- */
+	/**
+	 * Starts up the Shell and displays the welcome message.
+	 * Allows for checking and configuring prior to command or main execution
+	 *
+	 * Override this method if you want to remove the welcome information,
+	 * or otherwise modify the pre-command flow.
+	 *
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/console-and-shells.html#Shell::startup
+	 */
 	public function startup() {
 		if (!empty($this->params['host'])) {
 			$this->_host = $this->params['host'];
@@ -102,11 +102,11 @@ class ServerShell extends Shell {
 		parent::startup();
 	}
 
-/**
- * Displays a header for the shell
- *
- * @return void
- */
+	/**
+	 * Displays a header for the shell
+	 *
+	 * @return void
+	 */
 	protected function _welcome() {
 		$this->out();
 		$this->out(__d('cake_console', '<info>Welcome to CakePHP %s Console</info>', 'v' . Configure::version()));
@@ -117,11 +117,11 @@ class ServerShell extends Shell {
 		$this->hr();
 	}
 
-/**
- * Override main() to handle action
- *
- * @return void
- */
+	/**
+	 * Override main() to handle action
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$command = sprintf("php -S %s:%d -t %s %s",
 			$this->_host,
@@ -135,11 +135,11 @@ class ServerShell extends Shell {
 		system($command);
 	}
 
-/**
- * Get and configure the optionparser.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * Get and configure the optionparser.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 

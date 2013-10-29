@@ -24,11 +24,11 @@ class PostsController extends AppController {
 
 	public $name = 'Posts';
 
-/**
- * Components array
- *
- * @var array
- */
+	/**
+	 * Components array
+	 *
+	 * @var array
+	 */
 	public $components = array(
 		'RequestHandler',
 		'Auth'

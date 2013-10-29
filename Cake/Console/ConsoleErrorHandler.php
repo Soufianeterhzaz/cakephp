@@ -23,25 +23,25 @@ use Cake\Error\FatalErrorException;
  */
 class ConsoleErrorHandler extends BaseErrorHandler {
 
-/**
- * Standard error stream.
- *
- * @var ConsoleOutput
- */
+	/**
+	 * Standard error stream.
+	 *
+	 * @var ConsoleOutput
+	 */
 	protected $_stderr;
 
-/**
- * Options for this instance.
- *
- * @var array
- */
+	/**
+	 * Options for this instance.
+	 *
+	 * @var array
+	 */
 	protected $_options;
 
-/**
- * Constructor
- *
- * @param array $options Options for the error handler.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $options Options for the error handler.
+	 */
 	public function __construct($options = []) {
 		if (empty($options['stderr'])) {
 			$options['stderr'] = new ConsoleOutput('php://stderr');
@@ -50,12 +50,12 @@ class ConsoleErrorHandler extends BaseErrorHandler {
 		$this->_options = $options;
 	}
 
-/**
- * Prints an exception to stderr.
- *
- * @param Exception $exception The exception to handle
- * @return void
- */
+	/**
+	 * Prints an exception to stderr.
+	 *
+	 * @param Exception $exception The exception to handle
+	 * @return void
+	 */
 	protected function _displayException($exception) {
 		$errorName = __d('cake_console', 'Exception:');
 		if ($exception instanceof FatalErrorException) {
@@ -71,15 +71,15 @@ class ConsoleErrorHandler extends BaseErrorHandler {
 		$this->_stderr->write($message);
 	}
 
-/**
- * Prints an error to stderr.
- *
- * Template method of BaseErrorHandler.
- *
- * @param array $error An array of error data.
- * @param boolean $debug Whether or not the app is in debug mode.
- * @return void
- */
+	/**
+	 * Prints an error to stderr.
+	 *
+	 * Template method of BaseErrorHandler.
+	 *
+	 * @param array $error An array of error data.
+	 * @param boolean $debug Whether or not the app is in debug mode.
+	 * @return void
+	 */
 	protected function _displayError($error, $debug) {
 		$message = __d('cake_console', '%s in [%s, line %s]',
 			$error['description'],
@@ -93,12 +93,12 @@ class ConsoleErrorHandler extends BaseErrorHandler {
 		$this->_stderr->write($message);
 	}
 
-/**
- * Stop the execution and set the exit code for the process.
- *
- * @param integer $code The exit code.
- * @return void
- */
+	/**
+	 * Stop the execution and set the exit code for the process.
+	 *
+	 * @param integer $code The exit code.
+	 * @return void
+	 */
 	protected function _stop($code) {
 		exit($code);
 	}

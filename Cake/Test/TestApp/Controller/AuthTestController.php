@@ -26,39 +26,39 @@ use Cake\Routing\Router;
  */
 class AuthTestController extends Controller {
 
-/**
- * name property
- *
- * @var string 'AuthTest'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'AuthTest'
+	 */
 	public $name = 'AuthTest';
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array('AuthUser');
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Session', 'Auth');
 
-/**
- * testUrl property
- *
- * @var mixed null
- */
+	/**
+	 * testUrl property
+	 *
+	 * @var mixed null
+	 */
 	public $testUrl = null;
 
-/**
- * construct method
- *
- * @return void
- */
+	/**
+	 * construct method
+	 *
+	 * @return void
+	 */
 	public function __construct($request = null, $response = null) {
 		$request->addParams(Router::parse('/auth_test'));
 		$request->here = '/auth_test';
@@ -67,74 +67,74 @@ class AuthTestController extends Controller {
 		parent::__construct($request, $response);
 	}
 
-/**
- * login method
- *
- * @return void
- */
+	/**
+	 * login method
+	 *
+	 * @return void
+	 */
 	public function login() {
 	}
 
-/**
- * admin_login method
- *
- * @return void
- */
+	/**
+	 * admin_login method
+	 *
+	 * @return void
+	 */
 	public function admin_login() {
 	}
 
-/**
- * admin_add method
- *
- * @return void
- */
+	/**
+	 * admin_add method
+	 *
+	 * @return void
+	 */
 	public function admin_add() {
 	}
 
-/**
- * logout method
- *
- * @return void
- */
+	/**
+	 * logout method
+	 *
+	 * @return void
+	 */
 	public function logout() {
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function add() {
 		echo "add";
 	}
 
-/**
- * add method
- *
- * @return void
- */
+	/**
+	 * add method
+	 *
+	 * @return void
+	 */
 	public function camelCase() {
 		echo "camelCase";
 	}
 
-/**
- * redirect method
- *
- * @param mixed $url
- * @param mixed $status
- * @param mixed $exit
- * @return void
- */
+	/**
+	 * redirect method
+	 *
+	 * @param mixed $url
+	 * @param mixed $status
+	 * @param mixed $exit
+	 * @return void
+	 */
 	public function redirect($url, $status = null, $exit = true) {
 		$this->testUrl = Router::url($url);
 		return false;
 	}
 
-/**
- * isAuthorized method
- *
- * @return void
- */
+	/**
+	 * isAuthorized method
+	 *
+	 * @return void
+	 */
 	public function isAuthorized() {
 	}
 

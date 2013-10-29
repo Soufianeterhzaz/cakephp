@@ -32,127 +32,127 @@ use Cake\TestSuite\TestCase;
  */
 class TestObject extends Object {
 
-/**
- * firstName property
- *
- * @var string 'Joel'
- */
+	/**
+	 * firstName property
+	 *
+	 * @var string 'Joel'
+	 */
 	public $firstName = 'Joel';
 
-/**
- * lastName property
- *
- * @var string 'Moss'
- */
+	/**
+	 * lastName property
+	 *
+	 * @var string 'Moss'
+	 */
 	public $lastName = 'Moss';
 
-/**
- * methodCalls property
- *
- * @var array
- */
+	/**
+	 * methodCalls property
+	 *
+	 * @var array
+	 */
 	public $methodCalls = array();
 
-/**
- * emptyMethod method
- *
- * @return void
- */
+	/**
+	 * emptyMethod method
+	 *
+	 * @return void
+	 */
 	public function emptyMethod() {
 		$this->methodCalls[] = 'emptyMethod';
 	}
 
-/**
- * oneParamMethod method
- *
- * @param mixed $param
- * @return void
- */
+	/**
+	 * oneParamMethod method
+	 *
+	 * @param mixed $param
+	 * @return void
+	 */
 	public function oneParamMethod($param) {
 		$this->methodCalls[] = array('oneParamMethod' => array($param));
 	}
 
-/**
- * twoParamMethod method
- *
- * @param mixed $param
- * @param mixed $paramTwo
- * @return void
- */
+	/**
+	 * twoParamMethod method
+	 *
+	 * @param mixed $param
+	 * @param mixed $paramTwo
+	 * @return void
+	 */
 	public function twoParamMethod($param, $paramTwo) {
 		$this->methodCalls[] = array('twoParamMethod' => array($param, $paramTwo));
 	}
 
-/**
- * threeParamMethod method
- *
- * @param mixed $param
- * @param mixed $paramTwo
- * @param mixed $paramThree
- * @return void
- */
+	/**
+	 * threeParamMethod method
+	 *
+	 * @param mixed $param
+	 * @param mixed $paramTwo
+	 * @param mixed $paramThree
+	 * @return void
+	 */
 	public function threeParamMethod($param, $paramTwo, $paramThree) {
 		$this->methodCalls[] = array('threeParamMethod' => array($param, $paramTwo, $paramThree));
 	}
 
-/**
- * fourParamMethod method
- *
- * @param mixed $param
- * @param mixed $paramTwo
- * @param mixed $paramThree
- * @param mixed $paramFour
- * @return void
- */
+	/**
+	 * fourParamMethod method
+	 *
+	 * @param mixed $param
+	 * @param mixed $paramTwo
+	 * @param mixed $paramThree
+	 * @param mixed $paramFour
+	 * @return void
+	 */
 	public function fourParamMethod($param, $paramTwo, $paramThree, $paramFour) {
 		$this->methodCalls[] = array('fourParamMethod' => array($param, $paramTwo, $paramThree, $paramFour));
 	}
 
-/**
- * fiveParamMethod method
- *
- * @param mixed $param
- * @param mixed $paramTwo
- * @param mixed $paramThree
- * @param mixed $paramFour
- * @param mixed $paramFive
- * @return void
- */
+	/**
+	 * fiveParamMethod method
+	 *
+	 * @param mixed $param
+	 * @param mixed $paramTwo
+	 * @param mixed $paramThree
+	 * @param mixed $paramFour
+	 * @param mixed $paramFive
+	 * @return void
+	 */
 	public function fiveParamMethod($param, $paramTwo, $paramThree, $paramFour, $paramFive) {
 		$this->methodCalls[] = array('fiveParamMethod' => array($param, $paramTwo, $paramThree, $paramFour, $paramFive));
 	}
 
-/**
- * crazyMethod method
- *
- * @param mixed $param
- * @param mixed $paramTwo
- * @param mixed $paramThree
- * @param mixed $paramFour
- * @param mixed $paramFive
- * @param mixed $paramSix
- * @param mixed $paramSeven
- * @return void
- */
+	/**
+	 * crazyMethod method
+	 *
+	 * @param mixed $param
+	 * @param mixed $paramTwo
+	 * @param mixed $paramThree
+	 * @param mixed $paramFour
+	 * @param mixed $paramFive
+	 * @param mixed $paramSix
+	 * @param mixed $paramSeven
+	 * @return void
+	 */
 	public function crazyMethod($param, $paramTwo, $paramThree, $paramFour, $paramFive, $paramSix, $paramSeven = null) {
 		$this->methodCalls[] = array('crazyMethod' => array($param, $paramTwo, $paramThree, $paramFour, $paramFive, $paramSix, $paramSeven));
 	}
 
-/**
- * methodWithOptionalParam method
- *
- * @param mixed $param
- * @return void
- */
+	/**
+	 * methodWithOptionalParam method
+	 *
+	 * @param mixed $param
+	 * @return void
+	 */
 	public function methodWithOptionalParam($param = null) {
 		$this->methodCalls[] = array('methodWithOptionalParam' => array($param));
 	}
 
-/**
- * undocumented function
- *
- * @return void
- */
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 */
 	public function set($properties = array()) {
 		return parent::_set($properties);
 	}
@@ -177,18 +177,18 @@ class ObjectTestModel extends TestModel {
  */
 class ObjectTest extends TestCase {
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = array('core.post', 'core.test_plugin_comment', 'core.comment');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->object = new TestObject();
@@ -198,11 +198,11 @@ class ObjectTest extends TestCase {
 		Log::drop('stderr');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
@@ -210,11 +210,11 @@ class ObjectTest extends TestCase {
 		unset($this->object);
 	}
 
-/**
- * testLog method
- *
- * @return void
- */
+	/**
+	 * testLog method
+	 *
+	 * @return void
+	 */
 	public function testLog() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
@@ -240,11 +240,11 @@ class ObjectTest extends TestCase {
 		unlink(LOGS . 'error.log');
 	}
 
-/**
- * testSet method
- *
- * @return void
- */
+	/**
+	 * testSet method
+	 *
+	 * @return void
+	 */
 	public function testSet() {
 		$this->object->set('a string');
 		$this->assertEquals('Joel', $this->object->firstName);
@@ -260,21 +260,21 @@ class ObjectTest extends TestCase {
 		$this->assertEquals('Moose', $this->object->lastName);
 	}
 
-/**
- * testToString method
- *
- * @return void
- */
+	/**
+	 * testToString method
+	 *
+	 * @return void
+	 */
 	public function testToString() {
 		$result = strtolower($this->object->toString());
 		$this->assertEquals(strtolower(__NAMESPACE__) . '\testobject', $result);
 	}
 
-/**
- * testMethodDispatching method
- *
- * @return void
- */
+	/**
+	 * testMethodDispatching method
+	 *
+	 * @return void
+	 */
 	public function testMethodDispatching() {
 		$this->object->emptyMethod();
 		$expected = array('emptyMethod');

@@ -25,11 +25,11 @@ use Cake\TestSuite\TestCase;
  */
 class RedisEngineTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->skipIf(!class_exists('Redis'), 'Redis is not installed or configured properly.');
@@ -38,11 +38,11 @@ class RedisEngineTest extends TestCase {
 		$this->_configCache();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Cache::drop('redis');
@@ -50,11 +50,11 @@ class RedisEngineTest extends TestCase {
 		Cache::drop('redis_helper');
 	}
 
-/**
- * Helper method for testing.
- *
- * @return void
- */
+	/**
+	 * Helper method for testing.
+	 *
+	 * @return void
+	 */
 	protected function _configCache($settings = []) {
 		$defaults = [
 			'className' => 'Redis',
@@ -65,11 +65,11 @@ class RedisEngineTest extends TestCase {
 		Cache::config('redis', array_merge($defaults, $settings));
 	}
 
-/**
- * testSettings method
- *
- * @return void
- */
+	/**
+	 * testSettings method
+	 *
+	 * @return void
+	 */
 	public function testSettings() {
 		$settings = Cache::settings('redis');
 		$expecting = array(
@@ -86,21 +86,21 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals($expecting, $settings);
 	}
 
-/**
- * testConnect method
- *
- * @return void
- */
+	/**
+	 * testConnect method
+	 *
+	 * @return void
+	 */
 	public function testConnect() {
 		$Redis = new RedisEngine();
 		$this->assertTrue($Redis->init(Cache::settings('redis')));
 	}
 
-/**
- * testReadAndWriteCache method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteCache method
+	 *
+	 * @return void
+	 */
 	public function testReadAndWriteCache() {
 		$this->_configCache(['duration' => 1]);
 
@@ -123,11 +123,11 @@ class RedisEngineTest extends TestCase {
 		Cache::delete('test', 'redis');
 	}
 
-/**
- * testExpiry method
- *
- * @return void
- */
+	/**
+	 * testExpiry method
+	 *
+	 * @return void
+	 */
 	public function testExpiry() {
 		$this->_configCache(['duration' => 1]);
 
@@ -168,11 +168,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals($expecting, $result);
 	}
 
-/**
- * testDeleteCache method
- *
- * @return void
- */
+	/**
+	 * testDeleteCache method
+	 *
+	 * @return void
+	 */
 	public function testDeleteCache() {
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('delete_test', $data, 'redis');
@@ -182,11 +182,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDecrement method
- *
- * @return void
- */
+	/**
+	 * testDecrement method
+	 *
+	 * @return void
+	 */
 	public function testDecrement() {
 		Cache::delete('test_decrement', 'redis');
 		$result = Cache::write('test_decrement', 5, 'redis');
@@ -205,11 +205,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals(2, $result);
 	}
 
-/**
- * testIncrement method
- *
- * @return void
- */
+	/**
+	 * testIncrement method
+	 *
+	 * @return void
+	 */
 	public function testIncrement() {
 		Cache::delete('test_increment', 'redis');
 		$result = Cache::increment('test_increment', 1, 'redis');
@@ -225,11 +225,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals(3, $result);
 	}
 
-/**
- * test clearing redis.
- *
- * @return void
- */
+	/**
+	 * test clearing redis.
+	 *
+	 * @return void
+	 */
 	public function testClear() {
 		Cache::config('redis2', array(
 			'engine' => 'Redis',
@@ -251,11 +251,11 @@ class RedisEngineTest extends TestCase {
 		Cache::clear(false, 'redis2');
 	}
 
-/**
- * test that a 0 duration can successfully write.
- *
- * @return void
- */
+	/**
+	 * test that a 0 duration can successfully write.
+	 *
+	 * @return void
+	 */
 	public function testZeroDuration() {
 		$this->_configCache(['duration' => 0]);
 		$result = Cache::write('test_key', 'written!', 'redis');
@@ -265,13 +265,13 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals('written!', $result);
 	}
 
-/**
- * Tests that configuring groups for stored keys return the correct values when read/written
- * Shows that altering the group value is equivalent to deleting all keys under the same
- * group
- *
- * @return void
- */
+	/**
+	 * Tests that configuring groups for stored keys return the correct values when read/written
+	 * Shows that altering the group value is equivalent to deleting all keys under the same
+	 * group
+	 *
+	 * @return void
+	 */
 	public function testGroupReadWrite() {
 		Cache::config('redis_groups', [
 			'engine' => 'Redis',
@@ -298,11 +298,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertEquals('value3', Cache::read('test_groups', 'redis_groups'));
 	}
 
-/**
- * Tests that deleteing from a groups-enabled config is possible
- *
- * @return void
- */
+	/**
+	 * Tests that deleteing from a groups-enabled config is possible
+	 *
+	 * @return void
+	 */
 	public function testGroupDelete() {
 		Cache::config('redis_groups', [
 			'engine' => 'Redis',
@@ -316,11 +316,11 @@ class RedisEngineTest extends TestCase {
 		$this->assertFalse(Cache::read('test_groups', 'redis_groups'));
 	}
 
-/**
- * Test clearing a cache group
- *
- * @return void
- */
+	/**
+	 * Test clearing a cache group
+	 *
+	 * @return void
+	 */
 	public function testGroupClear() {
 		Cache::config('redis_groups', [
 			'engine' => 'Redis',

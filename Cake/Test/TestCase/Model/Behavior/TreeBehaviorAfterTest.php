@@ -29,18 +29,18 @@ require_once dirname(__DIR__) . DS . 'models.php';
  */
 class TreeBehaviorAfterTest extends TestCase {
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var boolean
- */
+	/**
+	 * Whether backup global state for each test method or not
+	 *
+	 * @var boolean
+	 */
 	public $backupGlobals = false;
 
-/**
- * settings property
- *
- * @var array
- */
+	/**
+	 * settings property
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'modelClass' => 'AfterTree',
 		'leftField' => 'lft',
@@ -48,22 +48,22 @@ class TreeBehaviorAfterTest extends TestCase {
 		'parentField' => 'parent_id'
 	);
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.after_tree');
 
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Not runnable until Models are fixed.');
 	}
-/**
- * Tests the afterSave callback in the model
- *
- * @return void
- */
+	/**
+	 * Tests the afterSave callback in the model
+	 *
+	 * @return void
+	 */
 	public function testAftersaveCallback() {
 		$this->Tree = new AfterTree();
 		$this->Tree->order = null;

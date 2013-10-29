@@ -24,11 +24,11 @@ namespace TestApp\Model;
  */
 class RequestActionPost extends AppModel {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'RequestActionPost';
 
 }

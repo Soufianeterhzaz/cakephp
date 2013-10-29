@@ -20,15 +20,15 @@ namespace Cake\Log;
  */
 trait LogTrait {
 
-/**
- * Convenience method to write a message to Log. See Log::write()
- * for more information on writing to logs.
- *
- * @param string $msg Log message
- * @param integer $type Error type constant. Defined in app/Config/logging.php.
- * @param string $scope The name of the log scope.
- * @return boolean Success of log write
- */
+	/**
+	 * Convenience method to write a message to Log. See Log::write()
+	 * for more information on writing to logs.
+	 *
+	 * @param string $msg Log message
+	 * @param integer $type Error type constant. Defined in app/Config/logging.php.
+	 * @param string $scope The name of the log scope.
+	 * @return boolean Success of log write
+	 */
 	public function log($msg, $type = LOG_ERR, $scope = null) {
 		if (!is_string($msg)) {
 			$msg = print_r($msg, true);

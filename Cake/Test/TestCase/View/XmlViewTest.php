@@ -38,11 +38,11 @@ class XmlViewTest extends TestCase {
 		Configure::write('debug', 0);
 	}
 
-/**
- * testRenderWithoutView method
- *
- * @return void
- */
+	/**
+	 * testRenderWithoutView method
+	 *
+	 * @return void
+	 */
 	public function testRenderWithoutView() {
 		$Request = new Request();
 		$Response = new Response();
@@ -82,11 +82,11 @@ class XmlViewTest extends TestCase {
 		$this->assertSame($expected, $output);
 	}
 
-/**
- * Test that rendering with _serialize does not load helpers
- *
- * @return void
- */
+	/**
+	 * Test that rendering with _serialize does not load helpers
+	 *
+	 * @return void
+	 */
 	public function testRenderSerializeNoHelpers() {
 		$Request = new Request();
 		$Response = new Response();
@@ -101,11 +101,11 @@ class XmlViewTest extends TestCase {
 		$this->assertFalse(isset($View->Html), 'No helper loaded.');
 	}
 
-/**
- * Test render with an array in _serialize
- *
- * @return void
- */
+	/**
+	 * Test render with an array in _serialize
+	 *
+	 * @return void
+	 */
 	public function testRenderWithoutViewMultiple() {
 		$Request = new Request();
 		$Response = new Response();
@@ -130,11 +130,11 @@ class XmlViewTest extends TestCase {
 		$this->assertSame(Xml::build($expected)->asXML(), $output);
 	}
 
-/**
- * Test render with an array in _serialize and alias
- *
- * @return void
- */
+	/**
+	 * Test render with an array in _serialize and alias
+	 *
+	 * @return void
+	 */
 	public function testRenderWithoutViewMultipleAndAlias() {
 		$Request = new Request();
 		$Response = new Response();
@@ -159,11 +159,11 @@ class XmlViewTest extends TestCase {
 		$this->assertSame(Xml::build($expected)->asXML(), $output);
 	}
 
-/**
- * testRenderWithView method
- *
- * @return void
- */
+	/**
+	 * testRenderWithView method
+	 *
+	 * @return void
+	 */
 	public function testRenderWithView() {
 		$Request = new Request();
 		$Response = new Response();

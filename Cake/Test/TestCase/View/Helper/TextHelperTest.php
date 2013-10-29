@@ -54,11 +54,11 @@ class StringMock {
  */
 class TextHelperTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
@@ -68,20 +68,20 @@ class TextHelperTest extends TestCase {
 		Configure::write('App.namespace', 'TestApp');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Text, $this->View);
 		Configure::write('App.namespace', $this->_appNamespace);
 		parent::tearDown();
 	}
 
-/**
- * test String class methods are called correctly
- */
+	/**
+	 * test String class methods are called correctly
+	 */
 	public function testTextHelperProxyMethodCalls() {
 		$methods = array(
 			'highlight', 'stripLinks', 'truncate', 'excerpt', 'toList',
@@ -95,9 +95,9 @@ class TextHelperTest extends TestCase {
 		}
 	}
 
-/**
- * test engine override
- */
+	/**
+	 * test engine override
+	 */
 	public function testEngineOverride() {
 		$Text = new TextHelperTestObject($this->View, array('engine' => 'TestAppEngine'));
 		$this->assertInstanceOf('TestApp\Utility\TestAppEngine', $Text->engine());
@@ -108,11 +108,11 @@ class TextHelperTest extends TestCase {
 		Plugin::unload('TestPlugin');
 	}
 
-/**
- * testAutoLink method
- *
- * @return void
- */
+	/**
+	 * testAutoLink method
+	 *
+	 * @return void
+	 */
 	public function testAutoLink() {
 		$text = 'This is a test text';
 		$expected = 'This is a test text';
@@ -155,11 +155,11 @@ class TextHelperTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test escaping for autoLink
- *
- * @return void
- */
+	/**
+	 * Test escaping for autoLink
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkEscape() {
 		$text = 'This is a <b>test</b> text with URL http://www.cakephp.org';
 		$expected = 'This is a &lt;b&gt;test&lt;/b&gt; text with URL <a href="http://www.cakephp.org">http://www.cakephp.org</a>';
@@ -183,9 +183,9 @@ class TextHelperTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Data provider for autoLinking
- */
+	/**
+	 * Data provider for autoLinking
+	 */
 	public static function autoLinkProvider() {
 		return array(
 			array(
@@ -251,22 +251,22 @@ class TextHelperTest extends TestCase {
 		);
 	}
 
-/**
- * testAutoLinkUrls method
- *
- * @dataProvider autoLinkProvider
- * @return void
- */
+	/**
+	 * testAutoLinkUrls method
+	 *
+	 * @dataProvider autoLinkProvider
+	 * @return void
+	 */
 	public function testAutoLinkUrls($text, $expected) {
 		$result = $this->Text->autoLinkUrls($text);
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the options for autoLinkUrls
- *
- * @return void
- */
+	/**
+	 * Test the options for autoLinkUrls
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkUrlsOptions() {
 		$text = 'Text with a partial www.cakephp.org URL';
 		$expected = 'Text with a partial <a href="http://www.cakephp.org" \s*class="link">www.cakephp.org</a> URL';
@@ -279,11 +279,11 @@ class TextHelperTest extends TestCase {
 		$this->assertRegExp('#^' . $expected . '$#', $result);
 	}
 
-/**
- * Test autoLinkUrls with the escape option.
- *
- * @return void
- */
+	/**
+	 * Test autoLinkUrls with the escape option.
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkUrlsEscape() {
 		$text = 'Text with a partial <a href="http://www.cakephp.org">link</a> link';
 		$expected = 'Text with a partial <a href="http://www.cakephp.org">link</a> link';
@@ -321,11 +321,11 @@ class TextHelperTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test autoLinkUrls with query strings.
- *
- * @return void
- */
+	/**
+	 * Test autoLinkUrls with query strings.
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkUrlsQueryString() {
 		$text = 'Text with a partial http://www.cakephp.org?product_id=123&foo=bar link';
 		$expected = 'Text with a partial <a href="http://www.cakephp.org?product_id=123&amp;foo=bar">http://www.cakephp.org?product_id=123&amp;foo=bar</a> link';
@@ -333,11 +333,11 @@ class TextHelperTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAutoLinkEmails method
- *
- * @return void
- */
+	/**
+	 * testAutoLinkEmails method
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkEmails() {
 		$text = 'This is a test text';
 		$expected = 'This is a test text';
@@ -370,22 +370,22 @@ class TextHelperTest extends TestCase {
 		$this->assertRegExp('#^' . $expected . '$#', $result);
 	}
 
-/**
- * test invalid email addresses.
- *
- * @return void
- */
+	/**
+	 * test invalid email addresses.
+	 *
+	 * @return void
+	 */
 	public function testAutoLinkEmailInvalid() {
 		$result = $this->Text->autoLinkEmails('this is a myaddress@gmx-de test');
 		$expected = 'this is a myaddress@gmx-de test';
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAutoParagraph method
- *
- * @return void
- */
+	/**
+	 * testAutoParagraph method
+	 *
+	 * @return void
+	 */
 	public function testAutoParagraph() {
 		$text = 'This is a test text';
 		$expected = <<<TEXT

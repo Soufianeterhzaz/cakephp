@@ -28,10 +28,10 @@ use Cake\TestSuite\TestCase;
  */
 class TestSource extends DataSource {
 
-/**
- * _schema
- * @var type
- */
+	/**
+	 * _schema
+	 * @var type
+	 */
 	protected $_schema = array(
 		'id' => array(
 			'type' => 'integer',
@@ -56,34 +56,34 @@ class TestSource extends DataSource {
 		),
 	);
 
-/**
- * listSources
- *
- * @return boolean
- */
+	/**
+	 * listSources
+	 *
+	 * @return boolean
+	 */
 	public function listSources($data = null) {
 		return null;
 	}
 
-/**
- * Returns the schema for the datasource to enable create/update
- *
- * @param object $Model
- * @return array
- */
+	/**
+	 * Returns the schema for the datasource to enable create/update
+	 *
+	 * @param object $Model
+	 * @return array
+	 */
 	public function describe($Model) {
 		return $this->_schema;
 	}
 
-/**
- * Just return $func to pass to read() to figure out the COUNT
- * Required for delete/update to work
- *
- * @param Model $Model
- * @param type $func
- * @param type $params
- * @return array
- */
+	/**
+	 * Just return $func to pass to read() to figure out the COUNT
+	 * Required for delete/update to work
+	 *
+	 * @param Model $Model
+	 * @param type $func
+	 * @param type $params
+	 * @return array
+	 */
 	public function calculate(Model $Model, $func, $params = array()) {
 		return $func;
 	}
@@ -96,18 +96,18 @@ class TestSource extends DataSource {
  */
 class DataSourceTest extends TestCase {
 
-/**
- * Name of test source
- *
- * @var string
- */
+	/**
+	 * Name of test source
+	 *
+	 * @var string
+	 */
 	public $sourceName = 'myapitest';
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Not working as models are not complete.');
@@ -129,22 +129,22 @@ class DataSourceTest extends TestCase {
 			->will($this->returnValue($this->Source));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Model, $this->Source);
 		ConnectionManager::drop($this->sourceName);
 	}
 
-/**
- * testCreate
- *
- * @return void
- */
+	/**
+	 * testCreate
+	 *
+	 * @return void
+	 */
 	public function testCreate() {
 		$data = array(
 			$this->Model->alias => array(
@@ -166,11 +166,11 @@ class DataSourceTest extends TestCase {
 		$this->Model->save($data);
 	}
 
-/**
- * testRead
- *
- * @return void
- */
+	/**
+	 * testRead
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$expected = array(
 			'conditions'	=> array('status' => 'test'),
@@ -196,11 +196,11 @@ class DataSourceTest extends TestCase {
 		));
 	}
 
-/**
- * testUpdate
- *
- * @return void
- */
+	/**
+	 * testUpdate
+	 *
+	 * @return void
+	 */
 	public function testUpdate() {
 		$data = array(
 			$this->Model->alias => array(
@@ -228,11 +228,11 @@ class DataSourceTest extends TestCase {
 		$this->Model->save($data);
 	}
 
-/**
- * testDelete
- *
- * @return void
- */
+	/**
+	 * testDelete
+	 *
+	 * @return void
+	 */
 	public function testDelete() {
 		$this->Source->expects($this->any())
 			->method('read')

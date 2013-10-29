@@ -29,11 +29,11 @@ class LogTraitTest extends TestCase {
 		Log::drop('trait_test');
 	}
 
-/**
- * Test log method.
- *
- * @return void
- */
+	/**
+	 * Test log method.
+	 *
+	 * @return void
+	 */
 	public function testLog() {
 		$mock = $this->getMock('Cake\Log\LogInterface');
 		$mock->expects($this->at(0))

@@ -43,18 +43,18 @@ class DatabaseSessionTest extends TestCase {
 
 	protected static $_sessionBackup;
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = array('core.session');
 
-/**
- * test case startup
- *
- * @return void
- */
+	/**
+	 * test case startup
+	 *
+	 * @return void
+	 */
 	public static function setupBeforeClass() {
 		static::$_sessionBackup = Configure::read('Session');
 		Configure::write('Session.handler', array(
@@ -63,42 +63,42 @@ class DatabaseSessionTest extends TestCase {
 		Configure::write('Session.timeout', 100);
 	}
 
-/**
- * cleanup after test case.
- *
- * @return void
- */
+	/**
+	 * cleanup after test case.
+	 *
+	 * @return void
+	 */
 	public static function teardownAfterClass() {
 		Configure::write('Session', static::$_sessionBackup);
 	}
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Models are not work, neither will database sessions');
 		$this->storage = new DatabaseSession();
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->storage);
 		ClassRegistry::flush();
 		parent::tearDown();
 	}
 
-/**
- * test that constructor sets the right things up.
- *
- * @return void
- */
+	/**
+	 * test that constructor sets the right things up.
+	 *
+	 * @return void
+	 */
 	public function testConstructionSettings() {
 		ClassRegistry::flush();
 		new DatabaseSession();
@@ -110,20 +110,20 @@ class DatabaseSessionTest extends TestCase {
 		$this->assertEquals('sessions', $session->useTable);
 	}
 
-/**
- * test opening the session
- *
- * @return void
- */
+	/**
+	 * test opening the session
+	 *
+	 * @return void
+	 */
 	public function testOpen() {
 		$this->assertTrue($this->storage->open());
 	}
 
-/**
- * test write()
- *
- * @return void
- */
+	/**
+	 * test write()
+	 *
+	 * @return void
+	 */
 	public function testWrite() {
 		$result = $this->storage->write('foo', 'Some value');
 		$expected = array(
@@ -140,21 +140,21 @@ class DatabaseSessionTest extends TestCase {
 		$this->assertWithinMargin($expires, $expected, 1);
 	}
 
-/**
- * testReadAndWriteWithDatabaseStorage method
- *
- * @return void
- */
+	/**
+	 * testReadAndWriteWithDatabaseStorage method
+	 *
+	 * @return void
+	 */
 	public function testWriteEmptySessionId() {
 		$result = $this->storage->write('', 'This is a Test');
 		$this->assertFalse($result);
 	}
 
-/**
- * test read()
- *
- * @return void
- */
+	/**
+	 * test read()
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$this->storage->write('foo', 'Some value');
 
@@ -166,11 +166,11 @@ class DatabaseSessionTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * test blowing up the session.
- *
- * @return void
- */
+	/**
+	 * test blowing up the session.
+	 *
+	 * @return void
+	 */
 	public function testDestroy() {
 		$this->storage->write('foo', 'Some value');
 
@@ -178,11 +178,11 @@ class DatabaseSessionTest extends TestCase {
 		$this->assertFalse($this->storage->read('foo'), 'Value still present.');
 	}
 
-/**
- * test the garbage collector
- *
- * @return void
- */
+	/**
+	 * test the garbage collector
+	 *
+	 * @return void
+	 */
 	public function testGc() {
 		ClassRegistry::flush();
 		Configure::write('Session.timeout', 0);

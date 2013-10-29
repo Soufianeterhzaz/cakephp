@@ -29,32 +29,32 @@ class CookieAliasComponent extends CookieComponent {
 
 class ComponentRegistryTest extends TestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$controller = new Controller();
 		$this->Components = new ComponentRegistry($controller);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Components);
 	}
 
-/**
- * test triggering callbacks on loaded helpers
- *
- * @return void
- */
+	/**
+	 * test triggering callbacks on loaded helpers
+	 *
+	 * @return void
+	 */
 	public function testLoad() {
 		$result = $this->Components->load('Cookie');
 		$this->assertInstanceOf('Cake\Controller\Component\CookieComponent', $result);
@@ -67,11 +67,11 @@ class ComponentRegistryTest extends TestCase {
 		$this->assertSame($result, $this->Components->Cookie);
 	}
 
-/**
- * Tests loading as an alias
- *
- * @return void
- */
+	/**
+	 * Tests loading as an alias
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAlias() {
 		$result = $this->Components->load('Cookie', array('className' => __NAMESPACE__ . '\CookieAliasComponent', 'somesetting' => true));
 		$this->assertInstanceOf(__NAMESPACE__ . '\CookieAliasComponent', $result);
@@ -93,11 +93,11 @@ class ComponentRegistryTest extends TestCase {
 		$this->assertEquals(array('Cookie', 'SomeOther'), $result, 'loaded() results are wrong.');
 	}
 
-/**
- * test load and enable = false
- *
- * @return void
- */
+	/**
+	 * test load and enable = false
+	 *
+	 * @return void
+	 */
 	public function testLoadWithEnableFalse() {
 		$mock = $this->getMock('Cake\Event\EventManager');
 		$mock->expects($this->never())
@@ -110,21 +110,21 @@ class ComponentRegistryTest extends TestCase {
 		$this->assertInstanceOf('Cake\Controller\Component\CookieComponent', $this->Components->Cookie);
 	}
 
-/**
- * test missingcomponent exception
- *
- * @expectedException Cake\Error\MissingComponentException
- * @return void
- */
+	/**
+	 * test missingcomponent exception
+	 *
+	 * @expectedException Cake\Error\MissingComponentException
+	 * @return void
+	 */
 	public function testLoadMissingComponent() {
 		$this->Components->load('ThisComponentShouldAlwaysBeMissing');
 	}
 
-/**
- * test loading a plugin component.
- *
- * @return void
- */
+	/**
+	 * test loading a plugin component.
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginComponent() {
 		Plugin::load('TestPlugin');
 		$result = $this->Components->load('TestPlugin.Other');
@@ -132,11 +132,11 @@ class ComponentRegistryTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $this->Components->Other, 'Class is wrong');
 	}
 
-/**
- * Test loading components with aliases and plugins.
- *
- * @return void
- */
+	/**
+	 * Test loading components with aliases and plugins.
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAliasAndPlugin() {
 		Plugin::load('TestPlugin');
 		$result = $this->Components->load('AliasedOther', ['className' => 'TestPlugin.Other']);
@@ -147,21 +147,21 @@ class ComponentRegistryTest extends TestCase {
 		$this->assertEquals(['AliasedOther'], $result, 'loaded() results are wrong.');
 	}
 
-/**
- * test getting the controller out of the collection
- *
- * @return void
- */
+	/**
+	 * test getting the controller out of the collection
+	 *
+	 * @return void
+	 */
 	public function testGetController() {
 		$result = $this->Components->getController();
 		$this->assertInstanceOf('Cake\Controller\Controller', $result);
 	}
 
-/**
- * Test reset.
- *
- * @return void
- */
+	/**
+	 * Test reset.
+	 *
+	 * @return void
+	 */
 	public function testReset() {
 		$eventManager = $this->Components->getController()->getEventManager();
 		$instance = $this->Components->load('Auth');

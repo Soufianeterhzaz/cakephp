@@ -23,24 +23,24 @@ namespace Cake\Error;
  */
 class BaseException extends \RuntimeException {
 
-/**
- * Array of headers to be passed to Cake\Network\Response::header()
- *
- * @var array
- */
+	/**
+	 * Array of headers to be passed to Cake\Network\Response::header()
+	 *
+	 * @var array
+	 */
 	protected $_responseHeaders = null;
 
-/**
- * Get/set the response header to be used
- *
- * See also Cake\Network\Response::header()
- *
- * @param string|array $header. An array of header strings or a single header string
- *	- an associative array of "header name" => "header value"
- *	- an array of string headers is also accepted
- * @param string $value The header value.
- * @return array
- */
+	/**
+	 * Get/set the response header to be used
+	 *
+	 * See also Cake\Network\Response::header()
+	 *
+	 * @param string|array $header. An array of header strings or a single header string
+	 *	- an associative array of "header name" => "header value"
+	 *	- an array of string headers is also accepted
+	 * @param string $value The header value.
+	 * @return array
+	 */
 	public function responseHeader($header = null, $value = null) {
 		if ($header) {
 			if (is_array($header)) {

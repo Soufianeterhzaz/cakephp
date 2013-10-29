@@ -28,20 +28,20 @@ use Cake\Utility\Inflector;
  */
 class BelongsTo extends Association {
 
-/**
- * Whether this association can be expressed directly in a query join
- *
- * @var boolean
- */
+	/**
+	 * Whether this association can be expressed directly in a query join
+	 *
+	 * @var boolean
+	 */
 	protected $_canBeJoined = true;
 
-/**
- * Sets the name of the field representing the foreign key to the target table.
- * If no parameters are passed current field is returned
- *
- * @param string $key the key to be used to link both tables together
- * @return string
- */
+	/**
+	 * Sets the name of the field representing the foreign key to the target table.
+	 * If no parameters are passed current field is returned
+	 *
+	 * @param string $key the key to be used to link both tables together
+	 * @return string
+	 */
 	public function foreignKey($key = null) {
 		if ($key === null) {
 			if ($this->_foreignKey === null) {
@@ -52,13 +52,13 @@ class BelongsTo extends Association {
 		return parent::foreignKey($key);
 	}
 
-/**
- * Returns a single or multiple conditions to be appended to the generated join
- * clause for getting the results on the target table.
- *
- * @param array $options list of options passed to attachTo method
- * @return string|array
- */
+	/**
+	 * Returns a single or multiple conditions to be appended to the generated join
+	 * clause for getting the results on the target table.
+	 *
+	 * @param array $options list of options passed to attachTo method
+	 * @return string|array
+	 */
 	protected function _joinCondition(array $options) {
 		return sprintf('%s.%s = %s.%s',
 				$this->target()->alias(),

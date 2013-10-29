@@ -49,18 +49,18 @@ class_alias('Cake\Test\TestCase\Console\Command\Task\BakeArticle', 'Cake\Model\B
  */
 class ControllerTaskTest extends TestCase {
 
-/**
- * fixtures
- *
- * @var array
- */
+	/**
+	 * fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.bake_article', 'core.bake_articles_bake_tag', 'core.bake_comment', 'core.bake_tag');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Baking will not work as models do not work.');
@@ -86,21 +86,21 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->Test = $this->getMock('Cake\Console\Command\Task\TestTask', array(), array($out, $out, $in));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->Task);
 		parent::tearDown();
 	}
 
-/**
- * test ListAll
- *
- * @return void
- */
+	/**
+	 * test ListAll
+	 *
+	 * @return void
+	 */
 	public function testListAll() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -125,11 +125,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that getName interacts with the user and returns the controller name.
- *
- * @return void
- */
+	/**
+	 * Test that getName interacts with the user and returns the controller name.
+	 *
+	 * @return void
+	 */
 	public function testGetNameValidIndex() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -149,11 +149,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test getting invalid indexes.
- *
- * @return void
- */
+	/**
+	 * test getting invalid indexes.
+	 *
+	 * @return void
+	 */
 	public function testGetNameInvalidIndex() {
 		$this->Task->interactive = true;
 		$this->Task->expects($this->any())->method('in')
@@ -165,22 +165,22 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->getName('test');
 	}
 
-/**
- * test helper interactions
- *
- * @return void
- */
+	/**
+	 * test helper interactions
+	 *
+	 * @return void
+	 */
 	public function testDoHelpersNo() {
 		$this->Task->expects($this->any())->method('in')->will($this->returnValue('n'));
 		$result = $this->Task->doHelpers();
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * test getting helper values
- *
- * @return void
- */
+	/**
+	 * test getting helper values
+	 *
+	 * @return void
+	 */
 	public function testDoHelpersTrailingSpace() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue(' Text, Number, CustomOne  '));
@@ -189,11 +189,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test doHelpers with extra commas
- *
- * @return void
- */
+	/**
+	 * test doHelpers with extra commas
+	 *
+	 * @return void
+	 */
 	public function testDoHelpersTrailingCommas() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue(' Text, Number, CustomOne, , '));
@@ -202,22 +202,22 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test component interactions
- *
- * @return void
- */
+	/**
+	 * test component interactions
+	 *
+	 * @return void
+	 */
 	public function testDoComponentsNo() {
 		$this->Task->expects($this->any())->method('in')->will($this->returnValue('n'));
 		$result = $this->Task->doComponents();
 		$this->assertSame(array('Paginator'), $result);
 	}
 
-/**
- * test components with spaces
- *
- * @return void
- */
+	/**
+	 * test components with spaces
+	 *
+	 * @return void
+	 */
 	public function testDoComponentsTrailingSpaces() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue(' RequestHandler, Security  '));
@@ -227,11 +227,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test components with commas
- *
- * @return void
- */
+	/**
+	 * test components with commas
+	 *
+	 * @return void
+	 */
 	public function testDoComponentsTrailingCommas() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('y'));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue(' RequestHandler, Security, , '));
@@ -241,11 +241,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Confirming controller user interaction
- *
- * @return void
- */
+	/**
+	 * test Confirming controller user interaction
+	 *
+	 * @return void
+	 */
 	public function testConfirmController() {
 		$controller = 'Posts';
 		$scaffold = false;
@@ -258,11 +258,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->confirmController($controller, $scaffold, $helpers, $components);
 	}
 
-/**
- * test the bake method
- *
- * @return void
- */
+	/**
+	 * test the bake method
+	 *
+	 * @return void
+	 */
 	public function testBake() {
 		$helpers = array('Js', 'Time');
 		$components = array('Acl', 'Auth');
@@ -281,11 +281,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test bake() with a -plugin param
- *
- * @return void
- */
+	/**
+	 * test bake() with a -plugin param
+	 *
+	 * @return void
+	 */
 	public function testBakeWithPlugin() {
 		$this->Task->plugin = 'ControllerTest';
 
@@ -315,11 +315,11 @@ class ControllerTaskTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * test that bakeActions is creating the correct controller Code. (Using sessions)
- *
- * @return void
- */
+	/**
+	 * test that bakeActions is creating the correct controller Code. (Using sessions)
+	 *
+	 * @return void
+	 */
 	public function testBakeActionsUsingSessions() {
 		$result = $this->Task->bakeActions('BakeArticles', null, true);
 		$expected = file_get_contents(CAKE . 'Test' . DS . 'bake_compare' . DS . 'Controller' . DS . 'ActionsUsingSessions.ctp');
@@ -333,22 +333,22 @@ class ControllerTaskTest extends TestCase {
 		$this->assertContains('function admin_delete($id = null)', $result);
 	}
 
-/**
- * Test baking with Controller::flash() or no sessions.
- *
- * @return void
- */
+	/**
+	 * Test baking with Controller::flash() or no sessions.
+	 *
+	 * @return void
+	 */
 	public function testBakeActionsWithNoSessions() {
 		$result = $this->Task->bakeActions('BakeArticles', null, false);
 		$expected = file_get_contents(CAKE . 'Test' . DS . 'bake_compare' . DS . 'Controller' . DS . 'ActionsWithNoSessions.ctp');
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test baking a test
- *
- * @return void
- */
+	/**
+	 * test baking a test
+	 *
+	 * @return void
+	 */
 	public function testBakeTest() {
 		$this->Task->plugin = 'ControllerTest';
 		$this->Task->connection = 'test';
@@ -362,11 +362,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals($this->Task->interactive, $this->Task->Test->interactive);
 	}
 
-/**
- * test Interactive mode.
- *
- * @return void
- */
+	/**
+	 * test Interactive mode.
+	 *
+	 * @return void
+	 */
 	public function testInteractive() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -397,11 +397,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test Interactive mode.
- *
- * @return void
- */
+	/**
+	 * test Interactive mode.
+	 *
+	 * @return void
+	 */
 	public function testInteractiveAdminMethodsNotInteractive() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -439,11 +439,11 @@ class ControllerTaskTest extends TestCase {
 		$this->assertRegExp('/admin_index/', $result);
 	}
 
-/**
- * test that execute runs all when the first arg == all
- *
- * @return void
- */
+	/**
+	 * test that execute runs all when the first arg == all
+	 *
+	 * @return void
+	 */
 	public function testExecuteIntoAll() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -465,11 +465,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * Test execute() with all and --admin
- *
- * @return void
- */
+	/**
+	 * Test execute() with all and --admin
+	 *
+	 * @return void
+	 */
 	public function testExecuteIntoAllAdmin() {
 		$count = count($this->Task->listAll('test'));
 		if ($count != count($this->fixtures)) {
@@ -498,11 +498,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test that `cake bake controller foos` works.
- *
- * @return void
- */
+	/**
+	 * test that `cake bake controller foos` works.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithController() {
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
@@ -517,23 +517,23 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * data provider for testExecuteWithControllerNameVariations
- *
- * @return void
- */
+	/**
+	 * data provider for testExecuteWithControllerNameVariations
+	 *
+	 * @return void
+	 */
 	public static function nameVariations() {
 		return array(
 			array('BakeArticles'), array('BakeArticle'), array('bake_article'), array('bake_articles')
 		);
 	}
 
-/**
- * test that both plural and singular forms work for controller baking.
- *
- * @dataProvider nameVariations
- * @return void
- */
+	/**
+	 * test that both plural and singular forms work for controller baking.
+	 *
+	 * @dataProvider nameVariations
+	 * @return void
+	 */
 	public function testExecuteWithControllerNameVariations($name) {
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
@@ -546,11 +546,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test that `cake bake controller foo scaffold` works.
- *
- * @return void
- */
+	/**
+	 * test that `cake bake controller foo scaffold` works.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithPublicParam() {
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
@@ -565,11 +565,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test that `cake bake controller foos both` works.
- *
- * @return void
- */
+	/**
+	 * test that `cake bake controller foos both` works.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithControllerAndBoth() {
 		$this->Task->Project->expects($this->any())->method('getPrefix')->will($this->returnValue('admin_'));
 		$this->Task->connection = 'test';
@@ -584,11 +584,11 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test that `cake bake controller foos admin` works.
- *
- * @return void
- */
+	/**
+	 * test that `cake bake controller foos admin` works.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithControllerAndAdmin() {
 		$this->Task->Project->expects($this->any())->method('getPrefix')->will($this->returnValue('admin_'));
 		$this->Task->connection = 'test';

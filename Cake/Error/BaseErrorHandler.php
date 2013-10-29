@@ -28,34 +28,34 @@ use Cake\Utility\Debugger;
  */
 abstract class BaseErrorHandler {
 
-/**
- * Display an error message in an environment specific way.
- *
- * Subclasses should implement this method to display the error as
- * desired for the runtime they operate in.
- *
- * @param array $error An array of error data.
- * @param boolean $debug Whether or not the app is in debug mode.
- * @return void
- */
+	/**
+	 * Display an error message in an environment specific way.
+	 *
+	 * Subclasses should implement this method to display the error as
+	 * desired for the runtime they operate in.
+	 *
+	 * @param array $error An array of error data.
+	 * @param boolean $debug Whether or not the app is in debug mode.
+	 * @return void
+	 */
 	abstract protected function _displayError($error, $debug);
 
-/**
- * Display an exception in an environment specific way.
- *
- * Subclasses should implement this method to display an uncaught exception as
- * desired for the runtime they operate in.
- *
- * @param \Exceptino $exception The uncaught exception.
- * @return void
- */
+	/**
+	 * Display an exception in an environment specific way.
+	 *
+	 * Subclasses should implement this method to display an uncaught exception as
+	 * desired for the runtime they operate in.
+	 *
+	 * @param \Exceptino $exception The uncaught exception.
+	 * @return void
+	 */
 	abstract protected function _displayException($exception);
 
-/**
- * Register the error and exception handlers.
- *
- * @return void
- */
+	/**
+	 * Register the error and exception handlers.
+	 *
+	 * @return void
+	 */
 	public function register() {
 		$level = -1;
 		if (isset($this->_options['errorLevel'])) {
@@ -86,23 +86,23 @@ abstract class BaseErrorHandler {
 		});
 	}
 
-/**
- * Set as the default error handler by CakePHP.
- *
- * Use App/Config/error.php to customize or replace this error handler.
- * This function will use Debugger to display errors when debug > 0. And
- * will log errors to Log, when debug == 0.
- *
- * You can use the 'errorLevel' option to set what type of errors will be handled.
- * Stack traces for errors can be enabled with the 'trace' option.
- *
- * @param integer $code Code of error
- * @param string $description Error description
- * @param string $file File on which error occurred
- * @param integer $line Line that triggered the error
- * @param array $context Context
- * @return boolean true if error was handled
- */
+	/**
+	 * Set as the default error handler by CakePHP.
+	 *
+	 * Use App/Config/error.php to customize or replace this error handler.
+	 * This function will use Debugger to display errors when debug > 0. And
+	 * will log errors to Log, when debug == 0.
+	 *
+	 * You can use the 'errorLevel' option to set what type of errors will be handled.
+	 * Stack traces for errors can be enabled with the 'trace' option.
+	 *
+	 * @param integer $code Code of error
+	 * @param string $description Error description
+	 * @param string $file File on which error occurred
+	 * @param integer $line Line that triggered the error
+	 * @param array $context Context
+	 * @return boolean true if error was handled
+	 */
 	public function handleError($code, $description, $file = null, $line = null, $context = null) {
 		if (error_reporting() === 0) {
 			return false;
@@ -133,44 +133,44 @@ abstract class BaseErrorHandler {
 		return true;
 	}
 
-/**
- * Handle uncaught exceptions.
- *
- * Uses a template method provided by subclasses to display errors in an
- * environment appropriate way.
- *
- * @param \Exception $exception
- * @return void
- * @throws Exception When renderer class not found
- * @see http://php.net/manual/en/function.set-exception-handler.php
- */
+	/**
+	 * Handle uncaught exceptions.
+	 *
+	 * Uses a template method provided by subclasses to display errors in an
+	 * environment appropriate way.
+	 *
+	 * @param \Exception $exception
+	 * @return void
+	 * @throws Exception When renderer class not found
+	 * @see http://php.net/manual/en/function.set-exception-handler.php
+	 */
 	public function handleException($exception) {
 		$this->_displayException($exception);
 		$this->_logException($exception);
 		$this->_stop($exception->getCode() ?: 1);
 	}
 
-/**
- * Stop the process.
- *
- * Implemented in subclasses that need it.
- *
- * @param integer $code Exit code.
- * @return void
- */
+	/**
+	 * Stop the process.
+	 *
+	 * Implemented in subclasses that need it.
+	 *
+	 * @param integer $code Exit code.
+	 * @return void
+	 */
 	protected function _stop($code) {
 		// Do nothing.
 	}
 
-/**
- * Display/Log a fatal error.
- *
- * @param integer $code Code of error
- * @param string $description Error description
- * @param string $file File on which error occurred
- * @param integer $line Line that triggered the error
- * @return boolean
- */
+	/**
+	 * Display/Log a fatal error.
+	 *
+	 * @param integer $code Code of error
+	 * @param string $description Error description
+	 * @param string $file File on which error occurred
+	 * @param integer $line Line that triggered the error
+	 * @return boolean
+	 */
 	public function handleFatalError($code, $description, $file, $line) {
 		$data = [
 			'code' => $code,
@@ -193,13 +193,13 @@ abstract class BaseErrorHandler {
 		return true;
 	}
 
-/**
- * Log an error.
- *
- * @param string $level The level name of the log.
- * @param array $data Array of error data.
- * @return void
- */
+	/**
+	 * Log an error.
+	 *
+	 * @param string $level The level name of the log.
+	 * @param array $data Array of error data.
+	 * @return void
+	 */
 	protected function _logError($level, $data) {
 		$message = sprintf('%s (%s): %s in [%s, line %s]',
 			$data['error'],
@@ -218,12 +218,12 @@ abstract class BaseErrorHandler {
 		return Log::write($level, $message);
 	}
 
-/**
- * Handles exception logging
- *
- * @param Exception $exception
- * @return boolean
- */
+	/**
+	 * Handles exception logging
+	 *
+	 * @param Exception $exception
+	 * @return boolean
+	 */
 	protected function _logException($exception) {
 		$config = $this->_options;
 		if (empty($config['log'])) {
@@ -240,12 +240,12 @@ abstract class BaseErrorHandler {
 		return Log::error($this->_getMessage($exception));
 	}
 
-/**
- * Generates a formatted error message
- *
- * @param Exception $exception Exception instance
- * @return string Formatted message
- */
+	/**
+	 * Generates a formatted error message
+	 *
+	 * @param Exception $exception Exception instance
+	 * @return string Formatted message
+	 */
 	protected function _getMessage($exception) {
 		$message = sprintf("[%s] %s",
 			get_class($exception),
@@ -267,12 +267,12 @@ abstract class BaseErrorHandler {
 		return $message;
 	}
 
-/**
- * Map an error code into an Error word, and log location.
- *
- * @param integer $code Error code to map
- * @return array Array of error word, and log location.
- */
+	/**
+	 * Map an error code into an Error word, and log location.
+	 *
+	 * @param integer $code Error code to map
+	 * @return array Array of error word, and log location.
+	 */
 	public static function mapErrorCode($code) {
 		$levelMap = [
 			E_PARSE => 'error',

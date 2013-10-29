@@ -21,45 +21,45 @@ use Cake\Console\Shell;
  */
 class CompletionShell extends Shell {
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Command');
 
-/**
- * Echo no header by overriding the startup method
- *
- * @return void
- */
+	/**
+	 * Echo no header by overriding the startup method
+	 *
+	 * @return void
+	 */
 	public function startup() {
 	}
 
-/**
- * Not called by the autocomplete shell - this is for curious users
- *
- * @return void
- */
+	/**
+	 * Not called by the autocomplete shell - this is for curious users
+	 *
+	 * @return void
+	 */
 	public function main() {
 		return $this->out($this->getOptionParser()->help());
 	}
 
-/**
- * list commands
- *
- * @return void
- */
+	/**
+	 * list commands
+	 *
+	 * @return void
+	 */
 	public function commands() {
 		$options = $this->Command->commands();
 		return $this->_output($options);
 	}
 
-/**
- * list options for the named command
- *
- * @return void
- */
+	/**
+	 * list options for the named command
+	 *
+	 * @return void
+	 */
 	public function options() {
 		$commandName = '';
 		if (!empty($this->args[0])) {
@@ -70,11 +70,11 @@ class CompletionShell extends Shell {
 		return $this->_output($options);
 	}
 
-/**
- * list subcommands for the named command
- *
- * @return void
- */
+	/**
+	 * list subcommands for the named command
+	 *
+	 * @return void
+	 */
 	public function subCommands() {
 		if (!$this->args) {
 			return $this->_output();
@@ -84,20 +84,20 @@ class CompletionShell extends Shell {
 		return $this->_output($options);
 	}
 
-/**
- * Guess autocomplete from the whole argument string
- * 
- * @return void
- */
+	/**
+	 * Guess autocomplete from the whole argument string
+	 * 
+	 * @return void
+	 */
 	public function fuzzy() {
 		return $this->_output();
 	}
 
-/**
- * getOptionParser for _this_ shell
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * getOptionParser for _this_ shell
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 
@@ -139,12 +139,12 @@ class CompletionShell extends Shell {
 		return $parser;
 	}
 
-/**
- * Emit results as a string, space delimited
- *
- * @param array $options
- * @return void
- */
+	/**
+	 * Emit results as a string, space delimited
+	 *
+	 * @param array $options
+	 * @return void
+	 */
 	protected function _output($options = array()) {
 		if ($options) {
 			return $this->out(implode($options, ' '));

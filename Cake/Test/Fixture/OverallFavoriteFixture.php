@@ -26,11 +26,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class OverallFavoriteFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'model_type' => ['type' => 'string', 'length' => 255],
@@ -39,11 +39,11 @@ class OverallFavoriteFixture extends TestFixture {
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('id' => 1, 'model_type' => 'Cd', 'model_id' => '1', 'priority' => '1'),
 		array('id' => 2, 'model_type' => 'Book', 'model_id' => '1', 'priority' => '2')

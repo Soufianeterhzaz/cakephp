@@ -33,28 +33,28 @@ use Cake\Utility\Inflector;
  */
 class PagesController extends AppController {
 
-/**
- * Default helper
- *
- * @var array
- */
+	/**
+	 * Default helper
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Html', 'Session');
 
-/**
- * This controller does not use a model
- *
- * @var array
- */
+	/**
+	 * This controller does not use a model
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @return void
- * @throws Cake\Error\NotFoundException When the view file could not be found
- *	or Cake\Error\MissingViewException in debug mode.
- */
+	/**
+	 * Displays a view
+	 *
+	 * @param mixed What page to display
+	 * @return void
+	 * @throws Cake\Error\NotFoundException When the view file could not be found
+	 *	or Cake\Error\MissingViewException in debug mode.
+	 */
 	public function display() {
 		$path = func_get_args();
 

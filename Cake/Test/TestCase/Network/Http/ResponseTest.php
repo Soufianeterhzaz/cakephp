@@ -21,11 +21,11 @@ use Cake\TestSuite\TestCase;
  */
 class ResponseTest extends TestCase {
 
-/**
- * Test parsing headers and capturing content
- *
- * @return void
- */
+	/**
+	 * Test parsing headers and capturing content
+	 *
+	 * @return void
+	 */
 	public function testHeaderParsing() {
 		$headers = [
 			'HTTP/1.0 200 OK',
@@ -52,11 +52,11 @@ class ResponseTest extends TestCase {
 		$this->assertTrue(isset($response->headers));
 	}
 
-/**
- * Test body()
- *
- * @return void
- */
+	/**
+	 * Test body()
+	 *
+	 * @return void
+	 */
 	public function testBody() {
 		$data = [
 			'property' => 'value'
@@ -72,11 +72,11 @@ class ResponseTest extends TestCase {
 		$this->assertTrue(isset($response->body));
 	}
 
-/**
- * Test accessor for json
- *
- * @return void
- */
+	/**
+	 * Test accessor for json
+	 *
+	 * @return void
+	 */
 	public function testBodyJson() {
 		$data = [
 			'property' => 'value'
@@ -91,11 +91,11 @@ class ResponseTest extends TestCase {
 		$this->assertFalse(isset($response->json));
 	}
 
-/**
- * Test accessor for xml
- *
- * @return void
- */
+	/**
+	 * Test accessor for xml
+	 *
+	 * @return void
+	 */
 	public function testBodyXml() {
 		$data = <<<XML
 <?xml version="1.0" encoding="utf-8"?>
@@ -112,11 +112,11 @@ XML;
 		$this->assertFalse(isset($response->xml));
 	}
 
-/**
- * Test isOk()
- *
- * @return void
- */
+	/**
+	 * Test isOk()
+	 *
+	 * @return void
+	 */
 	public function testIsOk() {
 		$headers = [
 			'HTTP/1.1 200 OK',
@@ -154,11 +154,11 @@ XML;
 		$this->assertFalse($response->isOk());
 	}
 
-/**
- * Test isRedirect()
- *
- * @return void
- */
+	/**
+	 * Test isRedirect()
+	 *
+	 * @return void
+	 */
 	public function testIsRedirect() {
 		$headers = [
 			'HTTP/1.1 200 OK',
@@ -183,11 +183,11 @@ XML;
 		$this->assertFalse($response->isRedirect());
 	}
 
-/**
- * Test parsing / getting cookies.
- *
- * @return void
- */
+	/**
+	 * Test parsing / getting cookies.
+	 *
+	 * @return void
+	 */
 	public function testCookie() {
 		$headers = [
 			'HTTP/1.0 200 Ok',
@@ -219,11 +219,11 @@ XML;
 		);
 	}
 
-/**
- * Test statusCode()
- *
- * @return void
- */
+	/**
+	 * Test statusCode()
+	 *
+	 * @return void
+	 */
 	public function testStatusCode() {
 		$headers = [
 			'HTTP/1.0 404 Not Found',
@@ -236,11 +236,11 @@ XML;
 		$this->assertTrue(isset($response->code));
 	}
 
-/**
- * Test reading the encoding out.
- *
- * @return void
- */
+	/**
+	 * Test reading the encoding out.
+	 *
+	 * @return void
+	 */
 	public function testEncoding() {
 		$headers = [
 			'HTTP/1.0 200 Ok',

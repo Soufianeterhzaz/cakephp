@@ -26,42 +26,42 @@ use Cake\View\View;
  */
 class HelperRegistry extends ObjectRegistry {
 
-/**
- * View object to use when making helpers.
- *
- * @var View
- */
+	/**
+	 * View object to use when making helpers.
+	 *
+	 * @var View
+	 */
 	protected $_View;
 
-/**
- * EventManager instance.
- *
- * Helpers constructed by this object will be subscribed to this manager.
- *
- * @var Cake\Event\EventManager
- */
+	/**
+	 * EventManager instance.
+	 *
+	 * Helpers constructed by this object will be subscribed to this manager.
+	 *
+	 * @var Cake\Event\EventManager
+	 */
 	protected $_eventManager;
 
-/**
- * Constructor
- *
- * @param View $view
- */
+	/**
+	 * Constructor
+	 *
+	 * @param View $view
+	 */
 	public function __construct(View $view) {
 		$this->_View = $view;
 		$this->_eventManager = $view->getEventManager();
 	}
 
-/**
- * Tries to lazy load a helper based on its name, if it cannot be found
- * in the application folder, then it tries looking under the current plugin
- * if any
- *
- * @param string $helper The helper name to be loaded
- * @return boolean whether the helper could be loaded or not
- * @throws MissingHelperException When a helper could not be found.
- *    App helpers are searched, and then plugin helpers.
- */
+	/**
+	 * Tries to lazy load a helper based on its name, if it cannot be found
+	 * in the application folder, then it tries looking under the current plugin
+	 * if any
+	 *
+	 * @param string $helper The helper name to be loaded
+	 * @return boolean whether the helper could be loaded or not
+	 * @throws MissingHelperException When a helper could not be found.
+	 *    App helpers are searched, and then plugin helpers.
+	 */
 	public function __isset($helper) {
 		if (isset($this->_loaded[$helper])) {
 			return true;
@@ -83,12 +83,12 @@ class HelperRegistry extends ObjectRegistry {
 		return true;
 	}
 
-/**
- * Provide public read access to the loaded objects
- *
- * @param string $name Name of property to read
- * @return mixed
- */
+	/**
+	 * Provide public read access to the loaded objects
+	 *
+	 * @param string $name Name of property to read
+	 * @return mixed
+	 */
 	public function __get($name) {
 		if (isset($this->_loaded[$name])) {
 			return $this->_loaded[$name];
@@ -99,27 +99,27 @@ class HelperRegistry extends ObjectRegistry {
 		return null;
 	}
 
-/**
- * Resolve a helper classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a helper classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		return App::classname($class, 'View/Helper', 'Helper');
 	}
 
-/**
- * Throws an exception when a helper is missing.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the helper is missing in.
- * @throws Cake\Error\MissingHelperException
- */
+	/**
+	 * Throws an exception when a helper is missing.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the helper is missing in.
+	 * @throws Cake\Error\MissingHelperException
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new Error\MissingHelperException([
 			'class' => $class,
@@ -127,16 +127,16 @@ class HelperRegistry extends ObjectRegistry {
 		]);
 	}
 
-/**
- * Create the helper instance.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- * Enabled helpers will be registered with the event manager.
- *
- * @param string $class The classname that is missing.
- * @param array $settings An array of settings to use for the helper.
- * @return Component The constructed helper class.
- */
+	/**
+	 * Create the helper instance.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 * Enabled helpers will be registered with the event manager.
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param array $settings An array of settings to use for the helper.
+	 * @return Component The constructed helper class.
+	 */
 	protected function _create($class, $settings) {
 		$instance = new $class($this->_View, $settings);
 		$vars = array('request', 'theme', 'plugin');
@@ -150,13 +150,13 @@ class HelperRegistry extends ObjectRegistry {
 		return $instance;
 	}
 
-/**
- * Destroys all objects in the registry.
- *
- * Removes all attached listeners and destroys all stored instances.
- *
- * @return void
- */
+	/**
+	 * Destroys all objects in the registry.
+	 *
+	 * Removes all attached listeners and destroys all stored instances.
+	 *
+	 * @return void
+	 */
 	public function reset() {
 		foreach ($this->_loaded as $helper) {
 			$this->_eventManager->detach($helper);

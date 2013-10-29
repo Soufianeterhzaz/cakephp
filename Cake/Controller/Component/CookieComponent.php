@@ -35,146 +35,146 @@ use Cake\Utility\Security;
  */
 class CookieComponent extends Component {
 
-/**
- * The name of the cookie.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->name = 'CookieName';
- *
- * @var string
- */
+	/**
+	 * The name of the cookie.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->name = 'CookieName';
+	 *
+	 * @var string
+	 */
 	public $name = 'CakeCookie';
 
-/**
- * The time a cookie will remain valid.
- *
- * Can be either integer Unix timestamp or a date string.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->time = '5 Days';
- *
- * @var mixed
- */
+	/**
+	 * The time a cookie will remain valid.
+	 *
+	 * Can be either integer Unix timestamp or a date string.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->time = '5 Days';
+	 *
+	 * @var mixed
+	 */
 	public $time = null;
 
-/**
- * Cookie path.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->path = '/';
- *
- * The path on the server in which the cookie will be available on.
- * If public $cookiePath is set to '/foo/', the cookie will only be available
- * within the /foo/ directory and all sub-directories such as /foo/bar/ of domain.
- * The default value is the entire domain.
- *
- * @var string
- */
+	/**
+	 * Cookie path.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->path = '/';
+	 *
+	 * The path on the server in which the cookie will be available on.
+	 * If public $cookiePath is set to '/foo/', the cookie will only be available
+	 * within the /foo/ directory and all sub-directories such as /foo/bar/ of domain.
+	 * The default value is the entire domain.
+	 *
+	 * @var string
+	 */
 	public $path = '/';
 
-/**
- * Domain path.
- *
- * The domain that the cookie is available.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->domain = '.example.com';
- *
- * To make the cookie available on all subdomains of example.com.
- * Set $this->Cookie->domain = '.example.com'; in your controller beforeFilter
- *
- * @var string
- */
+	/**
+	 * Domain path.
+	 *
+	 * The domain that the cookie is available.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->domain = '.example.com';
+	 *
+	 * To make the cookie available on all subdomains of example.com.
+	 * Set $this->Cookie->domain = '.example.com'; in your controller beforeFilter
+	 *
+	 * @var string
+	 */
 	public $domain = '';
 
-/**
- * Secure HTTPS only cookie.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->secure = true;
- *
- * Indicates that the cookie should only be transmitted over a secure HTTPS connection.
- * When set to true, the cookie will only be set if a secure connection exists.
- *
- * @var boolean
- */
+	/**
+	 * Secure HTTPS only cookie.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->secure = true;
+	 *
+	 * Indicates that the cookie should only be transmitted over a secure HTTPS connection.
+	 * When set to true, the cookie will only be set if a secure connection exists.
+	 *
+	 * @var boolean
+	 */
 	public $secure = false;
 
-/**
- * Encryption key.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->key = 'SomeRandomString';
- *
- * @var string
- */
+	/**
+	 * Encryption key.
+	 *
+	 * Overridden with the controller beforeFilter();
+	 * $this->Cookie->key = 'SomeRandomString';
+	 *
+	 * @var string
+	 */
 	public $key = null;
 
-/**
- * HTTP only cookie
- *
- * Set to true to make HTTP only cookies. Cookies that are HTTP only
- * are not accessible in JavaScript.
- *
- * @var boolean
- */
+	/**
+	 * HTTP only cookie
+	 *
+	 * Set to true to make HTTP only cookies. Cookies that are HTTP only
+	 * are not accessible in JavaScript.
+	 *
+	 * @var boolean
+	 */
 	public $httpOnly = false;
 
-/**
- * Values stored in the cookie.
- *
- * Accessed in the controller using $this->Cookie->read('Name.key');
- *
- * @see CookieComponent::read();
- * @var string
- */
+	/**
+	 * Values stored in the cookie.
+	 *
+	 * Accessed in the controller using $this->Cookie->read('Name.key');
+	 *
+	 * @see CookieComponent::read();
+	 * @var string
+	 */
 	protected $_values = array();
 
-/**
- * Type of encryption to use.
- *
- * Defaults to Security::encrypt(); or AES encryption.
- *
- * @var string
- */
+	/**
+	 * Type of encryption to use.
+	 *
+	 * Defaults to Security::encrypt(); or AES encryption.
+	 *
+	 * @var string
+	 */
 	protected $_type = 'aes';
 
-/**
- * Used to reset cookie time if $expire is passed to CookieComponent::write()
- *
- * @var string
- */
+	/**
+	 * Used to reset cookie time if $expire is passed to CookieComponent::write()
+	 *
+	 * @var string
+	 */
 	protected $_reset = null;
 
-/**
- * Expire time of the cookie
- *
- * This is controlled by CookieComponent::time;
- *
- * @var string
- */
+	/**
+	 * Expire time of the cookie
+	 *
+	 * This is controlled by CookieComponent::time;
+	 *
+	 * @var string
+	 */
 	protected $_expires = 0;
 
-/**
- * A reference to the Controller's Cake\Network\Response object
- *
- * @var Cake\Network\Response
- */
+	/**
+	 * A reference to the Controller's Cake\Network\Response object
+	 *
+	 * @var Cake\Network\Response
+	 */
 	protected $_response = null;
 
-/**
- * The request from the controller.
- *
- * @var Cake\Network\Request
- */
+	/**
+	 * The request from the controller.
+	 *
+	 * @var Cake\Network\Request
+	 */
 	protected $_request;
 
-/**
- * Constructor
- *
- * @param ComponentRegistry $collection A ComponentRegistry for this component
- * @param array $settings Array of settings.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param ComponentRegistry $collection A ComponentRegistry for this component
+	 * @param array $settings Array of settings.
+	 */
 	public function __construct(ComponentRegistry $collection, $settings = array()) {
 		$this->key = Configure::read('Security.salt');
 		parent::__construct($collection, $settings);
@@ -196,38 +196,38 @@ class CookieComponent extends Component {
 		}
 	}
 
-/**
- * Start CookieComponent for use in the controller
- *
- * @param Event $event An Event instance
- * @return void
- */
+	/**
+	 * Start CookieComponent for use in the controller
+	 *
+	 * @param Event $event An Event instance
+	 * @return void
+	 */
 	public function startup(Event $event) {
 		$this->_expire($this->time);
 
 		$this->_values[$this->name] = array();
 	}
 
-/**
- * Write a value to the $_COOKIE[$key];
- *
- * Optional [Name.], required key, optional $value, optional $encrypt, optional $expires
- * $this->Cookie->write('[Name.]key, $value);
- *
- * By default all values are encrypted.
- * You must pass $encrypt false to store values in clear test
- *
- * You must use this method before any output is sent to the browser.
- * Failure to do so will result in header already sent errors.
- *
- * @param string|array $key Key for the value
- * @param mixed $value Value
- * @param boolean $encrypt Set to true to encrypt value, false otherwise
- * @param integer|string $expires Can be either the number of seconds until a cookie
- *   expires, or a strtotime compatible time offset.
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::write
- */
+	/**
+	 * Write a value to the $_COOKIE[$key];
+	 *
+	 * Optional [Name.], required key, optional $value, optional $encrypt, optional $expires
+	 * $this->Cookie->write('[Name.]key, $value);
+	 *
+	 * By default all values are encrypted.
+	 * You must pass $encrypt false to store values in clear test
+	 *
+	 * You must use this method before any output is sent to the browser.
+	 * Failure to do so will result in header already sent errors.
+	 *
+	 * @param string|array $key Key for the value
+	 * @param mixed $value Value
+	 * @param boolean $encrypt Set to true to encrypt value, false otherwise
+	 * @param integer|string $expires Can be either the number of seconds until a cookie
+	 *   expires, or a strtotime compatible time offset.
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::write
+	 */
 	public function write($key, $value = null, $encrypt = true, $expires = null) {
 		if (empty($this->_values[$this->name])) {
 			$this->read();
@@ -259,16 +259,16 @@ class CookieComponent extends Component {
 		$this->_encrypted = true;
 	}
 
-/**
- * Read the value of the $_COOKIE[$key];
- *
- * Optional [Name.], required key
- * $this->Cookie->read(Name.key);
- *
- * @param string $key Key of the value to be obtained. If none specified, obtain map key => values
- * @return string or null, value for specified key
- * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::read
- */
+	/**
+	 * Read the value of the $_COOKIE[$key];
+	 *
+	 * Optional [Name.], required key
+	 * $this->Cookie->read(Name.key);
+	 *
+	 * @param string $key Key of the value to be obtained. If none specified, obtain map key => values
+	 * @return string or null, value for specified key
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::read
+	 */
 	public function read($key = null) {
 		$values = $this->_request->cookie($this->name);
 		if (empty($this->_values[$this->name]) && $values) {
@@ -295,12 +295,12 @@ class CookieComponent extends Component {
 		return $this->_values[$this->name][$key];
 	}
 
-/**
- * Returns true if given variable is set in cookie.
- *
- * @param string $var Variable name to check for
- * @return boolean True if variable is there
- */
+	/**
+	 * Returns true if given variable is set in cookie.
+	 *
+	 * @param string $var Variable name to check for
+	 * @return boolean True if variable is there
+	 */
 	public function check($key = null) {
 		if (empty($key)) {
 			return false;
@@ -308,19 +308,19 @@ class CookieComponent extends Component {
 		return $this->read($key) !== null;
 	}
 
-/**
- * Delete a cookie value
- *
- * Optional [Name.], required key
- * $this->Cookie->read('Name.key);
- *
- * You must use this method before any output is sent to the browser.
- * Failure to do so will result in header already sent errors.
- *
- * @param string $key Key of the value to be deleted
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::delete
- */
+	/**
+	 * Delete a cookie value
+	 *
+	 * Optional [Name.], required key
+	 * $this->Cookie->read('Name.key);
+	 *
+	 * You must use this method before any output is sent to the browser.
+	 * Failure to do so will result in header already sent errors.
+	 *
+	 * @param string $key Key of the value to be deleted
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::delete
+	 */
 	public function delete($key) {
 		if (empty($this->_values[$this->name])) {
 			$this->read();
@@ -342,15 +342,15 @@ class CookieComponent extends Component {
 		$this->_delete('[' . implode('][', $names) . ']');
 	}
 
-/**
- * Destroy current cookie
- *
- * You must use this method before any output is sent to the browser.
- * Failure to do so will result in header already sent errors.
- *
- * @return void
- * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::destroy
- */
+	/**
+	 * Destroy current cookie
+	 *
+	 * You must use this method before any output is sent to the browser.
+	 * Failure to do so will result in header already sent errors.
+	 *
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/components/cookie.html#CookieComponent::destroy
+	 */
 	public function destroy() {
 		if (empty($this->_values[$this->name])) {
 			$this->read();
@@ -368,15 +368,15 @@ class CookieComponent extends Component {
 		}
 	}
 
-/**
- * Will allow overriding default encryption method. Use this method
- * in ex: AppController::beforeFilter() before you have read or
- * written any cookies.
- *
- * @param string $type Encryption method
- * @return void
- * @throws Cake\Error\Exception When an unknown type is used.
- */
+	/**
+	 * Will allow overriding default encryption method. Use this method
+	 * in ex: AppController::beforeFilter() before you have read or
+	 * written any cookies.
+	 *
+	 * @param string $type Encryption method
+	 * @return void
+	 * @throws Cake\Error\Exception When an unknown type is used.
+	 */
 	public function type($type = 'aes') {
 		$availableTypes = [
 			'rijndael',
@@ -388,19 +388,19 @@ class CookieComponent extends Component {
 		$this->_type = $type;
 	}
 
-/**
- * Set the expire time for a session variable.
- *
- * Creates a new expire time for a session variable.
- * $expire can be either integer Unix timestamp or a date string.
- *
- * Used by write()
- * CookieComponent::write(string, string, boolean, 8400);
- * CookieComponent::write(string, string, boolean, '5 Days');
- *
- * @param integer|string $expires Can be either Unix timestamp, or date string
- * @return integer Unix timestamp
- */
+	/**
+	 * Set the expire time for a session variable.
+	 *
+	 * Creates a new expire time for a session variable.
+	 * $expire can be either integer Unix timestamp or a date string.
+	 *
+	 * Used by write()
+	 * CookieComponent::write(string, string, boolean, 8400);
+	 * CookieComponent::write(string, string, boolean, '5 Days');
+	 *
+	 * @param integer|string $expires Can be either Unix timestamp, or date string
+	 * @return integer Unix timestamp
+	 */
 	protected function _expire($expires = null) {
 		if ($expires === null) {
 			return $this->_expires;
@@ -418,13 +418,13 @@ class CookieComponent extends Component {
 		return $this->_expires = $now->format('U');
 	}
 
-/**
- * Set cookie
- *
- * @param string $name Name for cookie
- * @param string $value Value for cookie
- * @return void
- */
+	/**
+	 * Set cookie
+	 *
+	 * @param string $name Name for cookie
+	 * @param string $value Value for cookie
+	 * @return void
+	 */
 	protected function _write($name, $value) {
 		$this->_response->cookie(array(
 			'name' => $this->name . $name,
@@ -442,12 +442,12 @@ class CookieComponent extends Component {
 		}
 	}
 
-/**
- * Sets a cookie expire time to remove cookie value
- *
- * @param string $name Name of cookie
- * @return void
- */
+	/**
+	 * Sets a cookie expire time to remove cookie value
+	 *
+	 * @param string $name Name of cookie
+	 * @return void
+	 */
 	protected function _delete($name) {
 		$this->_response->cookie(array(
 			'name' => $this->name . $name,
@@ -460,12 +460,12 @@ class CookieComponent extends Component {
 		));
 	}
 
-/**
- * Encrypts $value using public $type method in Security class
- *
- * @param string $value Value to encrypt
- * @return string Encoded values
- */
+	/**
+	 * Encrypts $value using public $type method in Security class
+	 *
+	 * @param string $value Value to encrypt
+	 * @return string Encoded values
+	 */
 	protected function _encrypt($value) {
 		if (is_array($value)) {
 			$value = $this->_implode($value);
@@ -483,12 +483,12 @@ class CookieComponent extends Component {
 		return $prefix . base64_encode($cipher);
 	}
 
-/**
- * Decrypts $value using public $type method in Security class
- *
- * @param array $values Values to decrypt
- * @return string decrypted string
- */
+	/**
+	 * Decrypts $value using public $type method in Security class
+	 *
+	 * @param array $values Values to decrypt
+	 * @return string decrypted string
+	 */
 	protected function _decrypt($values) {
 		$decrypted = array();
 		$type = $this->_type;
@@ -505,12 +505,12 @@ class CookieComponent extends Component {
 		return $decrypted;
 	}
 
-/**
- * Decodes and decrypts a single value.
- *
- * @param string $value The value to decode & decrypt.
- * @return string Decoded value.
- */
+	/**
+	 * Decodes and decrypts a single value.
+	 *
+	 * @param string $value The value to decode & decrypt.
+	 * @return string Decoded value.
+	 */
 	protected function _decode($value) {
 		$prefix = 'Q2FrZQ==.';
 		$pos = strpos($value, $prefix);
@@ -527,23 +527,23 @@ class CookieComponent extends Component {
 		return $this->_explode($plain);
 	}
 
-/**
- * Implode method to keep keys are multidimensional arrays
- *
- * @param array $array Map of key and values
- * @return string A json encoded string.
- */
+	/**
+	 * Implode method to keep keys are multidimensional arrays
+	 *
+	 * @param array $array Map of key and values
+	 * @return string A json encoded string.
+	 */
 	protected function _implode(array $array) {
 		return json_encode($array);
 	}
 
-/**
- * Explode method to return array from string set in CookieComponent::_implode()
- * Maintains reading backwards compatibility with 1.x CookieComponent::_implode().
- *
- * @param string $string A string containing JSON encoded data, or a bare string.
- * @return array Map of key and values
- */
+	/**
+	 * Explode method to return array from string set in CookieComponent::_implode()
+	 * Maintains reading backwards compatibility with 1.x CookieComponent::_implode().
+	 *
+	 * @param string $string A string containing JSON encoded data, or a bare string.
+	 * @return array Map of key and values
+	 */
 	protected function _explode($string) {
 		$first = substr($string, 0, 1);
 		if ($first === '{' || $first === '[') {

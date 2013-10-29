@@ -29,22 +29,22 @@ use Cake\Utility\Xml;
  */
 class SetTest extends TestCase {
 
-/**
- * testNumericKeyExtraction method
- *
- * @return void
- */
+	/**
+	 * testNumericKeyExtraction method
+	 *
+	 * @return void
+	 */
 	public function testNumericKeyExtraction() {
 		$data = array('plugin' => null, 'controller' => '', 'action' => '', 1, 'whatever');
 		$this->assertEquals(array(1, 'whatever'), Set::extract($data, '{n}'));
 		$this->assertEquals(array('plugin' => null, 'controller' => '', 'action' => ''), Set::diff($data, Set::extract($data, '{n}')));
 	}
 
-/**
- * testEnum method
- *
- * @return void
- */
+	/**
+	 * testEnum method
+	 *
+	 * @return void
+	 */
 	public function testEnum() {
 		$result = Set::enum(1, 'one, two');
 		$this->assertEquals('two', $result);
@@ -80,34 +80,34 @@ class SetTest extends TestCase {
 		$this->assertNull($result);
 	}
 
-/**
- * testFilter method
- *
- * @see Hash test cases, as Set::filter() is just a proxy.
- * @return void
- */
+	/**
+	 * testFilter method
+	 *
+	 * @see Hash test cases, as Set::filter() is just a proxy.
+	 * @return void
+	 */
 	public function testFilter() {
 		$result = Set::filter(array('0', false, true, 0, array('one thing', 'I can tell you', 'is you got to be', false)));
 		$expected = array('0', 2 => true, 3 => 0, 4 => array('one thing', 'I can tell you', 'is you got to be'));
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testNumericArrayCheck method
- *
- * @see Hash test cases, as Set::numeric() is just a proxy.
- * @return void
- */
+	/**
+	 * testNumericArrayCheck method
+	 *
+	 * @see Hash test cases, as Set::numeric() is just a proxy.
+	 * @return void
+	 */
 	public function testNumericArrayCheck() {
 		$data = array('one');
 		$this->assertTrue(Set::numeric(array_keys($data)));
 	}
 
-/**
- * testKeyCheck method
- *
- * @return void
- */
+	/**
+	 * testKeyCheck method
+	 *
+	 * @return void
+	 */
 	public function testKeyCheck() {
 		$data = array('Multi' => array('dimensonal' => array('array')));
 		$this->assertTrue(Set::check($data, 'Multi.dimensonal'));
@@ -140,11 +140,11 @@ class SetTest extends TestCase {
 		$this->assertFalse(Set::check($data, '0.Article.user_id.a'));
 	}
 
-/**
- * testMerge method
- *
- * @return void
- */
+	/**
+	 * testMerge method
+	 *
+	 * @return void
+	 */
 	public function testMerge() {
 		$r = Set::merge(array('foo'));
 		$this->assertEquals(array('foo'), $r);
@@ -222,11 +222,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, Set::normalize(Set::merge($a, $b)));
 	}
 
-/**
- * testSort method
- *
- * @return void
- */
+	/**
+	 * testSort method
+	 *
+	 * @return void
+	 */
 	public function testSort() {
 		$result = Set::sort(array(), '{n}.name', 'asc');
 		$this->assertEquals(array(), $result);
@@ -338,11 +338,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test sorting with string keys.
- *
- * @return void
- */
+	/**
+	 * test sorting with string keys.
+	 *
+	 * @return void
+	 */
 	public function testSortString() {
 		$toSort = array(
 			'four' => array('number' => 4, 'some' => 'foursome'),
@@ -362,11 +362,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $sorted);
 	}
 
-/**
- * test sorting with out of order keys.
- *
- * @return void
- */
+	/**
+	 * test sorting with out of order keys.
+	 *
+	 * @return void
+	 */
 	public function testSortWithOutOfOrderKeys() {
 		$data = array(
 			9 => array('class' => 510, 'test2' => 2),
@@ -389,11 +389,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testExtract method
- *
- * @return void
- */
+	/**
+	 * testExtract method
+	 *
+	 * @return void
+	 */
 	public function testExtract() {
 		$a = array(
 			array(
@@ -1008,11 +1008,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test parent selectors with extract
- *
- * @return void
- */
+	/**
+	 * test parent selectors with extract
+	 *
+	 * @return void
+	 */
 	public function testExtractParentSelector() {
 		$tree = array(
 			array(
@@ -1184,11 +1184,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $r);
 	}
 
-/**
- * test that extract() still works when arrays don't contain a 0 index.
- *
- * @return void
- */
+	/**
+	 * test that extract() still works when arrays don't contain a 0 index.
+	 *
+	 * @return void
+	 */
 	public function testExtractWithNonZeroArrays() {
 		$nonZero = array(
 			1 => array(
@@ -1289,11 +1289,11 @@ class SetTest extends TestCase {
 		$this->assertSame($result, Set::extract('{n}.B.field1', $items));
 	}
 
-/**
- * testExtractWithArrays method
- *
- * @return void
- */
+	/**
+	 * testExtractWithArrays method
+	 *
+	 * @return void
+	 */
 	public function testExtractWithArrays() {
 		$data = array(
 			'Level1' => array(
@@ -1305,11 +1305,11 @@ class SetTest extends TestCase {
 		$this->assertEquals(array(array('Level2bis' => array('test3', 'test4'))), Set::extract('/Level1/Level2bis', $data));
 	}
 
-/**
- * test extract() with elements that have non-array children.
- *
- * @return void
- */
+	/**
+	 * test extract() with elements that have non-array children.
+	 *
+	 * @return void
+	 */
 	public function testExtractWithNonArrayElements() {
 		$data = array(
 			'node' => array(
@@ -1353,9 +1353,9 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that extract() + matching can hit null things.
- */
+	/**
+	 * Test that extract() + matching can hit null things.
+	 */
 	public function testExtractMatchesNull() {
 		$data = array(
 			'Country' => array(
@@ -1380,11 +1380,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMatches method
- *
- * @return void
- */
+	/**
+	 * testMatches method
+	 *
+	 * @return void
+	 */
 	public function testMatches() {
 		$a = array(
 			array('Article' => array('id' => 1, 'title' => 'Article 1')),
@@ -1450,11 +1450,11 @@ class SetTest extends TestCase {
 		$this->assertEquals(array('user'), Set::extract('/Article/keep/User/fields', $r));
 	}
 
-/**
- * testSetExtractReturnsEmptyArray method
- *
- * @return void
- */
+	/**
+	 * testSetExtractReturnsEmptyArray method
+	 *
+	 * @return void
+	 */
 	public function testSetExtractReturnsEmptyArray() {
 		$this->assertEquals(Set::extract(array(), '/Post/id'), array());
 
@@ -1468,11 +1468,11 @@ class SetTest extends TestCase {
 		$this->assertEquals(Set::extract(array(), 'Message.flash'), null);
 	}
 
-/**
- * testClassicExtract method
- *
- * @return void
- */
+	/**
+	 * testClassicExtract method
+	 *
+	 * @return void
+	 */
 	public function testClassicExtract() {
 		$a = array(
 			array('Article' => array('id' => 1, 'title' => 'Article 1')),
@@ -1650,11 +1650,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test classicExtract with keys that exceed 32bit max int.
- *
- * @return void
- */
+	/**
+	 * test classicExtract with keys that exceed 32bit max int.
+	 *
+	 * @return void
+	 */
 	public function testClassicExtractMaxInt() {
 		$data = array(
 			'Data' => array(
@@ -1664,12 +1664,12 @@ class SetTest extends TestCase {
 		$this->assertEquals('abc', Set::classicExtract($data, 'Data.13376924712'));
 	}
 
-/**
- * testInsert method
- *
- * @see Hash tests, as Set::insert() is just a proxy.
- * @return void
- */
+	/**
+	 * testInsert method
+	 *
+	 * @see Hash tests, as Set::insert() is just a proxy.
+	 * @return void
+	 */
 	public function testInsert() {
 		$a = array(
 			'pages' => array('name' => 'page')
@@ -1683,11 +1683,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRemove method
- *
- * @return void
- */
+	/**
+	 * testRemove method
+	 *
+	 * @return void
+	 */
 	public function testRemove() {
 		$a = array(
 			'pages' => array('name' => 'page'),
@@ -1701,11 +1701,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testCheck method
- *
- * @return void
- */
+	/**
+	 * testCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$set = array(
 			'My Index 1' => array('First' => 'The first item')
@@ -1723,11 +1723,11 @@ class SetTest extends TestCase {
 		$this->assertFalse(Set::check($set, 'My Index 1.First.Seconds.Third.Fourth'));
 	}
 
-/**
- * testWritingWithFunkyKeys method
- *
- * @return void
- */
+	/**
+	 * testWritingWithFunkyKeys method
+	 *
+	 * @return void
+	 */
 	public function testWritingWithFunkyKeys() {
 		$set = Set::insert(array(), 'Session Test', "test");
 		$this->assertEquals('test', Set::extract($set, 'Session Test'));
@@ -1740,11 +1740,11 @@ class SetTest extends TestCase {
 		$this->assertTrue(Set::check($expected, 'Session Test.Test Case'));
 	}
 
-/**
- * testDiff method
- *
- * @return void
- */
+	/**
+	 * testDiff method
+	 *
+	 * @return void
+	 */
 	public function testDiff() {
 		$a = array(
 			0 => array('name' => 'main'),
@@ -1822,11 +1822,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testContains method
- *
- * @return void
- */
+	/**
+	 * testContains method
+	 *
+	 * @return void
+	 */
 	public function testContains() {
 		$a = array(
 			0 => array('name' => 'main'),
@@ -1844,11 +1844,11 @@ class SetTest extends TestCase {
 		$this->assertTrue(Set::contains($b, $a));
 	}
 
-/**
- * testCombine method
- *
- * @return void
- */
+	/**
+	 * testCombine method
+	 *
+	 * @return void
+	 */
 	public function testCombine() {
 		$result = Set::combine(array(), '{n}.User.id', '{n}.User.Data');
 		$this->assertTrue(empty($result));
@@ -1979,11 +1979,11 @@ class SetTest extends TestCase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * testMapReverse method
- *
- * @return void
- */
+	/**
+	 * testMapReverse method
+	 *
+	 * @return void
+	 */
 	public function testMapReverse() {
 		$result = Set::reverse(null);
 		$this->assertEquals(null, $result);
@@ -2214,11 +2214,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFormatting method
- *
- * @return void
- */
+	/**
+	 * testFormatting method
+	 *
+	 * @return void
+	 */
 	public function testFormatting() {
 		$data = array(
 			array('Person' => array('first_name' => 'Nate', 'last_name' => 'Abele', 'city' => 'Boston', 'state' => 'MA', 'something' => '42')),
@@ -2261,11 +2261,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFormattingNullValues method
- *
- * @return void
- */
+	/**
+	 * testFormattingNullValues method
+	 *
+	 * @return void
+	 */
 	public function testFormattingNullValues() {
 		$data = array(
 			array('Person' => array('first_name' => 'Nate', 'last_name' => 'Abele', 'city' => 'Boston', 'state' => 'MA', 'something' => '42')),
@@ -2281,11 +2281,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testCountDim method
- *
- * @return void
- */
+	/**
+	 * testCountDim method
+	 *
+	 * @return void
+	 */
 	public function testCountDim() {
 		$data = array('one', '2', 'three');
 		$result = Set::countDim($data);
@@ -2335,11 +2335,11 @@ class SetTest extends TestCase {
 		$this->assertEquals(5, $result);
 	}
 
-/**
- * testMapNesting method
- *
- * @return void
- */
+	/**
+	 * testMapNesting method
+	 *
+	 * @return void
+	 */
 	public function testMapNesting() {
 		$expected = array(
 			array(
@@ -2461,11 +2461,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testNestedMappedData method
- *
- * @return void
- */
+	/**
+	 * testNestedMappedData method
+	 *
+	 * @return void
+	 */
 	public function testNestedMappedData() {
 		$result = Set::map(array(
 				array(
@@ -2716,11 +2716,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testPushDiff method
- *
- * @return void
- */
+	/**
+	 * testPushDiff method
+	 *
+	 * @return void
+	 */
 	public function testPushDiff() {
 		$array1 = array('ModelOne' => array('id' => 1001, 'field_one' => 'a1.m1.f1', 'field_two' => 'a1.m1.f2'));
 		$array2 = array('ModelTwo' => array('id' => 1002, 'field_one' => 'a2.m2.f1', 'field_two' => 'a2.m2.f2'));
@@ -2761,11 +2761,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($array1 + $array2, $result);
 	}
 
-/**
- * testSetApply method
- * @return void
- *
- */
+	/**
+	 * testSetApply method
+	 * @return void
+	 *
+	 */
 	public function testApply() {
 		$data = array(
 			array('Movie' => array('id' => 1, 'title' => 'movie 3', 'rating' => 5)),
@@ -2798,21 +2798,21 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Helper method to test Set::apply()
- *
- * @return void
- */
+	/**
+	 * Helper method to test Set::apply()
+	 *
+	 * @return void
+	 */
 	public static function method($val1, $val2) {
 		$val1 += $val2;
 		return $val1;
 	}
 
-/**
- * testXmlSetReverse method
- *
- * @return void
- */
+	/**
+	 * testXmlSetReverse method
+	 *
+	 * @return void
+	 */
 	public function testXmlSetReverse() {
 		$string = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 		<rss version="2.0">
@@ -3048,22 +3048,22 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testStrictKeyCheck method
- *
- * @return void
- */
+	/**
+	 * testStrictKeyCheck method
+	 *
+	 * @return void
+	 */
 	public function testStrictKeyCheck() {
 		$set = array('a' => 'hi');
 		$this->assertFalse(Set::check($set, 'a.b'));
 	}
 
-/**
- * Tests Set::flatten
- *
- * @see Hash test cases, as Set::flatten() is just a proxy.
- * @return void
- */
+	/**
+	 * Tests Set::flatten
+	 *
+	 * @see Hash test cases, as Set::flatten() is just a proxy.
+	 * @return void
+	 */
 	public function testFlatten() {
 		$data = array('Larry', 'Curly', 'Moe');
 		$result = Set::flatten($data);
@@ -3089,11 +3089,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests Set::expand
- *
- * @return void
- */
+	/**
+	 * Tests Set::expand
+	 *
+	 * @return void
+	 */
 	public function testExpand() {
 		$data = array('My', 'Array', 'To', 'Flatten');
 		$flat = Set::flatten($data);
@@ -3101,11 +3101,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($data, $result);
 	}
 
-/**
- * test normalization
- *
- * @return void
- */
+	/**
+	 * test normalization
+	 *
+	 * @return void
+	 */
 	public function testNormalizeStrings() {
 		$result = Set::normalize('one,two,three');
 		$expected = array('one' => null, 'two' => null, 'three' => null);
@@ -3120,11 +3120,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test normalizing arrays
- *
- * @return void
- */
+	/**
+	 * test normalizing arrays
+	 *
+	 * @return void
+	 */
 	public function testNormalizeArrays() {
 		$result = Set::normalize(array('one', 'two', 'three'));
 		$expected = array('one' => null, 'two' => null, 'three' => null);
@@ -3147,12 +3147,12 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Set nest with a normal model result set. For kicks rely on Set nest detecting the key names
- * automatically
- *
- * @return void
- */
+	/**
+	 * test Set nest with a normal model result set. For kicks rely on Set nest detecting the key names
+	 * automatically
+	 *
+	 * @return void
+	 */
 	public function testNestModel() {
 		$input = array(
 			array(
@@ -3295,11 +3295,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Set nest with a normal model result set, and a nominated root id
- *
- * @return void
- */
+	/**
+	 * test Set nest with a normal model result set, and a nominated root id
+	 *
+	 * @return void
+	 */
 	public function testNestModelExplicitRoot() {
 		$input = array(
 			array(
@@ -3405,11 +3405,11 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Set nest with a 1d array - this method should be able to handle any type of array input
- *
- * @return void
- */
+	/**
+	 * test Set nest with a 1d array - this method should be able to handle any type of array input
+	 *
+	 * @return void
+	 */
 	public function testNest1Dimensional() {
 		$input = array(
 			array(
@@ -3512,14 +3512,14 @@ class SetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Set nest with no specified parent data.
- *
- * The result should be the same as the input.
- * For an easier comparison, unset all the empty children arrays from the result
- *
- * @return void
- */
+	/**
+	 * test Set nest with no specified parent data.
+	 *
+	 * The result should be the same as the input.
+	 * For an easier comparison, unset all the empty children arrays from the result
+	 *
+	 * @return void
+	 */
 	public function testMissingParent() {
 		$input = array(
 			array(

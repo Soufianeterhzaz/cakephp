@@ -21,12 +21,12 @@ namespace Cake\Log;
  */
 interface LogInterface {
 
-/**
- * Write method to handle writes being made to the Logger
- *
- * @param string $type
- * @param string $message
- * @return void
- */
+	/**
+	 * Write method to handle writes being made to the Logger
+	 *
+	 * @param string $type
+	 * @param string $message
+	 * @return void
+	 */
 	public function write($type, $message);
 }

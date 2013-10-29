@@ -21,12 +21,12 @@ use Cake\Database\ValueBinder;
 
 class UnaryExpression extends QueryExpression {
 
-/**
- * Converts the expression to its string representation
- *
- * @param Cake\Database\ValueBinder $generator Placeholder generator object
- * @return string
- */
+	/**
+	 * Converts the expression to its string representation
+	 *
+	 * @param Cake\Database\ValueBinder $generator Placeholder generator object
+	 * @return string
+	 */
 	public function sql(ValueBinder $generator) {
 		foreach ($this->_conditions as $condition) {
 			if ($condition instanceof ExpressionInterface) {

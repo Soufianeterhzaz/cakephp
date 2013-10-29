@@ -37,11 +37,11 @@ class HtmlAliasHelper extends HtmlHelper {
  */
 class HelperRegistryTest extends TestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
@@ -49,22 +49,22 @@ class HelperRegistryTest extends TestCase {
 		$this->Helpers = new HelperRegistry($this->View);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		Plugin::unload();
 		unset($this->Helpers, $this->View);
 		parent::tearDown();
 	}
 
-/**
- * test loading helpers.
- *
- * @return void
- */
+	/**
+	 * test loading helpers.
+	 *
+	 * @return void
+	 */
 	public function testLoad() {
 		$result = $this->Helpers->load('Html');
 		$this->assertInstanceOf('Cake\View\Helper\HtmlHelper', $result);
@@ -74,11 +74,11 @@ class HelperRegistryTest extends TestCase {
 		$this->assertEquals(array('Html'), $result, 'loaded() results are wrong.');
 	}
 
-/**
- * test lazy loading of helpers
- *
- * @return void
- */
+	/**
+	 * test lazy loading of helpers
+	 *
+	 * @return void
+	 */
 	public function testLazyLoad() {
 		$result = $this->Helpers->Html;
 		$this->assertInstanceOf('Cake\View\Helper\HtmlHelper', $result);
@@ -92,32 +92,32 @@ class HelperRegistryTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $result);
 	}
 
-/**
- * test lazy loading of helpers
- *
- * @expectedException Cake\Error\MissingHelperException
- * @return void
- */
+	/**
+	 * test lazy loading of helpers
+	 *
+	 * @expectedException Cake\Error\MissingHelperException
+	 * @return void
+	 */
 	public function testLazyLoadException() {
 		$this->Helpers->NotAHelper;
 	}
 
-/**
- * Test that loading helpers subscribes to events.
- *
- * @return void
- */
+	/**
+	 * Test that loading helpers subscribes to events.
+	 *
+	 * @return void
+	 */
 	public function testLoadSubscribeEvents() {
 		$this->Helpers->load('Html', array('className' => __NAMESPACE__ . '\HtmlAliasHelper'));
 		$result = $this->Events->listeners('View.afterRender');
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests loading as an alias
- *
- * @return void
- */
+	/**
+	 * Tests loading as an alias
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAlias() {
 		$result = $this->Helpers->load('Html', array('className' => __NAMESPACE__ . '\HtmlAliasHelper'));
 		$this->assertInstanceOf(__NAMESPACE__ . '\HtmlAliasHelper', $result);
@@ -130,11 +130,11 @@ class HelperRegistryTest extends TestCase {
 		$this->assertInstanceOf(__NAMESPACE__ . '\HtmlAliasHelper', $result);
 	}
 
-/**
- * Test loading helpers with aliases and plugins.
- *
- * @return void
- */
+	/**
+	 * Test loading helpers with aliases and plugins.
+	 *
+	 * @return void
+	 */
 	public function testLoadWithAliasAndPlugin() {
 		Plugin::load('TestPlugin');
 		$result = $this->Helpers->load('SomeOther', array('className' => 'TestPlugin.OtherHelper'));
@@ -145,11 +145,11 @@ class HelperRegistryTest extends TestCase {
 		$this->assertEquals(['SomeOther'], $result, 'loaded() results are wrong.');
 	}
 
-/**
- * test that the enabled setting disables the helper.
- *
- * @return void
- */
+	/**
+	 * test that the enabled setting disables the helper.
+	 *
+	 * @return void
+	 */
 	public function testLoadWithEnabledFalse() {
 		$result = $this->Helpers->load('Html', array('enabled' => false));
 		$this->assertInstanceOf('Cake\View\Helper\HtmlHelper', $result);
@@ -158,21 +158,21 @@ class HelperRegistryTest extends TestCase {
 		$this->assertEmpty($this->Events->listeners('View.beforeRender'));
 	}
 
-/**
- * test missinghelper exception
- *
- * @expectedException Cake\Error\MissingHelperException
- * @return void
- */
+	/**
+	 * test missinghelper exception
+	 *
+	 * @expectedException Cake\Error\MissingHelperException
+	 * @return void
+	 */
 	public function testLoadMissingHelper() {
 		$this->Helpers->load('ThisHelperShouldAlwaysBeMissing');
 	}
 
-/**
- * test loading a plugin helper.
- *
- * @return void
- */
+	/**
+	 * test loading a plugin helper.
+	 *
+	 * @return void
+	 */
 	public function testLoadPluginHelper() {
 		Plugin::load(array('TestPlugin'));
 
@@ -181,11 +181,11 @@ class HelperRegistryTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $this->Helpers->OtherHelper, 'Class is wrong');
 	}
 
-/**
- * Test reset.
- *
- * @return void
- */
+	/**
+	 * Test reset.
+	 *
+	 * @return void
+	 */
 	public function testReset() {
 		$instance = $this->Helpers->load('Paginator');
 		$this->assertSame(

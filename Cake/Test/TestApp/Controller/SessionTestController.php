@@ -21,18 +21,18 @@ use Cake\Controller\Controller;
  */
 class SessionTestController extends Controller {
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * session_id method
- *
- * @return string
- */
+	/**
+	 * session_id method
+	 *
+	 * @return string
+	 */
 	public function session_id() {
 		return $this->Session->id();
 	}

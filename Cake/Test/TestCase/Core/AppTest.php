@@ -26,21 +26,21 @@ use Cake\TestSuite\TestCase;
  */
 class AppTest extends TestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
 	}
 
-/**
- * testClassname method
- *
- * @return void
- */
+	/**
+	 * testClassname method
+	 *
+	 * @return void
+	 */
 	public function testClassname() {
 		Configure::write('App.namespace', 'TestApp');
 
@@ -69,11 +69,11 @@ class AppTest extends TestCase {
 		);
 	}
 
-/**
- * test path() with a plugin.
- *
- * @return void
- */
+	/**
+	 * test path() with a plugin.
+	 *
+	 * @return void
+	 */
 	public function testPathWithPlugins() {
 		$basepath = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS;
 		Plugin::load('TestPlugin');
@@ -82,11 +82,11 @@ class AppTest extends TestCase {
 		$this->assertEquals($basepath . 'TestPlugin' . DS . 'Controller' . DS, $result[0]);
 	}
 
-/**
- * testCore method
- *
- * @return void
- */
+	/**
+	 * testCore method
+	 *
+	 * @return void
+	 */
 	public function testCore() {
 		$model = App::core('Model');
 		$this->assertEquals(array(CAKE . 'Model' . DS), $model);
@@ -107,11 +107,11 @@ class AppTest extends TestCase {
 		$this->assertEquals(array(CAKE . 'Model' . DS . 'Datasource' . DS), str_replace('/', DS, $datasource));
 	}
 
-/**
- * testListObjects method
- *
- * @return void
- */
+	/**
+	 * testListObjects method
+	 *
+	 * @return void
+	 */
 	public function testListObjects() {
 		$result = App::objects('class', CAKE . 'Routing', false);
 		$this->assertTrue(in_array('Dispatcher', $result));
@@ -147,9 +147,9 @@ class AppTest extends TestCase {
 		$this->assertContains('TestPluginTwo', $result);
 	}
 
-/**
- * Make sure that .svn and friends are excluded from App::objects('Plugin')
- */
+	/**
+	 * Make sure that .svn and friends are excluded from App::objects('Plugin')
+	 */
 	public function testListObjectsIgnoreDotDirectories() {
 		$path = CAKE . 'Test/TestApp/Plugin/';
 
@@ -162,11 +162,11 @@ class AppTest extends TestCase {
 		$this->assertNotContains('.svn', $result);
 	}
 
-/**
- * Tests listing objects within a plugin
- *
- * @return void
- */
+	/**
+	 * Tests listing objects within a plugin
+	 *
+	 * @return void
+	 */
 	public function testListObjectsInPlugin() {
 		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
@@ -191,11 +191,11 @@ class AppTest extends TestCase {
 		$this->assertTrue(in_array('Post', $result));
 	}
 
-/**
- * test that pluginPath can find paths for plugins.
- *
- * @return void
- */
+	/**
+	 * test that pluginPath can find paths for plugins.
+	 *
+	 * @return void
+	 */
 	public function testPluginPath() {
 		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
@@ -208,11 +208,11 @@ class AppTest extends TestCase {
 		$this->assertEquals($expected, $path);
 	}
 
-/**
- * test that themePath can find paths for themes.
- *
- * @return void
- */
+	/**
+	 * test that themePath can find paths for themes.
+	 *
+	 * @return void
+	 */
 	public function testThemePath() {
 		$path = App::themePath('test_theme');
 		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;

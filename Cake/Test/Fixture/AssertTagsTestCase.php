@@ -9,11 +9,11 @@ use Cake\TestSuite\TestCase;
  */
 class AssertTagsTestCase extends TestCase {
 
-/**
- * test that assertTags knows how to handle correct quoting.
- *
- * @return void
- */
+	/**
+	 * test that assertTags knows how to handle correct quoting.
+	 *
+	 * @return void
+	 */
 	public function testAssertTagsQuotes() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(
@@ -40,11 +40,11 @@ class AssertTagsTestCase extends TestCase {
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testNumericValuesInExpectationForAssertTags
- *
- * @return void
- */
+	/**
+	 * testNumericValuesInExpectationForAssertTags
+	 *
+	 * @return void
+	 */
 	public function testNumericValuesInExpectationForAssertTags() {
 		$value = 220985;
 
@@ -89,11 +89,11 @@ class AssertTagsTestCase extends TestCase {
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testBadAssertTags
- *
- * @return void
- */
+	/**
+	 * testBadAssertTags
+	 *
+	 * @return void
+	 */
 	public function testBadAssertTags() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(
@@ -104,11 +104,11 @@ class AssertTagsTestCase extends TestCase {
 		$this->assertTags($input, $pattern);
 	}
 
-/**
- * testBadAssertTags
- *
- * @return void
- */
+	/**
+	 * testBadAssertTags
+	 *
+	 * @return void
+	 */
 	public function testBadAssertTags2() {
 		$input = '<a href="/test.html" class="active">My link</a>';
 		$pattern = array(

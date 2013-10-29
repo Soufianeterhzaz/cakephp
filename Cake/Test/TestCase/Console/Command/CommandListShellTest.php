@@ -41,11 +41,11 @@ class TestStringOutput extends ConsoleOutput {
  */
 class CommandListShellTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
@@ -66,22 +66,22 @@ class CommandListShellTest extends TestCase {
 		);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Shell);
 		Plugin::unload();
 	}
 
-/**
- * test that main finds core shells.
- *
- * @return void
- */
+	/**
+	 * test that main finds core shells.
+	 *
+	 * @return void
+	 */
 	public function testMain() {
 		$this->Shell->main();
 		$output = $this->Shell->stdout->output;
@@ -99,11 +99,11 @@ class CommandListShellTest extends TestCase {
 		$this->assertRegExp($expected, $output);
 	}
 
-/**
- * test xml output.
- *
- * @return void
- */
+	/**
+	 * test xml output.
+	 *
+	 * @return void
+	 */
 	public function testMainXml() {
 		$this->Shell->params['xml'] = true;
 		$this->Shell->main();

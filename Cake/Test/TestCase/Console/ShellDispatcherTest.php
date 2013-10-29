@@ -26,69 +26,69 @@ use Cake\TestSuite\TestCase;
  */
 class TestShellDispatcher extends ShellDispatcher {
 
-/**
- * params property
- *
- * @var array
- */
+	/**
+	 * params property
+	 *
+	 * @var array
+	 */
 	public $params = array();
 
-/**
- * stopped property
- *
- * @var string
- */
+	/**
+	 * stopped property
+	 *
+	 * @var string
+	 */
 	public $stopped = null;
 
-/**
- * TestShell
- *
- * @var mixed
- */
+	/**
+	 * TestShell
+	 *
+	 * @var mixed
+	 */
 	public $TestShell;
 
-/**
- * _initEnvironment method
- *
- * @return void
- */
+	/**
+	 * _initEnvironment method
+	 *
+	 * @return void
+	 */
 	protected function _initEnvironment() {
 	}
 
-/**
- * clear method
- *
- * @return void
- */
+	/**
+	 * clear method
+	 *
+	 * @return void
+	 */
 	public function clear() {
 	}
 
-/**
- * _stop method
- *
- * @return void
- */
+	/**
+	 * _stop method
+	 *
+	 * @return void
+	 */
 	protected function _stop($status = 0) {
 		$this->stopped = 'Stopped with status: ' . $status;
 		return $status;
 	}
 
-/**
- * getShell
- *
- * @param string $shell
- * @return mixed
- */
+	/**
+	 * getShell
+	 *
+	 * @param string $shell
+	 * @return mixed
+	 */
 	public function getShell($shell) {
 		return $this->_getShell($shell);
 	}
 
-/**
- * _getShell
- *
- * @param string $plugin
- * @return mixed
- */
+	/**
+	 * _getShell
+	 *
+	 * @param string $plugin
+	 * @return mixed
+	 */
 	protected function _getShell($shell) {
 		if (isset($this->TestShell)) {
 			return $this->TestShell;
@@ -104,21 +104,21 @@ class TestShellDispatcher extends ShellDispatcher {
  */
 class ShellDispatcherTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Plugin::load('TestPlugin');
 	}
 
-/**
- * testParseParams method
- *
- * @return void
- */
+	/**
+	 * testParseParams method
+	 *
+	 * @return void
+	 */
 	public function testParseParams() {
 		$Dispatcher = new TestShellDispatcher();
 
@@ -386,11 +386,11 @@ class ShellDispatcherTest extends TestCase {
 		}
 	}
 
-/**
- * Verify loading of (plugin-) shells
- *
- * @return void
- */
+	/**
+	 * Verify loading of (plugin-) shells
+	 *
+	 * @return void
+	 */
 	public function testGetShell() {
 		$this->skipIf(class_exists('SampleShell'), 'SampleShell Class already loaded.');
 		$this->skipIf(class_exists('ExampleShell'), 'ExampleShell Class already loaded.');
@@ -412,11 +412,11 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Console\Command\ExampleShell', $result);
 	}
 
-/**
- * Verify correct dispatch of Shell subclasses with a main method
- *
- * @return void
- */
+	/**
+	 * Verify correct dispatch of Shell subclasses with a main method
+	 *
+	 * @return void
+	 */
 	public function testDispatchShellWithMain() {
 		$Dispatcher = new TestShellDispatcher();
 		$Mock = $this->getMock('Cake\Console\Shell', array(), array(), 'MockWithMainShell');
@@ -434,11 +434,11 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertEquals(array(), $Dispatcher->args);
 	}
 
-/**
- * Verify correct dispatch of Shell subclasses without a main method
- *
- * @return void
- */
+	/**
+	 * Verify correct dispatch of Shell subclasses without a main method
+	 *
+	 * @return void
+	 */
 	public function testDispatchShellWithoutMain() {
 		$Dispatcher = new TestShellDispatcher();
 		$Shell = $this->getMock('Cake\Console\Shell', array(), array(), 'MockWithoutMainShell');
@@ -458,11 +458,11 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * Verify correct dispatch of custom classes with a main method
- *
- * @return void
- */
+	/**
+	 * Verify correct dispatch of custom classes with a main method
+	 *
+	 * @return void
+	 */
 	public function testDispatchNotAShellWithMain() {
 		$Dispatcher = new TestShellDispatcher();
 		$methods = get_class_methods('Cake\Core\Object');
@@ -490,11 +490,11 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * Verify correct dispatch of custom classes without a main method
- *
- * @return void
- */
+	/**
+	 * Verify correct dispatch of custom classes without a main method
+	 *
+	 * @return void
+	 */
 	public function testDispatchNotAShellWithoutMain() {
 		$Dispatcher = new TestShellDispatcher();
 		$methods = get_class_methods('Cake\Core\Object');
@@ -522,11 +522,11 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * Verify shifting of arguments
- *
- * @return void
- */
+	/**
+	 * Verify shifting of arguments
+	 *
+	 * @return void
+	 */
 	public function testShiftArgs() {
 		$Dispatcher = new TestShellDispatcher();
 

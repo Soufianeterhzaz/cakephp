@@ -21,17 +21,17 @@ use Cake\Controller\Controller;
  */
 class ScaffoldArticlesController extends Controller {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'Articles';
 
-/**
- * scaffold property
- *
- * @var mixed
- */
+	/**
+	 * scaffold property
+	 *
+	 * @var mixed
+	 */
 	public $scaffold;
 }

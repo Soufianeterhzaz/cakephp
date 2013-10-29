@@ -75,39 +75,39 @@ use Cake\Network\Http\Message;
  */
 class Response extends Message {
 
-/**
- * The status code of the response.
- *
- * @var int
- */
+	/**
+	 * The status code of the response.
+	 *
+	 * @var int
+	 */
 	protected $_code;
 
-/**
- * The response body
- *
- * @var string
- */
+	/**
+	 * The response body
+	 *
+	 * @var string
+	 */
 	protected $_body;
 
-/**
- * Cached decoded XML data.
- *
- * @var SimpleXMLElement
- */
+	/**
+	 * Cached decoded XML data.
+	 *
+	 * @var SimpleXMLElement
+	 */
 	protected $_xml;
 
-/**
- * Cached decoded JSON data.
- *
- * @var SimpleXMLElement
- */
+	/**
+	 * Cached decoded JSON data.
+	 *
+	 * @var SimpleXMLElement
+	 */
 	protected $_json;
 
-/**
- * Map of public => property names for __get()
- *
- * @var array
- */
+	/**
+	 * Map of public => property names for __get()
+	 *
+	 * @var array
+	 */
 	protected $_exposedProperties = [
 		'cookies' => '_cookies',
 		'headers' => '_headers',
@@ -117,25 +117,25 @@ class Response extends Message {
 		'xml' => '_getXml'
 	];
 
-/**
- * Constructor
- *
- * @param array $headers Unparsed headers.
- * @param string $body The response body.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $headers Unparsed headers.
+	 * @param string $body The response body.
+	 */
 	public function __construct($headers = [], $body = '') {
 		$this->_parseHeaders($headers);
 		$this->_body = $body;
 	}
 
-/**
- * Parses headers if necessary.
- *
- * - Decodes the status code.
- * - Parses and normalizes header names + values.
- *
- * @param array $headers
- */
+	/**
+	 * Parses headers if necessary.
+	 *
+	 * - Decodes the status code.
+	 * - Parses and normalizes header names + values.
+	 *
+	 * @param array $headers
+	 */
 	protected function _parseHeaders($headers) {
 		foreach ($headers as $key => $value) {
 			if (substr($value, 0, 5) === 'HTTP/') {
@@ -159,12 +159,12 @@ class Response extends Message {
 		}
 	}
 
-/**
- * Parse a cookie header into data.
- *
- * @param string $value The cookie value to parse.
- * @return void
- */
+	/**
+	 * Parse a cookie header into data.
+	 *
+	 * @param string $value The cookie value to parse.
+	 * @return void
+	 */
 	protected function _parseCookie($value) {
 		$value = rtrim($value, ';');
 		$nestedSemi = '";"';
@@ -198,11 +198,11 @@ class Response extends Message {
 		$this->_cookies[$name] = $cookie;
 	}
 
-/**
- * Check if the response was OK
- *
- * @return boolean
- */
+	/**
+	 * Check if the response was OK
+	 *
+	 * @return boolean
+	 */
 	public function isOk() {
 		$codes = [
 			static::STATUS_OK,
@@ -212,11 +212,11 @@ class Response extends Message {
 		return in_array($this->_code, $codes);
 	}
 
-/**
- * Check if the response had a redirect status code.
- *
- * @return boolean
- */
+	/**
+	 * Check if the response had a redirect status code.
+	 *
+	 * @return boolean
+	 */
 	public function isRedirect() {
 		$codes = [
 			static::STATUS_MOVED_PERMANENTLY,
@@ -230,20 +230,20 @@ class Response extends Message {
 		);
 	}
 
-/**
- * Get the status code from the response
- *
- * @return int
- */
+	/**
+	 * Get the status code from the response
+	 *
+	 * @return int
+	 */
 	public function statusCode() {
 		return $this->_code;
 	}
 
-/**
- * Get the encoding if it was set.
- *
- * @return string|null
- */
+	/**
+	 * Get the encoding if it was set.
+	 *
+	 * @return string|null
+	 */
 	public function encoding() {
 		$content = $this->header('content-type');
 		if (!$content) {
@@ -256,16 +256,16 @@ class Response extends Message {
 		return $matches[1];
 	}
 
-/**
- * Read single/multiple header value(s) out.
- *
- * @param string $name The name of the header you want. Leave
- *   null to get all headers.
- * @return mixed Null when the header doesn't exist. An array
- *   will be returned when getting all headers or when getting
- *   a header that had multiple values set. Otherwise a string
- *   will be returned.
- */
+	/**
+	 * Read single/multiple header value(s) out.
+	 *
+	 * @param string $name The name of the header you want. Leave
+	 *   null to get all headers.
+	 * @return mixed Null when the header doesn't exist. An array
+	 *   will be returned when getting all headers or when getting
+	 *   a header that had multiple values set. Otherwise a string
+	 *   will be returned.
+	 */
 	public function header($name = null) {
 		if ($name === null) {
 			return $this->_headers;
@@ -277,15 +277,15 @@ class Response extends Message {
 		return $this->_headers[$name];
 	}
 
-/**
- * Read single/multiple cookie values out.
- *
- * @param string $name The name of the cookie you want. Leave
- *   null to get all cookies.
- * @param boolean $all Get all parts of the cookie. When false only
- *   the value will be returned.
- * @return mixed
- */
+	/**
+	 * Read single/multiple cookie values out.
+	 *
+	 * @param string $name The name of the cookie you want. Leave
+	 *   null to get all cookies.
+	 * @param boolean $all Get all parts of the cookie. When false only
+	 *   the value will be returned.
+	 * @return mixed
+	 */
 	public function cookie($name = null, $all = false) {
 		if ($name === null) {
 			return $this->_cookies;
@@ -299,20 +299,20 @@ class Response extends Message {
 		return $this->_cookies[$name]['value'];
 	}
 
-/**
- * Get the response body.
- *
- * By passing in a $parser callable, you can get the decoded
- * response content back.
- *
- * For example to get the json data as an object:
- *
- * `$body = $response->body('json_decode');`
- *
- * @param callable $parser The callback to use to decode
- *   the response body.
- * @return mixed The response body.
- */
+	/**
+	 * Get the response body.
+	 *
+	 * By passing in a $parser callable, you can get the decoded
+	 * response content back.
+	 *
+	 * For example to get the json data as an object:
+	 *
+	 * `$body = $response->body('json_decode');`
+	 *
+	 * @param callable $parser The callback to use to decode
+	 *   the response body.
+	 * @return mixed The response body.
+	 */
 	public function body($parser = null) {
 		if ($parser) {
 			return $parser($this->_body);
@@ -320,11 +320,11 @@ class Response extends Message {
 		return $this->_body;
 	}
 
-/**
- * Get the response body as JSON decoded data.
- *
- * @return null|array
- */
+	/**
+	 * Get the response body as JSON decoded data.
+	 *
+	 * @return null|array
+	 */
 	protected function _getJson() {
 		if (!empty($this->_json)) {
 			return $this->_json;
@@ -337,11 +337,11 @@ class Response extends Message {
 		return null;
 	}
 
-/**
- * Get the response body as XML decoded data.
- *
- * @return null|SimpleXML
- */
+	/**
+	 * Get the response body as XML decoded data.
+	 *
+	 * @return null|SimpleXML
+	 */
 	protected function _getXml() {
 		if (!empty($this->_xml)) {
 			return $this->_xml;
@@ -355,12 +355,12 @@ class Response extends Message {
 		return null;
 	}
 
-/**
- * Read values as properties.
- *
- * @param string $name
- * @return mixed
- */
+	/**
+	 * Read values as properties.
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
 	public function __get($name) {
 		if (!isset($this->_exposedProperties[$name])) {
 			return false;
@@ -372,12 +372,12 @@ class Response extends Message {
 		return $this->{$key};
 	}
 
-/**
- * isset/empty test with -> syntax.
- *
- * @param string $name
- * @return boolean
- */
+	/**
+	 * isset/empty test with -> syntax.
+	 *
+	 * @param string $name
+	 * @return boolean
+	 */
 	public function __isset($name) {
 		if (!isset($this->_exposedProperties[$name])) {
 			return false;

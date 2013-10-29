@@ -29,11 +29,11 @@ use Cake\Test\TestCase\Model\ModelTestBase;
  */
 class ModelDeleteTest extends ModelTestBase {
 
-/**
- * testDeleteHabtmReferenceWithConditions method
- *
- * @return void
- */
+	/**
+	 * testDeleteHabtmReferenceWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testDeleteHabtmReferenceWithConditions() {
 		$this->loadFixtures('Portfolio', 'Item', 'ItemsPortfolio', 'Syfile', 'Image');
 
@@ -119,11 +119,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * testDeleteArticleBLinks method
- *
- * @return void
- */
+	/**
+	 * testDeleteArticleBLinks method
+	 *
+	 * @return void
+	 */
 	public function testDeleteArticleBLinks() {
 		$this->loadFixtures('Article', 'ArticlesTag', 'Tag', 'User');
 		$TestModel = new ArticleB();
@@ -147,11 +147,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testDeleteDependentWithConditions method
- *
- * @return void
- */
+	/**
+	 * testDeleteDependentWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testDeleteDependentWithConditions() {
 		$this->loadFixtures('Cd', 'Book', 'OverallFavorite');
 
@@ -186,11 +186,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testDel method
- *
- * @return void
- */
+	/**
+	 * testDel method
+	 *
+	 * @return void
+	 */
 	public function testDelete() {
 		$this->loadFixtures('Article', 'Comment', 'Attachment');
 		$TestModel = new Article();
@@ -264,11 +264,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that delete() updates the correct records counterCache() records.
- *
- * @return void
- */
+	/**
+	 * test that delete() updates the correct records counterCache() records.
+	 *
+	 * @return void
+	 */
 	public function testDeleteUpdatingCounterCacheCorrectly() {
 		$this->loadFixtures('CounterCacheUser', 'CounterCachePost');
 		$User = new CounterCacheUser();
@@ -281,11 +281,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(2, $result['User']['post_count']);
 	}
 
-/**
- * testDeleteAll method
- *
- * @return void
- */
+	/**
+	 * testDeleteAll method
+	 *
+	 * @return void
+	 */
 	public function testDeleteAll() {
 		$this->loadFixtures('Article');
 		$TestModel = new Article();
@@ -425,12 +425,12 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertTrue($result, 'deleteAll returned false when all no records matched conditions. %s');
 	}
 
-/**
- * testDeleteAllUnknownColumn method
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 * testDeleteAllUnknownColumn method
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testDeleteAllUnknownColumn() {
 		$this->loadFixtures('Article');
 		$TestModel = new Article();
@@ -438,13 +438,13 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertFalse($result, 'deleteAll returned true when find query generated sql error. %s');
 	}
 
-/**
- * testDeleteAllFailedFind method
- *
- * Eg: Behavior callback stops the event, find returns null
- *
- * @return void
- */
+	/**
+	 * testDeleteAllFailedFind method
+	 *
+	 * Eg: Behavior callback stops the event, find returns null
+	 *
+	 * @return void
+	 */
 	public function testDeleteAllFailedFind() {
 		$this->loadFixtures('Article');
 		$this->getMock('Article', array('find'), array(), 'ArticleDeleteAll');
@@ -458,11 +458,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testRecursiveDel method
- *
- * @return void
- */
+	/**
+	 * testRecursiveDel method
+	 *
+	 * @return void
+	 */
 	public function testRecursiveDel() {
 		$this->loadFixtures('Article', 'Comment', 'Attachment');
 		$TestModel = new Article();
@@ -493,11 +493,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * testDependentExclusiveDelete method
- *
- * @return void
- */
+	/**
+	 * testDependentExclusiveDelete method
+	 *
+	 * @return void
+	 */
 	public function testDependentExclusiveDelete() {
 		$this->loadFixtures('Article', 'Comment');
 		$TestModel = new Article10();
@@ -511,11 +511,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(2, $TestModel->Comment->find('count'));
 	}
 
-/**
- * testDeleteLinks method
- *
- * @return void
- */
+	/**
+	 * testDeleteLinks method
+	 *
+	 * @return void
+	 */
 	public function testDeleteLinks() {
 		$this->loadFixtures('Article', 'ArticlesTag', 'Tag');
 		$TestModel = new Article();
@@ -558,11 +558,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertTrue($result, 'deleteAll returned false when all no records matched conditions. %s');
 	}
 
-/**
- * test that a plugin model as the 'with' model doesn't have issues
- *
- * @return void
- */
+	/**
+	 * test that a plugin model as the 'with' model doesn't have issues
+	 *
+	 * @return void
+	 */
 	public function testDeleteLinksWithPLuginJoinModel() {
 		$this->loadFixtures('Article', 'ArticlesTag', 'Tag');
 		$Article = new Article();
@@ -576,11 +576,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertTrue($Article->delete(1));
 	}
 
-/**
- * testDeleteDependent method
- *
- * @return void
- */
+	/**
+	 * testDeleteDependent method
+	 *
+	 * @return void
+	 */
 	public function testDeleteDependent() {
 		$this->loadFixtures('Bidding', 'BiddingMessage', 'Article',
 			'ArticlesTag', 'Comment', 'User', 'Attachment'
@@ -671,11 +671,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(0, $result);
 	}
 
-/**
- * test deleteLinks with Multiple habtm associations
- *
- * @return void
- */
+	/**
+	 * test deleteLinks with Multiple habtm associations
+	 *
+	 * @return void
+	 */
 	public function testDeleteLinksWithMultipleHabtmAssociations() {
 		$this->loadFixtures('JoinA', 'JoinB', 'JoinC', 'JoinAB', 'JoinAC');
 		$JoinA = new JoinA();
@@ -706,11 +706,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(0, $joinedBs, 'JoinA/JoinC link records left over. %s');
 	}
 
-/**
- * testHabtmDeleteLinksWhenNoPrimaryKeyInJoinTable method
- *
- * @return void
- */
+	/**
+	 * testHabtmDeleteLinksWhenNoPrimaryKeyInJoinTable method
+	 *
+	 * @return void
+	 */
 	public function testHabtmDeleteLinksWhenNoPrimaryKeyInJoinTable() {
 		$this->loadFixtures('Apple', 'Device', 'ThePaperMonkies');
 		$ThePaper = new ThePaper();
@@ -771,11 +771,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals($expected, $result['Monkey']);
 	}
 
-/**
- * test that beforeDelete returning false can abort deletion.
- *
- * @return void
- */
+	/**
+	 * test that beforeDelete returning false can abort deletion.
+	 *
+	 * @return void
+	 */
 	public function testBeforeDeleteDeleteAbortion() {
 		$this->loadFixtures('Post');
 		$Model = new CallbackPostTestModel();
@@ -788,12 +788,12 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertTrue(is_array($exists));
 	}
 
-/**
- * test for a habtm deletion error that occurs in postgres but should not.
- * And should not occur in any dbo.
- *
- * @return void
- */
+	/**
+	 * test for a habtm deletion error that occurs in postgres but should not.
+	 * And should not occur in any dbo.
+	 *
+	 * @return void
+	 */
 	public function testDeleteHabtmPostgresFailure() {
 		$this->loadFixtures('Article', 'Tag', 'ArticlesTag');
 
@@ -845,11 +845,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertEquals(count($before[0]["Tag"]), count($after[0]["Tag"]));
 	}
 
-/**
- * test that deleting records inside the beforeDelete doesn't truncate the table.
- *
- * @return void
- */
+	/**
+	 * test that deleting records inside the beforeDelete doesn't truncate the table.
+	 *
+	 * @return void
+	 */
 	public function testBeforeDeleteWipingTable() {
 		$this->loadFixtures('Comment');
 
@@ -873,11 +873,11 @@ class ModelDeleteTest extends ModelTestBase {
 		$this->assertTrue($result > 1, 'Comments are all gone.');
 	}
 
-/**
- * test that deleting the same record from the beforeDelete and the delete doesn't truncate the table.
- *
- * @return void
- */
+	/**
+	 * test that deleting the same record from the beforeDelete and the delete doesn't truncate the table.
+	 *
+	 * @return void
+	 */
 	public function testBeforeDeleteWipingTableWithDuplicateDelete() {
 		$this->loadFixtures('Comment');
 

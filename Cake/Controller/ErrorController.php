@@ -24,19 +24,19 @@ use Cake\Routing\Router;
  */
 class ErrorController extends Controller {
 
-/**
- * Uses Property
- *
- * @var array
- */
+	/**
+	 * Uses Property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * __construct
- *
- * @param Cake\Network\Request $request
- * @param Cake\Network\Response $response
- */
+	/**
+	 * __construct
+	 *
+	 * @param Cake\Network\Request $request
+	 * @param Cake\Network\Response $response
+	 */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
 		$this->constructClasses();

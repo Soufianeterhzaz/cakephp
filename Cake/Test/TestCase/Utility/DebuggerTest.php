@@ -39,22 +39,22 @@ class DebuggerTest extends TestCase {
 
 	protected $_restoreError = false;
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('debug', 2);
 		Configure::write('log', false);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('log', true);
@@ -63,11 +63,11 @@ class DebuggerTest extends TestCase {
 		}
 	}
 
-/**
- * testDocRef method
- *
- * @return void
- */
+	/**
+	 * testDocRef method
+	 *
+	 * @return void
+	 */
 	public function testDocRef() {
 		ini_set('docref_root', '');
 		$this->assertEquals(ini_get('docref_root'), '');
@@ -75,11 +75,11 @@ class DebuggerTest extends TestCase {
 		$this->assertEquals(ini_get('docref_root'), 'http://php.net/');
 	}
 
-/**
- * test Excerpt writing
- *
- * @return void
- */
+	/**
+	 * test Excerpt writing
+	 *
+	 * @return void
+	 */
 	public function testExcerpt() {
 		$result = Debugger::excerpt(__FILE__, __LINE__, 2);
 		$this->assertTrue(is_array($result));
@@ -103,11 +103,11 @@ class DebuggerTest extends TestCase {
 		$this->assertTrue(empty($return));
 	}
 
-/**
- * testOutput method
- *
- * @return void
- */
+	/**
+	 * testOutput method
+	 *
+	 * @return void
+	 */
 	public function testOutput() {
 		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
@@ -159,11 +159,11 @@ class DebuggerTest extends TestCase {
 		$this->assertContains('$wrong = &#039;&#039;', $result[3], 'Context should be HTML escaped.');
 	}
 
-/**
- * Tests that changes in output formats using Debugger::output() change the templates used.
- *
- * @return void
- */
+	/**
+	 * Tests that changes in output formats using Debugger::output() change the templates used.
+	 *
+	 * @return void
+	 */
 	public function testChangeOutputFormats() {
 		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
@@ -198,31 +198,31 @@ class DebuggerTest extends TestCase {
 		$this->assertTags($result, $data, true);
 	}
 
-/**
- * Test that outputAs works.
- *
- * @return void
- */
+	/**
+	 * Test that outputAs works.
+	 *
+	 * @return void
+	 */
 	public function testOutputAs() {
 		Debugger::outputAs('html');
 		$this->assertEquals('html', Debugger::outputAs());
 	}
 
-/**
- * Test that choosing a non-existent format causes an exception
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * Test that choosing a non-existent format causes an exception
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testOutputAsException() {
 		Debugger::outputAs('Invalid junk');
 	}
 
-/**
- * Tests that changes in output formats using Debugger::output() change the templates used.
- *
- * @return void
- */
+	/**
+	 * Tests that changes in output formats using Debugger::output() change the templates used.
+	 *
+	 * @return void
+	 */
 	public function testAddFormat() {
 		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
@@ -257,11 +257,11 @@ class DebuggerTest extends TestCase {
 		$this->assertTags($result, $data, true);
 	}
 
-/**
- * Test adding a format that is handled by a callback.
- *
- * @return void
- */
+	/**
+	 * Test adding a format that is handled by a callback.
+	 *
+	 * @return void
+	 */
 	public function testAddFormatCallback() {
 		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
@@ -276,29 +276,29 @@ class DebuggerTest extends TestCase {
 		$this->assertContains('DebuggerTest.php', $result);
 	}
 
-/**
- * Test method for testing addFormat with callbacks.
- */
+	/**
+	 * Test method for testing addFormat with callbacks.
+	 */
 	public function customFormat($error, $strings) {
 		return $error['error'] . ': I eated an error ' . $error['file'];
 	}
 
-/**
- * testTrimPath method
- *
- * @return void
- */
+	/**
+	 * testTrimPath method
+	 *
+	 * @return void
+	 */
 	public function testTrimPath() {
 		$this->assertEquals('APP/', Debugger::trimPath(APP));
 		$this->assertEquals('CORE' . DS . 'Cake' . DS, Debugger::trimPath(CAKE));
 		$this->assertEquals('Some/Other/Path', Debugger::trimPath('Some/Other/Path'));
 	}
 
-/**
- * testExportVar method
- *
- * @return void
- */
+	/**
+	 * testExportVar method
+	 *
+	 * @return void
+	 */
 	public function testExportVar() {
 		$Controller = new Controller();
 		$Controller->helpers = array('Html', 'Form');
@@ -408,11 +408,11 @@ TEXT;
 		$this->assertTextEquals('unknown', $result);
 	}
 
-/**
- * Test exporting various kinds of false.
- *
- * @return void
- */
+	/**
+	 * Test exporting various kinds of false.
+	 *
+	 * @return void
+	 */
 	public function testExportVarZero() {
 		$data = array(
 			'nothing' => '',
@@ -434,11 +434,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * testLog method
- *
- * @return void
- */
+	/**
+	 * testLog method
+	 *
+	 * @return void
+	 */
 	public function testLog() {
 		$mock = $this->getMock('Cake\Log\Engine\BaseLog', ['write']);
 		Log::config('test', ['engine' => $mock]);
@@ -466,11 +466,11 @@ TEXT;
 		Log::drop('test');
 	}
 
-/**
- * testDump method
- *
- * @return void
- */
+	/**
+	 * testDump method
+	 *
+	 * @return void
+	 */
 	public function testDump() {
 		$var = array('People' => array(
 			array(
@@ -509,11 +509,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result);
 	}
 
-/**
- * test getInstance.
- *
- * @return void
- */
+	/**
+	 * test getInstance.
+	 *
+	 * @return void
+	 */
 	public function testGetInstance() {
 		$result = Debugger::getInstance();
 		$this->assertInstanceOf('Cake\Utility\Debugger', $result);
@@ -528,14 +528,14 @@ TEXT;
 		$this->assertInstanceOf('Cake\Utility\Debugger', $result);
 	}
 
-/**
- * testNoDbCredentials
- *
- * If a connection error occurs, the config variable is passed through exportVar
- * *** our database login credentials such that they are never visible
- *
- * @return void
- */
+	/**
+	 * testNoDbCredentials
+	 *
+	 * If a connection error occurs, the config variable is passed through exportVar
+	 * *** our database login credentials such that they are never visible
+	 *
+	 * @return void
+	 */
 	public function testNoDbCredentials() {
 		$config = array(
 			'datasource' => 'mysql',
@@ -563,21 +563,21 @@ TEXT;
 		$this->assertEquals($expected, $output);
 	}
 
-/**
- * Test that exportVar() doesn't loop through recursive structures.
- *
- * @return void
- */
+	/**
+	 * Test that exportVar() doesn't loop through recursive structures.
+	 *
+	 * @return void
+	 */
 	public function testExportVarRecursion() {
 		$output = Debugger::exportVar($GLOBALS);
 		$this->assertContains("'GLOBALS' => [recursion]", $output);
 	}
 
-/**
- * test trace exclude
- *
- * @return void
- */
+	/**
+	 * test trace exclude
+	 *
+	 * @return void
+	 */
 	public function testTraceExclude() {
 		$result = Debugger::trace();
 		$this->assertRegExp('/^Cake\\\Test\\\TestCase\\\Utility\\\DebuggerTest::testTraceExclude/', $result);

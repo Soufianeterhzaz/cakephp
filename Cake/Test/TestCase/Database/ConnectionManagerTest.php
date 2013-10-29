@@ -24,11 +24,11 @@ use Cake\TestSuite\TestCase;
  */
 class ConnectionManagerTest extends TestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Plugin::unload();
@@ -36,11 +36,11 @@ class ConnectionManagerTest extends TestCase {
 		ConnectionManager::dropAlias('other_name');
 	}
 
-/**
- * Data provider for valid config data sets.
- *
- * @return array
- */
+	/**
+	 * Data provider for valid config data sets.
+	 *
+	 * @return array
+	 */
 	public static function configProvider() {
 		return [
 			'Array of data using classname key.' => [[
@@ -51,12 +51,12 @@ class ConnectionManagerTest extends TestCase {
 		];
 	}
 
-/**
- * Test the various valid config() calls.
- *
- * @dataProvider configProvider
- * @return void
- */
+	/**
+	 * Test the various valid config() calls.
+	 *
+	 * @dataProvider configProvider
+	 * @return void
+	 */
 	public function testConfigVariants($settings) {
 		$this->assertNotContains('test_variant', ConnectionManager::configured(), 'test_variant config should not exist.');
 		ConnectionManager::config('test_variant', $settings);
@@ -66,11 +66,11 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertContains('test_variant', ConnectionManager::configured());
 	}
 
-/**
- * Test invalid classes cause exceptions
- *
- * @expectedException Cake\Database\Exception\MissingDriverException
- */
+	/**
+	 * Test invalid classes cause exceptions
+	 *
+	 * @expectedException Cake\Database\Exception\MissingDriverException
+	 */
 	public function testConfigInvalidOptions() {
 		ConnectionManager::config('test_variant', [
 			'className' => 'HerpDerp'
@@ -78,13 +78,13 @@ class ConnectionManagerTest extends TestCase {
 		ConnectionManager::get('test_variant');
 	}
 
-/**
- * Test for errors on duplicate config.
- *
- * @expectedException Cake\Error\Exception
- * @expectedExceptionMessage Cannot reconfigure existing key "test_variant"
- * @return void
- */
+	/**
+	 * Test for errors on duplicate config.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @expectedExceptionMessage Cannot reconfigure existing key "test_variant"
+	 * @return void
+	 */
 	public function testConfigDuplicateConfig() {
 		$settings = [
 			'className' => 'Sqlite',
@@ -94,22 +94,22 @@ class ConnectionManagerTest extends TestCase {
 		ConnectionManager::config('test_variant', $settings);
 	}
 
-/**
- * Test get() failing on missing config.
- *
- * @expectedException Cake\Error\Exception
- * @expectedExceptionMessage The datasource configuration "test_variant" was not found.
- * @return void
- */
+	/**
+	 * Test get() failing on missing config.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @expectedExceptionMessage The datasource configuration "test_variant" was not found.
+	 * @return void
+	 */
 	public function testGetFailOnMissingConfig() {
 		ConnectionManager::get('test_variant');
 	}
 
-/**
- * Test loading configured connections.
- *
- * @return void
- */
+	/**
+	 * Test loading configured connections.
+	 *
+	 * @return void
+	 */
 	public function testGet() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(empty($config), 'No test config, skipping');
@@ -120,13 +120,13 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertEquals('test', $ds->configName());
 	}
 
-/**
- * Test loading connections without aliases
- *
- * @expectedException Cake\Error\Exception
- * @expectedExceptionMessage The datasource configuration "other_name" was not found.
- * @return void
- */
+	/**
+	 * Test loading connections without aliases
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @expectedExceptionMessage The datasource configuration "other_name" was not found.
+	 * @return void
+	 */
 	public function testGetNoAlias() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(empty($config), 'No test config, skipping');
@@ -135,11 +135,11 @@ class ConnectionManagerTest extends TestCase {
 		ConnectionManager::get('other_name', false);
 	}
 
-/**
- * Test that configured() finds configured sources.
- *
- * @return void
- */
+	/**
+	 * Test that configured() finds configured sources.
+	 *
+	 * @return void
+	 */
 	public function testConfigured() {
 		ConnectionManager::config('test_variant', [
 			'className' => 'Sqlite',
@@ -149,11 +149,11 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertContains('test_variant', $results);
 	}
 
-/**
- * testGetPluginDataSource method
- *
- * @return void
- */
+	/**
+	 * testGetPluginDataSource method
+	 *
+	 * @return void
+	 */
 	public function testGetPluginDataSource() {
 		Plugin::load('TestPlugin');
 		$name = 'test_variant';
@@ -165,11 +165,11 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertInstanceOf('TestPlugin\Database\Driver\TestSource', $connection->driver());
 	}
 
-/**
- * Tests that a connection configuration can be deleted in runtime
- *
- * @return void
- */
+	/**
+	 * Tests that a connection configuration can be deleted in runtime
+	 *
+	 * @return void
+	 */
 	public function testDrop() {
 		ConnectionManager::config('test_variant', [
 			'className' => 'Sqlite',
@@ -185,11 +185,11 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertFalse(ConnectionManager::drop('probably_does_not_exist'), 'Should return false on failure.');
 	}
 
-/**
- * Test aliasing connections.
- *
- * @return void
- */
+	/**
+	 * Test aliasing connections.
+	 *
+	 * @return void
+	 */
 	public function testAlias() {
 		ConnectionManager::config('test_variant', [
 			'className' => 'Sqlite',
@@ -200,12 +200,12 @@ class ConnectionManagerTest extends TestCase {
 		$this->assertSame($result, ConnectionManager::get('other_name'));
 	}
 
-/**
- * Test alias() raises an error when aliasing an undefined connection.
- *
- * @expectedException Cake\Error\MissingDatasourceConfigException
- * @return void
- */
+	/**
+	 * Test alias() raises an error when aliasing an undefined connection.
+	 *
+	 * @expectedException Cake\Error\MissingDatasourceConfigException
+	 * @return void
+	 */
 	public function testAliasError() {
 		$this->assertNotContains('test_kaboom', ConnectionManager::configured());
 		ConnectionManager::alias('test_kaboom', 'other_name');

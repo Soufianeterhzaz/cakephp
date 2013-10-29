@@ -28,11 +28,11 @@ use \ReflectionMethod;
  */
 class CommandTask extends Shell {
 
-/**
- * Gets the shell command listing.
- *
- * @return array
- */
+	/**
+	 * Gets the shell command listing.
+	 *
+	 * @return array
+	 */
 	public function getShellList() {
 		$skipFiles = array('AppShell');
 
@@ -56,25 +56,25 @@ class CommandTask extends Shell {
 		return array_filter($shellList);
 	}
 
-/**
- * Scan the provided paths for shells, and append them into $shellList
- *
- * @param string $type
- * @param array $shells
- * @param array $shellList
- * @return void
- */
+	/**
+	 * Scan the provided paths for shells, and append them into $shellList
+	 *
+	 * @param string $type
+	 * @param array $shells
+	 * @param array $shellList
+	 * @return void
+	 */
 	protected function _appendShells($type, $shells, &$shellList) {
 		foreach ($shells as $shell) {
 			$shellList[$type][] = Inflector::underscore(str_replace('Shell', '', $shell));
 		}
 	}
 
-/**
- * Return a list of all commands
- *
- * @return array
- */
+	/**
+	 * Return a list of all commands
+	 *
+	 * @return array
+	 */
 	public function commands() {
 		$shellList = $this->getShellList();
 
@@ -93,12 +93,12 @@ class CommandTask extends Shell {
 		return $options;
 	}
 
-/**
- * Return a list of subcommands for a given command
- *
- * @param string $commandName
- * @return array
- */
+	/**
+	 * Return a list of subcommands for a given command
+	 *
+	 * @param string $commandName
+	 * @return array
+	 */
 	public function subCommands($commandName) {
 		$Shell = $this->getShell($commandName);
 
@@ -130,12 +130,12 @@ class CommandTask extends Shell {
 		return $return;
 	}
 
-/**
- * Get Shell instance for the given command
- *
- * @param mixed $commandName
- * @return mixed
- */
+	/**
+	 * Get Shell instance for the given command
+	 *
+	 * @param mixed $commandName
+	 * @return mixed
+	 */
 	public function getShell($commandName) {
 		list($pluginDot, $name) = pluginSplit($commandName, true);
 
@@ -162,12 +162,12 @@ class CommandTask extends Shell {
 		return $Shell;
 	}
 
-/**
- * Get Shell instance for the given command
- *
- * @param mixed $commandName
- * @return array
- */
+	/**
+	 * Get Shell instance for the given command
+	 *
+	 * @param mixed $commandName
+	 * @return array
+	 */
 	public function options($commandName) {
 		$Shell = $this->getShell($commandName);
 		if (!$Shell) {

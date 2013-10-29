@@ -25,18 +25,18 @@ use Cake\Utility\Xml;
  */
 class XmlArticle extends TestModel {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'Article';
 
-/**
- * belongsTo property
- *
- * @var array
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'User' => array(
 			'className' => 'XmlUser',
@@ -51,18 +51,18 @@ class XmlArticle extends TestModel {
  */
 class XmlUser extends TestModel {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'User';
 
-/**
- * hasMany property
- *
- * @var array
- */
+	/**
+	 * hasMany property
+	 *
+	 * @var array
+	 */
 	public $hasMany = array(
 		'Article' => array(
 			'className' => 'XmlArticle'
@@ -76,47 +76,47 @@ class XmlUser extends TestModel {
  */
 class XmlTest extends TestCase {
 
-/**
- * autoFixtures property
- *
- * @var boolean
- */
+	/**
+	 * autoFixtures property
+	 *
+	 * @var boolean
+	 */
 	public $autoFixtures = false;
 
-/**
- * fixtures property
- * @var array
- */
+	/**
+	 * fixtures property
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.article', 'core.user'
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->_appEncoding = Configure::read('App.encoding');
 		Configure::write('App.encoding', 'UTF-8');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('App.encoding', $this->_appEncoding);
 	}
 
-/**
- * testBuild method
- *
- * @return void
- */
+	/**
+	 * testBuild method
+	 *
+	 * @return void
+	 */
 	public function testBuild() {
 		$xml = '<tag>value</tag>';
 		$obj = Xml::build($xml);
@@ -164,11 +164,11 @@ class XmlTest extends TestCase {
 		$this->assertNotRegExp('/encoding/', $obj->saveXML());
 	}
 
-/**
- * data provider function for testBuildInvalidData
- *
- * @return array
- */
+	/**
+	 * data provider function for testBuildInvalidData
+	 *
+	 * @return array
+	 */
 	public static function invalidDataProvider() {
 		return array(
 			array(null),
@@ -178,33 +178,33 @@ class XmlTest extends TestCase {
 		);
 	}
 
-/**
- * testBuildInvalidData
- *
- * @dataProvider invalidDataProvider
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * testBuildInvalidData
+	 *
+	 * @dataProvider invalidDataProvider
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testBuildInvalidData($value) {
 		Xml::build($value);
 	}
 
-/**
- * Test that building SimpleXmlElement with invalid XML causes the right exception.
- *
- * @expectedException Cake\Error\XmlException
- * @return void
- */
+	/**
+	 * Test that building SimpleXmlElement with invalid XML causes the right exception.
+	 *
+	 * @expectedException Cake\Error\XmlException
+	 * @return void
+	 */
 	public function testBuildInvalidDataSimpleXml() {
 		$input = '<derp';
 		$xml = Xml::build($input, array('return' => 'simplexml'));
 	}
 
-/**
- * test build with a single empty tag
- *
- * return void
- */
+	/**
+	 * test build with a single empty tag
+	 *
+	 * return void
+	 */
 	public function testBuildEmptyTag() {
 		try {
 			Xml::build('<tag>');
@@ -214,11 +214,11 @@ class XmlTest extends TestCase {
 		}
 	}
 
-/**
- * testFromArray method
- *
- * @return void
- */
+	/**
+	 * testFromArray method
+	 *
+	 * @return void
+	 */
 	public function testFromArray() {
 		$xml = array('tag' => 'value');
 		$obj = Xml::fromArray($xml);
@@ -385,11 +385,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($xmlText, $obj->asXML());
 	}
 
-/**
- * Test non-sequential keys in list types.
- *
- * @return void
- */
+	/**
+	 * Test non-sequential keys in list types.
+	 *
+	 * @return void
+	 */
 	public function testFromArrayNonSequentialKeys() {
 		$xmlArray = array(
 			'Event' => array(
@@ -422,11 +422,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($expected, $obj->asXML());
 	}
 
-/**
- * testFromArrayPretty method
- *
- * @return void
- */
+	/**
+	 * testFromArrayPretty method
+	 *
+	 * @return void
+	 */
 	public function testFromArrayPretty() {
 		$xml = array(
 			'tags' => array(
@@ -503,11 +503,11 @@ XML;
 		$this->assertTextEquals($expected, $xmlResponse->asXML());
 	}
 
-/**
- * data provider for fromArray() failures
- *
- * @return array
- */
+	/**
+	 * data provider for fromArray() failures
+	 *
+	 * @return array
+	 */
 	public static function invalidArrayDataProvider() {
 		return array(
 			array(''),
@@ -546,11 +546,11 @@ XML;
 		);
 	}
 
-/**
- * testFromArrayFail method
- *
- * @dataProvider invalidArrayDataProvider
- */
+	/**
+	 * testFromArrayFail method
+	 *
+	 * @dataProvider invalidArrayDataProvider
+	 */
 	public function testFromArrayFail($value) {
 		try {
 			Xml::fromArray($value);
@@ -560,11 +560,11 @@ XML;
 		}
 	}
 
-/**
- * Test that there are not unterminated errors when building xml
- *
- * @return void
- */
+	/**
+	 * Test that there are not unterminated errors when building xml
+	 *
+	 * @return void
+	 */
 	public function testFromArrayUnterminatedError() {
 		$data = array(
 			'product_ID' => 'GENERT-DL',
@@ -595,11 +595,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($expected, $xml->asXML());
 	}
 
-/**
- * testToArray method
- *
- * @return void
- */
+	/**
+	 * testToArray method
+	 *
+	 * @return void
+	 */
 	public function testToArray() {
 		$xml = '<tag>name</tag>';
 		$obj = Xml::build($xml);
@@ -757,11 +757,11 @@ XML;
 		$this->assertEquals($expected, Xml::toArray($obj));
 	}
 
-/**
- * testRss
- *
- * @return void
- */
+	/**
+	 * testRss
+	 *
+	 * @return void
+	 */
 	public function testRss() {
 		$rss = file_get_contents(CAKE . 'Test/Fixture/rss.xml');
 		$rssAsArray = Xml::toArray(Xml::build($rss));
@@ -832,11 +832,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($xmlText, $rssAsSimpleXML->asXML());
 	}
 
-/**
- * testXmlRpc
- *
- * @return void
- */
+	/**
+	 * testXmlRpc
+	 *
+	 * @return void
+	 */
 	public function testXmlRpc() {
 		$xml = Xml::build('<methodCall><methodName>test</methodName><params /></methodCall>');
 		$expected = array(
@@ -917,11 +917,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($xmlText, $xml->asXML());
 	}
 
-/**
- * testSoap
- *
- * @return void
- */
+	/**
+	 * testSoap
+	 *
+	 * @return void
+	 */
 	public function testSoap() {
 		$xmlRequest = Xml::build(CAKE . 'Test/Fixture/soap_request.xml');
 		$expected = array(
@@ -973,11 +973,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($xmlText, $xmlRequest->asXML());
 	}
 
-/**
- * testNamespace
- *
- * @return void
- */
+	/**
+	 * testNamespace
+	 *
+	 * @return void
+	 */
 	public function testNamespace() {
 		$xml = <<<XML
 <root xmlns:ns="http://cakephp.org">
@@ -1090,11 +1090,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($expected, $xmlResponse->asXML());
 	}
 
-/**
- * test that CDATA blocks don't get screwed up by SimpleXml
- *
- * @return void
- */
+	/**
+	 * test that CDATA blocks don't get screwed up by SimpleXml
+	 *
+	 * @return void
+	 */
 	public function testCdata() {
 		$xml = '<' . '?xml version="1.0" encoding="UTF-8"?>' .
 			'<people><name><![CDATA[ Mark ]]></name></people>';
@@ -1103,11 +1103,11 @@ XML;
 		$this->assertEquals(' Mark ', (string)$result->name);
 	}
 
-/**
- * data provider for toArray() failures
- *
- * @return array
- */
+	/**
+	 * data provider for toArray() failures
+	 *
+	 * @return array
+	 */
 	public static function invalidToArrayDataProvider() {
 		return array(
 			array(new \DateTime()),
@@ -1115,21 +1115,21 @@ XML;
 		);
 	}
 
-/**
- * testToArrayFail method
- *
- * @dataProvider invalidToArrayDataProvider
- * @expectedException Cake\Error\XmlException
- */
+	/**
+	 * testToArrayFail method
+	 *
+	 * @dataProvider invalidToArrayDataProvider
+	 * @expectedException Cake\Error\XmlException
+	 */
 	public function testToArrayFail($value) {
 		Xml::toArray($value);
 	}
 
-/**
- * testWithModel method
- *
- * @return void
- */
+	/**
+	 * testWithModel method
+	 *
+	 * @return void
+	 */
 	public function testWithModel() {
 		$this->markTestIncomplete('Models do not work right now');
 		$this->loadFixtures('User', 'Article');
@@ -1172,11 +1172,11 @@ XML;
 		$this->assertXmlStringEqualsXmlString($expected, $obj->asXML());
 	}
 
-/**
- * Test ampersand in text elements.
- *
- * @return void
- */
+	/**
+	 * Test ampersand in text elements.
+	 *
+	 * @return void
+	 */
 	public function testAmpInText() {
 		$data = array(
 			'outer' => array(
@@ -1188,11 +1188,11 @@ XML;
 		$this->assertContains('mark &amp; mark', $result);
 	}
 
-/**
- * Test that entity loading is disabled by default.
- *
- * @return void
- */
+	/**
+	 * Test that entity loading is disabled by default.
+	 *
+	 * @return void
+	 */
 	public function testNoEntityLoading() {
 		$file = str_replace(' ', '%20', CAKE . 'VERSION.txt');
 		$xml = <<<XML

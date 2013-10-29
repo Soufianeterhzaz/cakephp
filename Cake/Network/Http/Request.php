@@ -24,44 +24,44 @@ use Cake\Network\Http\Message;
  */
 class Request extends Message {
 
-/**
- * The HTTP method to use.
- *
- * @var string
- */
+	/**
+	 * The HTTP method to use.
+	 *
+	 * @var string
+	 */
 	protected $_method = self::METHOD_GET;
 
-/**
- * Request body to send.
- *
- * @var mixed
- */
+	/**
+	 * Request body to send.
+	 *
+	 * @var mixed
+	 */
 	protected $_body;
 
-/**
- * The URL to request.
- *
- * @var string
- */
+	/**
+	 * The URL to request.
+	 *
+	 * @var string
+	 */
 	protected $_url;
 
-/**
- * Headers to be sent.
- *
- * @var array
- */
+	/**
+	 * Headers to be sent.
+	 *
+	 * @var array
+	 */
 	protected $_headers = [
 		'Connection' => 'close',
 		'User-Agent' => 'CakePHP'
 	];
 
-/**
- * Get/Set the HTTP method.
- *
- * @param string|null $method The method for the request.
- * @return mixed Either this or the current method.
- * @throws Cake\Error\Exception On invalid methods.
- */
+	/**
+	 * Get/Set the HTTP method.
+	 *
+	 * @param string|null $method The method for the request.
+	 * @return mixed Either this or the current method.
+	 * @throws Cake\Error\Exception On invalid methods.
+	 */
 	public function method($method = null) {
 		if ($method === null) {
 			return $this->_method;
@@ -74,12 +74,12 @@ class Request extends Message {
 		return $this;
 	}
 
-/**
- * Get/Set the url for the request.
- *
- * @param string|null $url The url for the request. Leave null for get
- * @return mixed Either $this or the url value.
- */
+	/**
+	 * Get/Set the url for the request.
+	 *
+	 * @param string|null $url The url for the request. Leave null for get
+	 * @return mixed Either $this or the url value.
+	 */
 	public function url($url = null) {
 		if ($url === null) {
 			return $this->_url;
@@ -88,28 +88,28 @@ class Request extends Message {
 		return $this;
 	}
 
-/**
- * Get/Set headers into the request.
- *
- * You can get the value of a header, or set one/many headers.
- * Headers are set / fetched in a case insensitive way.
- *
- * ### Getting headers
- *
- * `$request->header('Content-Type');`
- *
- * ### Setting one header
- *
- * `$request->header('Content-Type', 'application/json');`
- *
- * ### Setting multiple headers
- *
- * `$request->header(['Connection' => 'close', 'User-Agent' => 'CakePHP']);`
- *
- * @param string|array $name The name to get, or array of multiple values to set.
- * @param string $value The value to set for the header.
- * @return mixed Either $this when setting or header value when getting.
- */
+	/**
+	 * Get/Set headers into the request.
+	 *
+	 * You can get the value of a header, or set one/many headers.
+	 * Headers are set / fetched in a case insensitive way.
+	 *
+	 * ### Getting headers
+	 *
+	 * `$request->header('Content-Type');`
+	 *
+	 * ### Setting one header
+	 *
+	 * `$request->header('Content-Type', 'application/json');`
+	 *
+	 * ### Setting multiple headers
+	 *
+	 * `$request->header(['Connection' => 'close', 'User-Agent' => 'CakePHP']);`
+	 *
+	 * @param string|array $name The name to get, or array of multiple values to set.
+	 * @param string $value The value to set for the header.
+	 * @return mixed Either $this when setting or header value when getting.
+	 */
 	public function header($name = null, $value = null) {
 		if ($value === null && is_string($name)) {
 			$name = $this->_normalizeHeader($name);
@@ -125,25 +125,25 @@ class Request extends Message {
 		return $this;
 	}
 
-/**
- * Get/Set cookie values.
- *
- * ### Getting a cookie
- *
- * `$request->cookie('session');`
- *
- * ### Setting one cookie
- *
- * `$request->cookie('session', '123456');`
- *
- * ### Setting multiple headers
- *
- * `$request->cookie(['test' => 'value', 'split' => 'banana']);`
- *
- * @param string $name The name of the cookie to get/set
- * @param string|null $value Either the value or null when getting values.
- * @return mixed Either $this or the cookie value.
- */
+	/**
+	 * Get/Set cookie values.
+	 *
+	 * ### Getting a cookie
+	 *
+	 * `$request->cookie('session');`
+	 *
+	 * ### Setting one cookie
+	 *
+	 * `$request->cookie('session', '123456');`
+	 *
+	 * ### Setting multiple headers
+	 *
+	 * `$request->cookie(['test' => 'value', 'split' => 'banana']);`
+	 *
+	 * @param string $name The name of the cookie to get/set
+	 * @param string|null $value Either the value or null when getting values.
+	 * @return mixed Either $this or the cookie value.
+	 */
 	public function cookie($name, $value = null) {
 		if ($value === null && is_string($name)) {
 			return isset($this->_cookies[$name]) ? $this->_cookies[$name] : null;

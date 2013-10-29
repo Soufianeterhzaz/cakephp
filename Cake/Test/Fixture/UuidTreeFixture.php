@@ -27,11 +27,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class UuidTreeFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'string', 'length' => 36],
 		'name' => ['type' => 'string', 'null' => false],

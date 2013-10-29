@@ -57,90 +57,90 @@ use Cake\Utility\Inflector;
  */
 class Table {
 
-/**
- * Name of the table as it can be found in the database
- *
- * @var string
- */
+	/**
+	 * Name of the table as it can be found in the database
+	 *
+	 * @var string
+	 */
 	protected $_table;
 
-/**
- * Human name giving to this particular instance. Multiple objects representing
- * the same database table can exist by using different aliases.
- *
- * @var string
- */
+	/**
+	 * Human name giving to this particular instance. Multiple objects representing
+	 * the same database table can exist by using different aliases.
+	 *
+	 * @var string
+	 */
 	protected $_alias;
 
-/**
- * Connection instance
- *
- * @var \Cake\Database\Connection
- */
+	/**
+	 * Connection instance
+	 *
+	 * @var \Cake\Database\Connection
+	 */
 	protected $_connection;
 
-/**
- * The schema object containing a description of this table fields
- *
- * @var \Cake\Database\Schema\Table
- */
+	/**
+	 * The schema object containing a description of this table fields
+	 *
+	 * @var \Cake\Database\Schema\Table
+	 */
 	protected $_schema;
 
-/**
- * The name of the field that represents the primary key in the table
- *
- * @var string
- */
+	/**
+	 * The name of the field that represents the primary key in the table
+	 *
+	 * @var string
+	 */
 	protected $_primaryKey = 'id';
 
-/**
- * The name of the field that represents a human readable representation of a row
- *
- * @var string
- */
+	/**
+	 * The name of the field that represents a human readable representation of a row
+	 *
+	 * @var string
+	 */
 	protected $_displayField;
 
-/**
- * The list of associations for this table. Indexed by association name,
- * values are Association object instances.
- *
- * @var array
- */
+	/**
+	 * The list of associations for this table. Indexed by association name,
+	 * values are Association object instances.
+	 *
+	 * @var array
+	 */
 	protected $_associations = [];
 
-/**
- * EventManager for this model.
- *
- * All model/behavior callbacks will be dispatched on this manager.
- *
- * @var Cake\Event\EventManager
- */
+	/**
+	 * EventManager for this model.
+	 *
+	 * All model/behavior callbacks will be dispatched on this manager.
+	 *
+	 * @var Cake\Event\EventManager
+	 */
 	protected $_eventManager;
 
-/**
- * The name of the class that represent a single row for this table
- *
- * @var string
- */
+	/**
+	 * The name of the class that represent a single row for this table
+	 *
+	 * @var string
+	 */
 	protected $_entityClass;
 
-/**
- * Initializes a new instance
- *
- * The $config array understands the following keys:
- *
- * - table: Name of the database table to represent
- * - alias: Alias to be assigned to this table (default to table name)
- * - connection: The connection instance to use
- * - entityClass: The fully namespaced class name of the entity class that will
- *   represent rows in this table.
- * - schema: A \Cake\Database\Schema\Table object or an array that can be
- *   passed to it.
- * - eventManager: An instance of an event manager to use for internal events
- *
- * @param array config Lsit of options for this table
- * @return void
- */
+	/**
+	 * Initializes a new instance
+	 *
+	 * The $config array understands the following keys:
+	 *
+	 * - table: Name of the database table to represent
+	 * - alias: Alias to be assigned to this table (default to table name)
+	 * - connection: The connection instance to use
+	 * - entityClass: The fully namespaced class name of the entity class that will
+	 *   represent rows in this table.
+	 * - schema: A \Cake\Database\Schema\Table object or an array that can be
+	 *   passed to it.
+	 * - eventManager: An instance of an event manager to use for internal events
+	 *
+	 * @param array config Lsit of options for this table
+	 * @return void
+	 */
 	public function __construct(array $config = []) {
 		if (!empty($config['table'])) {
 			$this->table($config['table']);
@@ -165,45 +165,45 @@ class Table {
 		$this->initialize($config);
 	}
 
-/**
- * Get the default connection name.
- *
- * This method is used to get the fallback connection name if an
- * instance is created through the TableRegistry without a connection.
- *
- * @return string
- * @see Cake\ORM\TableRegistry::get()
- */
+	/**
+	 * Get the default connection name.
+	 *
+	 * This method is used to get the fallback connection name if an
+	 * instance is created through the TableRegistry without a connection.
+	 *
+	 * @return string
+	 * @see Cake\ORM\TableRegistry::get()
+	 */
 	public static function defaultConnectionName() {
 		return 'default';
 	}
 
-/**
- * Initialize a table instance. Called after the constructor.
- *
- * You can use this method to define associations, attach behaviors
- * define validation and do any other initialization logic you need.
- *
- * {{{
- *	public function initialize(array $config) {
- *		$this->belongsTo('User');
- *		$this->belongsToMany('Tagging.Tag');
- *		$this->primaryKey('something_else');
- *	}
- * }}}
- *
- * @param array $config Configuration options passed to the constructor
- * @return void
- */
+	/**
+	 * Initialize a table instance. Called after the constructor.
+	 *
+	 * You can use this method to define associations, attach behaviors
+	 * define validation and do any other initialization logic you need.
+	 *
+	 * {{{
+	 *	public function initialize(array $config) {
+	 *		$this->belongsTo('User');
+	 *		$this->belongsToMany('Tagging.Tag');
+	 *		$this->primaryKey('something_else');
+	 *	}
+	 * }}}
+	 *
+	 * @param array $config Configuration options passed to the constructor
+	 * @return void
+	 */
 	public function initialize(array $config) {
 	}
 
-/**
- * Returns the database table name or sets a new one
- *
- * @param string $table the new table name
- * @return string
- */
+	/**
+	 * Returns the database table name or sets a new one
+	 *
+	 * @param string $table the new table name
+	 * @return string
+	 */
 	public function table($table = null) {
 		if ($table !== null) {
 			$this->_table = $table;
@@ -219,12 +219,12 @@ class Table {
 		return $this->_table;
 	}
 
-/**
- * Returns the table alias or sets a new one
- *
- * @param string $table the new table alias
- * @return string
- */
+	/**
+	 * Returns the table alias or sets a new one
+	 *
+	 * @param string $table the new table alias
+	 * @return string
+	 */
 	public function alias($alias = null) {
 		if ($alias !== null) {
 			$this->_alias = $alias;
@@ -237,12 +237,12 @@ class Table {
 		return $this->_alias;
 	}
 
-/**
- * Returns the connection instance or sets a new one
- *
- * @param \Cake\Database\Connection $conn the new connection instance
- * @return \Cake\Database\Connection
- */
+	/**
+	 * Returns the connection instance or sets a new one
+	 *
+	 * @param \Cake\Database\Connection $conn the new connection instance
+	 * @return \Cake\Database\Connection
+	 */
 	public function connection($conn = null) {
 		if ($conn === null) {
 			return $this->_connection;
@@ -250,27 +250,27 @@ class Table {
 		return $this->_connection = $conn;
 	}
 
-/**
- * Get the event manager for this Table.
- *
- * @return Cake\Event\EventManager
- */
+	/**
+	 * Get the event manager for this Table.
+	 *
+	 * @return Cake\Event\EventManager
+	 */
 	public function getEventManager() {
 		return $this->_eventManager;
 	}
 
-/**
- * Returns the schema table object describing this table's properties.
- *
- * If an \Cake\Database\Schema\Table is passed, it will be used for this table
- * instead of the default one.
- *
- * If an array is passed, a new \Cake\Database\Schema\Table will be constructed
- * out of it and used as the schema for this table.
- *
- * @param array|\Cake\Database\Schema\Table new schema to be used for this table
- * @return \Cake\Database\Schema\Table
- */
+	/**
+	 * Returns the schema table object describing this table's properties.
+	 *
+	 * If an \Cake\Database\Schema\Table is passed, it will be used for this table
+	 * instead of the default one.
+	 *
+	 * If an array is passed, a new \Cake\Database\Schema\Table will be constructed
+	 * out of it and used as the schema for this table.
+	 *
+	 * @param array|\Cake\Database\Schema\Table new schema to be used for this table
+	 * @return \Cake\Database\Schema\Table
+	 */
 	public function schema($schema = null) {
 		if ($schema === null) {
 			if ($this->_schema === null) {
@@ -286,12 +286,12 @@ class Table {
 		return $this->_schema = $schema;
 	}
 
-/**
- * Returns the primary key field name or sets a new one
- *
- * @param string $key sets a new name to be used as primary key
- * @return string
- */
+	/**
+	 * Returns the primary key field name or sets a new one
+	 *
+	 * @param string $key sets a new name to be used as primary key
+	 * @return string
+	 */
 	public function primaryKey($key = null) {
 		if ($key !== null) {
 			$this->_primaryKey = $key;
@@ -299,12 +299,12 @@ class Table {
 		return $this->_primaryKey;
 	}
 
-/**
- * Returns the display field or sets a new one
- *
- * @param string $key sets a new name to be used as display field
- * @return string
- */
+	/**
+	 * Returns the display field or sets a new one
+	 *
+	 * @param string $key sets a new name to be used as display field
+	 * @return string
+	 */
 	public function displayField($key = null) {
 		if ($key !== null) {
 			$this->_displayField = $key;
@@ -322,14 +322,14 @@ class Table {
 		return $this->_displayField;
 	}
 
-/**
- * Returns the class used to hydrate rows for this table or sets
- * a new one
- *
- * @param string $name the name of the class to use
- * @throws \Cake\ORM\Error\MissingEntityException when the entity class cannot be found
- * @return string
- */
+	/**
+	 * Returns the class used to hydrate rows for this table or sets
+	 * a new one
+	 *
+	 * @param string $name the name of the class to use
+	 * @throws \Cake\ORM\Error\MissingEntityException when the entity class cannot be found
+	 * @return string
+	 */
 	public function entityClass($name = null) {
 		if ($name === null && !$this->_entityClass) {
 			$default = '\Cake\ORM\Entity';
@@ -359,12 +359,12 @@ class Table {
 		return $this->_entityClass;
 	}
 
-/**
- * Returns a association objected configured for the specified alias if any
- *
- * @param string $name the alias used for the association
- * @return Cake\ORM\Association
- */
+	/**
+	 * Returns a association objected configured for the specified alias if any
+	 *
+	 * @param string $name the alias used for the association
+	 * @return Cake\ORM\Association
+	 */
 	public function association($name) {
 		$name = strtolower($name);
 		if (isset($this->_associations[$name])) {
@@ -373,190 +373,190 @@ class Table {
 		return null;
 	}
 
-/**
- * Creates a new BelongsTo association between this table and a target
- * table. A "belongs to" association is a N-1 relationship where this table
- * is the N side, and where there is a single associated record in the target
- * table for each one in this table.
- *
- * Target table can be inferred by its name, which is provided in the
- * first argument, or you can either pass the to be instantiated or
- * an instance of it directly.
- *
- * The options array accept the following keys:
- *
- * - className: The class name of the target table object
- * - targetTable: An instance of a table object to be used as the target table
- * - foreignKey: The name of the field to use as foreign key, if false none
- *   will be used
- * - conditions: array with a list of conditions to filter the join with
- * - joinType: The type of join to be used (e.g. INNER)
- *
- * This method will return the association object that was built.
- *
- * @param string $associated the alias for the target table. This is used to
- * uniquely identify the association
- * @param array $options list of options to configure the association definition
- * @return Cake\ORM\Association\BelongsTo
- */
+	/**
+	 * Creates a new BelongsTo association between this table and a target
+	 * table. A "belongs to" association is a N-1 relationship where this table
+	 * is the N side, and where there is a single associated record in the target
+	 * table for each one in this table.
+	 *
+	 * Target table can be inferred by its name, which is provided in the
+	 * first argument, or you can either pass the to be instantiated or
+	 * an instance of it directly.
+	 *
+	 * The options array accept the following keys:
+	 *
+	 * - className: The class name of the target table object
+	 * - targetTable: An instance of a table object to be used as the target table
+	 * - foreignKey: The name of the field to use as foreign key, if false none
+	 *   will be used
+	 * - conditions: array with a list of conditions to filter the join with
+	 * - joinType: The type of join to be used (e.g. INNER)
+	 *
+	 * This method will return the association object that was built.
+	 *
+	 * @param string $associated the alias for the target table. This is used to
+	 * uniquely identify the association
+	 * @param array $options list of options to configure the association definition
+	 * @return Cake\ORM\Association\BelongsTo
+	 */
 	public function belongsTo($associated, array $options = []) {
 		$options += ['sourceTable' => $this];
 		$association = new BelongsTo($associated, $options);
 		return $this->_associations[strtolower($association->name())] = $association;
 	}
 
-/**
- * Creates a new HasOne association between this table and a target
- * table. A "has one" association is a 1-1 relationship.
- *
- * Target table can be inferred by its name, which is provided in the
- * first argument, or you can either pass the class name to be instantiated or
- * an instance of it directly.
- *
- * The options array accept the following keys:
- *
- * - className: The class name of the target table object
- * - targetTable: An instance of a table object to be used as the target table
- * - foreignKey: The name of the field to use as foreign key, if false none
- *   will be used
- * - conditions: array with a list of conditions to filter the join with
- * - joinType: The type of join to be used (e.g. LEFT)
- *
- * This method will return the association object that was built.
- *
- * @param string $associated the alias for the target table. This is used to
- * uniquely identify the association
- * @param array $options list of options to configure the association definition
- * @return Cake\ORM\Association\HasOne
- */
+	/**
+	 * Creates a new HasOne association between this table and a target
+	 * table. A "has one" association is a 1-1 relationship.
+	 *
+	 * Target table can be inferred by its name, which is provided in the
+	 * first argument, or you can either pass the class name to be instantiated or
+	 * an instance of it directly.
+	 *
+	 * The options array accept the following keys:
+	 *
+	 * - className: The class name of the target table object
+	 * - targetTable: An instance of a table object to be used as the target table
+	 * - foreignKey: The name of the field to use as foreign key, if false none
+	 *   will be used
+	 * - conditions: array with a list of conditions to filter the join with
+	 * - joinType: The type of join to be used (e.g. LEFT)
+	 *
+	 * This method will return the association object that was built.
+	 *
+	 * @param string $associated the alias for the target table. This is used to
+	 * uniquely identify the association
+	 * @param array $options list of options to configure the association definition
+	 * @return Cake\ORM\Association\HasOne
+	 */
 	public function hasOne($associated, array $options = []) {
 		$options += ['sourceTable' => $this];
 		$association = new HasOne($associated, $options);
 		return $this->_associations[strtolower($association->name())] = $association;
 	}
 
-/**
- * Creates a new HasMany association between this table and a target
- * table. A "has many" association is a 1-N relationship.
- *
- * Target table can be inferred by its name, which is provided in the
- * first argument, or you can either pass the class name to be instantiated or
- * an instance of it directly.
- *
- * The options array accept the following keys:
- *
- * - className: The class name of the target table object
- * - targetTable: An instance of a table object to be used as the target table
- * - foreignKey: The name of the field to use as foreign key, if false none
- *   will be used
- * - conditions: array with a list of conditions to filter the join with
- * - sort: The order in which results for this association should be returned
- * - strategy: The strategy to be used for selecting results Either 'select'
- *   or 'subquery'. If subquery is selected the query used to return results
- *   in the source table will be used as conditions for getting rows in the
- *   target table.
- *
- * This method will return the association object that was built.
- *
- * @param string $associated the alias for the target table. This is used to
- * uniquely identify the association
- * @param array $options list of options to configure the association definition
- * @return Cake\ORM\Association\HasMany
- */
+	/**
+	 * Creates a new HasMany association between this table and a target
+	 * table. A "has many" association is a 1-N relationship.
+	 *
+	 * Target table can be inferred by its name, which is provided in the
+	 * first argument, or you can either pass the class name to be instantiated or
+	 * an instance of it directly.
+	 *
+	 * The options array accept the following keys:
+	 *
+	 * - className: The class name of the target table object
+	 * - targetTable: An instance of a table object to be used as the target table
+	 * - foreignKey: The name of the field to use as foreign key, if false none
+	 *   will be used
+	 * - conditions: array with a list of conditions to filter the join with
+	 * - sort: The order in which results for this association should be returned
+	 * - strategy: The strategy to be used for selecting results Either 'select'
+	 *   or 'subquery'. If subquery is selected the query used to return results
+	 *   in the source table will be used as conditions for getting rows in the
+	 *   target table.
+	 *
+	 * This method will return the association object that was built.
+	 *
+	 * @param string $associated the alias for the target table. This is used to
+	 * uniquely identify the association
+	 * @param array $options list of options to configure the association definition
+	 * @return Cake\ORM\Association\HasMany
+	 */
 	public function hasMany($associated, array $options = []) {
 		$options += ['sourceTable' => $this];
 		$association = new HasMany($associated, $options);
 		return $this->_associations[strtolower($association->name())] = $association;
 	}
 
-/**
- * Creates a new BelongsToMany association between this table and a target
- * table. A "belongs to many" association is a M-N relationship.
- *
- * Target table can be inferred by its name, which is provided in the
- * first argument, or you can either pass the class name to be instantiated or
- * an instance of it directly.
- *
- * The options array accept the following keys:
- *
- * - className: The class name of the target table object
- * - targetTable: An instance of a table object to be used as the target table
- * - foreignKey: The name of the field to use as foreign key
- * - joinTable: The name of the table representing the link between the two
- * - through: If you choose to use an already instantiated link table, set this
- *   key to a configured Table instance containing associations to both the source
- *   and target tables in this association.
- * - conditions: array with a list of conditions to filter the join with
- * - sort: The order in which results for this association should be returned
- * - strategy: The strategy to be used for selecting results Either 'select'
- *   or 'subquery'. If subquery is selected the query used to return results
- *   in the source table will be used as conditions for getting rows in the
- *   target table.
- *
- * This method will return the association object that was built.
- *
- * @param string $associated the alias for the target table. This is used to
- * uniquely identify the association
- * @param array $options list of options to configure the association definition
- * @return Cake\ORM\Association\BelongsToMany
- */
+	/**
+	 * Creates a new BelongsToMany association between this table and a target
+	 * table. A "belongs to many" association is a M-N relationship.
+	 *
+	 * Target table can be inferred by its name, which is provided in the
+	 * first argument, or you can either pass the class name to be instantiated or
+	 * an instance of it directly.
+	 *
+	 * The options array accept the following keys:
+	 *
+	 * - className: The class name of the target table object
+	 * - targetTable: An instance of a table object to be used as the target table
+	 * - foreignKey: The name of the field to use as foreign key
+	 * - joinTable: The name of the table representing the link between the two
+	 * - through: If you choose to use an already instantiated link table, set this
+	 *   key to a configured Table instance containing associations to both the source
+	 *   and target tables in this association.
+	 * - conditions: array with a list of conditions to filter the join with
+	 * - sort: The order in which results for this association should be returned
+	 * - strategy: The strategy to be used for selecting results Either 'select'
+	 *   or 'subquery'. If subquery is selected the query used to return results
+	 *   in the source table will be used as conditions for getting rows in the
+	 *   target table.
+	 *
+	 * This method will return the association object that was built.
+	 *
+	 * @param string $associated the alias for the target table. This is used to
+	 * uniquely identify the association
+	 * @param array $options list of options to configure the association definition
+	 * @return Cake\ORM\Association\BelongsToMany
+	 */
 	public function belongsToMany($associated, array $options = []) {
 		$options += ['sourceTable' => $this];
 		$association = new BelongsToMany($associated, $options);
 		return $this->_associations[strtolower($association->name())] = $association;
 	}
 
-/**
- * Creates a new Query for this table and applies some defaults based on the
- * type of search that was selected.
- *
- * ### Model.beforeFind event
- *
- * Each find() will trigger a `Model.beforeFind` event for all attached
- * listeners. Any listener can set a valid result set using $query
- *
- * @param string $type the type of query to perform
- * @param array $options
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Creates a new Query for this table and applies some defaults based on the
+	 * type of search that was selected.
+	 *
+	 * ### Model.beforeFind event
+	 *
+	 * Each find() will trigger a `Model.beforeFind` event for all attached
+	 * listeners. Any listener can set a valid result set using $query
+	 *
+	 * @param string $type the type of query to perform
+	 * @param array $options
+	 * @return \Cake\ORM\Query
+	 */
 	public function find($type, $options = []) {
 		$query = $this->_buildQuery();
 		$query->select()->applyOptions($options);
 		return $this->{'find' . ucfirst($type)}($query, $options);
 	}
 
-/**
- * Returns the query as passed
- *
- * @param \Cake\ORM\Query $query
- * @param array $options
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Returns the query as passed
+	 *
+	 * @param \Cake\ORM\Query $query
+	 * @param array $options
+	 * @return \Cake\ORM\Query
+	 */
 	public function findAll(Query $query, array $options = []) {
 		return $query;
 	}
 
-/**
- * Sets up a query object so results appear as an indexed array, useful for any
- * place where you would want a list such as for populating input select boxes.
- *
- * When calling this finder, the fields passed are used to determine what should
- * be used as the array key, value and optionally what to group the results by.
- * By default the primary key for the model is used for the key, and the display
- * field as value.
- *
- * The results of this finder will be in the following form:
- *
- *	[
- *		1 => 'value for id 1',
- *		2 => 'value for id 2',
- *		4 => 'value for id 4'
- *	]
- *
- * @param \Cake\ORM\Query $query
- * @param array $options
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Sets up a query object so results appear as an indexed array, useful for any
+	 * place where you would want a list such as for populating input select boxes.
+	 *
+	 * When calling this finder, the fields passed are used to determine what should
+	 * be used as the array key, value and optionally what to group the results by.
+	 * By default the primary key for the model is used for the key, and the display
+	 * field as value.
+	 *
+	 * The results of this finder will be in the following form:
+	 *
+	 *	[
+	 *		1 => 'value for id 1',
+	 *		2 => 'value for id 2',
+	 *		4 => 'value for id 4'
+	 *	]
+	 *
+	 * @param \Cake\ORM\Query $query
+	 * @param array $options
+	 * @return \Cake\ORM\Query
+	 */
 	public function findList(Query $query, array $options = []) {
 		$options += [
 			'idField' => $this->primaryKey(),
@@ -586,17 +586,17 @@ class Table {
 		return $query->mapReduce($mapper, $reducer);
 	}
 
-/**
- * Results for this finder will be a nested array, and is appropriate if you want
- * to use the parent_id field of your model data to build nested results.
- *
- * Values belonging to a parent row based on their parent_id value will be
- * recursively nested inside the parent row values using the `children` property
- *
- * @param \Cake\ORM\Query $query
- * @param array $options
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Results for this finder will be a nested array, and is appropriate if you want
+	 * to use the parent_id field of your model data to build nested results.
+	 *
+	 * Values belonging to a parent row based on their parent_id value will be
+	 * recursively nested inside the parent row values using the `children` property
+	 *
+	 * @param \Cake\ORM\Query $query
+	 * @param array $options
+	 * @return \Cake\ORM\Query
+	 */
 	public function findThreaded(Query $query, array $options = []) {
 		$parents = [];
 		$hydrate = $query->hydrate();
@@ -630,26 +630,26 @@ class Table {
 		return $query;
 	}
 
-/**
- * Creates a new Query instance for this table
- *
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Creates a new Query instance for this table
+	 *
+	 * @return \Cake\ORM\Query
+	 */
 	protected function _buildQuery() {
 		return new Query($this->connection(), $this);
 	}
 
-/**
- * Update all matching rows.
- *
- * Sets the $fields to the provided values based on $conditions.
- * This method will *not* trigger beforeSave/afterSave events. If you need those
- * first load a collection of records and update them.
- *
- * @param array $fields A hash of field => new value.
- * @param array $conditions An array of conditions, similar to those used with find()
- * @return boolean Success Returns true if one or more rows are effected.
- */
+	/**
+	 * Update all matching rows.
+	 *
+	 * Sets the $fields to the provided values based on $conditions.
+	 * This method will *not* trigger beforeSave/afterSave events. If you need those
+	 * first load a collection of records and update them.
+	 *
+	 * @param array $fields A hash of field => new value.
+	 * @param array $conditions An array of conditions, similar to those used with find()
+	 * @return boolean Success Returns true if one or more rows are effected.
+	 */
 	public function updateAll($fields, $conditions) {
 		$query = $this->_buildQuery();
 		$query->update($this->table())
@@ -659,21 +659,21 @@ class Table {
 		return $statement->rowCount() > 0;
 	}
 
-/**
- * Delete all matching rows.
- *
- * Deletes all rows matching the provided conditions.
- *
- * This method will *not* trigger beforeDelete/afterDelete events. If you
- * need those first load a collection of records and delete them.
- *
- * This method will *not* execute on associations `cascade` attribute. You should
- * use database foreign keys + ON CASCADE rules if you need cascading deletes combined
- * with this method.
- *
- * @param array $conditions An array of conditions, similar to those used with find()
- * @return boolean Success Returns true if one or more rows are effected.
- */
+	/**
+	 * Delete all matching rows.
+	 *
+	 * Deletes all rows matching the provided conditions.
+	 *
+	 * This method will *not* trigger beforeDelete/afterDelete events. If you
+	 * need those first load a collection of records and delete them.
+	 *
+	 * This method will *not* execute on associations `cascade` attribute. You should
+	 * use database foreign keys + ON CASCADE rules if you need cascading deletes combined
+	 * with this method.
+	 *
+	 * @param array $conditions An array of conditions, similar to those used with find()
+	 * @return boolean Success Returns true if one or more rows are effected.
+	 */
 	public function deleteAll($conditions) {
 		$query = $this->_buildQuery();
 		$query->delete($this->table())
@@ -699,16 +699,16 @@ class Table {
 		return $entity;
 	}
 
-/**
- * Calls a finder method directly and applies it to the passed query,
- * if no query is passed a new one will be created and returned
- *
- * @param string $type name of the finder to be called
- * @param \Cake\ORM\Query $query The query object to apply the finder options to
- * @param array $args List of options to pass to the finder
- * @return \Cake\ORM\Query
- * @throws \BadMethodCallException
- */
+	/**
+	 * Calls a finder method directly and applies it to the passed query,
+	 * if no query is passed a new one will be created and returned
+	 *
+	 * @param string $type name of the finder to be called
+	 * @param \Cake\ORM\Query $query The query object to apply the finder options to
+	 * @param array $args List of options to pass to the finder
+	 * @return \Cake\ORM\Query
+	 * @throws \BadMethodCallException
+	 */
 	public function callFinder($type, Query $query = null, $options = []) {
 		if (!method_exists($this, 'find' . ucfirst($type))) {
 			throw new \BadMethodCallException(
@@ -721,15 +721,15 @@ class Table {
 		return $this->{'find' . ucfirst($type)}($query, $options);
 	}
 
-/**
- * Magic method to be able to call scoped finders without the
- * find prefix
- *
- * @param string $method name of the method to be invoked
- * @param array $args List of arguments passed to the function
- * @return mixed
- * @throws \BadMethodCallException
- */
+	/**
+	 * Magic method to be able to call scoped finders without the
+	 * find prefix
+	 *
+	 * @param string $method name of the method to be invoked
+	 * @param array $args List of arguments passed to the function
+	 * @return mixed
+	 * @throws \BadMethodCallException
+	 */
 	public function __call($method, $args) {
 		$query = null;
 		if (isset($args[0]) && $args[0] instanceof Query) {

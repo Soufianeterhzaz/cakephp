@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class HtmlCoverageReportTest extends TestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Plugin::load(array('TestPlugin'));
@@ -42,11 +42,11 @@ class HtmlCoverageReportTest extends TestCase {
 		$this->Coverage = new HtmlCoverageReport($coverage, $reporter);
 	}
 
-/**
- * test getting the path filters.
- *
- * @return void
- */
+	/**
+	 * test getting the path filters.
+	 *
+	 * @return void
+	 */
 	public function testGetPathFilter() {
 		$this->Coverage->appTest = false;
 		$result = $this->Coverage->getPathFilter();
@@ -62,11 +62,11 @@ class HtmlCoverageReportTest extends TestCase {
 		$this->assertEquals(Plugin::path('TestPlugin'), $result);
 	}
 
-/**
- * test filtering coverage data.
- *
- * @return void
- */
+	/**
+	 * test filtering coverage data.
+	 *
+	 * @return void
+	 */
 	public function testFilterCoverageDataByPathRemovingElements() {
 		$data = array(
 			CAKE . 'Dispatcher.php' => array(
@@ -84,11 +84,11 @@ class HtmlCoverageReportTest extends TestCase {
 		$this->assertArrayHasKey(APP . 'AppModel.php', $result);
 	}
 
-/**
- * test generating HTML reports from file arrays.
- *
- * @return void
- */
+	/**
+	 * test generating HTML reports from file arrays.
+	 *
+	 * @return void
+	 */
 	public function testGenerateDiff() {
 		$file = array(
 			'line 1',
@@ -131,11 +131,11 @@ class HtmlCoverageReportTest extends TestCase {
 		}
 	}
 
-/**
- * Test that coverage works with phpunit 3.6 as the data formats from coverage are totally different.
- *
- * @return void
- */
+	/**
+	 * Test that coverage works with phpunit 3.6 as the data formats from coverage are totally different.
+	 *
+	 * @return void
+	 */
 	public function testPhpunit36Compatibility() {
 		$file = array(
 			'line 1',
@@ -179,11 +179,11 @@ class HtmlCoverageReportTest extends TestCase {
 		}
 	}
 
-/**
- * test that covering methods show up as title attributes for lines.
- *
- * @return void
- */
+	/**
+	 * test that covering methods show up as title attributes for lines.
+	 *
+	 * @return void
+	 */
 	public function testCoveredLinesTitleAttributes() {
 		$file = array(
 			'line 1',
@@ -221,11 +221,11 @@ class HtmlCoverageReportTest extends TestCase {
 		);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		Plugin::unload();
 		unset($this->Coverage);

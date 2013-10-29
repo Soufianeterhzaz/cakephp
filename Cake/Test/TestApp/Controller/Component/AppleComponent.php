@@ -27,27 +27,27 @@ use Cake\Event\Event;
  */
 class AppleComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Orange');
 
-/**
- * testName property
- *
- * @var mixed null
- */
+	/**
+	 * testName property
+	 *
+	 * @var mixed null
+	 */
 	public $testName = null;
 
-/**
- * startup method
- *
- * @param Event $event
- * @param mixed $controller
- * @return void
- */
+	/**
+	 * startup method
+	 *
+	 * @param Event $event
+	 * @param mixed $controller
+	 * @return void
+	 */
 	public function startup(Event $event) {
 		$this->testName = $controller->name;
 	}

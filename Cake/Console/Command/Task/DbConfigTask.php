@@ -28,18 +28,18 @@ use Cake\Database\ConnectionManager;
  */
 class DbConfigTask extends Shell {
 
-/**
- * path to CONFIG directory
- *
- * @var string
- */
+	/**
+	 * path to CONFIG directory
+	 *
+	 * @var string
+	 */
 	public $path = null;
 
-/**
- * Default configuration settings to use
- *
- * @var array
- */
+	/**
+	 * Default configuration settings to use
+	 *
+	 * @var array
+	 */
 	protected $_defaultConfig = array(
 		'name' => 'default',
 		'datasource' => 'Database/Mysql',
@@ -54,20 +54,20 @@ class DbConfigTask extends Shell {
 		'port' => null
 	);
 
-/**
- * initialization callback
- *
- * @return void
- */
+	/**
+	 * initialization callback
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = APP . 'Config/';
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		if (empty($this->args)) {
 			$this->_interactive();
@@ -75,11 +75,11 @@ class DbConfigTask extends Shell {
 		}
 	}
 
-/**
- * Interactive interface
- *
- * @return void
- */
+	/**
+	 * Interactive interface
+	 *
+	 * @return void
+	 */
 	protected function _interactive() {
 		$this->hr();
 		$this->out(__d('cake_console', 'Database Configuration:'));
@@ -192,12 +192,12 @@ class DbConfigTask extends Shell {
 		return true;
 	}
 
-/**
- * Output verification message and bake if it looks good
- *
- * @param array $config
- * @return boolean True if user says it looks good, false otherwise
- */
+	/**
+	 * Output verification message and bake if it looks good
+	 *
+	 * @param array $config
+	 * @return boolean True if user says it looks good, false otherwise
+	 */
 	protected function _verify($config) {
 		$config = array_merge($this->_defaultConfig, $config);
 		extract($config);
@@ -239,12 +239,12 @@ class DbConfigTask extends Shell {
 		return false;
 	}
 
-/**
- * Assembles and writes datasources.php
- *
- * @param array $configs Configuration settings to use
- * @return boolean Success
- */
+	/**
+	 * Assembles and writes datasources.php
+	 *
+	 * @param array $configs Configuration settings to use
+	 * @return boolean Success
+	 */
 	public function bake($configs) {
 		if (!is_dir($this->path)) {
 			$this->err(__d('cake_console', '%s not found', $this->path));
@@ -339,11 +339,11 @@ class DbConfigTask extends Shell {
 		return $this->createFile($filename, $out);
 	}
 
-/**
- * Get a user specified Connection name
- *
- * @return void
- */
+	/**
+	 * Get a user specified Connection name
+	 *
+	 * @return void
+	 */
 	public function getConfig() {
 		$configs = ConnectionManager::configured();
 
@@ -358,11 +358,11 @@ class DbConfigTask extends Shell {
 		return $useDbConfig;
 	}
 
-/**
- * get the option parser
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * get the option parser
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(

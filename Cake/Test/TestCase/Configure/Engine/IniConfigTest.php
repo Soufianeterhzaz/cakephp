@@ -27,11 +27,11 @@ use Cake\TestSuite\TestCase;
  */
 class IniConfigTest extends TestCase {
 
-/**
- * Test data to serialize and unserialize.
- *
- * @var array
- */
+	/**
+	 * Test data to serialize and unserialize.
+	 *
+	 * @var array
+	 */
 	public $testData = array(
 		'One' => array(
 			'two' => 'value',
@@ -47,21 +47,21 @@ class IniConfigTest extends TestCase {
 		),
 	);
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->path = CAKE . 'Test/TestApp/Config' . DS;
 	}
 
-/**
- * test construct
- *
- * @return void
- */
+	/**
+	 * test construct
+	 *
+	 * @return void
+	 */
 	public function testConstruct() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('acl.ini');
@@ -71,11 +71,11 @@ class IniConfigTest extends TestCase {
 		$this->assertEquals('ads', $config['admin']['deny']);
 	}
 
-/**
- * Test reading files.
- *
- * @return void
- */
+	/**
+	 * Test reading files.
+	 *
+	 * @return void
+	 */
 	public function testRead() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('nested');
@@ -85,11 +85,11 @@ class IniConfigTest extends TestCase {
 		$this->assertTrue($config['bools']['test_on']);
 	}
 
-/**
- * No other sections should exist.
- *
- * @return void
- */
+	/**
+	 * No other sections should exist.
+	 *
+	 * @return void
+	 */
 	public function testReadOnlyOneSection() {
 		$engine = new IniConfig($this->path, 'admin');
 		$config = $engine->read('acl.ini');
@@ -98,11 +98,11 @@ class IniConfigTest extends TestCase {
 		$this->assertEquals('administrators', $config['groups']);
 	}
 
-/**
- * Test reading acl.ini.php.
- *
- * @return void
- */
+	/**
+	 * Test reading acl.ini.php.
+	 *
+	 * @return void
+	 */
 	public function testReadSpecialAclIniPhp() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('acl.ini.php');
@@ -112,11 +112,11 @@ class IniConfigTest extends TestCase {
 		$this->assertEquals('ads', $config['admin']['deny']);
 	}
 
-/**
- * Test without section.
- *
- * @return void
- */
+	/**
+	 * Test without section.
+	 *
+	 * @return void
+	 */
 	public function testReadWithoutSection() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('no_section.ini');
@@ -128,11 +128,11 @@ class IniConfigTest extends TestCase {
 		$this->assertEquals($expected, $config);
 	}
 
-/**
- * Test that names with .'s get exploded into arrays.
- *
- * @return void
- */
+	/**
+	 * Test that names with .'s get exploded into arrays.
+	 *
+	 * @return void
+	 */
 	public function testReadValuesWithDots() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('nested.ini');
@@ -144,11 +144,11 @@ class IniConfigTest extends TestCase {
 		$this->assertFalse(isset($config['database']['db.username']));
 	}
 
-/**
- * Test boolean reading.
- *
- * @return void
- */
+	/**
+	 * Test boolean reading.
+	 *
+	 * @return void
+	 */
 	public function testBooleanReading() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('nested.ini');
@@ -165,55 +165,55 @@ class IniConfigTest extends TestCase {
 		$this->assertFalse($config['bools']['test_null']);
 	}
 
-/**
- * Test an exception is thrown by reading files that exist without .ini extension.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that exist without .ini extension.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithExistentFileWithoutExtension() {
 		$engine = new IniConfig($this->path);
 		$engine->read('no_ini_extension');
 	}
 
-/**
- * Test an exception is thrown by reading files that don't exist.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test an exception is thrown by reading files that don't exist.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithNonExistentFile() {
 		$engine = new IniConfig($this->path);
 		$engine->read('fake_values');
 	}
 
-/**
- * Test reading an empty file.
- *
- * @return void
- */
+	/**
+	 * Test reading an empty file.
+	 *
+	 * @return void
+	 */
 	public function testReadEmptyFile() {
 		$engine = new IniConfig($this->path);
 		$config = $engine->read('empty');
 		$this->assertEquals(array(), $config);
 	}
 
-/**
- * Test reading keys with ../ doesn't work.
- *
- * @expectedException Cake\Error\ConfigureException
- * @return void
- */
+	/**
+	 * Test reading keys with ../ doesn't work.
+	 *
+	 * @expectedException Cake\Error\ConfigureException
+	 * @return void
+	 */
 	public function testReadWithDots() {
 		$engine = new IniConfig($this->path);
 		$engine->read('../empty');
 	}
 
-/**
- * Test reading from plugins.
- *
- * @return void
- */
+	/**
+	 * Test reading from plugins.
+	 *
+	 * @return void
+	 */
 	public function testReadPluginValue() {
 		Plugin::load('TestPlugin');
 		$engine = new IniConfig($this->path);
@@ -229,11 +229,11 @@ class IniConfigTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * Test reading acl.ini.php from plugins.
- *
- * @return void
- */
+	/**
+	 * Test reading acl.ini.php from plugins.
+	 *
+	 * @return void
+	 */
 	public function testReadPluginSpecialAclIniPhpValue() {
 		Plugin::load('TestPlugin');
 		$engine = new IniConfig($this->path);
@@ -245,11 +245,11 @@ class IniConfigTest extends TestCase {
 		Plugin::unload();
 	}
 
-/**
- * Test dump method.
- *
- * @return void
- */
+	/**
+	 * Test dump method.
+	 *
+	 * @return void
+	 */
 	public function testDump() {
 		$engine = new IniConfig(TMP);
 		$result = $engine->dump('test.ini', $this->testData);
@@ -280,11 +280,11 @@ INI;
 		unlink($file);
 	}
 
-/**
- * Test that dump() makes files read() can read.
- *
- * @return void
- */
+	/**
+	 * Test that dump() makes files read() can read.
+	 *
+	 * @return void
+	 */
 	public function testDumpRead() {
 		$engine = new IniConfig(TMP);
 		$engine->dump('test.ini', $this->testData);

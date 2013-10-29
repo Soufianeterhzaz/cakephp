@@ -25,34 +25,34 @@ use Cake\TestSuite\Fixture\TestModel;
  */
 class ControllerPaginatorModel extends TestModel {
 
-/**
- * name property
- *
- * @var string 'ControllerPaginateModel'
- */
+	/**
+	 * name property
+	 *
+	 * @var string 'ControllerPaginateModel'
+	 */
 	public $name = 'ControllerPaginatorModel';
 
-/**
- * useTable property
- *
- * @var string 'comments'
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string 'comments'
+	 */
 	public $useTable = 'comments';
 
-/**
- * paginate method
- *
- * @return void
- */
+	/**
+	 * paginate method
+	 *
+	 * @return void
+	 */
 	public function paginate($conditions, $fields, $order, $limit, $page, $recursive, $extra) {
 		$this->extra = $extra;
 	}
 
-/**
- * paginateCount
- *
- * @return void
- */
+	/**
+	 * paginateCount
+	 *
+	 * @return void
+	 */
 	public function paginateCount($conditions, $recursive, $extra) {
 		$this->extraCount = $extra;
 	}

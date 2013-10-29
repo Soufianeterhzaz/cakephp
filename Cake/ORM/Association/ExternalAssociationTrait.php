@@ -25,31 +25,31 @@ use Cake\Utility\Inflector;
  */
 trait ExternalAssociationTrait {
 
-/**
- * Order in which target records should be returned
- *
- * @var mixed
- */
+	/**
+	 * Order in which target records should be returned
+	 *
+	 * @var mixed
+	 */
 	protected $_sort;
 
-/**
- * Whether this association can be expressed directly in a query join
- *
- * @param array $options custom options key that could alter the return value
- * @return boolean if the 'matching' key in $option is true then this function
- * will return true, false otherwise
- */
+	/**
+	 * Whether this association can be expressed directly in a query join
+	 *
+	 * @param array $options custom options key that could alter the return value
+	 * @return boolean if the 'matching' key in $option is true then this function
+	 * will return true, false otherwise
+	 */
 	public function canBeJoined($options = []) {
 		return !empty($options['matching']);
 	}
 
-/**
- * Sets the name of the field representing the foreign key to the target table.
- * If no parameters are passed current field is returned
- *
- * @param string $key the key to be used to link both tables together
- * @return string
- */
+	/**
+	 * Sets the name of the field representing the foreign key to the target table.
+	 * If no parameters are passed current field is returned
+	 *
+	 * @param string $key the key to be used to link both tables together
+	 * @return string
+	 */
 	public function foreignKey($key = null) {
 		if ($key === null) {
 			if ($this->_foreignKey === null) {
@@ -60,12 +60,12 @@ trait ExternalAssociationTrait {
 		return parent::foreignKey($key);
 	}
 
-/**
- * Sets the sort order in which target records should be returned.
- * If no arguments are passed the currently configured value is returned
- *
- * @return string
- */
+	/**
+	 * Sets the sort order in which target records should be returned.
+	 * If no arguments are passed the currently configured value is returned
+	 *
+	 * @return string
+	 */
 	function sort($sort = null) {
 		if ($sort !== null) {
 			$this->_sort = $sort;
@@ -73,24 +73,24 @@ trait ExternalAssociationTrait {
 		return $this->_sort;
 	}
 
-/**
- * Returns true if the eager loading process will require a set of parent table's
- * primary keys in order to use them as a filter in the finder query.
- *
- * @return boolean true if a list of keys will be required
- */
+	/**
+	 * Returns true if the eager loading process will require a set of parent table's
+	 * primary keys in order to use them as a filter in the finder query.
+	 *
+	 * @return boolean true if a list of keys will be required
+	 */
 	public function requiresKeys($options = []) {
 		$strategy = isset($options['strategy']) ? $options['strategy'] : $this->strategy();
 		return $strategy !== parent::STRATEGY_SUBQUERY;
 	}
 
-/**
- * Correctly nests a result row associated values into the correct array keys inside the
- * source results.
- *
- * @param array $result
- * @return array
- */
+	/**
+	 * Correctly nests a result row associated values into the correct array keys inside the
+	 * source results.
+	 *
+	 * @param array $result
+	 * @return array
+	 */
 	public function transformRow($row) {
 		$sourceAlias = $this->source()->alias();
 		$targetAlias = $this->target()->alias();
@@ -104,22 +104,22 @@ trait ExternalAssociationTrait {
 		return $row;
 	}
 
-/**
- * Eager loads a list of records in the target table that are related to another
- * set of records in the source table.
- *
- * @param array $options
- * @return \Closure
- */
+	/**
+	 * Eager loads a list of records in the target table that are related to another
+	 * set of records in the source table.
+	 *
+	 * @param array $options
+	 * @return \Closure
+	 */
 	public abstract function eagerLoader(array $options);
 
-/**
- * Returns a single or multiple conditions to be appended to the generated join
- * clause for getting the results on the target table.
- *
- * @param array $options list of options passed to attachTo method
- * @return string|array
- */
+	/**
+	 * Returns a single or multiple conditions to be appended to the generated join
+	 * clause for getting the results on the target table.
+	 *
+	 * @param array $options list of options passed to attachTo method
+	 * @return string|array
+	 */
 	protected function _joinCondition(array $options) {
 		return sprintf('%s.%s = %s.%s',
 				$this->_sourceTable->alias(),
@@ -129,15 +129,15 @@ trait ExternalAssociationTrait {
 			);
 	}
 
-/**
- * Returns a callable to be used for each row in a query result set
- * for injecting the eager loaded rows
- *
- * @param Cake\ORM\Query $fetchQuery the Query used to fetch results
- * @param array $resultMap an array with the foreignKey as keys and
- * the corresponding target table results as value.
- * @return \Closure
- */
+	/**
+	 * Returns a callable to be used for each row in a query result set
+	 * for injecting the eager loaded rows
+	 *
+	 * @param Cake\ORM\Query $fetchQuery the Query used to fetch results
+	 * @param array $resultMap an array with the foreignKey as keys and
+	 * the corresponding target table results as value.
+	 * @return \Closure
+	 */
 	protected function _resultInjector($fetchQuery, $resultMap) {
 		$source = $this->source();
 		$sourceKey = key($fetchQuery->aliasField(
@@ -155,15 +155,15 @@ trait ExternalAssociationTrait {
 		};
 	}
 
-/**
- * Auxiliary function to construct a new Query object to return all the records
- * in the target table that are associated to those specified in $options from
- * the source table
- *
- * @param array $options options accepted by eagerLoader()
- * @return Cake\ORM\Query
- * @throws \InvalidArgumentException When a key is required for associations but not selected.
- */
+	/**
+	 * Auxiliary function to construct a new Query object to return all the records
+	 * in the target table that are associated to those specified in $options from
+	 * the source table
+	 *
+	 * @param array $options options accepted by eagerLoader()
+	 * @return Cake\ORM\Query
+	 * @throws \InvalidArgumentException When a key is required for associations but not selected.
+	 */
 	protected function _buildQuery($options) {
 		$target = $this->target();
 		$alias = $target->alias();
@@ -202,39 +202,39 @@ trait ExternalAssociationTrait {
 		return $fetchQuery;
 	}
 
-/**
- * Appends any conditions required to load the relevant set of records in the
- * target table query given a filter key and some filtering values.
- *
- * @param \Cake\ORM\Query taget table's query
- * @param string $key the fields that should be used for filtering
- * @param mixed $filter the value that should be used to match for $key
- * @return \Cake\ORM\Query
- */
+	/**
+	 * Appends any conditions required to load the relevant set of records in the
+	 * target table query given a filter key and some filtering values.
+	 *
+	 * @param \Cake\ORM\Query taget table's query
+	 * @param string $key the fields that should be used for filtering
+	 * @param mixed $filter the value that should be used to match for $key
+	 * @return \Cake\ORM\Query
+	 */
 	protected function _addFilteringCondition($query, $key, $filter) {
 		return $query->andWhere([$key . ' in' => $filter]);
 	}
 
-/**
- * Generates a string used as a table field that contains the values upon
- * which the filter should be applied
- *
- * params array $options
- * @return string
- */
+	/**
+	 * Generates a string used as a table field that contains the values upon
+	 * which the filter should be applied
+	 *
+	 * params array $options
+	 * @return string
+	 */
 	protected function _linkField($options) {
 		return sprintf('%s.%s', $this->name(), $options['foreignKey']);
 	}
 
-/**
- * Builds a query to be used as a condition for filtering records in in the
- * target table, it is constructed by cloning the original query that was used
- * to load records in the source table.
- *
- * @param Cake\ORM\Query $query the original query used to load source records
- * @param strong $foreignKey the field to be selected in the query
- * @return Cake\ORM\Query
- */
+	/**
+	 * Builds a query to be used as a condition for filtering records in in the
+	 * target table, it is constructed by cloning the original query that was used
+	 * to load records in the source table.
+	 *
+	 * @param Cake\ORM\Query $query the original query used to load source records
+	 * @param strong $foreignKey the field to be selected in the query
+	 * @return Cake\ORM\Query
+	 */
 	protected function _buildSubquery($query, $foreignKey) {
 		$filterQuery = clone $query;
 		$filterQuery->contain([], true);
@@ -248,12 +248,12 @@ trait ExternalAssociationTrait {
 		return $filterQuery->select($foreignKey, true);
 	}
 
-/**
- * Parse extra options passed in the constructor.
- * @param array $opts original list of options passed in constructor
- *
- * @return void
- */
+	/**
+	 * Parse extra options passed in the constructor.
+	 * @param array $opts original list of options passed in constructor
+	 *
+	 * @return void
+	 */
 	protected function _options(array $opts) {
 		if (isset($opts['sort'])) {
 			$this->sort($opts['sort']);

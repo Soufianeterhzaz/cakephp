@@ -27,18 +27,18 @@ use Cake\Utility\ClassRegistry;
  */
 class ArticleFixture extends TestFixture {
 
-/**
- * Table property
- *
- * @var string
- */
+	/**
+	 * Table property
+	 *
+	 * @var string
+	 */
 	public $table = 'articles';
 
-/**
- * Fields array
- *
- * @var array
- */
+	/**
+	 * Fields array
+	 *
+	 * @var array
+	 */
 	public $fields = [
 		'id' => ['type' => 'integer'],
 		'name' => ['type' => 'string', 'length' => '255'],
@@ -48,11 +48,11 @@ class ArticleFixture extends TestFixture {
 		]
 	];
 
-/**
- * Records property
- *
- * @var array
- */
+	/**
+	 * Records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'Gandalf', 'created' => '2009-04-28 19:20:00'),
 		array('name' => 'Captain Picard', 'created' => '2009-04-28 19:20:00'),
@@ -66,18 +66,18 @@ class ArticleFixture extends TestFixture {
  */
 class StringsTestFixture extends TestFixture {
 
-/**
- * Table property
- *
- * @var string
- */
+	/**
+	 * Table property
+	 *
+	 * @var string
+	 */
 	public $table = 'strings';
 
-/**
- * Fields array
- *
- * @var array
- */
+	/**
+	 * Fields array
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer'),
 		'name' => array('type' => 'string', 'length' => '255'),
@@ -85,11 +85,11 @@ class StringsTestFixture extends TestFixture {
 		'age' => array('type' => 'integer', 'default' => 10)
 	);
 
-/**
- * Records property
- *
- * @var array
- */
+	/**
+	 * Records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'Mark Doe', 'email' => 'mark.doe@email.com'),
 		array('name' => 'John Doe', 'email' => 'john.doe@email.com', 'age' => 20),
@@ -104,11 +104,11 @@ class StringsTestFixture extends TestFixture {
  */
 class ImportFixture extends TestFixture {
 
-/**
- * Import property
- *
- * @var mixed
- */
+	/**
+	 * Import property
+	 *
+	 * @var mixed
+	 */
 	public $import = ['table' => 'posts', 'connection' => 'test'];
 }
 
@@ -118,18 +118,18 @@ class ImportFixture extends TestFixture {
  */
 class TestFixtureTest extends TestCase {
 
-/**
- * Fixtures for this test.
- *
- * @var array
- */
+	/**
+	 * Fixtures for this test.
+	 *
+	 * @var array
+	 */
 	public $fixtures = ['core.post'];
 
-/**
- * test initializing a static fixture
- *
- * @return void
- */
+	/**
+	 * test initializing a static fixture
+	 *
+	 * @return void
+	 */
 	public function testInitStaticFixture() {
 		$Fixture = new ArticleFixture();
 		$this->assertEquals('articles', $Fixture->table);
@@ -153,11 +153,11 @@ class TestFixtureTest extends TestCase {
 		$this->assertEmpty($schema->indexes());
 	}
 
-/**
- * test import fixture initialization
- *
- * @return void
- */
+	/**
+	 * test import fixture initialization
+	 *
+	 * @return void
+	 */
 	public function testInitImport() {
 		$fixture = new ImportFixture();
 		$fixture->fields = $fixture->records = null;
@@ -177,11 +177,11 @@ class TestFixtureTest extends TestCase {
 		$this->assertEquals($expected, $fixture->schema()->columns());
 	}
 
-/**
- * test create method
- *
- * @return void
- */
+	/**
+	 * test create method
+	 *
+	 * @return void
+	 */
 	public function testCreate() {
 		$fixture = new ArticleFixture();
 		$db = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -196,12 +196,12 @@ class TestFixtureTest extends TestCase {
 		$this->assertTrue($fixture->create($db));
 	}
 
-/**
- * test create method, trigger error
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
+	/**
+	 * test create method, trigger error
+	 *
+	 * @expectedException PHPUnit_Framework_Error
+	 * @return void
+	 */
 	public function testCreateError() {
 		$fixture = new ArticleFixture();
 		$db = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -215,11 +215,11 @@ class TestFixtureTest extends TestCase {
 		$fixture->create($db);
 	}
 
-/**
- * test the insert method
- *
- * @return void
- */
+	/**
+	 * test the insert method
+	 *
+	 * @return void
+	 */
 	public function testInsert() {
 		$fixture = new ArticleFixture();
 
@@ -258,11 +258,11 @@ class TestFixtureTest extends TestCase {
 		$this->assertTrue($fixture->insert($db));
 	}
 
-/**
- * test the insert method
- *
- * @return void
- */
+	/**
+	 * test the insert method
+	 *
+	 * @return void
+	 */
 	public function testInsertStrings() {
 		$fixture = new StringsTestFixture();
 
@@ -302,11 +302,11 @@ class TestFixtureTest extends TestCase {
 		$this->assertTrue($fixture->insert($db));
 	}
 
-/**
- * Test the drop method
- *
- * @return void
- */
+	/**
+	 * Test the drop method
+	 *
+	 * @return void
+	 */
 	public function testDrop() {
 		$fixture = new ArticleFixture();
 
@@ -325,11 +325,11 @@ class TestFixtureTest extends TestCase {
 		$this->assertTrue($fixture->drop($db));
 	}
 
-/**
- * Test the truncate method.
- *
- * @return void
- */
+	/**
+	 * Test the truncate method.
+	 *
+	 * @return void
+	 */
 	public function testTruncate() {
 		$fixture = new ArticleFixture();
 

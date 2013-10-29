@@ -28,9 +28,9 @@ use Cake\TestSuite\TestCase;
  */
 class ConsoleLogTest extends TestCase {
 
-/**
- * Test writing to ConsoleOutput
- */
+	/**
+	 * Test writing to ConsoleOutput
+	 */
 	public function testConsoleOutputWrites() {
 		$output = $this->getMock('Cake\Console\ConsoleOutput');
 
@@ -59,9 +59,9 @@ class ConsoleLogTest extends TestCase {
 		$this->assertContains('Error: oh noes', $line);
 	}
 
-/**
- * test default value of stream 'outputAs'
- */
+	/**
+	 * test default value of stream 'outputAs'
+	 */
 	public function testDefaultOutputAs() {
 		if (DS == '\\' && !(bool)env('ANSICON')) {
 			$expected = ConsoleOutput::PLAIN;

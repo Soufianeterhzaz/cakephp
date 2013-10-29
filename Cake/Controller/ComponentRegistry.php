@@ -27,25 +27,25 @@ use Cake\Utility\ObjectRegistry;
  */
 class ComponentRegistry extends ObjectRegistry {
 
-/**
- * The controller that this collection was initialized with.
- *
- * @var Controller
- */
+	/**
+	 * The controller that this collection was initialized with.
+	 *
+	 * @var Controller
+	 */
 	protected $_Controller = null;
 
-/**
- * The event manager to bind components to.
- *
- * @var Cake\Event\EventManager
- */
+	/**
+	 * The event manager to bind components to.
+	 *
+	 * @var Cake\Event\EventManager
+	 */
 	protected $_eventManager = null;
 
-/**
- * Constructor.
- *
- * @param Cake\Controller\Controller $Controller
- */
+	/**
+	 * Constructor.
+	 *
+	 * @param Cake\Controller\Controller $Controller
+	 */
 	public function __construct(Controller $Controller = null) {
 		if ($Controller) {
 			$this->_Controller = $Controller;
@@ -55,36 +55,36 @@ class ComponentRegistry extends ObjectRegistry {
 		}
 	}
 
-/**
- * Get the controller associated with the collection.
- *
- * @return Controller Controller instance
- */
+	/**
+	 * Get the controller associated with the collection.
+	 *
+	 * @return Controller Controller instance
+	 */
 	public function getController() {
 		return $this->_Controller;
 	}
 
-/**
- * Resolve a component classname.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class Partial classname to resolve.
- * @return string|false Either the correct classname or false.
- */
+	/**
+	 * Resolve a component classname.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class Partial classname to resolve.
+	 * @return string|false Either the correct classname or false.
+	 */
 	protected function _resolveClassName($class) {
 		return App::classname($class, 'Controller/Component', 'Component');
 	}
 
-/**
- * Throws an exception when a component is missing.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- *
- * @param string $class The classname that is missing.
- * @param string $plugin The plugin the component is missing in.
- * @throws Cake\Error\MissingComponentException
- */
+	/**
+	 * Throws an exception when a component is missing.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param string $plugin The plugin the component is missing in.
+	 * @throws Cake\Error\MissingComponentException
+	 */
 	protected function _throwMissingClassError($class, $plugin) {
 		throw new Error\MissingComponentException([
 			'class' => $class,
@@ -92,16 +92,16 @@ class ComponentRegistry extends ObjectRegistry {
 		]);
 	}
 
-/**
- * Create the component instance.
- *
- * Part of the template method for Cake\Utility\ObjectRegistry::load()
- * Enabled components will be registered with the event manager.
- *
- * @param string $class The classname that is missing.
- * @param array $settings An array of settings to use for the component.
- * @return Component The constructed component class.
- */
+	/**
+	 * Create the component instance.
+	 *
+	 * Part of the template method for Cake\Utility\ObjectRegistry::load()
+	 * Enabled components will be registered with the event manager.
+	 *
+	 * @param string $class The classname that is missing.
+	 * @param array $settings An array of settings to use for the component.
+	 * @return Component The constructed component class.
+	 */
 	protected function _create($class, $settings) {
 		$instance = new $class($this, $settings);
 		$enable = isset($settings['enabled']) ? $settings['enabled'] : true;
@@ -111,13 +111,13 @@ class ComponentRegistry extends ObjectRegistry {
 		return $instance;
 	}
 
-/**
- * Destroys all objects in the registry.
- *
- * Removes all attached listeners and destroys all stored instances.
- *
- * @return void
- */
+	/**
+	 * Destroys all objects in the registry.
+	 *
+	 * Removes all attached listeners and destroys all stored instances.
+	 *
+	 * @return void
+	 */
 	public function reset() {
 		foreach ($this->_loaded as $component) {
 			$this->_eventManager->detach($component);

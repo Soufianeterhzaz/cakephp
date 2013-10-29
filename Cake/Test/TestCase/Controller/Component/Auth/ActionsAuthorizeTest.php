@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class ActionsAuthorizeTest extends TestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->controller = $this->getMock('Cake\Controller\Controller', array(), array(), '', false);
@@ -43,11 +43,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->auth->settings['actionPath'] = '/controllers';
 	}
 
-/**
- * setup the mock acl.
- *
- * @return void
- */
+	/**
+	 * setup the mock acl.
+	 *
+	 * @return void
+	 */
 	protected function _mockAcl() {
 		$this->Collection->expects($this->any())
 			->method('load')
@@ -55,11 +55,11 @@ class ActionsAuthorizeTest extends TestCase {
 			->will($this->returnValue($this->Acl));
 	}
 
-/**
- * test failure
- *
- * @return void
- */
+	/**
+	 * test failure
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeFailure() {
 		$user = array(
 			'User' => array(
@@ -84,11 +84,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->assertFalse($this->auth->authorize($user['User'], $request));
 	}
 
-/**
- * test isAuthorized working.
- *
- * @return void
- */
+	/**
+	 * test isAuthorized working.
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeSuccess() {
 		$user = array(
 			'User' => array(
@@ -113,11 +113,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->assertTrue($this->auth->authorize($user['User'], $request));
 	}
 
-/**
- * testAuthorizeSettings
- *
- * @return void
- */
+	/**
+	 * testAuthorizeSettings
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeSettings() {
 		$request = new Request('/posts/index');
 		$request->addParams(array(
@@ -143,11 +143,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->assertTrue($this->auth->authorize($user, $request));
 	}
 
-/**
- * test action()
- *
- * @return void
- */
+	/**
+	 * test action()
+	 *
+	 * @return void
+	 */
 	public function testActionMethod() {
 		$request = new Request('/posts/index');
 		$request->addParams(array(
@@ -160,11 +160,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->assertEquals('controllers/Posts/index', $result);
 	}
 
-/**
- * Make sure that action() doesn't create double slashes anywhere.
- *
- * @return void
- */
+	/**
+	 * Make sure that action() doesn't create double slashes anywhere.
+	 *
+	 * @return void
+	 */
 	public function testActionNoDoubleSlash() {
 		$this->auth->settings['actionPath'] = '/controllers/';
 		$request = new Request('/posts/index', false);
@@ -177,11 +177,11 @@ class ActionsAuthorizeTest extends TestCase {
 		$this->assertEquals('controllers/Posts/index', $result);
 	}
 
-/**
- * test action() and plugins
- *
- * @return void
- */
+	/**
+	 * test action() and plugins
+	 *
+	 * @return void
+	 */
 	public function testActionWithPlugin() {
 		$request = new Request('/debug_kit/posts/index');
 		$request->addParams(array(

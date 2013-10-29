@@ -26,45 +26,45 @@ use \Serializable;
  */
 trait ResultCollectionTrait {
 
-/**
- * Returns an array representation of the results
- *
- * @return array
- */
+	/**
+	 * Returns an array representation of the results
+	 *
+	 * @return array
+	 */
 	public function toArray() {
 		return iterator_to_array($this);
 	}
 
-/**
- * Serialize a resultset.
- *
- * Part of Serializable interface.
- *
- * @return string Serialized object
- */
+	/**
+	 * Serialize a resultset.
+	 *
+	 * Part of Serializable interface.
+	 *
+	 * @return string Serialized object
+	 */
 	public function serialize() {
 		return serialize($this->toArray());
 	}
 
-/**
- * Unserialize a resultset.
- *
- * Part of Serializable interface.
- *
- * @param string Serialized object
- * @return ResultSet The hydrated result set.
- */
+	/**
+	 * Unserialize a resultset.
+	 *
+	 * Part of Serializable interface.
+	 *
+	 * @param string Serialized object
+	 * @return ResultSet The hydrated result set.
+	 */
 	public function unserialize($serialized) {
 		$this->_results = unserialize($serialized);
 	}
 
-/**
- * Convert a result set into JSON.
- *
- * Part of JsonSerializable interface.
- *
- * @return array The data to convert to JSON
- */
+	/**
+	 * Convert a result set into JSON.
+	 *
+	 * Part of JsonSerializable interface.
+	 *
+	 * @return array The data to convert to JSON
+	 */
 	public function jsonSerialize() {
 		return $this->toArray();
 	}

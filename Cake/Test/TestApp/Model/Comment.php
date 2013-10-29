@@ -27,11 +27,11 @@ namespace TestApp\Model;
 
 class Comment extends AppModel {
 
-/**
- * Table name
- *
- * @var string
- */
+	/**
+	 * Table name
+	 *
+	 * @var string
+	 */
 	public $useTable = 'comments';
 
 }

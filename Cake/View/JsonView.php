@@ -54,19 +54,19 @@ use Cake\Network\Response;
  */
 class JsonView extends View {
 
-/**
- * JSON views are always located in the 'json' sub directory for
- * controllers' views.
- *
- * @var string
- */
+	/**
+	 * JSON views are always located in the 'json' sub directory for
+	 * controllers' views.
+	 *
+	 * @var string
+	 */
 	public $subDir = 'json';
 
-/**
- * Constructor
- *
- * @param Controller $controller
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Controller $controller
+	 */
 	public function __construct(Controller $controller = null) {
 		parent::__construct($controller);
 		if (isset($controller->response) && $controller->response instanceof Response) {
@@ -74,11 +74,11 @@ class JsonView extends View {
 		}
 	}
 
-/**
- * Skip loading helpers if this is a _serialize based view.
- *
- * @return void
- */
+	/**
+	 * Skip loading helpers if this is a _serialize based view.
+	 *
+	 * @return void
+	 */
 	public function loadHelpers() {
 		if (isset($this->viewVars['_serialize'])) {
 			return;
@@ -86,22 +86,22 @@ class JsonView extends View {
 		parent::loadHelpers();
 	}
 
-/**
- * Render a JSON view.
- *
- * ### Special parameters
- * `_serialize` To convert a set of view variables into a JSON response.
- *   Its value can be a string for single variable name or array for multiple names.
- *   You can omit the`_serialize` parameter, and use a normal view + layout as well.
- * `_jsonp` Enables JSONP support and wraps response in callback function provided in query string.
- *   - Setting it to true enables the default query string parameter "callback".
- *   - Setting it to a string value, uses the provided query string parameter for finding the
- *     JSONP callback name.
- *
- * @param string $view The view being rendered.
- * @param string $layout The layout being rendered.
- * @return string The rendered view.
- */
+	/**
+	 * Render a JSON view.
+	 *
+	 * ### Special parameters
+	 * `_serialize` To convert a set of view variables into a JSON response.
+	 *   Its value can be a string for single variable name or array for multiple names.
+	 *   You can omit the`_serialize` parameter, and use a normal view + layout as well.
+	 * `_jsonp` Enables JSONP support and wraps response in callback function provided in query string.
+	 *   - Setting it to true enables the default query string parameter "callback".
+	 *   - Setting it to a string value, uses the provided query string parameter for finding the
+	 *     JSONP callback name.
+	 *
+	 * @param string $view The view being rendered.
+	 * @param string $layout The layout being rendered.
+	 * @return string The rendered view.
+	 */
 	public function render($view = null, $layout = null) {
 		$return = null;
 		if (isset($this->viewVars['_serialize'])) {
@@ -124,12 +124,12 @@ class JsonView extends View {
 		return $return;
 	}
 
-/**
- * Serialize view vars
- *
- * @param array $serialize The viewVars that need to be serialized
- * @return string The serialized data
- */
+	/**
+	 * Serialize view vars
+	 *
+	 * @param array $serialize The viewVars that need to be serialized
+	 * @return string The serialized data
+	 */
 	protected function _serialize($serialize) {
 		if (is_array($serialize)) {
 			$data = array();

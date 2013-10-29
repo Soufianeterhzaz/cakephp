@@ -29,41 +29,41 @@ use Cake\TestSuite\TestCase;
  */
 class SmtpTestTransport extends SmtpTransport {
 
-/**
- * Helper to change the socket
- *
- * @param object $socket
- * @return void
- */
+	/**
+	 * Helper to change the socket
+	 *
+	 * @param object $socket
+	 * @return void
+	 */
 	public function setSocket(Socket $socket) {
 		$this->_socket = $socket;
 	}
 
-/**
- * Helper to change the CakeEmail
- *
- * @param object $cakeEmail
- * @return void
- */
+	/**
+	 * Helper to change the CakeEmail
+	 *
+	 * @param object $cakeEmail
+	 * @return void
+	 */
 	public function setCakeEmail($cakeEmail) {
 		$this->_cakeEmail = $cakeEmail;
 	}
 
-/**
- * Disabled the socket change
- *
- * @return void
- */
+	/**
+	 * Disabled the socket change
+	 *
+	 * @return void
+	 */
 	protected function _generateSocket() {
 	}
 
-/**
- * Magic function to call protected methods
- *
- * @param string $method
- * @param string $args
- * @return mixed
- */
+	/**
+	 * Magic function to call protected methods
+	 *
+	 * @param string $method
+	 * @param string $args
+	 * @return mixed
+	 */
 	public function __call($method, $args) {
 		$method = '_' . $method;
 		return $this->$method();
@@ -77,11 +77,11 @@ class SmtpTestTransport extends SmtpTransport {
  */
 class SmtpTransportTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		if (!class_exists('MockSocket')) {
@@ -94,11 +94,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->config(array('client' => 'localhost'));
 	}
 
-/**
- * testConnectEhlo method
- *
- * @return void
- */
+	/**
+	 * testConnectEhlo method
+	 *
+	 * @return void
+	 */
 	public function testConnectEhlo() {
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
 		$this->socket->expects($this->at(0))->method('read')->will($this->returnValue(false));
@@ -109,11 +109,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->connect();
 	}
 
-/**
- * testConnectEhloTls method
- *
- * @return void
- */
+	/**
+	 * testConnectEhloTls method
+	 *
+	 * @return void
+	 */
 	public function testConnectEhloTls() {
 		$this->SmtpTransport->config(array('tls' => true));
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
@@ -132,12 +132,12 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->connect();
 	}
 
-/**
- * testConnectEhloTlsOnNonTlsServer method
- *
- * @expectedException Cake\Error\SocketException
- * @return void
- */
+	/**
+	 * testConnectEhloTlsOnNonTlsServer method
+	 *
+	 * @expectedException Cake\Error\SocketException
+	 * @return void
+	 */
 	public function testConnectEhloTlsOnNonTlsServer() {
 		$this->SmtpTransport->config(array('tls' => true));
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
@@ -152,12 +152,12 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->connect();
 	}
 
-/**
- * testConnectEhloNoTlsOnRequiredTlsServer method
- *
- * @expectedException Cake\Error\SocketException
- * @return void
- */
+	/**
+	 * testConnectEhloNoTlsOnRequiredTlsServer method
+	 *
+	 * @expectedException Cake\Error\SocketException
+	 * @return void
+	 */
 	public function testConnectEhloNoTlsOnRequiredTlsServer() {
 		$this->SmtpTransport->config(array('tls' => false, 'username' => 'user', 'password' => 'pass'));
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
@@ -173,11 +173,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->auth();
 	}
 
-/**
- * testConnectHelo method
- *
- * @return void
- */
+	/**
+	 * testConnectHelo method
+	 *
+	 * @return void
+	 */
 	public function testConnectHelo() {
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
 		$this->socket->expects($this->at(0))->method('read')->will($this->returnValue(false));
@@ -191,12 +191,12 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->connect();
 	}
 
-/**
- * testConnectFail method
- *
- * @expectedException Cake\Error\SocketException
- * @return void
- */
+	/**
+	 * testConnectFail method
+	 *
+	 * @expectedException Cake\Error\SocketException
+	 * @return void
+	 */
 	public function testConnectFail() {
 		$this->socket->expects($this->any())->method('connect')->will($this->returnValue(true));
 		$this->socket->expects($this->at(0))->method('read')->will($this->returnValue(false));
@@ -210,11 +210,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->connect();
 	}
 
-/**
- * testAuth method
- *
- * @return void
- */
+	/**
+	 * testAuth method
+	 *
+	 * @return void
+	 */
 	public function testAuth() {
 		$this->socket->expects($this->at(0))->method('write')->with("AUTH LOGIN\r\n");
 		$this->socket->expects($this->at(1))->method('read')->will($this->returnValue(false));
@@ -229,22 +229,22 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->auth();
 	}
 
-/**
- * testAuthNoAuth method
- *
- * @return void
- */
+	/**
+	 * testAuthNoAuth method
+	 *
+	 * @return void
+	 */
 	public function testAuthNoAuth() {
 		$this->socket->expects($this->never())->method('write')->with("AUTH LOGIN\r\n");
 		$this->SmtpTransport->config(array('username' => null, 'password' => null));
 		$this->SmtpTransport->auth();
 	}
 
-/**
- * testRcpt method
- *
- * @return void
- */
+	/**
+	 * testRcpt method
+	 *
+	 * @return void
+	 */
 	public function testRcpt() {
 		$email = new Email();
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
@@ -272,11 +272,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->sendRcpt();
 	}
 
-/**
- * testRcptWithReturnPath method
- *
- * @return void
- */
+	/**
+	 * testRcptWithReturnPath method
+	 *
+	 * @return void
+	 */
 	public function testRcptWithReturnPath() {
 		$email = new Email();
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
@@ -294,11 +294,11 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->sendRcpt();
 	}
 
-/**
- * testSendData method
- *
- * @return void
- */
+	/**
+	 * testSendData method
+	 *
+	 * @return void
+	 */
 	public function testSendData() {
 		$email = $this->getMock('Cake\Network\Email\Email', array('message'));
 		$email->from('noreply@cakephp.org', 'CakePHP Test');
@@ -342,21 +342,21 @@ class SmtpTransportTest extends TestCase {
 		$this->SmtpTransport->sendData();
 	}
 
-/**
- * testQuit method
- *
- * @return void
- */
+	/**
+	 * testQuit method
+	 *
+	 * @return void
+	 */
 	public function testQuit() {
 		$this->socket->expects($this->at(0))->method('write')->with("QUIT\r\n");
 		$this->SmtpTransport->disconnect();
 	}
 
-/**
- * testEmptyConfigArray method
- *
- * @return void
- */
+	/**
+	 * testEmptyConfigArray method
+	 *
+	 * @return void
+	 */
 	public function testEmptyConfigArray() {
 		$expected = $this->SmtpTransport->config(array(
 			'client' => 'myhost.com',

@@ -29,11 +29,11 @@ use Cake\Error\ExceptionRenderer;
  */
 class TestPluginExceptionRenderer extends ExceptionRenderer {
 
-/**
- * Renders the response for the exception.
- *
- * @return void
- */
+	/**
+	 * Renders the response for the exception.
+	 *
+	 * @return void
+	 */
 	public function render() {
 		echo 'Rendered by test plugin';
 	}

@@ -35,18 +35,18 @@ use Cake\View\View;
  */
 class HelperTestPost extends Model {
 
-/**
- * useTable property
- *
- * @var boolean
- */
+	/**
+	 * useTable property
+	 *
+	 * @var boolean
+	 */
 	public $useTable = false;
 
-/**
- * schema method
- *
- * @return void
- */
+	/**
+	 * schema method
+	 *
+	 * @return void
+	 */
 	public function schema($field = false) {
 		$this->_schema = array(
 			'id' => array('type' => 'integer', 'null' => false, 'default' => '', 'length' => '8'),
@@ -60,11 +60,11 @@ class HelperTestPost extends Model {
 		return $this->_schema;
 	}
 
-/**
- * hasAndBelongsToMany property
- *
- * @var array
- */
+	/**
+	 * hasAndBelongsToMany property
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array('HelperTestTag' => array('with' => 'HelperTestPostsTag'));
 }
 
@@ -74,18 +74,18 @@ class HelperTestPost extends Model {
  */
 class HelperTestComment extends Model {
 
-/**
- * useTable property
- *
- * @var boolean
- */
+	/**
+	 * useTable property
+	 *
+	 * @var boolean
+	 */
 	public $useTable = false;
 
-/**
- * schema method
- *
- * @return void
- */
+	/**
+	 * schema method
+	 *
+	 * @return void
+	 */
 	public function schema($field = false) {
 		$this->_schema = array(
 			'id' => array('type' => 'integer', 'null' => false, 'default' => '', 'length' => '8'),
@@ -107,18 +107,18 @@ class HelperTestComment extends Model {
  */
 class HelperTestTag extends Model {
 
-/**
- * useTable property
- *
- * @var boolean
- */
+	/**
+	 * useTable property
+	 *
+	 * @var boolean
+	 */
 	public $useTable = false;
 
-/**
- * schema method
- *
- * @return void
- */
+	/**
+	 * schema method
+	 *
+	 * @return void
+	 */
 	public function schema($field = false) {
 		$this->_schema = array(
 			'id' => array('type' => 'integer', 'null' => false, 'default' => '', 'length' => '8'),
@@ -137,18 +137,18 @@ class HelperTestTag extends Model {
  */
 class HelperTestPostsTag extends Model {
 
-/**
- * useTable property
- *
- * @var boolean
- */
+	/**
+	 * useTable property
+	 *
+	 * @var boolean
+	 */
 	public $useTable = false;
 
-/**
- * schema method
- *
- * @return void
- */
+	/**
+	 * schema method
+	 *
+	 * @return void
+	 */
 	public function schema($field = false) {
 		$this->_schema = array(
 			'helper_test_post_id' => array('type' => 'integer', 'null' => false, 'default' => '', 'length' => '8'),
@@ -161,32 +161,32 @@ class HelperTestPostsTag extends Model {
 
 class TestHelper extends Helper {
 
-/**
- * Settings for this helper.
- *
- * @var array
- */
+	/**
+	 * Settings for this helper.
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'key1' => 'val1',
 		'key2' => array('key2.1' => 'val2.1', 'key2.2' => 'val2.2')
 	);
 
-/**
- * Helpers for this helper.
- *
- * @var array
- */
+	/**
+	 * Helpers for this helper.
+	 *
+	 * @var array
+	 */
 	public $helpers = array('Html', 'TestPlugin.OtherHelper');
 
-/**
- * expose a method as public
- *
- * @param string $options
- * @param string $exclude
- * @param string $insertBefore
- * @param string $insertAfter
- * @return void
- */
+	/**
+	 * expose a method as public
+	 *
+	 * @param string $options
+	 * @param string $exclude
+	 * @param string $insertBefore
+	 * @param string $insertAfter
+	 * @return void
+	 */
 	public function parseAttributes($options, $exclude = null, $insertBefore = ' ', $insertAfter = null) {
 		return $this->_parseAttributes($options, $exclude, $insertBefore, $insertAfter);
 	}
@@ -199,11 +199,11 @@ class TestHelper extends Helper {
  */
 class HelperTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -219,11 +219,11 @@ class HelperTest extends TestCase {
 		ClassRegistry::addObject('HelperTestTag', new HelperTestTag());
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::delete('Asset');
@@ -232,11 +232,11 @@ class HelperTest extends TestCase {
 		unset($this->Helper, $this->View);
 	}
 
-/**
- * Provider for setEntity test.
- *
- * @return array
- */
+	/**
+	 * Provider for setEntity test.
+	 *
+	 * @return array
+	 */
 	public static function entityProvider() {
 		return array(
 			array(
@@ -272,11 +272,11 @@ class HelperTest extends TestCase {
 		);
 	}
 
-/**
- * Test settings merging
- *
- * @return void
- */
+	/**
+	 * Test settings merging
+	 *
+	 * @return void
+	 */
 	public function testSettingsMerging() {
 		$Helper = new TestHelper($this->View, array(
 			'key3' => 'val3',
@@ -290,12 +290,12 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $Helper->settings);
 	}
 
-/**
- * Test setting an entity and retrieving the entity, model and field.
- *
- * @dataProvider entityProvider
- * @return void
- */
+	/**
+	 * Test setting an entity and retrieving the entity, model and field.
+	 *
+	 * @dataProvider entityProvider
+	 * @return void
+	 */
 	public function testSetEntity($entity, $expected, $modelKey, $fieldKey) {
 		$this->Helper->setEntity($entity);
 		$this->assertEquals($expected, $this->Helper->entity());
@@ -303,11 +303,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals($fieldKey, $this->Helper->field());
 	}
 
-/**
- * test setEntity with setting a scope.
- *
- * @return void
- */
+	/**
+	 * test setEntity with setting a scope.
+	 *
+	 * @return void
+	 */
 	public function testSetEntityScoped() {
 		$this->Helper->setEntity('HelperTestPost', true);
 		$this->assertEquals(array('HelperTestPost'), $this->Helper->entity());
@@ -350,11 +350,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $this->Helper->entity());
 	}
 
-/**
- * Test that setEntity() and model()/field() work with associated models.
- *
- * @return void
- */
+	/**
+	 * Test that setEntity() and model()/field() work with associated models.
+	 *
+	 * @return void
+	 */
 	public function testSetEntityAssociated() {
 		$this->Helper->setEntity('HelperTestPost', true);
 
@@ -365,11 +365,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals('HelperTestComment', $this->Helper->model());
 	}
 
-/**
- * Test creating saveMany() compatible entities
- *
- * @return void
- */
+	/**
+	 * Test creating saveMany() compatible entities
+	 *
+	 * @return void
+	 */
 	public function testSetEntitySaveMany() {
 		$this->Helper->setEntity('HelperTestPost', true);
 
@@ -378,12 +378,12 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $this->Helper->entity());
 	}
 
-/**
- * Test that setEntity doesn't make CamelCase fields that are not associations an
- * associated model.
- *
- * @return void
- */
+	/**
+	 * Test that setEntity doesn't make CamelCase fields that are not associations an
+	 * associated model.
+	 *
+	 * @return void
+	 */
 	public function testSetEntityAssociatedCamelCaseField() {
 		$this->Helper->fieldset = array(
 			'HelperTestComment' => array(
@@ -397,11 +397,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals('BigField', $this->Helper->field());
 	}
 
-/**
- * Test that multiple fields work when they are camelcase and in fieldset
- *
- * @return void
- */
+	/**
+	 * Test that multiple fields work when they are camelcase and in fieldset
+	 *
+	 * @return void
+	 */
 	public function testSetEntityAssociatedCamelCaseFieldHabtmMultiple() {
 		$this->Helper->fieldset = array(
 			'HelperTestComment' => array(
@@ -416,11 +416,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals(array('Tag', 'Tag'), $this->Helper->entity());
 	}
 
-/**
- * Test that habtm associations can have property fields created.
- *
- * @return void
- */
+	/**
+	 * Test that habtm associations can have property fields created.
+	 *
+	 * @return void
+	 */
 	public function testSetEntityHabtmPropertyFieldNames() {
 		$this->Helper->fieldset = array(
 			'HelperTestComment' => array(
@@ -435,22 +435,22 @@ class HelperTest extends TestCase {
 		$this->assertEquals(array('Tag', 'name'), $this->Helper->entity());
 	}
 
-/**
- * test that 'view' doesn't break things.
- *
- * @return void
- */
+	/**
+	 * test that 'view' doesn't break things.
+	 *
+	 * @return void
+	 */
 	public function testSetEntityWithView() {
 		$this->assertNull($this->Helper->setEntity('Allow.view.group_id'));
 		$this->assertNull($this->Helper->setEntity('Allow.view'));
 		$this->assertNull($this->Helper->setEntity('View.view'));
 	}
 
-/**
- * test getting values from Helper
- *
- * @return void
- */
+	/**
+	 * test getting values from Helper
+	 *
+	 * @return void
+	 */
 	public function testValue() {
 		$this->Helper->request->data = array('fullname' => 'This is me');
 		$this->Helper->setEntity('fullname');
@@ -490,11 +490,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals('2008', $result);
 	}
 
-/**
- * Test default values with value()
- *
- * @return void
- */
+	/**
+	 * Test default values with value()
+	 *
+	 * @return void
+	 */
 	public function testValueWithDefault() {
 		$this->Helper->request->data = array('zero' => 0);
 		$this->Helper->setEntity('zero');
@@ -510,11 +510,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals(array('value' => 'something'), $result);
 	}
 
-/**
- * Test habtm data fetching and ensure no pollution happens.
- *
- * @return void
- */
+	/**
+	 * Test habtm data fetching and ensure no pollution happens.
+	 *
+	 * @return void
+	 */
 	public function testValueHabtmKeys() {
 		$this->Helper->request->data = array(
 			'HelperTestTag' => array('HelperTestTag' => '')
@@ -553,11 +553,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals('', $result);
 	}
 
-/**
- * Ensure HTML escaping of URL params. So link addresses are valid and not exploited
- *
- * @return void
- */
+	/**
+	 * Ensure HTML escaping of URL params. So link addresses are valid and not exploited
+	 *
+	 * @return void
+	 */
 	public function testUrlConversion() {
 		Router::connect('/:controller/:action/*');
 
@@ -591,11 +591,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals("/posts/index?page=1&amp;one=value&amp;two=value&amp;three=purple", $result);
 	}
 
-/**
- * test assetTimestamp application
- *
- * @return void
- */
+	/**
+	 * test assetTimestamp application
+	 *
+	 * @return void
+	 */
 	public function testAssetTimestamp() {
 		Configure::write('Foo.bar', 'test');
 		Configure::write('Asset.timestamp', false);
@@ -629,11 +629,11 @@ class HelperTest extends TestCase {
 		$this->assertRegExp('/' . preg_quote(Configure::read('App.cssBaseUrl') . 'cake.generic.css?', '/') . '[0-9]+/', $result);
 	}
 
-/**
- * test assetUrl application
- *
- * @return void
- */
+	/**
+	 * test assetUrl application
+	 *
+	 * @return void
+	 */
 	public function testAssetUrl() {
 		Router::connect('/:controller/:action/*');
 
@@ -666,11 +666,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals('dir/big%2Btall/image.jpg', $result);
 	}
 
-/**
- * Test assetUrl with no rewriting.
- *
- * @return void
- */
+	/**
+	 * Test assetUrl with no rewriting.
+	 *
+	 * @return void
+	 */
 	public function testAssetUrlNoRewrite() {
 		$this->Helper->request->addPaths(array(
 			'base' => '/cake_dev/index.php',
@@ -682,11 +682,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test assetUrl with plugins.
- *
- * @return void
- */
+	/**
+	 * Test assetUrl with plugins.
+	 *
+	 * @return void
+	 */
 	public function testAssetUrlPlugin() {
 		$this->Helper->webroot = '';
 		Plugin::load('TestPlugin');
@@ -700,11 +700,11 @@ class HelperTest extends TestCase {
 		Plugin::unload('TestPlugin');
 	}
 
-/**
- * test assetUrl and Asset.timestamp = force
- *
- * @return void
- */
+	/**
+	 * test assetUrl and Asset.timestamp = force
+	 *
+	 * @return void
+	 */
 	public function testAssetUrlTimestampForce() {
 		$this->Helper->webroot = '';
 		Configure::write('Asset.timestamp', 'force');
@@ -713,11 +713,11 @@ class HelperTest extends TestCase {
 		$this->assertRegExp('/' . preg_quote(Configure::read('App.cssBaseUrl') . 'cake.generic.css?', '/') . '[0-9]+/', $result);
 	}
 
-/**
- * test assetTimestamp with plugins and themes
- *
- * @return void
- */
+	/**
+	 * test assetTimestamp with plugins and themes
+	 *
+	 * @return void
+	 */
 	public function testAssetTimestampPluginsAndThemes() {
 		Configure::write('Asset.timestamp', 'force');
 		Plugin::load(array('TestPlugin'));
@@ -735,11 +735,11 @@ class HelperTest extends TestCase {
 		$this->assertRegExp('#/theme/test_theme/js/non_existant.js\?$#', $result, 'No error on missing file');
 	}
 
-/**
- * testFieldsWithSameName method
- *
- * @return void
- */
+	/**
+	 * testFieldsWithSameName method
+	 *
+	 * @return void
+	 */
 	public function testFieldsWithSameName() {
 		$this->Helper->setEntity('HelperTestTag', true);
 
@@ -756,11 +756,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $this->Helper->entity());
 	}
 
-/**
- * testFieldSameAsModel method
- *
- * @return void
- */
+	/**
+	 * testFieldSameAsModel method
+	 *
+	 * @return void
+	 */
 	public function testFieldSameAsModel() {
 		$this->Helper->setEntity('HelperTestTag', true);
 
@@ -773,11 +773,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals($expected, $this->Helper->entity());
 	}
 
-/**
- * testFieldSuffixForDate method
- *
- * @return void
- */
+	/**
+	 * testFieldSuffixForDate method
+	 *
+	 * @return void
+	 */
 	public function testFieldSuffixForDate() {
 		$this->Helper->setEntity('HelperTestPost', true);
 		$expected = array('HelperTestPost');
@@ -790,11 +790,11 @@ class HelperTest extends TestCase {
 		}
 	}
 
-/**
- * testMulitDimensionValue method
- *
- * @return void
- */
+	/**
+	 * testMulitDimensionValue method
+	 *
+	 * @return void
+	 */
 	public function testMultiDimensionValue() {
 		$this->Helper->data = array();
 		for ($i = 0; $i < 2; $i++) {
@@ -823,11 +823,11 @@ class HelperTest extends TestCase {
 		$this->assertEquals(100, $result);
 	}
 
-/**
- * testMultiDimensionalField method
- *
- * @return void
- */
+	/**
+	 * testMultiDimensionalField method
+	 *
+	 * @return void
+	 */
 	public function testMultiDimensionalField() {
 		$this->Helper->setEntity('HelperTestPost', true);
 
@@ -915,11 +915,11 @@ class HelperTest extends TestCase {
 		Configure::write('App.www_root', $webRoot);
 	}
 
-/**
- * test lazy loading helpers is seamless
- *
- * @return void
- */
+	/**
+	 * test lazy loading helpers is seamless
+	 *
+	 * @return void
+	 */
 	public function testLazyLoadingHelpers() {
 		Plugin::load(array('TestPlugin'));
 
@@ -928,11 +928,11 @@ class HelperTest extends TestCase {
 		$this->assertInstanceOf('Cake\View\Helper\HtmlHelper', $Helper->Html);
 	}
 
-/**
- * test that a helpers Helper is not 'attached' to the collection
- *
- * @return void
- */
+	/**
+	 * test that a helpers Helper is not 'attached' to the collection
+	 *
+	 * @return void
+	 */
 	public function testThatHelperHelpersAreNotAttached() {
 		Plugin::loadAll();
 
@@ -946,11 +946,11 @@ class HelperTest extends TestCase {
 		$Helper->OtherHelper;
 	}
 
-/**
- * test that the lazy loader doesn't duplicate objects on each access.
- *
- * @return void
- */
+	/**
+	 * test that the lazy loader doesn't duplicate objects on each access.
+	 *
+	 * @return void
+	 */
 	public function testLazyLoadingUsesReferences() {
 		$Helper = new TestHelper($this->View);
 		$resultA = $Helper->Html;

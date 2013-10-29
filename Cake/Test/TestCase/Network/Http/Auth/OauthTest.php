@@ -22,9 +22,9 @@ use Cake\TestSuite\TestCase;
  */
 class OauthTest extends TestCase {
 
-/**
- * @expectedException Cake\Error\Exception
- */
+	/**
+	 * @expectedException Cake\Error\Exception
+	 */
 	public function testExceptionUnknownSigningMethod() {
 		$auth = new Oauth();
 		$creds = [
@@ -38,11 +38,11 @@ class OauthTest extends TestCase {
 		$auth->authentication($request, $creds);
 	}
 
-/**
- * Test plain-text signing.
- *
- * @return void
- */
+	/**
+	 * Test plain-text signing.
+	 *
+	 * @return void
+	 */
 	public function testPlainTextSigning() {
 		$auth = new Oauth();
 		$creds = [
@@ -66,11 +66,11 @@ class OauthTest extends TestCase {
 		$this->assertContains('oauth_nonce=', $result);
 	}
 
-/**
- * Test that baseString() normalizes the URL.
- *
- * @return void
- */
+	/**
+	 * Test that baseString() normalizes the URL.
+	 *
+	 * @return void
+	 */
 	public function testBaseStringNormalizeUrl() {
 		$request = new Request();
 		$request->url('HTTP://exAmple.com:80/parts/foo');
@@ -82,11 +82,11 @@ class OauthTest extends TestCase {
 		$this->assertContains('http%3A%2F%2Fexample.com%2Fparts%2Ffoo', $result);
 	}
 
-/**
- * Test that the query string is stripped from the normalized host.
- *
- * @return void
- */
+	/**
+	 * Test that the query string is stripped from the normalized host.
+	 *
+	 * @return void
+	 */
 	public function testBaseStringWithQueryString() {
 		$request = new Request();
 		$request->url('http://example.com/search?q=pogo&cat=2');
@@ -118,18 +118,18 @@ class OauthTest extends TestCase {
 		);
 	}
 
-/**
- * Ensure that post data is sorted and encoded.
- *
- * Keys with array values have to be serialized using
- * a more standard HTTP approach. PHP flavoured HTTP
- * is not part of the Oauth spec.
- *
- * See Normalize Request Parameters (section 9.1.1)
- * http://wiki.oauth.net/w/page/12238556/TestCases
- *
- * @return void
- */
+	/**
+	 * Ensure that post data is sorted and encoded.
+	 *
+	 * Keys with array values have to be serialized using
+	 * a more standard HTTP approach. PHP flavoured HTTP
+	 * is not part of the Oauth spec.
+	 *
+	 * See Normalize Request Parameters (section 9.1.1)
+	 * http://wiki.oauth.net/w/page/12238556/TestCases
+	 *
+	 * @return void
+	 */
 	public function testBaseStringWithPostData() {
 		$request = new Request();
 		$request->url('http://example.com/search?q=pogo')
@@ -172,14 +172,14 @@ class OauthTest extends TestCase {
 		);
 	}
 
-/**
- * Test HMAC-SHA1 signing
- *
- * Hash result + parameters taken from
- * http://wiki.oauth.net/w/page/12238556/TestCases
- *
- * @return void
- */
+	/**
+	 * Test HMAC-SHA1 signing
+	 *
+	 * Hash result + parameters taken from
+	 * http://wiki.oauth.net/w/page/12238556/TestCases
+	 *
+	 * @return void
+	 */
 	public function testHmacSigning() {
 		$request = new Request();
 		$request->url('http://photos.example.net/photos')

@@ -28,11 +28,11 @@ use Cake\TestSuite\TestCase;
  */
 class IniAclTest extends TestCase {
 
-/**
- * testIniCheck method
- *
- * @return void
- */
+	/**
+	 * testIniCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$iniFile = CAKE . 'Test/TestApp/Config/acl.ini.php';
 
@@ -51,11 +51,11 @@ class IniAclTest extends TestCase {
 		$this->assertFalse($Ini->check('nobody', 'comments'));
 	}
 
-/**
- * check should accept a user array.
- *
- * @return void
- */
+	/**
+	 * check should accept a user array.
+	 *
+	 * @return void
+	 */
 	public function testCheckArray() {
 		$iniFile = CAKE . 'Test/TestApp/Config/acl.ini.php';
 

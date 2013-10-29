@@ -26,13 +26,13 @@ use \DateTime;
  */
 class DateTimeType extends \Cake\Database\Type {
 
-/**
- * Convert DateTime instance into strings.
- *
- * @param string|Datetime $value The value to convert.
- * @param Driver $driver The driver instance to convert with.
- * @return string
- */
+	/**
+	 * Convert DateTime instance into strings.
+	 *
+	 * @param string|Datetime $value The value to convert.
+	 * @param Driver $driver The driver instance to convert with.
+	 * @return string
+	 */
 	public function toDatabase($value, Driver $driver) {
 		if (is_string($value)) {
 			return $value;
@@ -40,13 +40,13 @@ class DateTimeType extends \Cake\Database\Type {
 		return $value->format('Y-m-d H:i:s');
 	}
 
-/**
- * Convert strings into DateTime instances.
- *
- * @param string $value The value to convert.
- * @param Driver $driver The driver instance to convert with.
- * @return Datetime
- */
+	/**
+	 * Convert strings into DateTime instances.
+	 *
+	 * @param string $value The value to convert.
+	 * @param Driver $driver The driver instance to convert with.
+	 * @return Datetime
+	 */
 	public function toPHP($value, Driver $driver) {
 		if ($value === null) {
 			return null;

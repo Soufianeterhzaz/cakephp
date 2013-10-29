@@ -22,25 +22,25 @@ namespace Cake\TestSuite\Coverage;
  */
 class HtmlCoverageReport extends BaseCoverageReport {
 
-/**
- * Holds the total number of processed rows.
- *
- * @var integer
- */
+	/**
+	 * Holds the total number of processed rows.
+	 *
+	 * @var integer
+	 */
 	protected $_total = 0;
 
-/**
- * Holds the total number of covered rows.
- *
- * @var integer
- */
+	/**
+	 * Holds the total number of covered rows.
+	 *
+	 * @var integer
+	 */
 	protected $_covered = 0;
 
-/**
- * Generates report HTML to display.
- *
- * @return string Compiled HTML report.
- */
+	/**
+	 * Generates report HTML to display.
+	 *
+	 * @return string Compiled HTML report.
+	 */
 	public function report() {
 		$pathFilter = $this->getPathFilter();
 		$coverageData = $this->filterCoverageDataByPath($pathFilter);
@@ -66,19 +66,19 @@ HTML;
 		return $output;
 	}
 
-/**
- * Generates an HTML diff for $file based on $coverageData.
- *
- * Handles both PHPUnit3.5 and 3.6 formats.
- *
- * 3.5 uses -1 for uncovered, and -2 for dead.
- * 3.6 uses array() for uncovered and null for dead.
- *
- * @param string $filename Name of the file having coverage generated
- * @param array $fileLines File data as an array. See file() for how to get one of these.
- * @param array $coverageData Array of coverage data to use to generate HTML diffs with
- * @return string HTML diff.
- */
+	/**
+	 * Generates an HTML diff for $file based on $coverageData.
+	 *
+	 * Handles both PHPUnit3.5 and 3.6 formats.
+	 *
+	 * 3.5 uses -1 for uncovered, and -2 for dead.
+	 * 3.6 uses array() for uncovered and null for dead.
+	 *
+	 * @param string $filename Name of the file having coverage generated
+	 * @param array $fileLines File data as an array. See file() for how to get one of these.
+	 * @param array $coverageData Array of coverage data to use to generate HTML diffs with
+	 * @return string HTML diff.
+	 */
 	public function generateDiff($filename, $fileLines, $coverageData) {
 		$output = '';
 		$diff = array();
@@ -121,12 +121,12 @@ HTML;
 		return $output;
 	}
 
-/**
- * Guess the classname the test was for based on the test case filename.
- *
- * @param ReflectionClass $testReflection.
- * @return string Possible test subject name.
- */
+	/**
+	 * Guess the classname the test was for based on the test case filename.
+	 *
+	 * @param ReflectionClass $testReflection.
+	 * @return string Possible test subject name.
+	 */
 	protected function _guessSubjectName($testReflection) {
 		$basename = basename($testReflection->getFilename());
 		if (strpos($basename, '.test') !== false) {
@@ -137,15 +137,15 @@ HTML;
 		return $subject;
 	}
 
-/**
- * Renders the HTML for a single line in the HTML diff.
- *
- * @param string $line
- * @param integer $linenumber
- * @param string $class
- * @param array $coveringTests
- * @return string
- */
+	/**
+	 * Renders the HTML for a single line in the HTML diff.
+	 *
+	 * @param string $line
+	 * @param integer $linenumber
+	 * @param string $class
+	 * @param array $coveringTests
+	 * @return string
+	 */
 	protected function _paintLine($line, $linenumber, $class, $coveringTests) {
 		$coveredBy = '';
 		if (!empty($coveringTests)) {
@@ -164,11 +164,11 @@ HTML;
 		);
 	}
 
-/**
- * generate some javascript for the coverage report.
- *
- * @return string
- */
+	/**
+	 * generate some javascript for the coverage report.
+	 *
+	 * @return string
+	 */
 	public function coverageScript() {
 		return <<<HTML
 		<script type="text/javascript">
@@ -189,13 +189,13 @@ HTML;
 HTML;
 	}
 
-/**
- * Generate an HTML snippet for coverage headers
- *
- * @param string $filename
- * @param string $percent
- * @return string
- */
+	/**
+	 * Generate an HTML snippet for coverage headers
+	 *
+	 * @param string $filename
+	 * @param string $percent
+	 * @return string
+	 */
 	public function coverageHeader($filename, $percent) {
 		$filename = basename($filename);
 		list($file, $ext) = explode('.', $filename);
@@ -213,11 +213,11 @@ HTML;
 HTML;
 	}
 
-/**
- * Generate an HTML snippet for coverage footers
- *
- * @return void
- */
+	/**
+	 * Generate an HTML snippet for coverage footers
+	 *
+	 * @return void
+	 */
 	public function coverageFooter() {
 		return "</pre></div></div>";
 	}

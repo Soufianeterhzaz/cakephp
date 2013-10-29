@@ -37,45 +37,45 @@ class ConnectionTest extends TestCase {
 		unset($this->connection);
 	}
 
-/**
- * Tests connecting to database
- *
- * @return void
- */
+	/**
+	 * Tests connecting to database
+	 *
+	 * @return void
+	 */
 	public function testConnect() {
 		$this->assertTrue($this->connection->connect());
 		$this->assertTrue($this->connection->isConnected());
 	}
 
-/**
- * Tests creating a connection using an invalid driver throws an exception
- *
- * @expectedException Cake\Database\Exception\MissingDriverException
- * @expectedExceptionMessage Database driver \Foo\InvalidDriver could not be found.
- * @return void
- */
+	/**
+	 * Tests creating a connection using an invalid driver throws an exception
+	 *
+	 * @expectedException Cake\Database\Exception\MissingDriverException
+	 * @expectedExceptionMessage Database driver \Foo\InvalidDriver could not be found.
+	 * @return void
+	 */
 	public function testMissingDriver() {
 		$connection = new Connection(['datasource' => '\Foo\InvalidDriver']);
 	}
 
-/**
- * Tests trying to use a disabled driver throws an exception
- *
- * @expectedException Cake\Database\Exception\MissingExtensionException
- * @expectedExceptionMessage Database driver DriverMock cannot be used due to a missing PHP extension or unmet dependency
- * @return void
- */
+	/**
+	 * Tests trying to use a disabled driver throws an exception
+	 *
+	 * @expectedException Cake\Database\Exception\MissingExtensionException
+	 * @expectedExceptionMessage Database driver DriverMock cannot be used due to a missing PHP extension or unmet dependency
+	 * @return void
+	 */
 	public function testDisabledDriver() {
 		$mock = $this->getMock('\Cake\Database\Connection\Driver', ['enabled'], [], 'DriverMock');
 		$connection = new Connection(['datasource' => $mock]);
 	}
 
-/**
- * Tests that connecting with invalid credentials or database name throws an exception
- *
- * @expectedException \Cake\Database\Exception\MissingConnectionException
- * @return void
- **/
+	/**
+	 * Tests that connecting with invalid credentials or database name throws an exception
+	 *
+	 * @expectedException \Cake\Database\Exception\MissingConnectionException
+	 * @return void
+	 **/
 	public function testWrongCredentials() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(isset($config['dsn']), 'Datasource has dsn, skipping.');
@@ -83,11 +83,11 @@ class ConnectionTest extends TestCase {
 		$connection->connect();
 	}
 
-/**
- * Tests disconnecting from database
- *
- * @return void
- **/
+	/**
+	 * Tests disconnecting from database
+	 *
+	 * @return void
+	 **/
 	public function testDisconnect() {
 		$this->assertTrue($this->connection->connect());
 		$this->assertTrue($this->connection->isConnected());
@@ -95,11 +95,11 @@ class ConnectionTest extends TestCase {
 		$this->assertFalse($this->connection->isConnected());
 	}
 
-/**
- * Tests creation of prepared statements
- *
- * @return void
- **/
+	/**
+	 * Tests creation of prepared statements
+	 *
+	 * @return void
+	 **/
 	public function testPrepare() {
 		$sql = 'SELECT 1 + 1';
 		$result = $this->connection->prepare($sql);
@@ -107,11 +107,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($sql, $result->queryString);
 	}
 
-/**
- * Tests executing a simple query using bound values
- *
- * @return void
- **/
+	/**
+	 * Tests executing a simple query using bound values
+	 *
+	 * @return void
+	 **/
 	public function testExecuteWithArguments() {
 		$sql = 'SELECT 1 + ?';
 		$statement = $this->connection->execute($sql, [1], array('integer'));
@@ -132,11 +132,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals(['total' => 6], $result);
 	}
 
-/**
- * Tests executing a query with params and associated types
- *
- * @return void
- **/
+	/**
+	 * Tests executing a query with params and associated types
+	 *
+	 * @return void
+	 **/
 	public function testExecuteWithArgumentsAndTypes() {
 		$sql = "SELECT ? = '2012-01-01'";
 		$statement = $this->connection->execute($sql, [new \DateTime('2012-01-01')], ['date']);
@@ -150,22 +150,22 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($result, array_filter($result));
 	}
 
-/**
- * Tests that passing a unknown value to a query throws an exception
- *
- * @expectedException \InvalidArgumentException
- * @return void
- **/
+	/**
+	 * Tests that passing a unknown value to a query throws an exception
+	 *
+	 * @expectedException \InvalidArgumentException
+	 * @return void
+	 **/
 	public function testExecuteWithMissingType() {
 		$sql = 'SELECT ?';
 		$statement = $this->connection->execute($sql, [new \DateTime('2012-01-01')], ['bar']);
 	}
 
-/**
- * Tests executing a query with no params also works
- *
- * @return void
- **/
+	/**
+	 * Tests executing a query with no params also works
+	 *
+	 * @return void
+	 **/
 	public function testExecuteWithNoParams() {
 		$sql = 'SELECT 1';
 		$statement = $this->connection->execute($sql);
@@ -174,11 +174,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals([1], $result);
 	}
 
-/**
- * Tests it is possible to insert data into a table using matching types by key name
- *
- * @return void
- **/
+	/**
+	 * Tests it is possible to insert data into a table using matching types by key name
+	 *
+	 * @return void
+	 **/
 	public function testInsertWithMatchingTypes() {
 		$table = 'CREATE TEMPORARY TABLE things(id int, title varchar(20), body varchar(50))';
 		$this->connection->execute($table);
@@ -195,11 +195,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($data, $row);
 	}
 
-/**
- * Tests it is possible to insert data into a table using matching types by array position
- *
- * @return void
- **/
+	/**
+	 * Tests it is possible to insert data into a table using matching types by array position
+	 *
+	 * @return void
+	 **/
 	public function testInsertWithPositionalTypes() {
 		$table = 'CREATE TEMPORARY TABLE things(id int, title varchar(20), body varchar(50))';
 		$this->connection->execute($table);
@@ -216,11 +216,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($data, $row);
 	}
 
-/**
- * Auxiliary function to insert a couple rows in a newly created table
- *
- * @return void
- **/
+	/**
+	 * Auxiliary function to insert a couple rows in a newly created table
+	 *
+	 * @return void
+	 **/
 	protected function _insertTwoRecords() {
 		$table = 'CREATE TEMPORARY TABLE things(id int, title varchar(20), body varchar(50))';
 		$this->connection->execute($table);
@@ -237,11 +237,11 @@ class ConnectionTest extends TestCase {
 		$result->execute();
 	}
 
-/**
- * Tests an statement class can be reused for multiple executions
- *
- * @return void
- **/
+	/**
+	 * Tests an statement class can be reused for multiple executions
+	 *
+	 * @return void
+	 **/
 	public function testStatementReusing() {
 		$this->_insertTwoRecords();
 
@@ -259,11 +259,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals('another body', $row['body']);
 	}
 
-/**
- * Tests rows can be updated without specifying any conditions nor types
- *
- * @return void
- **/
+	/**
+	 * Tests rows can be updated without specifying any conditions nor types
+	 *
+	 * @return void
+	 **/
 	public function testUpdateWithoutConditionsNorTypes() {
 		$this->_insertTwoRecords();
 		$title = 'changed the title!';
@@ -273,11 +273,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(2, $result);
 	}
 
-/**
- * Tests it is possible to use key => value conditions for update
- *
- * @return void
- **/
+	/**
+	 * Tests it is possible to use key => value conditions for update
+	 *
+	 * @return void
+	 **/
 	public function testUpdateWithConditionsNoTypes() {
 		$this->_insertTwoRecords();
 		$title = 'changed the title!';
@@ -287,11 +287,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests it is possible to use key => value and string conditions for update
- *
- * @return void
- **/
+	/**
+	 * Tests it is possible to use key => value and string conditions for update
+	 *
+	 * @return void
+	 **/
 	public function testUpdateWithConditionsCombinedNoTypes() {
 		$this->_insertTwoRecords();
 		$title = 'changed the title!';
@@ -301,11 +301,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests you can bind types to update values
- *
- * @return void
- **/
+	/**
+	 * Tests you can bind types to update values
+	 *
+	 * @return void
+	 **/
 	public function testUpdateWithTypes() {
 		$this->_insertTwoRecords();
 		$title = 'changed the title!';
@@ -320,11 +320,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals('2012-01-01', $row['body']);
 	}
 
-/**
- * Tests you can bind types to update values
- *
- * @return void
- **/
+	/**
+	 * Tests you can bind types to update values
+	 *
+	 * @return void
+	 **/
 	public function testUpdateWithConditionsAndTypes() {
 		$this->_insertTwoRecords();
 		$title = 'changed the title!';
@@ -337,11 +337,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals('2012-01-01', $row['body']);
 	}
 
-/**
- * Tests delete from table with no conditions
- *
- * @return void
- **/
+	/**
+	 * Tests delete from table with no conditions
+	 *
+	 * @return void
+	 **/
 	public function testDeleteNoConditions() {
 		$this->_insertTwoRecords();
 		$this->connection->delete('things');
@@ -349,10 +349,10 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests delete from table with conditions
- * @return void
- **/
+	/**
+	 * Tests delete from table with conditions
+	 * @return void
+	 **/
 	public function testDeleteWithConditions() {
 		$this->_insertTwoRecords();
 		$this->connection->delete('things', ['id' => '1-rest-is-ommited'], ['id' => 'integer']);
@@ -368,11 +368,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(0, $result);
 	}
 
-/**
- * Tests that it is possible to use simple database transactions
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to use simple database transactions
+	 *
+	 * @return void
+	 **/
 	public function testSimpleTransactions() {
 		$this->_insertTwoRecords();
 		$this->connection->begin();
@@ -388,12 +388,12 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests that it is possible to use virtualized nested transaction
- * with early rollback algorithm
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to use virtualized nested transaction
+	 * with early rollback algorithm
+	 *
+	 * @return void
+	 **/
 	public function testVirtualNestedTrasanction() {
 		$this->_insertTwoRecords();
 
@@ -413,12 +413,12 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(2, $result);
 	}
 
-/**
- * Tests that it is possible to use virtualized nested transaction
- * with early rollback algorithm
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to use virtualized nested transaction
+	 * with early rollback algorithm
+	 *
+	 * @return void
+	 **/
 	public function testVirtualNestedTrasanction2() {
 		$this->_insertTwoRecords();
 
@@ -436,12 +436,12 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(2, $result);
 	}
 
-/**
- * Tests that it is possible to use virtualized nested transaction
- * with early rollback algorithm
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to use virtualized nested transaction
+	 * with early rollback algorithm
+	 *
+	 * @return void
+	 **/
 
 	public function testVirtualNestedTrasanction3() {
 		$this->_insertTwoRecords();
@@ -462,11 +462,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests that it is possible to real use  nested transactions
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to real use  nested transactions
+	 *
+	 * @return void
+	 **/
 	public function testSavePoints() {
 		$this->skipIf(!$this->connection->useSavePoints(true));
 		$this->_insertTwoRecords();
@@ -491,11 +491,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(2, $result);
 	}
 
-/**
- * Tests that it is possible to real use  nested transactions
- *
- * @return void
- **/
+	/**
+	 * Tests that it is possible to real use  nested transactions
+	 *
+	 * @return void
+	 **/
 
 	public function testSavePoints2() {
 		$this->skipIf(!$this->connection->useSavePoints(true));
@@ -521,11 +521,11 @@ class ConnectionTest extends TestCase {
 		$this->assertCount(1, $result);
 	}
 
-/**
- * Tests connection can quote values to be safely used in query strings
- *
- * @return void
- **/
+	/**
+	 * Tests connection can quote values to be safely used in query strings
+	 *
+	 * @return void
+	 **/
 	public function testQuote() {
 		$this->skipIf(!$this->connection->supportsQuoting());
 		$expected = "'2012-01-01'";
@@ -541,11 +541,11 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests identifier quoting
- *
- * @return void
- */
+	/**
+	 * Tests identifier quoting
+	 *
+	 * @return void
+	 */
 	public function testQuoteIdentifier() {
 		$driver = $this->getMock('Cake\Database\Driver\Sqlite', ['enabled']);
 		$driver->expects($this->once())
@@ -613,33 +613,33 @@ class ConnectionTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests default return vale for logger() function
- *
- * @return void
- */
+	/**
+	 * Tests default return vale for logger() function
+	 *
+	 * @return void
+	 */
 	public function testLoggerDefault() {
 		$logger = $this->connection->logger();
 		$this->assertInstanceOf('\Cake\Database\Log\QueryLogger', $logger);
 		$this->assertSame($logger, $this->connection->logger());
 	}
 
-/**
- * Tests that a custom logger object can be set
- *
- * @return void
- */
+	/**
+	 * Tests that a custom logger object can be set
+	 *
+	 * @return void
+	 */
 	public function testSetLogger() {
 		$logger = new \Cake\Database\Log\QueryLogger;
 		$this->connection->logger($logger);
 		$this->assertSame($logger, $this->connection->logger());
 	}
 
-/**
- * Tests that statements are decorated with a logger when logQueries is set to true
- *
- * @return void
- */
+	/**
+	 * Tests that statements are decorated with a logger when logQueries is set to true
+	 *
+	 * @return void
+	 */
 	public function testLoggerDecorator() {
 		$logger = new \Cake\Database\Log\QueryLogger;
 		$this->connection->logQueries(true);
@@ -653,11 +653,11 @@ class ConnectionTest extends TestCase {
 		$this->assertNotInstanceOf('\Cake\Database\Log\LoggingStatement', $st);
 	}
 
-/**
- * Tests that log() function logs to the configured query logger
- *
- * @return void
- */
+	/**
+	 * Tests that log() function logs to the configured query logger
+	 *
+	 * @return void
+	 */
 	public function testLogFunction() {
 		$logger = $this->getMock('\Cake\Database\Log\QueryLogger');
 		$this->connection->logger($logger);
@@ -669,11 +669,11 @@ class ConnectionTest extends TestCase {
 		$this->connection->log('SELECT 1');
 	}
 
-/**
- * Tests that begin and rollback are also logged
- *
- * @return void
- */
+	/**
+	 * Tests that begin and rollback are also logged
+	 *
+	 * @return void
+	 */
 	public function testLogBeginRollbackTransaction() {
 		$connection = $this->getMock(
 			'\Cake\Database\Connection',
@@ -704,11 +704,11 @@ class ConnectionTest extends TestCase {
 		$connection->rollback();
 	}
 
-/**
- * Tests that commits are logged
- *
- * @return void
- */
+	/**
+	 * Tests that commits are logged
+	 *
+	 * @return void
+	 */
 	public function testLogCommitTransaction() {
 		$driver = $this->getMock('Cake\Database\Driver');
 		$driver->expects($this->once())

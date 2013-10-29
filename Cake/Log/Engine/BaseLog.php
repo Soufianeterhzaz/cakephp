@@ -22,34 +22,34 @@ use Cake\Log\LogInterface;
  */
 abstract class BaseLog implements LogInterface {
 
-/**
- * Engine config
- *
- * @var string
- */
+	/**
+	 * Engine config
+	 *
+	 * @var string
+	 */
 	protected $_config = [];
 
-/**
- * __construct method
- *
- * @param array $config Configuration array
- */
+	/**
+	 * __construct method
+	 *
+	 * @param array $config Configuration array
+	 */
 	public function __construct(array $config = []) {
 		$this->config($config);
 	}
 
-/**
- * Sets instance config. When $config is null, returns config array
- *
- * ### Options
- *
- * - `levels` string or array, levels the engine is interested in
- * - `scopes` string or array, scopes the engine is interested in
- *
- * @param array|null $config Either an array of configuration, or null to get
- *    current configuration.
- * @return array Array of configuration options.
- */
+	/**
+	 * Sets instance config. When $config is null, returns config array
+	 *
+	 * ### Options
+	 *
+	 * - `levels` string or array, levels the engine is interested in
+	 * - `scopes` string or array, scopes the engine is interested in
+	 *
+	 * @param array|null $config Either an array of configuration, or null to get
+	 *    current configuration.
+	 * @return array Array of configuration options.
+	 */
 	public function config($config = null) {
 		if (empty($config)) {
 			return $this->_config;
@@ -64,20 +64,20 @@ abstract class BaseLog implements LogInterface {
 		return $this->_config;
 	}
 
-/**
- * Get the levls this logger is interested in.
- *
- * @return array
- */
+	/**
+	 * Get the levls this logger is interested in.
+	 *
+	 * @return array
+	 */
 	public function levels() {
 		return isset($this->_config['levels']) ? $this->_config['levels'] : [];
 	}
 
-/**
- * Get the scopes this logger is interested in.
- *
- * @return array
- */
+	/**
+	 * Get the scopes this logger is interested in.
+	 *
+	 * @return array
+	 */
 	public function scopes() {
 		return isset($this->_config['scopes']) ? $this->_config['scopes'] : [];
 	}

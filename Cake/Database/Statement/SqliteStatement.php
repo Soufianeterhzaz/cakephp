@@ -22,11 +22,11 @@ namespace Cake\Database\Statement;
  */
 class SqliteStatement extends BufferedStatement {
 
-/**
- * Returns the number of rows returned of affected by last execution
- *
- * @return int
- */
+	/**
+	 * Returns the number of rows returned of affected by last execution
+	 *
+	 * @return int
+	 */
 	public function rowCount() {
 		if (preg_match('/^(?:DELETE|UPDATE|INSERT)/i', $this->_statement->queryString)) {
 			$changes = $this->_driver->prepare('SELECT CHANGES()');

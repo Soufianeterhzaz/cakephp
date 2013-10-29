@@ -28,75 +28,75 @@ namespace Cake\Model\Validator;
  */
 class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 
-/**
- * Holds the ValidationRule objects
- *
- * @var array
- */
+	/**
+	 * Holds the ValidationRule objects
+	 *
+	 * @var array
+	 */
 	protected $_rules = array();
 
-/**
- * List of methods available for validation
- *
- * @var array
- */
+	/**
+	 * List of methods available for validation
+	 *
+	 * @var array
+	 */
 	protected $_methods = array();
 
-/**
- * I18n domain for validation messages.
- *
- * @var string
- */
+	/**
+	 * I18n domain for validation messages.
+	 *
+	 * @var string
+	 */
 	protected $_validationDomain = null;
 
-/**
- * Whether the validation is stopped
- *
- * @var boolean
- */
+	/**
+	 * Whether the validation is stopped
+	 *
+	 * @var boolean
+	 */
 	public $isStopped = false;
 
-/**
- * Holds the fieldname
- *
- * @var string
- */
+	/**
+	 * Holds the fieldname
+	 *
+	 * @var string
+	 */
 	public $field = null;
 
-/**
- * Holds the original ruleSet
- *
- * @var array
- */
+	/**
+	 * Holds the original ruleSet
+	 *
+	 * @var array
+	 */
 	public $ruleSet = array();
 
-/**
- * Denotes whether the fieldname key must be present in data array
- *
- * @var boolean|string
- */
+	/**
+	 * Denotes whether the fieldname key must be present in data array
+	 *
+	 * @var boolean|string
+	 */
 	protected $_validatePresent = false;
 
-/**
- * Denotes if a field is allowed to be empty
- *
- * @var boolean|string
- */
+	/**
+	 * Denotes if a field is allowed to be empty
+	 *
+	 * @var boolean|string
+	 */
 	protected $_allowEmpty = false;
 
-/**
- * Holds whether the record being validated is to be created or updated
- *
- * @var boolean
- */
+	/**
+	 * Holds whether the record being validated is to be created or updated
+	 *
+	 * @var boolean
+	 */
 	protected $_isUpdate = false;
 
-/**
- * Constructor
- *
- * @param string $fieldName The fieldname
- * @param array $ruleset
- */
+	/**
+	 * Constructor
+	 *
+	 * @param string $fieldName The fieldname
+	 * @param array $ruleset
+	 */
 	public function __construct($fieldName, $ruleSet) {
 		$this->field = $fieldName;
 
@@ -114,24 +114,24 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		$this->ruleSet = $ruleSet;
 	}
 
-/**
- * Sets the list of methods to use for validation
- *
- * @param array $methods Methods list
- * @return void
- */
+	/**
+	 * Sets the list of methods to use for validation
+	 *
+	 * @param array $methods Methods list
+	 * @return void
+	 */
 	public function setMethods($methods) {
 		$this->_methods = $methods;
 	}
 
-/**
- * Sets the I18n domain for validation messages.
- *
- * If no argument is passed the currently set domain will be returned.
- *
- * @param string $validationDomain The validation domain to be used.
- * @return string
- */
+	/**
+	 * Sets the I18n domain for validation messages.
+	 *
+	 * If no argument is passed the currently set domain will be returned.
+	 *
+	 * @param string $validationDomain The validation domain to be used.
+	 * @return string
+	 */
 	public function validationDomain($validationDomain = null) {
 		if ($validationDomain === null) {
 			return $this->_validationDomain;
@@ -139,14 +139,14 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_validationDomain = $validationDomain;
 	}
 
-/**
- * Sets whether a field is required to be present in data array.
- *
- * If no argument is passed the currently set `validatePresent` value will be returned.
- *
- * @param boolean|string $validatePresent Valid values are true, false, 'create', 'update'
- * @return boolean|string
- */
+	/**
+	 * Sets whether a field is required to be present in data array.
+	 *
+	 * If no argument is passed the currently set `validatePresent` value will be returned.
+	 *
+	 * @param boolean|string $validatePresent Valid values are true, false, 'create', 'update'
+	 * @return boolean|string
+	 */
 	public function validatePresent($validatePresent = null) {
 		if ($validatePresent === null) {
 			return $this->_validatePresent;
@@ -154,14 +154,14 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_validatePresent = $validatePresent;
 	}
 
-/**
- * Sets whether a field value is allowed to be empty
- *
- * If no argument is passed the currently set `allowEmpty` value will be returned.
- *
- * @param boolean|string $allowEmpty Valid values are true, false, 'create', 'update'
- * @return boolean|string
- */
+	/**
+	 * Sets whether a field value is allowed to be empty
+	 *
+	 * If no argument is passed the currently set `allowEmpty` value will be returned.
+	 *
+	 * @param boolean|string $allowEmpty Valid values are true, false, 'create', 'update'
+	 * @return boolean|string
+	 */
 	public function allowEmpty($allowEmpty = null) {
 		if ($allowEmpty === null) {
 			return $this->_allowEmpty;
@@ -169,16 +169,16 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_allowEmpty = $allowEmpty;
 	}
 
-/**
- * Sets the isUpdate configuration value for this ruleset,
- * it refers to wheter the model record it is validating exists
- * in the collection or not (create or update operation)
- *
- * If called with no parameters it will return whether this ruleset
- * is configured for update operations or not.
- *
- * @return boolean
- */
+	/**
+	 * Sets the isUpdate configuration value for this ruleset,
+	 * it refers to wheter the model record it is validating exists
+	 * in the collection or not (create or update operation)
+	 *
+	 * If called with no parameters it will return whether this ruleset
+	 * is configured for update operations or not.
+	 *
+	 * @return boolean
+	 */
 	public function isUpdate($isUpdate = null) {
 		if ($isUpdate === null) {
 			return $this->_isUpdate;
@@ -189,14 +189,14 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_isUpdate = $isUpdate;
 	}
 
-/**
- * Runs all validation rules in this set and returns a list of
- * validation errors
- *
- * @param array $data Data array to validate
- * @param boolean $isUpdate Is record being updated or created
- * @return array list of validation errors for this field
- */
+	/**
+	 * Runs all validation rules in this set and returns a list of
+	 * validation errors
+	 *
+	 * @param array $data Data array to validate
+	 * @param boolean $isUpdate Is record being updated or created
+	 * @return array list of validation errors for this field
+	 */
 	public function validate($data, $isUpdate = false) {
 		$this->reset();
 		$this->_isUpdate = $isUpdate;
@@ -231,11 +231,11 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $errors;
 	}
 
-/**
- * Returns whether the field can be left blank according to `allowEmpty`
- *
- * @return boolean
- */
+	/**
+	 * Returns whether the field can be left blank according to `allowEmpty`
+	 *
+	 * @return boolean
+	 */
 	public function isEmptyAllowed() {
 		if (in_array($this->_allowEmpty, array('create', 'update'), true)) {
 			return (
@@ -247,13 +247,13 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_allowEmpty;
 	}
 
-/**
- * Checks if `validatePresent` property applies
- *
- * @param string $field Field to check
- * @param array $data data to check against
- * @return boolean
- */
+	/**
+	 * Checks if `validatePresent` property applies
+	 *
+	 * @param string $field Field to check
+	 * @param array $data data to check against
+	 * @return boolean
+	 */
 	public function checkValidatePresent($field, $data) {
 		if (array_key_exists($field, $data)) {
 			return false;
@@ -269,13 +269,13 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this->_validatePresent;
 	}
 
-/**
- * Checks if the `allowEmpty` property applies
- *
- * @param string $field Field to check
- * @param array $data data to check against
- * @return boolean
- */
+	/**
+	 * Checks if the `allowEmpty` property applies
+	 *
+	 * @param string $field Field to check
+	 * @param array $data data to check against
+	 * @return boolean
+	 */
 	public function checkEmpty($field, $data) {
 		if (!array_key_exists($field, $data)) {
 			return false;
@@ -286,53 +286,53 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return false;
 	}
 
-/**
- * Resets internal state for all validation rules in this set
- *
- * @return void
- */
+	/**
+	 * Resets internal state for all validation rules in this set
+	 *
+	 * @return void
+	 */
 	public function reset() {
 		foreach ($this->getRules() as $rule) {
 			$rule->reset();
 		}
 	}
 
-/**
- * Gets a rule for a given name if exists
- *
- * @param string $name
- * @return Cake\Model\Validator\ValidationRule
- */
+	/**
+	 * Gets a rule for a given name if exists
+	 *
+	 * @param string $name
+	 * @return Cake\Model\Validator\ValidationRule
+	 */
 	public function getRule($name) {
 		if (!empty($this->_rules[$name])) {
 			return $this->_rules[$name];
 		}
 	}
 
-/**
- * Returns all rules for this validation set
- *
- * @return array
- */
+	/**
+	 * Returns all rules for this validation set
+	 *
+	 * @return array
+	 */
 	public function getRules() {
 		return $this->_rules;
 	}
 
-/**
- * Sets a ValidationRule $rule with a $name
- *
- * ## Example:
- *
- * {{{
- *		$set
- *			->setRule('notEmpty', array('rule' => 'notEmpty'))
- *			->setRule('inRange', array('rule' => array('between', 4, 10))
- * }}}
- *
- * @param string $name The name under which the rule should be set
- * @param Cake\Model\Validator\ValidationRule|array $rule The validation rule to be set
- * @return Cake\Model\Validator\ValidationSet this instance
- */
+	/**
+	 * Sets a ValidationRule $rule with a $name
+	 *
+	 * ## Example:
+	 *
+	 * {{{
+	 *		$set
+	 *			->setRule('notEmpty', array('rule' => 'notEmpty'))
+	 *			->setRule('inRange', array('rule' => array('between', 4, 10))
+	 * }}}
+	 *
+	 * @param string $name The name under which the rule should be set
+	 * @param Cake\Model\Validator\ValidationRule|array $rule The validation rule to be set
+	 * @return Cake\Model\Validator\ValidationSet this instance
+	 */
 	public function setRule($name, $rule) {
 		if (!($rule instanceof ValidationRule)) {
 			$rule = new ValidationRule($rule);
@@ -341,41 +341,41 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this;
 	}
 
-/**
- * Removes a validation rule from the set
- *
- * ## Example:
- *
- * {{{
- *		$set
- *			->removeRule('notEmpty')
- *			->removeRule('inRange')
- * }}}
- *
- * @param string $name The name under which the rule should be unset
- * @return Cake\Model\Validator\ValidationSet this instance
- */
+	/**
+	 * Removes a validation rule from the set
+	 *
+	 * ## Example:
+	 *
+	 * {{{
+	 *		$set
+	 *			->removeRule('notEmpty')
+	 *			->removeRule('inRange')
+	 * }}}
+	 *
+	 * @param string $name The name under which the rule should be unset
+	 * @return Cake\Model\Validator\ValidationSet this instance
+	 */
 	public function removeRule($name) {
 		unset($this->_rules[$name]);
 		return $this;
 	}
 
-/**
- * Sets the rules for a given field
- *
- * ## Example:
- *
- * {{{
- *		$set->setRules(array(
- *			'notEmpty' => array('rule' => 'notEmpty'),
- *			'inRange' => array('rule' => array('between', 4, 10)
- * 		));
- * }}}
- *
- * @param array $rules The rules to be set
- * @param boolean $mergeVars [optional] If true, merges vars instead of replace. Defaults to true.
- * @return ModelField
- */
+	/**
+	 * Sets the rules for a given field
+	 *
+	 * ## Example:
+	 *
+	 * {{{
+	 *		$set->setRules(array(
+	 *			'notEmpty' => array('rule' => 'notEmpty'),
+	 *			'inRange' => array('rule' => array('between', 4, 10)
+	 * 		));
+	 * }}}
+	 *
+	 * @param array $rules The rules to be set
+	 * @param boolean $mergeVars [optional] If true, merges vars instead of replace. Defaults to true.
+	 * @return ModelField
+	 */
 	public function setRules($rules = array(), $mergeVars = true) {
 		if ($mergeVars === false) {
 			$this->_rules = array();
@@ -386,13 +386,13 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $this;
 	}
 
-/**
- * Fetches the correct error message for a failed validation
- *
- * @param string $name the name of the rule as it was configured
- * @param Cake\Model\Validator\ValidationRule $rule the object containing validation information
- * @return string
- */
+	/**
+	 * Fetches the correct error message for a failed validation
+	 *
+	 * @param string $name the name of the rule as it was configured
+	 * @param Cake\Model\Validator\ValidationRule $rule the object containing validation information
+	 * @return string
+	 */
 	protected function _processValidationResponse($name, $rule) {
 		$message = $rule->getValidationResult();
 		if (is_string($message)) {
@@ -429,12 +429,12 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $message;
 	}
 
-/**
- * Applies translations to validator arguments.
- *
- * @param array $args The args to translate
- * @return array Translated args.
- */
+	/**
+	 * Applies translations to validator arguments.
+	 *
+	 * @param array $args The args to translate
+	 * @return array Translated args.
+	 */
 	protected function _translateArgs($args) {
 		foreach ((array)$args as $k => $arg) {
 			if (is_string($arg)) {
@@ -444,61 +444,61 @@ class ValidationSet implements \ArrayAccess, \IteratorAggregate, \Countable {
 		return $args;
 	}
 
-/**
- * Returns whether an index exists in the rule set
- *
- * @param string $index name of the rule
- * @return boolean
- */
+	/**
+	 * Returns whether an index exists in the rule set
+	 *
+	 * @param string $index name of the rule
+	 * @return boolean
+	 */
 	public function offsetExists($index) {
 		return isset($this->_rules[$index]);
 	}
 
-/**
- * Returns a rule object by its index
- *
- * @param string $index name of the rule
- * @return Cake\Model\Validator\ValidationRule
- */
+	/**
+	 * Returns a rule object by its index
+	 *
+	 * @param string $index name of the rule
+	 * @return Cake\Model\Validator\ValidationRule
+	 */
 	public function offsetGet($index) {
 		return $this->_rules[$index];
 	}
 
-/**
- * Sets or replace a validation rule
- *
- * @param string $index name of the rule
- * @param Cake\Model\Validator\ValidationRule|array rule to add to $index
- * @return void
- */
+	/**
+	 * Sets or replace a validation rule
+	 *
+	 * @param string $index name of the rule
+	 * @param Cake\Model\Validator\ValidationRule|array rule to add to $index
+	 * @return void
+	 */
 	public function offsetSet($index, $rule) {
 		$this->setRule($index, $rule);
 	}
 
-/**
- * Unsets a validation rule
- *
- * @param string $index name of the rule
- * @return void
- */
+	/**
+	 * Unsets a validation rule
+	 *
+	 * @param string $index name of the rule
+	 * @return void
+	 */
 	public function offsetUnset($index) {
 		unset($this->_rules[$index]);
 	}
 
-/**
- * Returns an iterator for each of the rules to be applied
- *
- * @return ArrayIterator
- */
+	/**
+	 * Returns an iterator for each of the rules to be applied
+	 *
+	 * @return ArrayIterator
+	 */
 	public function getIterator() {
 		return new \ArrayIterator($this->_rules);
 	}
 
-/**
- * Returns the number of rules in this set
- *
- * @return integer
- */
+	/**
+	 * Returns the number of rules in this set
+	 *
+	 * @return integer
+	 */
 	public function count() {
 		return count($this->_rules);
 	}

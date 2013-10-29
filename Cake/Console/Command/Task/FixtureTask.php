@@ -26,44 +26,44 @@ use Cake\Utility\Inflector;
  */
 class FixtureTask extends BakeTask {
 
-/**
- * Tasks to be loaded by this Task
- *
- * @var array
- */
+	/**
+	 * Tasks to be loaded by this Task
+	 *
+	 * @var array
+	 */
 	public $tasks = array('DbConfig', 'Model', 'Template');
 
-/**
- * path to fixtures directory
- *
- * @var string
- */
+	/**
+	 * path to fixtures directory
+	 *
+	 * @var string
+	 */
 	public $path = null;
 
-/**
- * Schema instance
- *
- * @var Cake\Model\Schema
- */
+	/**
+	 * Schema instance
+	 *
+	 * @var Cake\Model\Schema
+	 */
 	protected $_Schema = null;
 
-/**
- * Override initialize
- *
- * @param ConsoleOutput $stdout A ConsoleOutput object for stdout.
- * @param ConsoleOutput $stderr A ConsoleOutput object for stderr.
- * @param ConsoleInput $stdin A ConsoleInput object for stdin.
- */
+	/**
+	 * Override initialize
+	 *
+	 * @param ConsoleOutput $stdout A ConsoleOutput object for stdout.
+	 * @param ConsoleOutput $stderr A ConsoleOutput object for stderr.
+	 * @param ConsoleInput $stdin A ConsoleInput object for stdin.
+	 */
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
 		parent::__construct($stdout, $stderr, $stdin);
 		$this->path = APP . 'Test/Fixture/';
 	}
 
-/**
- * get the option parser.
- *
- * @return void
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(
@@ -98,12 +98,12 @@ class FixtureTask extends BakeTask {
 		))->epilog(__d('cake_console', 'Omitting all arguments and options will enter into an interactive mode.'));
 	}
 
-/**
- * Execution method always used for tasks
- * Handles dispatching to interactive, named, or all processes.
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 * Handles dispatching to interactive, named, or all processes.
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		parent::execute();
 		if (empty($this->args)) {
@@ -123,11 +123,11 @@ class FixtureTask extends BakeTask {
 		}
 	}
 
-/**
- * Bake All the Fixtures at once. Will only bake fixtures for models that exist.
- *
- * @return void
- */
+	/**
+	 * Bake All the Fixtures at once. Will only bake fixtures for models that exist.
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->interactive = false;
 		$this->Model->interactive = false;
@@ -143,11 +143,11 @@ class FixtureTask extends BakeTask {
 		}
 	}
 
-/**
- * Interactive baking function
- *
- * @return void
- */
+	/**
+	 * Interactive baking function
+	 *
+	 * @return void
+	 */
 	protected function _interactive() {
 		$this->DbConfig->interactive = $this->Model->interactive = $this->interactive = true;
 		$this->hr();
@@ -163,12 +163,12 @@ class FixtureTask extends BakeTask {
 		$this->bake($modelName, $useTable, $importOptions);
 	}
 
-/**
- * Interacts with the User to setup an array of import options. For a fixture.
- *
- * @param string $modelName Name of model you are dealing with.
- * @return array Array of import options.
- */
+	/**
+	 * Interacts with the User to setup an array of import options. For a fixture.
+	 *
+	 * @param string $modelName Name of model you are dealing with.
+	 * @return array Array of import options.
+	 */
 	public function importOptions($modelName) {
 		$options = array();
 
@@ -198,14 +198,14 @@ class FixtureTask extends BakeTask {
 		return $options;
 	}
 
-/**
- * Assembles and writes a Fixture file
- *
- * @param string $model Name of model to bake.
- * @param string $useTable Name of table to use.
- * @param array $importOptions Options for public $import
- * @return string Baked fixture content
- */
+	/**
+	 * Assembles and writes a Fixture file
+	 *
+	 * @param string $model Name of model to bake.
+	 * @param string $useTable Name of table to use.
+	 * @param array $importOptions Options for public $import
+	 * @return string Baked fixture content
+	 */
 	public function bake($model, $useTable = false, $importOptions = array()) {
 		$table = $schema = $records = $import = $modelImport = null;
 		$importBits = array();
@@ -258,13 +258,13 @@ class FixtureTask extends BakeTask {
 		return $out;
 	}
 
-/**
- * Generate the fixture file, and write to disk
- *
- * @param string $model name of the model being generated
- * @param string $otherVars Contents of the fixture file.
- * @return string Content saved into fixture file.
- */
+	/**
+	 * Generate the fixture file, and write to disk
+	 *
+	 * @param string $model name of the model being generated
+	 * @param string $otherVars Contents of the fixture file.
+	 * @return string Content saved into fixture file.
+	 */
 	public function generateFixtureFile($model, $otherVars) {
 		$defaults = [
 			'table' => null,
@@ -291,11 +291,11 @@ class FixtureTask extends BakeTask {
 		return $content;
 	}
 
-/**
- * Get the path to the fixtures.
- *
- * @return string Path for the fixtures
- */
+	/**
+	 * Get the path to the fixtures.
+	 *
+	 * @return string Path for the fixtures
+	 */
 	public function getPath() {
 		$path = $this->path;
 		if (isset($this->plugin)) {
@@ -304,24 +304,24 @@ class FixtureTask extends BakeTask {
 		return $path;
 	}
 
-/**
- * Generates a string representation of a schema.
- *
- * @param array $tableInfo Table schema array
- * @return string fields definitions
- */
+	/**
+	 * Generates a string representation of a schema.
+	 *
+	 * @param array $tableInfo Table schema array
+	 * @return string fields definitions
+	 */
 	protected function _generateSchema($tableInfo) {
 		$schema = trim($this->_Schema->generateTable('f', $tableInfo), "\n");
 		return substr($schema, 13, -1);
 	}
 
-/**
- * Generate String representation of Records
- *
- * @param array $tableInfo Table schema array
- * @param integer $recordCount
- * @return array Array of records to use in the fixture.
- */
+	/**
+	 * Generate String representation of Records
+	 *
+	 * @param array $tableInfo Table schema array
+	 * @param integer $recordCount
+	 * @return array Array of records to use in the fixture.
+	 */
 	protected function _generateRecords($tableInfo, $recordCount = 1) {
 		$records = array();
 		for ($i = 0; $i < $recordCount; $i++) {
@@ -383,12 +383,12 @@ class FixtureTask extends BakeTask {
 		return $records;
 	}
 
-/**
- * Convert a $records array into a a string.
- *
- * @param array $records Array of records to be converted to string
- * @return string A string value of the $records array.
- */
+	/**
+	 * Convert a $records array into a a string.
+	 *
+	 * @param array $records Array of records to be converted to string
+	 * @return string A string value of the $records array.
+	 */
 	protected function _makeRecordString($records) {
 		$out = "array(\n";
 		foreach ($records as $record) {
@@ -408,14 +408,14 @@ class FixtureTask extends BakeTask {
 		return $out;
 	}
 
-/**
- * Interact with the user to get a custom SQL condition and use that to extract data
- * to build a fixture.
- *
- * @param string $modelName name of the model to take records from.
- * @param string $useTable Name of table to use.
- * @return array Array of records.
- */
+	/**
+	 * Interact with the user to get a custom SQL condition and use that to extract data
+	 * to build a fixture.
+	 *
+	 * @param string $modelName name of the model to take records from.
+	 * @param string $useTable Name of table to use.
+	 * @return array Array of records.
+	 */
 	protected function _getRecordsFromTable($modelName, $useTable = null) {
 		if ($this->interactive) {
 			$condition = null;

@@ -36,33 +36,33 @@ class Message {
 	const METHOD_PATCH = 'PATCH';
 	const METHOD_HEAD = 'HEAD';
 
-/**
- * The array of headers in the response.
- *
- * @var array
- */
+	/**
+	 * The array of headers in the response.
+	 *
+	 * @var array
+	 */
 	protected $_headers = [];
 
-/**
- * The array of cookies in the response.
- *
- * @var array
- */
+	/**
+	 * The array of cookies in the response.
+	 *
+	 * @var array
+	 */
 	protected $_cookies = [];
 
-/**
- * HTTP Version being used.
- *
- * @var string
- */
+	/**
+	 * HTTP Version being used.
+	 *
+	 * @var string
+	 */
 	protected $_version = '1.1';
 
-/**
- * Normalize header names to Camel-Case form.
- *
- * @param string $name The header name to normalize.
- * @return string Normalized header name.
- */
+	/**
+	 * Normalize header names to Camel-Case form.
+	 *
+	 * @param string $name The header name to normalize.
+	 * @return string Normalized header name.
+	 */
 	protected function _normalizeHeader($name) {
 		$parts = explode('-', trim($name));
 		$parts = array_map('strtolower', $parts);
@@ -70,40 +70,40 @@ class Message {
 		return implode('-', $parts);
 	}
 
-/**
- * Get all headers
- *
- * @return array
- */
+	/**
+	 * Get all headers
+	 *
+	 * @return array
+	 */
 	public function headers() {
 		return $this->_headers;
 	}
 
-/**
- * Get all cookies
- *
- * @return array
- */
+	/**
+	 * Get all cookies
+	 *
+	 * @return array
+	 */
 	public function cookies() {
 		return $this->_cookies;
 	}
 
-/**
- * Get the HTTP version used.
- *
- * @param null|string $version
- * @return string
- */
+	/**
+	 * Get the HTTP version used.
+	 *
+	 * @param null|string $version
+	 * @return string
+	 */
 	public function version() {
 		return $this->_version;
 	}
 
-/**
- * Get/set the body for the message.
- *
- * @param string|null $body The body for the request. Leave null for get
- * @return mixed Either $this or the body value.
- */
+	/**
+	 * Get/set the body for the message.
+	 *
+	 * @param string|null $body The body for the request. Leave null for get
+	 * @return mixed Either $this or the body value.
+	 */
 	public function body($body = null) {
 		if ($body === null) {
 			return $this->_body;

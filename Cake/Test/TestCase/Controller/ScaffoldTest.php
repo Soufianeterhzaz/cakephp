@@ -34,11 +34,11 @@ class_alias('Cake\Test\TestCase\Model\ScaffoldMock', 'Cake\Model\ScaffoldMock');
  */
 class ScaffoldMockController extends Controller {
 
-/**
- * scaffold property
- *
- * @var mixed
- */
+	/**
+	 * scaffold property
+	 *
+	 * @var mixed
+	 */
 	public $scaffold;
 }
 
@@ -48,25 +48,25 @@ class ScaffoldMockController extends Controller {
  */
 class ScaffoldMockControllerWithFields extends Controller {
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'ScaffoldMock';
 
-/**
- * scaffold property
- *
- * @var mixed
- */
+	/**
+	 * scaffold property
+	 *
+	 * @var mixed
+	 */
 	public $scaffold;
 
-/**
- * function beforeScaffold
- *
- * @param string method
- */
+	/**
+	 * function beforeScaffold
+	 *
+	 * @param string method
+	 */
 	public function beforeScaffold($method) {
 		$this->set('scaffoldFields', array('title'));
 		return true;
@@ -80,20 +80,20 @@ class ScaffoldMockControllerWithFields extends Controller {
  */
 class TestScaffoldMock extends Scaffold {
 
-/**
- * Overload _scaffold
- *
- * @param unknown_type $params
- */
+	/**
+	 * Overload _scaffold
+	 *
+	 * @param unknown_type $params
+	 */
 	protected function _scaffold(Request $request) {
 		$this->_params = $request;
 	}
 
-/**
- * Get Params from the Controller.
- *
- * @return unknown
- */
+	/**
+	 * Get Params from the Controller.
+	 *
+	 * @return unknown
+	 */
 	public function getParams() {
 		return $this->_params;
 	}
@@ -106,25 +106,25 @@ class TestScaffoldMock extends Scaffold {
  */
 class ScaffoldTest extends TestCase {
 
-/**
- * Controller property
- *
- * @var SecurityTestController
- */
+	/**
+	 * Controller property
+	 *
+	 * @var SecurityTestController
+	 */
 	public $Controller;
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.article', 'core.user', 'core.comment', 'core.join_thing', 'core.tag');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -134,22 +134,22 @@ class ScaffoldTest extends TestCase {
 		$this->Controller->response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Controller);
 	}
 
-/**
- * Test the correct Generation of Scaffold Params.
- * This ensures that the correct action and view will be generated
- *
- * @return void
- */
+	/**
+	 * Test the correct Generation of Scaffold Params.
+	 * This ensures that the correct action and view will be generated
+	 *
+	 * @return void
+	 */
 	public function testScaffoldParams() {
 		$params = array(
 			'plugin' => null,
@@ -172,11 +172,11 @@ class ScaffoldTest extends TestCase {
 		$this->assertEquals('admin_edit', $result['action']);
 	}
 
-/**
- * test that the proper names and variable values are set by Scaffold
- *
- * @return void
- */
+	/**
+	 * test that the proper names and variable values are set by Scaffold
+	 *
+	 * @return void
+	 */
 	public function testScaffoldVariableSetting() {
 		$params = array(
 			'plugin' => null,
@@ -209,11 +209,11 @@ class ScaffoldTest extends TestCase {
 		$this->assertArrayHasKey('plugin', $result['associations']['belongsTo']['User']);
 	}
 
-/**
- * test that Scaffold overrides the view property even if its set to 'Theme'
- *
- * @return void
- */
+	/**
+	 * test that Scaffold overrides the view property even if its set to 'Theme'
+	 *
+	 * @return void
+	 */
 	public function testScaffoldChangingViewProperty() {
 		$this->Controller->action = 'edit';
 		$this->Controller->theme = 'TestTheme';
@@ -224,11 +224,11 @@ class ScaffoldTest extends TestCase {
 		$this->assertEquals('Scaffold', $this->Controller->viewClass);
 	}
 
-/**
- * test that scaffold outputs flash messages when sessions are unset.
- *
- * @return void
- */
+	/**
+	 * test that scaffold outputs flash messages when sessions are unset.
+	 *
+	 * @return void
+	 */
 	public function testScaffoldFlashMessages() {
 		$params = array(
 			'plugin' => null,
@@ -262,11 +262,11 @@ class ScaffoldTest extends TestCase {
 		$this->assertRegExp('/Scaffold Mock has been updated/', $result);
 	}
 
-/**
- * test that habtm relationship keys get added to scaffoldFields.
- *
- * @return void
- */
+	/**
+	 * test that habtm relationship keys get added to scaffoldFields.
+	 *
+	 * @return void
+	 */
 	public function testHabtmFieldAdditionWithScaffoldForm() {
 		Plugin::unload();
 		$params = array(
@@ -296,11 +296,11 @@ class ScaffoldTest extends TestCase {
 		$this->assertEquals(array('id', 'user_id', 'title', 'body', 'published', 'created', 'updated', 'ScaffoldTag'), $result['scaffoldFields']);
 	}
 
-/**
- * test that the proper names and variable values are set by Scaffold
- *
- * @return void
- */
+	/**
+	 * test that the proper names and variable values are set by Scaffold
+	 *
+	 * @return void
+	 */
 	public function testEditScaffoldWithScaffoldFields() {
 		$request = new Request();
 		$this->Controller = new ScaffoldMockControllerWithFields($request);

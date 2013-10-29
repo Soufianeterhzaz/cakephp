@@ -22,22 +22,22 @@ use Cake\Utility\Hash;
  */
 trait MergeVariablesTrait {
 
-/**
- * Merge the list of $properties with all parent classes of the current class.
- *
- * ### Options:
- *
- * - `associative` - A list of properties that should be treated as associative arrays.
- *   Properties in this list will be passed through Hash::normalize() before merging.
- * - `reverse` - A list of properties that should be merged in reverse.  Reverse merging
- *   allows the parent properties to follow the child classes.  Generally this option is only
- *   useful when merging list properties that need to maintain the child property values
- *   as the first elements in the merged list.
- *
- * @param array $properties An array of properties and the merge strategy for them.
- * @param array $options The options to use when merging properties.
- * @return void
- */
+	/**
+	 * Merge the list of $properties with all parent classes of the current class.
+	 *
+	 * ### Options:
+	 *
+	 * - `associative` - A list of properties that should be treated as associative arrays.
+	 *   Properties in this list will be passed through Hash::normalize() before merging.
+	 * - `reverse` - A list of properties that should be merged in reverse.  Reverse merging
+	 *   allows the parent properties to follow the child classes.  Generally this option is only
+	 *   useful when merging list properties that need to maintain the child property values
+	 *   as the first elements in the merged list.
+	 *
+	 * @param array $properties An array of properties and the merge strategy for them.
+	 * @param array $options The options to use when merging properties.
+	 * @return void
+	 */
 	protected function _mergeVars($properties, $options = []) {
 		$class = get_class($this);
 		$parents = [];
@@ -61,14 +61,14 @@ trait MergeVariablesTrait {
 		}
 	}
 
-/**
- * Merge a single property with the values declared in all parent classes.
- *
- * @param string $property The name of the property being merged.
- * @param array $parentClasses An array of classes you want to merge with.
- * @param array $options Options for merging the property, see _mergeVars()
- * @return void
- */
+	/**
+	 * Merge a single property with the values declared in all parent classes.
+	 *
+	 * @param string $property The name of the property being merged.
+	 * @param array $parentClasses An array of classes you want to merge with.
+	 * @param array $options Options for merging the property, see _mergeVars()
+	 * @return void
+	 */
 	protected function _mergeProperty($property, $parentClasses, $options) {
 		$thisValue = $this->{$property};
 		$isAssoc = $isReversed = false;

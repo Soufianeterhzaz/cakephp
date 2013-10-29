@@ -23,21 +23,21 @@ use Cake\TestSuite\TestCase;
 
 class AssetDispatcherTest extends TestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		Configure::write('Dispatcher.filters', array());
 	}
 
-/**
- * Tests that $response->checkNotModified() is called and bypasses
- * file dispatching
- *
- * @return void
- */
+	/**
+	 * Tests that $response->checkNotModified() is called and bypasses
+	 * file dispatching
+	 *
+	 * @return void
+	 */
 	public function testNotModified() {
 		$filter = new AssetDispatcher();
 		$time = filemtime(App::themePath('TestTheme') . 'webroot/img/cake.power.gif');
@@ -70,11 +70,11 @@ class AssetDispatcherTest extends TestCase {
 		$this->assertEquals($time->format('D, j M Y H:i:s') . ' GMT', $response->modified());
 	}
 
-/**
- * Test that no exceptions are thrown for //index.php type URLs.
- *
- * @return void
- */
+	/**
+	 * Test that no exceptions are thrown for //index.php type URLs.
+	 *
+	 * @return void
+	 */
 	public function test404OnDoubleSlash() {
 		$filter = new AssetDispatcher();
 

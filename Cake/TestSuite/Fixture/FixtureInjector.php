@@ -30,29 +30,29 @@ use \PHPUnit_Framework_TestSuite;
  */
 class FixtureInjector implements PHPUnit_Framework_TestListener {
 
-/**
- * The instance of the fixture manager to use
- *
- * @var \Cake\TestSuite\Fixture\FixtureManager
- */
+	/**
+	 * The instance of the fixture manager to use
+	 *
+	 * @var \Cake\TestSuite\Fixture\FixtureManager
+	 */
 	protected $_fixtureManager;
 
-/**
- * Constructor. Save internally the reference to the passed fixture manager
- *
- * @return void
- */
+	/**
+	 * Constructor. Save internally the reference to the passed fixture manager
+	 *
+	 * @return void
+	 */
 	public function __construct(FixtureManager $manager) {
 		$this->_fixtureManager = $manager;
 	}
 
-/**
- * Iterates the tests inside a test suite and creates the required fixtures as
- * they were expressed inside each test case.
- *
- * @param \PHPUnit_Framework_TestSuite $suite
- * @return void
- */
+	/**
+	 * Iterates the tests inside a test suite and creates the required fixtures as
+	 * they were expressed inside each test case.
+	 *
+	 * @param \PHPUnit_Framework_TestSuite $suite
+	 * @return void
+	 */
 	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
 		foreach ($suite->getIterator() as $test) {
 			if ($test instanceof TestCase) {
@@ -62,62 +62,62 @@ class FixtureInjector implements PHPUnit_Framework_TestListener {
 		}
 	}
 
-/**
- * Destroys the fixtures created by the fixture manager at the end of the test
- * suite run
- *
- * @param \PHPUnit_Framework_TestSuite $suite
- * @return void
- */
+	/**
+	 * Destroys the fixtures created by the fixture manager at the end of the test
+	 * suite run
+	 *
+	 * @param \PHPUnit_Framework_TestSuite $suite
+	 * @return void
+	 */
 	public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
 		$this->_fixtureManager->shutdown();
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function startTest(PHPUnit_Framework_Test $test) {
 	}
 
-/**
- * Not Implemented
- *
- * @return void
- */
+	/**
+	 * Not Implemented
+	 *
+	 * @return void
+	 */
 	public function endTest(PHPUnit_Framework_Test $test, $time) {
 	}
 

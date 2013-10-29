@@ -30,22 +30,22 @@ class ResultSetDecorator implements IteratorAggregate, Serializable, JsonSeriali
 
 	use ResultCollectionTrait;
 
-/**
- * Holds the records after an instance of this object has been unserialized
- *
- * @var array
- */
+	/**
+	 * Holds the records after an instance of this object has been unserialized
+	 *
+	 * @var array
+	 */
 	protected $_results;
 
 	public function __construct(\Traversable $results) {
 		$this->_results = $results;
 	}
 
-/**
- * Returns the inner iterator this decorator is wrapping
- *
- * @return \Iterator
- */
+	/**
+	 * Returns the inner iterator this decorator is wrapping
+	 *
+	 * @return \Iterator
+	 */
 	public function getIterator() {
 		if (is_array($this->_results)) {
 			$this->_results = new \ArrayIterator($this->_results);

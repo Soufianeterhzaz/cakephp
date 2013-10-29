@@ -26,11 +26,11 @@ class Sqlite extends \Cake\Database\Driver {
 	use PDODriverTrait;
 	use SqliteDialectTrait;
 
-/**
- * Base configuration settings for Sqlite driver
- *
- * @var array
- */
+	/**
+	 * Base configuration settings for Sqlite driver
+	 *
+	 * @var array
+	 */
 	protected $_baseConfig = [
 		'persistent' => false,
 		'login' => null,
@@ -42,11 +42,11 @@ class Sqlite extends \Cake\Database\Driver {
 		'dsn' => null
 	];
 
-/**
- * Establishes a connection to the databse server
- *
- * @return boolean true on success
- */
+	/**
+	 * Establishes a connection to the databse server
+	 *
+	 * @return boolean true on success
+	 */
 	public function connect() {
 		if ($this->_connection) {
 			return true;
@@ -71,22 +71,22 @@ class Sqlite extends \Cake\Database\Driver {
 		return true;
 	}
 
-/**
- * Returns whether php is able to use this driver for connecting to database
- *
- * @return boolean true if it is valid to use this driver
- */
+	/**
+	 * Returns whether php is able to use this driver for connecting to database
+	 *
+	 * @return boolean true if it is valid to use this driver
+	 */
 
 	public function enabled() {
 		return in_array('sqlite', PDO::getAvailableDrivers());
 	}
 
-/**
- * Prepares a sql statement to be executed
- *
- * @param string $sql
- * @return Cake\Database\Statement
- */
+	/**
+	 * Prepares a sql statement to be executed
+	 *
+	 * @param string $sql
+	 * @return Cake\Database\Statement
+	 */
 	public function prepare($sql) {
 		$this->connect();
 		$statement = $this->_connection->prepare($sql);

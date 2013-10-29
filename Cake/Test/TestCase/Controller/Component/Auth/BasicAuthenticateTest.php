@@ -33,18 +33,18 @@ require_once CAKE . 'Test/TestCase/Model/models.php';
  */
 class BasicAuthenticateTest extends TestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.user', 'core.auth_user');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->markTestIncomplete('Need to revisit once models work again.');
@@ -63,11 +63,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->response = $this->getMock('Cake\Network\Response');
 	}
 
-/**
- * test applying settings in the constructor
- *
- * @return void
- */
+	/**
+	 * test applying settings in the constructor
+	 *
+	 * @return void
+	 */
 	public function testConstructor() {
 		$object = new BasicAuthenticate($this->Collection, array(
 			'userModel' => 'AuthUser',
@@ -78,11 +78,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertEquals(env('SERVER_NAME'), $object->settings['realm']);
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoData() {
 		$request = new Request('posts/index');
 
@@ -92,11 +92,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertFalse($this->auth->getUser($request));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoUsername() {
 		$request = new Request('posts/index');
 		$_SERVER['PHP_AUTH_PW'] = 'foobar';
@@ -104,11 +104,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoPassword() {
 		$request = new Request('posts/index');
 		$_SERVER['PHP_AUTH_USER'] = 'mariano';
@@ -117,11 +117,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test the authenticate method
- *
- * @return void
- */
+	/**
+	 * test the authenticate method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateInjection() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -134,11 +134,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * test that challenge headers are sent when no credentials are found.
- *
- * @return void
- */
+	/**
+	 * test that challenge headers are sent when no credentials are found.
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateChallenge() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -154,11 +154,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertEquals($expected, $e->responseHeader());
 	}
 
-/**
- * test authenticate success
- *
- * @return void
- */
+	/**
+	 * test authenticate success
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateSuccess() {
 		$request = new Request('posts/index');
 		$request->addParams(array('pass' => array()));
@@ -176,13 +176,13 @@ class BasicAuthenticateTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test scope failure.
- *
- * @expectedException Cake\Error\UnauthorizedException
- * @expectedExceptionCode 401
- * @return void
- */
+	/**
+	 * test scope failure.
+	 *
+	 * @expectedException Cake\Error\UnauthorizedException
+	 * @expectedExceptionCode 401
+	 * @return void
+	 */
 	public function testAuthenticateFailReChallenge() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
 		$request = new Request('posts/index');
@@ -194,11 +194,11 @@ class BasicAuthenticateTest extends TestCase {
 		$this->auth->unauthenticated($request, $this->response);
 	}
 
-/**
- * testAuthenticateWithBlowfish
- *
- * @return void
- */
+	/**
+	 * testAuthenticateWithBlowfish
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateWithBlowfish() {
 		$hash = Security::hash('password', 'blowfish');
 		$this->skipIf(strpos($hash, '$2a$') === false, 'Skipping blowfish tests as hashing is not working');

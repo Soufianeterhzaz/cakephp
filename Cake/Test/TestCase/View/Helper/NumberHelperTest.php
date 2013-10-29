@@ -50,11 +50,11 @@ class NumberMock {
  */
 class NumberHelperTest extends TestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
@@ -63,20 +63,20 @@ class NumberHelperTest extends TestCase {
 		Configure::write('App.namespace', 'TestApp');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('App.namespace', $this->_appNamespace);
 		unset($this->View);
 	}
 
-/**
- * test CakeNumber class methods are called correctly
- */
+	/**
+	 * test CakeNumber class methods are called correctly
+	 */
 	public function testNumberHelperProxyMethodCalls() {
 		$methods = array(
 			'precision', 'toReadableSize', 'toPercentage', 'format',
@@ -91,9 +91,9 @@ class NumberHelperTest extends TestCase {
 		}
 	}
 
-/**
- * test engine override
- */
+	/**
+	 * test engine override
+	 */
 	public function testEngineOverride() {
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'TestAppEngine'));
 		$this->assertInstanceOf('TestApp\Utility\TestAppEngine', $Number->engine());

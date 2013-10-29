@@ -28,21 +28,21 @@ use Cake\TestSuite\TestCase;
  */
 class MysqlSchemaTest extends TestCase {
 
-/**
- * Helper method for skipping tests that need a real connection.
- *
- * @return void
- */
+	/**
+	 * Helper method for skipping tests that need a real connection.
+	 *
+	 * @return void
+	 */
 	protected function _needsConnection() {
 		$config = ConnectionManager::config('test');
 		$this->skipIf(strpos($config['className'], 'Mysql') === false, 'Not using Mysql for test config');
 	}
 
-/**
- * Data provider for convert column testing
- *
- * @return array
- */
+	/**
+	 * Data provider for convert column testing
+	 *
+	 * @return array
+	 */
 	public static function convertColumnProvider() {
 		return [
 			[
@@ -116,12 +116,12 @@ class MysqlSchemaTest extends TestCase {
 		];
 	}
 
-/**
- * Test parsing MySQL column types form field description.
- *
- * @dataProvider convertColumnProvider
- * @return void
- */
+	/**
+	 * Test parsing MySQL column types form field description.
+	 *
+	 * @dataProvider convertColumnProvider
+	 * @return void
+	 */
 	public function testConvertColumn($type, $expected) {
 		$field = [
 			'Field' => 'field',
@@ -147,11 +147,11 @@ class MysqlSchemaTest extends TestCase {
 		$dialect->convertFieldDescription($table, $field);
 	}
 
-/**
- * Helper method for testing methods.
- *
- * @return void
- */
+	/**
+	 * Helper method for testing methods.
+	 *
+	 * @return void
+	 */
 	protected function _createTables($connection) {
 		$this->_needsConnection();
 		$connection->execute('DROP TABLE IF EXISTS schema_articles');
@@ -184,11 +184,11 @@ SQL;
 		$connection->execute($table);
 	}
 
-/**
- * Integration test for SchemaCollection & MysqlDialect.
- *
- * @return void
- */
+	/**
+	 * Integration test for SchemaCollection & MysqlDialect.
+	 *
+	 * @return void
+	 */
 	public function testListTables() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -202,11 +202,11 @@ SQL;
 		$this->assertEquals('schema_authors', $result[1]);
 	}
 
-/**
- * Test describing a table with Mysql
- *
- * @return void
- */
+	/**
+	 * Test describing a table with Mysql
+	 *
+	 * @return void
+	 */
 	public function testDescribeTable() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -289,11 +289,11 @@ SQL;
 		}
 	}
 
-/**
- * Test describing a table with indexes in Mysql
- *
- * @return void
- */
+	/**
+	 * Test describing a table with indexes in Mysql
+	 *
+	 * @return void
+	 */
 	public function testDescribeTableIndexes() {
 		$connection = ConnectionManager::get('test');
 		$this->_createTables($connection);
@@ -338,11 +338,11 @@ SQL;
 		$this->assertEquals($expected, $result->index('author_idx'));
 	}
 
-/**
- * Column provider for creating column sql
- *
- * @return array
- */
+	/**
+	 * Column provider for creating column sql
+	 *
+	 * @return array
+	 */
 	public static function columnSqlProvider() {
 		return [
 			// strings
@@ -457,12 +457,12 @@ SQL;
 		];
 	}
 
-/**
- * Test generating column definitions
- *
- * @dataProvider columnSqlProvider
- * @return void
- */
+	/**
+	 * Test generating column definitions
+	 *
+	 * @dataProvider columnSqlProvider
+	 * @return void
+	 */
 	public function testColumnSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new MysqlSchema($driver);
@@ -471,11 +471,11 @@ SQL;
 		$this->assertEquals($expected, $schema->columnSql($table, $name));
 	}
 
-/**
- * Provide data for testing constraintSql
- *
- * @return array
- */
+	/**
+	 * Provide data for testing constraintSql
+	 *
+	 * @return array
+	 */
 	public static function constraintSqlProvider() {
 		return [
 			[
@@ -530,11 +530,11 @@ SQL;
 		];
 	}
 
-/**
- * Test the constraintSql method.
- *
- * @dataProvider constraintSqlProvider
- */
+	/**
+	 * Test the constraintSql method.
+	 *
+	 * @dataProvider constraintSqlProvider
+	 */
 	public function testConstraintSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new MysqlSchema($driver);
@@ -549,11 +549,11 @@ SQL;
 		$this->assertEquals($expected, $schema->constraintSql($table, $name));
 	}
 
-/**
- * Test provider for indexSql()
- *
- * @return array
- */
+	/**
+	 * Test provider for indexSql()
+	 *
+	 * @return array
+	 */
 	public static function indexSqlProvider() {
 		return [
 			[
@@ -569,11 +569,11 @@ SQL;
 		];
 	}
 
-/**
- * Test the indexSql method.
- *
- * @dataProvider indexSqlProvider
- */
+	/**
+	 * Test the indexSql method.
+	 *
+	 * @dataProvider indexSqlProvider
+	 */
 	public function testIndexSql($name, $data, $expected) {
 		$driver = $this->_getMockedDriver();
 		$schema = new MysqlSchema($driver);
@@ -588,11 +588,11 @@ SQL;
 		$this->assertEquals($expected, $schema->indexSql($table, $name));
 	}
 
-/**
- * Test generating a column that is a primary key.
- *
- * @return void
- */
+	/**
+	 * Test generating a column that is a primary key.
+	 *
+	 * @return void
+	 */
 	public function testColumnSqlPrimaryKey() {
 		$driver = $this->_getMockedDriver();
 		$schema = new MysqlSchema($driver);
@@ -622,11 +622,11 @@ SQL;
 		$this->assertEquals($result, '`id` BIGINT NOT NULL AUTO_INCREMENT');
 	}
 
-/**
- * Integration test for converting a Schema\Table into MySQL table creates.
- *
- * @return void
- */
+	/**
+	 * Integration test for converting a Schema\Table into MySQL table creates.
+	 *
+	 * @return void
+	 */
 	public function testCreateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -668,11 +668,11 @@ SQL;
 		$this->assertEquals($expected, $result[0]);
 	}
 
-/**
- * test dropSql
- *
- * @return void
- */
+	/**
+	 * test dropSql
+	 *
+	 * @return void
+	 */
 	public function testDropSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -685,11 +685,11 @@ SQL;
 		$this->assertEquals('DROP TABLE `articles`', $result[0]);
 	}
 
-/**
- * Test truncateSql()
- *
- * @return void
- */
+	/**
+	 * Test truncateSql()
+	 *
+	 * @return void
+	 */
 	public function testTruncateSql() {
 		$driver = $this->_getMockedDriver();
 		$connection = $this->getMock('Cake\Database\Connection', [], [], '', false);
@@ -702,11 +702,11 @@ SQL;
 		$this->assertEquals('TRUNCATE TABLE `articles`', $result[0]);
 	}
 
-/**
- * Get a schema instance with a mocked driver/pdo instances
- *
- * @return MysqlSchema
- */
+	/**
+	 * Get a schema instance with a mocked driver/pdo instances
+	 *
+	 * @return MysqlSchema
+	 */
 	protected function _getMockedDriver() {
 		$driver = new \Cake\Database\Driver\Mysql();
 		$mock = $this->getMock('FakePdo', ['quote', 'quoteIdentifier']);

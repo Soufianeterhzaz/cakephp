@@ -31,18 +31,18 @@ class SessionComponentTest extends TestCase {
 
 	protected static $_sessionBackup;
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = array('core.session');
 
-/**
- * test case startup
- *
- * @return void
- */
+	/**
+	 * test case startup
+	 *
+	 * @return void
+	 */
 	public static function setupBeforeClass() {
 		static::$_sessionBackup = Configure::read('Session');
 		Configure::write('Session', array(
@@ -52,20 +52,20 @@ class SessionComponentTest extends TestCase {
 		));
 	}
 
-/**
- * cleanup after test case.
- *
- * @return void
- */
+	/**
+	 * cleanup after test case.
+	 *
+	 * @return void
+	 */
 	public static function teardownAfterClass() {
 		Configure::write('Session', static::$_sessionBackup);
 	}
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$_SESSION = null;
@@ -73,21 +73,21 @@ class SessionComponentTest extends TestCase {
 		$this->ComponentRegistry = new ComponentRegistry();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Session::destroy();
 	}
 
-/**
- * ensure that session ids don't change when request action is called.
- *
- * @return void
- */
+	/**
+	 * ensure that session ids don't change when request action is called.
+	 *
+	 * @return void
+	 */
 	public function testSessionIdConsistentAcrossRequestAction() {
 		Configure::write('App.namespace', 'TestApp');
 		Router::connect('/:controller/:action');
@@ -107,11 +107,11 @@ class SessionComponentTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSessionValid method
- *
- * @return void
- */
+	/**
+	 * testSessionValid method
+	 *
+	 * @return void
+	 */
 	public function testSessionValid() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -126,21 +126,21 @@ class SessionComponentTest extends TestCase {
 		$this->assertFalse($Session->valid());
 	}
 
-/**
- * testSessionError method
- *
- * @return void
- */
+	/**
+	 * testSessionError method
+	 *
+	 * @return void
+	 */
 	public function testSessionError() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 		$this->assertFalse($Session->error());
 	}
 
-/**
- * testSessionReadWrite method
- *
- * @return void
- */
+	/**
+	 * testSessionReadWrite method
+	 *
+	 * @return void
+	 */
 	public function testSessionReadWrite() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -168,11 +168,11 @@ class SessionComponentTest extends TestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * testSessionDelete method
- *
- * @return void
- */
+	/**
+	 * testSessionDelete method
+	 *
+	 * @return void
+	 */
 	public function testSessionDelete() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -182,11 +182,11 @@ class SessionComponentTest extends TestCase {
 		$this->assertTrue($Session->delete('Test'));
 	}
 
-/**
- * testSessionCheck method
- *
- * @return void
- */
+	/**
+	 * testSessionCheck method
+	 *
+	 * @return void
+	 */
 	public function testSessionCheck() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -197,11 +197,11 @@ class SessionComponentTest extends TestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * testSessionFlash method
- *
- * @return void
- */
+	/**
+	 * testSessionFlash method
+	 *
+	 * @return void
+	 */
 	public function testSessionFlash() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -222,11 +222,11 @@ class SessionComponentTest extends TestCase {
 		$Session->delete('Message');
 	}
 
-/**
- * testSessionId method
- *
- * @return void
- */
+	/**
+	 * testSessionId method
+	 *
+	 * @return void
+	 */
 	public function testSessionId() {
 		unset($_SESSION);
 		$Session = new SessionComponent($this->ComponentRegistry);
@@ -234,11 +234,11 @@ class SessionComponentTest extends TestCase {
 		$this->assertEquals(session_id(), $Session->id());
 	}
 
-/**
- * testSessionDestroy method
- *
- * @return void
- */
+	/**
+	 * testSessionDestroy method
+	 *
+	 * @return void
+	 */
 	public function testSessionDestroy() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 

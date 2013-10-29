@@ -27,11 +27,11 @@ use Cake\ORM\TableRegistry;
  */
 class BelongsToTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Set up
- *
- * @return void
- */
+	/**
+	 * Set up
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->company = TableRegistry::get('Company', [
@@ -49,32 +49,32 @@ class BelongsToTest extends \Cake\TestSuite\TestCase {
 		]);
 	}
 
-/**
- * Tear down
- *
- * @return void
- */
+	/**
+	 * Tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Tests that the association reports it can be joined
- *
- * @return void
- */
+	/**
+	 * Tests that the association reports it can be joined
+	 *
+	 * @return void
+	 */
 	public function testCanBeJoined() {
 		$assoc = new BelongsTo('Test');
 		$this->assertTrue($assoc->canBeJoined());
 	}
 
-/**
- * Tests that the correct join and fields are attached to a query depending on
- * the association config
- *
- * @return void
- */
+	/**
+	 * Tests that the correct join and fields are attached to a query depending on
+	 * the association config
+	 *
+	 * @return void
+	 */
 	public function testAttachTo() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -101,11 +101,11 @@ class BelongsToTest extends \Cake\TestSuite\TestCase {
 		$association->attachTo($query);
 	}
 
-/**
- * Tests that default config defined in the association can be overridden
- *
- * @return void
- */
+	/**
+	 * Tests that default config defined in the association can be overridden
+	 *
+	 * @return void
+	 */
 	public function testAttachToConfigOverride() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [
@@ -135,11 +135,11 @@ class BelongsToTest extends \Cake\TestSuite\TestCase {
 		$association->attachTo($query, $override);
 	}
 
-/**
- * Tests that it is possible to avoid fields inclusion for the associated table
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to avoid fields inclusion for the associated table
+	 *
+	 * @return void
+	 */
 	public function testAttachToNoFields() {
 		$query = $this->getMock('\Cake\ORM\Query', ['join', 'select'], [null, null]);
 		$config = [

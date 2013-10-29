@@ -25,22 +25,22 @@ use Cake\TestSuite\TestCase;
  */
 class DateTimeTypeTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->type = Type::build('datetime');
 		$this->driver = $this->getMock('Cake\Database\Driver');
 	}
 
-/**
- * Test toPHP
- *
- * @return void
- */
+	/**
+	 * Test toPHP
+	 *
+	 * @return void
+	 */
 	public function testToPHP() {
 		$this->assertNull($this->type->toPHP(null, $this->driver));
 
@@ -54,11 +54,11 @@ class DateTimeTypeTest extends TestCase {
 		$this->assertEquals('14', $result->format('s'));
 	}
 
-/**
- * Test converting to database format
- *
- * @return void
- */
+	/**
+	 * Test converting to database format
+	 *
+	 * @return void
+	 */
 	public function testToDatabase() {
 		$value = '2001-01-04 12:13:14';
 		$result = $this->type->toDatabase($value, $this->driver);

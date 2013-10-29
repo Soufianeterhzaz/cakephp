@@ -23,11 +23,11 @@ use Cake\TestSuite\TestCase;
  */
 class ClientTest extends TestCase {
 
-/**
- * Test storing config options and modifying them.
- *
- * @return void
- */
+	/**
+	 * Test storing config options and modifying them.
+	 *
+	 * @return void
+	 */
 	public function testConstructConfig() {
 		$config = [
 			'scheme' => 'http',
@@ -55,11 +55,11 @@ class ClientTest extends TestCase {
 		}
 	}
 
-/**
- * Data provider for buildUrl() tests
- *
- * @return array
- */
+	/**
+	 * Data provider for buildUrl() tests
+	 *
+	 * @return array
+	 */
 	public static function urlProvider() {
 		return [
 			[
@@ -135,9 +135,9 @@ class ClientTest extends TestCase {
 		];
 	}
 
-/**
- * @dataProvider urlProvider
- */
+	/**
+	 * @dataProvider urlProvider
+	 */
 	public function testBuildUrl($expected, $url, $query, $opts) {
 		$http = new Client();
 
@@ -145,11 +145,11 @@ class ClientTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test simple get request with headers & cookies.
- *
- * @return void
- */
+	/**
+	 * test simple get request with headers & cookies.
+	 *
+	 * @return void
+	 */
 	public function testGetSimpleWithHeadersAndCookies() {
 		$response = new Response();
 
@@ -182,11 +182,11 @@ class ClientTest extends TestCase {
 		$this->assertSame($result, $response);
 	}
 
-/**
- * test get request with querystring data
- *
- * @return void
- */
+	/**
+	 * test get request with querystring data
+	 *
+	 * @return void
+	 */
 	public function testGetQuerystring() {
 		$response = new Response();
 
@@ -211,12 +211,12 @@ class ClientTest extends TestCase {
 		$this->assertSame($result, $response);
 	}
 
-/**
- * Test a GET with a request body. Services like
- * elasticsearch use this feature.
- *
- * @return void
- */
+	/**
+	 * Test a GET with a request body. Services like
+	 * elasticsearch use this feature.
+	 *
+	 * @return void
+	 */
 	public function testGetWithContent() {
 		$response = new Response();
 
@@ -241,12 +241,12 @@ class ClientTest extends TestCase {
 		$this->assertSame($result, $response);
 	}
 
-/**
- * Test invalid authentication types throw exceptions.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * Test invalid authentication types throw exceptions.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testInvalidAuthenticationType() {
 		$mock = $this->getMock('Cake\Network\Http\Adapter\Stream', ['send']);
 		$mock->expects($this->never())
@@ -261,11 +261,11 @@ class ClientTest extends TestCase {
 		]);
 	}
 
-/**
- * Test setting basic authentication with get
- *
- * @return void
- */
+	/**
+	 * Test setting basic authentication with get
+	 *
+	 * @return void
+	 */
 	public function testGetWithAuthenticationAndProxy() {
 		$response = new Response();
 
@@ -297,11 +297,11 @@ class ClientTest extends TestCase {
 		$this->assertSame($result, $response);
 	}
 
-/**
- * Return a list of HTTP methods.
- *
- * @return array
- */
+	/**
+	 * Return a list of HTTP methods.
+	 *
+	 * @return array
+	 */
 	public static function methodProvider() {
 		return [
 			[Request::METHOD_GET],
@@ -311,12 +311,12 @@ class ClientTest extends TestCase {
 			[Request::METHOD_PATCH],
 		];
 	}
-/**
- * test simple POST request.
- *
- * @dataProvider methodProvider
- * @return void
- */
+	/**
+	 * test simple POST request.
+	 *
+	 * @dataProvider methodProvider
+	 * @return void
+	 */
 	public function testMethodsSimple($method) {
 		$response = new Response();
 
@@ -338,11 +338,11 @@ class ClientTest extends TestCase {
 		$this->assertSame($result, $response);
 	}
 
-/**
- * Provider for testing the type option.
- *
- * @return array
- */
+	/**
+	 * Provider for testing the type option.
+	 *
+	 * @return array
+	 */
 	public static function typeProvider() {
 		return [
 			['application/json', 'application/json'],
@@ -352,12 +352,12 @@ class ClientTest extends TestCase {
 		];
 	}
 
-/**
- * Test that using the 'type' option sets the correct headers
- *
- * @dataProvider typeProvider
- * @return void
- */
+	/**
+	 * Test that using the 'type' option sets the correct headers
+	 *
+	 * @dataProvider typeProvider
+	 * @return void
+	 */
 	public function testPostWithTypeKey($type, $mime) {
 		$response = new Response();
 		$data = 'some data';
@@ -385,12 +385,12 @@ class ClientTest extends TestCase {
 		$http->post('/projects/add', $data, ['type' => $type]);
 	}
 
-/**
- * Test that exceptions are raised on invalid types.
- *
- * @expectedException Cake\Error\Exception
- * @return void
- */
+	/**
+	 * Test that exceptions are raised on invalid types.
+	 *
+	 * @expectedException Cake\Error\Exception
+	 * @return void
+	 */
 	public function testExceptionOnUnknownType() {
 		$mock = $this->getMock('Cake\Network\Http\Adapter\Stream', ['send']);
 		$mock->expects($this->never())
@@ -403,11 +403,11 @@ class ClientTest extends TestCase {
 		$http->post('/projects/add', 'it works', ['type' => 'invalid']);
 	}
 
-/**
- * Test that Client stores cookies
- *
- * @return void
- */
+	/**
+	 * Test that Client stores cookies
+	 *
+	 * @return void
+	 */
 	public function testCookieStorage() {
 		$adapter = $this->getMock(
 			'Cake\Network\Http\Adapter\Stream',
@@ -444,11 +444,11 @@ class ClientTest extends TestCase {
 		$http->get('/projects');
 	}
 
-/**
- * test head request with querystring data
- *
- * @return void
- */
+	/**
+	 * test head request with querystring data
+	 *
+	 * @return void
+	 */
 	public function testHeadQuerystring() {
 		$response = new Response();
 

@@ -31,11 +31,11 @@ use TestApp\Controller\PagesController;
  */
 class PagesControllerTest extends TestCase {
 
-/**
- * testDisplay method
- *
- * @return void
- */
+	/**
+	 * testDisplay method
+	 *
+	 * @return void
+	 */
 	public function testDisplay() {
 		$Pages = new PagesController(new Request(), new Response());
 
@@ -51,26 +51,26 @@ class PagesControllerTest extends TestCase {
 		$this->assertEquals('Posts', $Pages->viewVars['subpage']);
 	}
 
-/**
- * Test that missing view renders 404 page in production
- *
- * @expectedException Cake\Error\NotFoundException
- * @expectedExceptionCode 404
- * @return void
- */
+	/**
+	 * Test that missing view renders 404 page in production
+	 *
+	 * @expectedException Cake\Error\NotFoundException
+	 * @expectedExceptionCode 404
+	 * @return void
+	 */
 	public function testMissingView() {
 		Configure::write('debug', 0);
 		$Pages = new PagesController(new Request(), new Response());
 		$Pages->display('non_existing_page');
 	}
 
-/**
- * Test that missing view in debug mode renders missing_view error page
- *
- * @expectedException Cake\Error\MissingViewException
- * @expectedExceptionCode 500
- * @return void
- */
+	/**
+	 * Test that missing view in debug mode renders missing_view error page
+	 *
+	 * @expectedException Cake\Error\MissingViewException
+	 * @expectedExceptionCode 500
+	 * @return void
+	 */
 	public function testMissingViewInDebug() {
 		Configure::write('debug', 1);
 		$Pages = new PagesController(new Request(), new Response());

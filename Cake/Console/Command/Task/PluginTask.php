@@ -29,35 +29,35 @@ use Cake\Utility\Inflector;
  */
 class PluginTask extends Shell {
 
-/**
- * path to plugins directory
- *
- * @var array
- */
+	/**
+	 * path to plugins directory
+	 *
+	 * @var array
+	 */
 	public $path = null;
 
-/**
- * Path to the bootstrap file. Changed in tests.
- *
- * @var string
- */
+	/**
+	 * Path to the bootstrap file. Changed in tests.
+	 *
+	 * @var string
+	 */
 	public $bootstrap = null;
 
-/**
- * initialize
- *
- * @return void
- */
+	/**
+	 * initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = current(App::path('Plugin'));
 		$this->bootstrap = APP . 'Config/bootstrap.php';
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		if (isset($this->args[0])) {
 			$plugin = Inflector::camelize($this->args[0]);
@@ -73,12 +73,12 @@ class PluginTask extends Shell {
 		}
 	}
 
-/**
- * Interactive interface
- *
- * @param string $plugin
- * @return void
- */
+	/**
+	 * Interactive interface
+	 *
+	 * @param string $plugin
+	 * @return void
+	 */
 	protected function _interactive($plugin = null) {
 		while ($plugin === null) {
 			$plugin = $this->in(__d('cake_console', 'Enter the name of the plugin in CamelCase format'));
@@ -89,12 +89,12 @@ class PluginTask extends Shell {
 		}
 	}
 
-/**
- * Bake the plugin, create directories and files
- *
- * @param string $plugin Name of the plugin in CamelCased format
- * @return boolean
- */
+	/**
+	 * Bake the plugin, create directories and files
+	 *
+	 * @param string $plugin Name of the plugin in CamelCased format
+	 * @return boolean
+	 */
 	public function bake($plugin) {
 		$pathOptions = App::path('Plugin');
 		if (count($pathOptions) > 1) {
@@ -168,12 +168,12 @@ class PluginTask extends Shell {
 		return true;
 	}
 
-/**
- * Update the app's bootstrap.php file.
- *
- * @param string $plugin Name of plugin
- * @return void
- */
+	/**
+	 * Update the app's bootstrap.php file.
+	 *
+	 * @param string $plugin Name of plugin
+	 * @return void
+	 */
 	protected function _modifyBootstrap($plugin) {
 		$bootstrap = new File($this->bootstrap, false);
 		$contents = $bootstrap->read();
@@ -184,12 +184,12 @@ class PluginTask extends Shell {
 		}
 	}
 
-/**
- * find and change $this->path to the user selection
- *
- * @param array $pathOptions
- * @return void
- */
+	/**
+	 * find and change $this->path to the user selection
+	 *
+	 * @param array $pathOptions
+	 * @return void
+	 */
 	public function findPath($pathOptions) {
 		$valid = false;
 		foreach ($pathOptions as $i => $path) {
@@ -211,11 +211,11 @@ class PluginTask extends Shell {
 		$this->path = $pathOptions[$choice - 1];
 	}
 
-/**
- * get the option parser for the plugin task
- *
- * @return void
- */
+	/**
+	 * get the option parser for the plugin task
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(__d('cake_console',

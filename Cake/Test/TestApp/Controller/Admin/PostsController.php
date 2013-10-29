@@ -22,25 +22,25 @@ use Cake\Controller\Controller;
  */
 class PostsController extends Controller {
 
-/**
- * components
- *
- * @var array
- */
+	/**
+	 * components
+	 *
+	 * @var array
+	 */
 	public $components = array();
 
-/**
- * components
- *
- * @var array
- */
+	/**
+	 * components
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * index action
- *
- * @return void
- */
+	/**
+	 * index action
+	 *
+	 * @return void
+	 */
 	public function index() {
 	}
 }

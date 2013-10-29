@@ -24,31 +24,31 @@ use Cake\Network\Http\Request;
  */
 class Digest {
 
-/**
- * Instance of Cake\Network\Http\Client
- *
- * @var Cake\Network\Http\Client
- */
+	/**
+	 * Instance of Cake\Network\Http\Client
+	 *
+	 * @var Cake\Network\Http\Client
+	 */
 	protected $_client;
 
-/**
- * Constructor
- *
- * @param Cake\Network\Http\Client $client
- * @param array $options
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Cake\Network\Http\Client $client
+	 * @param array $options
+	 */
 	public function __construct(Client $client, $options = null) {
 		$this->_client = $client;
 	}
 
-/**
- * Add Authorization header to the request.
- *
- * @param Request $request
- * @param array $credentials
- * @return void
- * @see http://www.ietf.org/rfc/rfc2617.txt
- */
+	/**
+	 * Add Authorization header to the request.
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 * @return void
+	 * @see http://www.ietf.org/rfc/rfc2617.txt
+	 */
 	public function authentication(Request $request, $credentials) {
 		if (!isset($credentials['username'], $credentials['password'])) {
 			return;
@@ -63,17 +63,17 @@ class Digest {
 		$request->header('Authorization', $value);
 	}
 
-/**
- * Retrieve information about the authentication
- *
- * Will get the realm and other tokens by performing
- * another request without authentication to get authentication
- * challenge.
- *
- * @param Request $request
- * @param array $credentials
- * @return Array modified credentials.
- */
+	/**
+	 * Retrieve information about the authentication
+	 *
+	 * Will get the realm and other tokens by performing
+	 * another request without authentication to get authentication
+	 * challenge.
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 * @return Array modified credentials.
+	 */
 	protected function _getServerInfo(Request $request, $credentials) {
 		$response = $this->_client->get(
 			$request->url(),
@@ -99,13 +99,13 @@ class Digest {
 		return $credentials;
 	}
 
-/**
- * Generate the header Authorization
- *
- * @param Request $request
- * @param array $credentials
- * @return string
- */
+	/**
+	 * Generate the header Authorization
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 * @return string
+	 */
 	protected function _generateHeader(Request $request, $credentials) {
 		$path = parse_url($request->url(), PHP_URL_PATH);
 		$a1 = md5($credentials['username'] . ':' . $credentials['realm'] . ':' . $credentials['password']);

@@ -25,11 +25,11 @@ use PDOStatement;
  **/
 class LoggingStatementTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Tests that queries are logged when executed without params
- *
- * @return void
- */
+	/**
+	 * Tests that queries are logged when executed without params
+	 *
+	 * @return void
+	 */
 	public function testExecuteNoParams() {
 		$inner = $this->getMock('PDOStatement');
 		$inner->expects($this->once())->method('rowCount')->will($this->returnValue(3));
@@ -49,11 +49,11 @@ class LoggingStatementTest extends \Cake\TestSuite\TestCase {
 		$st->execute();
 	}
 
-/**
- * Tests that queries are logged when executed with params
- *
- * @return void
- */
+	/**
+	 * Tests that queries are logged when executed with params
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithParams() {
 		$inner = $this->getMock('PDOStatement');
 		$inner->expects($this->once())->method('rowCount')->will($this->returnValue(4));
@@ -73,11 +73,11 @@ class LoggingStatementTest extends \Cake\TestSuite\TestCase {
 		$st->execute(['a' => 1, 'b' => 2]);
 	}
 
-/**
- * Tests that queries are logged when executed with bound params
- *
- * @return void
- */
+	/**
+	 * Tests that queries are logged when executed with bound params
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithBinding() {
 		$inner = $this->getMock('PDOStatement');
 		$inner->expects($this->any())->method('rowCount')->will($this->returnValue(4));

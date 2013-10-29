@@ -30,11 +30,11 @@ use Cake\TestSuite\Fixture\TestFixture;
  */
 class NumberTreeTwoFixture extends TestFixture {
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => ['type' => 'integer'],
 		'name' => ['type' => 'string', 'null' => false],

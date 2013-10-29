@@ -29,11 +29,11 @@ use Cake\Utility\Hash;
  */
 class Request implements \ArrayAccess {
 
-/**
- * Array of parameters parsed from the URL.
- *
- * @var array
- */
+	/**
+	 * Array of parameters parsed from the URL.
+	 *
+	 * @var array
+	 */
 	public $params = array(
 		'plugin' => null,
 		'controller' => null,
@@ -41,74 +41,74 @@ class Request implements \ArrayAccess {
 		'pass' => [],
 	);
 
-/**
- * Array of POST data. Will contain form data as well as uploaded files.
- * In PUT/PATCH/DELETE requests this property will contain the form-urlencoded
- * data.
- *
- * @var array
- */
+	/**
+	 * Array of POST data. Will contain form data as well as uploaded files.
+	 * In PUT/PATCH/DELETE requests this property will contain the form-urlencoded
+	 * data.
+	 *
+	 * @var array
+	 */
 	public $data = [];
 
-/**
- * Array of querystring arguments
- *
- * @var array
- */
+	/**
+	 * Array of querystring arguments
+	 *
+	 * @var array
+	 */
 	public $query = [];
 
-/**
- * Array of cookie data.
- *
- * @var array
- */
+	/**
+	 * Array of cookie data.
+	 *
+	 * @var array
+	 */
 	public $cookies = [];
 
-/**
- * The URL string used for the request.
- *
- * @var string
- */
+	/**
+	 * The URL string used for the request.
+	 *
+	 * @var string
+	 */
 	public $url;
 
-/**
- * Base URL path.
- *
- * @var string
- */
+	/**
+	 * Base URL path.
+	 *
+	 * @var string
+	 */
 	public $base;
 
-/**
- * webroot path segment for the request.
- *
- * @var string
- */
+	/**
+	 * webroot path segment for the request.
+	 *
+	 * @var string
+	 */
 	public $webroot = '/';
 
-/**
- * The full address to the current request
- *
- * @var string
- */
+	/**
+	 * The full address to the current request
+	 *
+	 * @var string
+	 */
 	public $here;
 
-/**
- * Whether or not to trust HTTP_X headers set by most load balancers.
- * Only set to true if your application runs behind load balancers/proxies
- * that you control.
- *
- * @param boolean
- */
+	/**
+	 * Whether or not to trust HTTP_X headers set by most load balancers.
+	 * Only set to true if your application runs behind load balancers/proxies
+	 * that you control.
+	 *
+	 * @param boolean
+	 */
 	public $trustProxy = false;
 
-/**
- * The built in detectors used with `is()` can be modified with `addDetector()`.
- *
- * There are several ways to specify a detector, see Cake\Network\Request::addDetector() for the
- * various formats and ways to define detectors.
- *
- * @var array
- */
+	/**
+	 * The built in detectors used with `is()` can be modified with `addDetector()`.
+	 *
+	 * There are several ways to specify a detector, see Cake\Network\Request::addDetector() for the
+	 * various formats and ways to define detectors.
+	 *
+	 * @var array
+	 */
 	protected $_detectors = array(
 		'get' => array('env' => 'REQUEST_METHOD', 'value' => 'GET'),
 		'post' => array('env' => 'REQUEST_METHOD', 'value' => 'POST'),
@@ -128,22 +128,22 @@ class Request implements \ArrayAccess {
 		'requested' => array('param' => 'requested', 'value' => 1)
 	);
 
-/**
- * Copy of php://input. Since this stream can only be read once in most SAPI's
- * keep a copy of it so users don't need to know about that detail.
- *
- * @var string
- */
+	/**
+	 * Copy of php://input. Since this stream can only be read once in most SAPI's
+	 * keep a copy of it so users don't need to know about that detail.
+	 *
+	 * @var string
+	 */
 	protected $_input = '';
 
-/**
- * Wrapper method to create a new request from PHP superglobals.
- *
- * Uses the $_GET, $_POST, $_FILES, $_COOKIE and php://input data to construct
- * the request.
- *
- * @return Cake\Network\Request
- */
+	/**
+	 * Wrapper method to create a new request from PHP superglobals.
+	 *
+	 * Uses the $_GET, $_POST, $_FILES, $_COOKIE and php://input data to construct
+	 * the request.
+	 *
+	 * @return Cake\Network\Request
+	 */
 	public static function createFromGlobals() {
 		list($base, $webroot) = static::_base();
 		$config = array(
@@ -158,25 +158,25 @@ class Request implements \ArrayAccess {
 		return new static($config);
 	}
 
-/**
- * Create a new request object.
- *
- * You can supply the data as either an array or as a string.  If you use
- * a string you can only supply the url for the request.  Using an array will
- * let you provide the following keys:
- *
- * - `post` POST data or non query string data
- * - `query` Additional data from the query string.
- * - `files` Uploaded file data formatted like $_FILES
- * - `cookies` Cookies for this request.
- * - `url` The url without the base path for the request.
- * - `base` The base url for the request.
- * - `webroot` The webroot directory for the request.
- * - `input` The data that would come from php://input this is useful for simulating
- *   requests with put, patch or delete data.
- *
- * @param string|array $config An array of request data to create a request with.
- */
+	/**
+	 * Create a new request object.
+	 *
+	 * You can supply the data as either an array or as a string.  If you use
+	 * a string you can only supply the url for the request.  Using an array will
+	 * let you provide the following keys:
+	 *
+	 * - `post` POST data or non query string data
+	 * - `query` Additional data from the query string.
+	 * - `files` Uploaded file data formatted like $_FILES
+	 * - `cookies` Cookies for this request.
+	 * - `url` The url without the base path for the request.
+	 * - `base` The base url for the request.
+	 * - `webroot` The webroot directory for the request.
+	 * - `input` The data that would come from php://input this is useful for simulating
+	 *   requests with put, patch or delete data.
+	 *
+	 * @param string|array $config An array of request data to create a request with.
+	 */
 	public function __construct($config = array()) {
 		if (is_string($config)) {
 			$config = array('url' => $config);
@@ -195,12 +195,12 @@ class Request implements \ArrayAccess {
 		$this->_setConfig($config);
 	}
 
-/**
- * Process the config/settings data into properties.
- *
- * @param array $config The config data to use.
- * @return void
- */
+	/**
+	 * Process the config/settings data into properties.
+	 *
+	 * @param array $config The config data to use.
+	 * @return void
+	 */
 	protected function _setConfig($config) {
 		if (!empty($config['url']) && $config['url'][0] == '/') {
 			$config['url'] = substr($config['url'], 1);
@@ -221,13 +221,13 @@ class Request implements \ArrayAccess {
 		$this->params = $config['params'];
 	}
 
-/**
- * Sets the env('REQUEST_METHOD') based on the simulated _method HTTP override
- * value.
- *
- * @param array $data Array of post data.
- * @return array
- */
+	/**
+	 * Sets the env('REQUEST_METHOD') based on the simulated _method HTTP override
+	 * value.
+	 *
+	 * @param array $data Array of post data.
+	 * @return array
+	 */
 	protected function _processPost($data) {
 		if (
 			in_array(env('REQUEST_METHOD'), array('PUT', 'DELETE', 'PATCH')) &&
@@ -250,11 +250,11 @@ class Request implements \ArrayAccess {
 		return $data;
 	}
 
-/**
- * Process the GET parameters and move things into the object.
- *
- * @return void
- */
+	/**
+	 * Process the GET parameters and move things into the object.
+	 *
+	 * @return void
+	 */
 	protected function _processGet($query) {
 		unset($query['/' . str_replace('.', '_', urldecode($this->url))]);
 		if (strpos($this->url, '?') !== false) {
@@ -265,13 +265,13 @@ class Request implements \ArrayAccess {
 		return $query;
 	}
 
-/**
- * Get the request uri. Looks in PATH_INFO first, as this is the exact value we need prepared
- * by PHP. Following that, REQUEST_URI, PHP_SELF, HTTP_X_REWRITE_URL and argv are checked in that order.
- * Each of these server variables have the base path, and query strings stripped off
- *
- * @return string URI The CakePHP request path that is being accessed.
- */
+	/**
+	 * Get the request uri. Looks in PATH_INFO first, as this is the exact value we need prepared
+	 * by PHP. Following that, REQUEST_URI, PHP_SELF, HTTP_X_REWRITE_URL and argv are checked in that order.
+	 * Each of these server variables have the base path, and query strings stripped off
+	 *
+	 * @return string URI The CakePHP request path that is being accessed.
+	 */
 	protected static function _url($config) {
 		if (!empty($_SERVER['PATH_INFO'])) {
 			return $_SERVER['PATH_INFO'];
@@ -314,16 +314,16 @@ class Request implements \ArrayAccess {
 		return $uri;
 	}
 
-/**
- * Returns a base URL and sets the proper webroot
- *
- * If CakePHP is called with index.php in the URL even though
- * URL Rewriting is activated (and thus not needed) it swallows
- * the unnecessary part from $base to prevent issue #3318.
- *
- * @return array Base URL, webroot dir ending in /
- * @link https://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/3318
- */
+	/**
+	 * Returns a base URL and sets the proper webroot
+	 *
+	 * If CakePHP is called with index.php in the URL even though
+	 * URL Rewriting is activated (and thus not needed) it swallows
+	 * the unnecessary part from $base to prevent issue #3318.
+	 *
+	 * @return array Base URL, webroot dir ending in /
+	 * @link https://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/3318
+	 */
 	protected static function _base() {
 		$base = $dir = $webroot = $baseUrl = null;
 		$config = Configure::read('App');
@@ -376,13 +376,13 @@ class Request implements \ArrayAccess {
 		return array($base . $file, $webrootDir);
 	}
 
-/**
- * Process uploaded files and move things onto the post data.
- *
- * @param array $data Post data to merge files onto.
- * @param array $files Uploaded files to merge in.
- * @return array merged post + file data.
- */
+	/**
+	 * Process uploaded files and move things onto the post data.
+	 *
+	 * @param array $data Post data to merge files onto.
+	 * @param array $files Uploaded files to merge in.
+	 * @return array merged post + file data.
+	 */
 	protected function _processFiles($post, $files) {
 		if (isset($files) && is_array($files)) {
 			foreach ($files as $key => $data) {
@@ -396,16 +396,16 @@ class Request implements \ArrayAccess {
 		return $post;
 	}
 
-/**
- * Recursively walks the FILES array restructuring the data
- * into something sane and useable.
- *
- * @param string $path The dot separated path to insert $data into.
- * @param array $data The data to traverse/insert.
- * @param string $field The terminal field name, which is the top level key in $_FILES.
- * @param array $post The post data having files inserted into
- * @return void
- */
+	/**
+	 * Recursively walks the FILES array restructuring the data
+	 * into something sane and useable.
+	 *
+	 * @param string $path The dot separated path to insert $data into.
+	 * @param array $data The data to traverse/insert.
+	 * @param string $field The terminal field name, which is the top level key in $_FILES.
+	 * @param array $post The post data having files inserted into
+	 * @return void
+	 */
 	protected function _processFileData(&$post, $path, $data, $field) {
 		foreach ($data as $key => $fields) {
 			$newPath = $key;
@@ -421,11 +421,11 @@ class Request implements \ArrayAccess {
 		}
 	}
 
-/**
- * Get the IP the client is using, or says they are using.
- *
- * @return string The client IP.
- */
+	/**
+	 * Get the IP the client is using, or says they are using.
+	 *
+	 * @return string The client IP.
+	 */
 	public function clientIp() {
 		if ($this->trustProxy && env('HTTP_X_FORWARDED_FOR')) {
 			$ipaddr = preg_replace('/(?:,.*)/', '', env('HTTP_X_FORWARDED_FOR'));
@@ -447,12 +447,12 @@ class Request implements \ArrayAccess {
 		return trim($ipaddr);
 	}
 
-/**
- * Returns the referer that referred this request.
- *
- * @param boolean $local Attempt to return a local address. Local addresses do not contain hostnames.
- * @return string The referring address for this request.
- */
+	/**
+	 * Returns the referer that referred this request.
+	 *
+	 * @param boolean $local Attempt to return a local address. Local addresses do not contain hostnames.
+	 * @return string The referring address for this request.
+	 */
 	public function referer($local = false) {
 		$ref = env('HTTP_REFERER');
 		if ($this->trustProxy && env('HTTP_X_FORWARDED_HOST')) {
@@ -474,14 +474,14 @@ class Request implements \ArrayAccess {
 		return '/';
 	}
 
-/**
- * Missing method handler, handles wrapping older style isAjax() type methods
- *
- * @param string $name The method called
- * @param array $params Array of parameters for the method call
- * @return mixed
- * @throws Cake\Error\Exception when an invalid method is called.
- */
+	/**
+	 * Missing method handler, handles wrapping older style isAjax() type methods
+	 *
+	 * @param string $name The method called
+	 * @param array $params Array of parameters for the method call
+	 * @return mixed
+	 * @throws Cake\Error\Exception when an invalid method is called.
+	 */
 	public function __call($name, $params) {
 		if (strpos($name, 'is') === 0) {
 			$type = strtolower(substr($name, 2));
@@ -490,14 +490,14 @@ class Request implements \ArrayAccess {
 		throw new Error\Exception(__d('cake_dev', 'Method %s does not exist', $name));
 	}
 
-/**
- * Magic get method allows access to parsed routing parameters directly on the object.
- *
- * Allows access to `$this->params['controller']` via `$this->controller`
- *
- * @param string $name The property being accessed.
- * @return mixed Either the value of the parameter or null.
- */
+	/**
+	 * Magic get method allows access to parsed routing parameters directly on the object.
+	 *
+	 * Allows access to `$this->params['controller']` via `$this->controller`
+	 *
+	 * @param string $name The property being accessed.
+	 * @return mixed Either the value of the parameter or null.
+	 */
 	public function __get($name) {
 		if (isset($this->params[$name])) {
 			return $this->params[$name];
@@ -505,28 +505,28 @@ class Request implements \ArrayAccess {
 		return null;
 	}
 
-/**
- * Magic isset method allows isset/empty checks
- * on routing parameters.
- *
- * @param string $name The property being accessed.
- * @return boolean Existence
- */
+	/**
+	 * Magic isset method allows isset/empty checks
+	 * on routing parameters.
+	 *
+	 * @param string $name The property being accessed.
+	 * @return boolean Existence
+	 */
 	public function __isset($name) {
 		return isset($this->params[$name]);
 	}
 
-/**
- * Check whether or not a Request is a certain type.
- *
- * Uses the built in detection rules as well as additional rules
- * defined with Cake\Network\CakeRequest::addDetector(). Any detector can be called
- * as `is($type)` or `is$Type()`.
- *
- * @param string|array $type The type of request you want to check. If an array
- *   this method will return true if the request matches any type.
- * @return boolean Whether or not the request is the type you are checking.
- */
+	/**
+	 * Check whether or not a Request is a certain type.
+	 *
+	 * Uses the built in detection rules as well as additional rules
+	 * defined with Cake\Network\CakeRequest::addDetector(). Any detector can be called
+	 * as `is($type)` or `is$Type()`.
+	 *
+	 * @param string|array $type The type of request you want to check. If an array
+	 *   this method will return true if the request matches any type.
+	 * @return boolean Whether or not the request is the type you are checking.
+	 */
 	public function is($type) {
 		if (is_array($type)) {
 			$result = array_map(array($this, 'is'), $type);
@@ -565,69 +565,69 @@ class Request implements \ArrayAccess {
 		return false;
 	}
 
-/**
- * Check that a request matches all the given types.
- *
- * Allows you to test multiple types and union the results.
- * See Request::is() for how to add additional types and the
- * built-in types.
- *
- * @param array $types The types to check.
- * @return boolean Success.
- * @see Request::is()
- */
+	/**
+	 * Check that a request matches all the given types.
+	 *
+	 * Allows you to test multiple types and union the results.
+	 * See Request::is() for how to add additional types and the
+	 * built-in types.
+	 *
+	 * @param array $types The types to check.
+	 * @return boolean Success.
+	 * @see Request::is()
+	 */
 	public function isAll(array $types) {
 		$result = array_filter(array_map(array($this, 'is'), $types));
 		return count($result) === count($types);
 	}
 
-/**
- * Add a new detector to the list of detectors that a request can use.
- * There are several different formats and types of detectors that can be set.
- *
- * ### Environment value comparison
- *
- * An environment value comparison, compares a value fetched from `env()` to a known value
- * the environment value is equality checked against the provided value.
- *
- * e.g `addDetector('post', array('env' => 'REQUEST_METHOD', 'value' => 'POST'))`
- *
- * ### Pattern value comparison
- *
- * Pattern value comparison allows you to compare a value fetched from `env()` to a regular expression.
- *
- * e.g `addDetector('iphone', array('env' => 'HTTP_USER_AGENT', 'pattern' => '/iPhone/i'));`
- *
- * ### Option based comparison
- *
- * Option based comparisons use a list of options to create a regular expression. Subsequent calls
- * to add an already defined options detector will merge the options.
- *
- * e.g `addDetector('mobile', array('env' => 'HTTP_USER_AGENT', 'options' => array('Fennec')));`
- *
- * ### Callback detectors
- *
- * Callback detectors allow you to provide a 'callback' type to handle the check. The callback will
- * receive the request object as its only parameter.
- *
- * e.g `addDetector('custom', array('callback' => array('SomeClass', 'somemethod')));`
- *
- * ### Request parameter detectors
- *
- * Allows for custom detectors on the request parameters.
- *
- * e.g `addDetector('requested', array('param' => 'requested', 'value' => 1)`
- *
- * You can also make parameter detectors that accept multiple values
- * using the `options` key. This is useful when you want to check
- * if a request parameter is in a list of options.
- *
- * `addDetector('extension', array('param' => 'ext', 'options' => array('pdf', 'csv'))`
- *
- * @param string $name The name of the detector.
- * @param array $options The options for the detector definition. See above.
- * @return void
- */
+	/**
+	 * Add a new detector to the list of detectors that a request can use.
+	 * There are several different formats and types of detectors that can be set.
+	 *
+	 * ### Environment value comparison
+	 *
+	 * An environment value comparison, compares a value fetched from `env()` to a known value
+	 * the environment value is equality checked against the provided value.
+	 *
+	 * e.g `addDetector('post', array('env' => 'REQUEST_METHOD', 'value' => 'POST'))`
+	 *
+	 * ### Pattern value comparison
+	 *
+	 * Pattern value comparison allows you to compare a value fetched from `env()` to a regular expression.
+	 *
+	 * e.g `addDetector('iphone', array('env' => 'HTTP_USER_AGENT', 'pattern' => '/iPhone/i'));`
+	 *
+	 * ### Option based comparison
+	 *
+	 * Option based comparisons use a list of options to create a regular expression. Subsequent calls
+	 * to add an already defined options detector will merge the options.
+	 *
+	 * e.g `addDetector('mobile', array('env' => 'HTTP_USER_AGENT', 'options' => array('Fennec')));`
+	 *
+	 * ### Callback detectors
+	 *
+	 * Callback detectors allow you to provide a 'callback' type to handle the check. The callback will
+	 * receive the request object as its only parameter.
+	 *
+	 * e.g `addDetector('custom', array('callback' => array('SomeClass', 'somemethod')));`
+	 *
+	 * ### Request parameter detectors
+	 *
+	 * Allows for custom detectors on the request parameters.
+	 *
+	 * e.g `addDetector('requested', array('param' => 'requested', 'value' => 1)`
+	 *
+	 * You can also make parameter detectors that accept multiple values
+	 * using the `options` key. This is useful when you want to check
+	 * if a request parameter is in a list of options.
+	 *
+	 * `addDetector('extension', array('param' => 'ext', 'options' => array('pdf', 'csv'))`
+	 *
+	 * @param string $name The name of the detector.
+	 * @param array $options The options for the detector definition. See above.
+	 * @return void
+	 */
 	public function addDetector($name, $options) {
 		$name = strtolower($name);
 		if (isset($this->_detectors[$name]) && isset($options['options'])) {
@@ -636,25 +636,25 @@ class Request implements \ArrayAccess {
 		$this->_detectors[$name] = $options;
 	}
 
-/**
- * Add parameters to the request's parsed parameter set. This will overwrite any existing parameters.
- * This modifies the parameters available through `$request->params`.
- *
- * @param array $params Array of parameters to merge in
- * @return The current object, you can chain this method.
- */
+	/**
+	 * Add parameters to the request's parsed parameter set. This will overwrite any existing parameters.
+	 * This modifies the parameters available through `$request->params`.
+	 *
+	 * @param array $params Array of parameters to merge in
+	 * @return The current object, you can chain this method.
+	 */
 	public function addParams($params) {
 		$this->params = array_merge($this->params, (array)$params);
 		return $this;
 	}
 
-/**
- * Add paths to the requests' paths vars. This will overwrite any existing paths.
- * Provides an easy way to modify, here, webroot and base.
- *
- * @param array $paths Array of paths to merge in
- * @return Cake\Network\Request the current object, you can chain this method.
- */
+	/**
+	 * Add paths to the requests' paths vars. This will overwrite any existing paths.
+	 * Provides an easy way to modify, here, webroot and base.
+	 *
+	 * @param array $paths Array of paths to merge in
+	 * @return Cake\Network\Request the current object, you can chain this method.
+	 */
 	public function addPaths($paths) {
 		foreach (array('webroot', 'here', 'base') as $element) {
 			if (isset($paths[$element])) {
@@ -664,12 +664,12 @@ class Request implements \ArrayAccess {
 		return $this;
 	}
 
-/**
- * Get the value of the current requests URL. Will include named parameters and querystring arguments.
- *
- * @param boolean $base Include the base path, set to false to trim the base path off.
- * @return string the current request URL including query string args.
- */
+	/**
+	 * Get the value of the current requests URL. Will include named parameters and querystring arguments.
+	 *
+	 * @param boolean $base Include the base path, set to false to trim the base path off.
+	 * @return string the current request URL including query string args.
+	 */
 	public function here($base = true) {
 		$url = $this->here;
 		if (!empty($this->query)) {
@@ -681,12 +681,12 @@ class Request implements \ArrayAccess {
 		return $url;
 	}
 
-/**
- * Read an HTTP header from the Request information.
- *
- * @param string $name Name of the header you want.
- * @return mixed Either false on no header being set or the value of the header.
- */
+	/**
+	 * Read an HTTP header from the Request information.
+	 *
+	 * @param string $name Name of the header you want.
+	 * @return mixed Either false on no header being set or the value of the header.
+	 */
 	public static function header($name) {
 		$name = 'HTTP_' . strtoupper(str_replace('-', '_', $name));
 		if (!empty($_SERVER[$name])) {
@@ -695,37 +695,37 @@ class Request implements \ArrayAccess {
 		return false;
 	}
 
-/**
- * Get the HTTP method used for this request.
- * There are a few ways to specify a method.
- *
- * - If your client supports it you can use native HTTP methods.
- * - You can set the HTTP-X-Method-Override header.
- * - You can submit an input with the name `_method`
- *
- * Any of these 3 approaches can be used to set the HTTP method used
- * by CakePHP internally, and will effect the result of this method.
- *
- * @return string The name of the HTTP method used.
- */
+	/**
+	 * Get the HTTP method used for this request.
+	 * There are a few ways to specify a method.
+	 *
+	 * - If your client supports it you can use native HTTP methods.
+	 * - You can set the HTTP-X-Method-Override header.
+	 * - You can submit an input with the name `_method`
+	 *
+	 * Any of these 3 approaches can be used to set the HTTP method used
+	 * by CakePHP internally, and will effect the result of this method.
+	 *
+	 * @return string The name of the HTTP method used.
+	 */
 	public function method() {
 		return env('REQUEST_METHOD');
 	}
 
-/**
- * Get the host that the request was handled on.
- *
- * @return string
- */
+	/**
+	 * Get the host that the request was handled on.
+	 *
+	 * @return string
+	 */
 	public function host() {
 		return env('HTTP_HOST');
 	}
 
-/**
- * Get the port the request was handled on.
- *
- * @return string
- */
+	/**
+	 * Get the port the request was handled on.
+	 *
+	 * @return string
+	 */
 	public function port() {
 		if ($this->trustProxy && env('HTTP_X_FORWARDED_PORT')) {
 			return env('HTTP_X_FORWARDED_PORT');
@@ -733,13 +733,13 @@ class Request implements \ArrayAccess {
 		return env('SERVER_PORT');
 	}
 
-/**
- * Get the current url scheme used for the request.
- *
- * e.g. 'http', or 'https'
- *
- * @return string The scheme used for the request.
- */
+	/**
+	 * Get the current url scheme used for the request.
+	 *
+	 * e.g. 'http', or 'https'
+	 *
+	 * @return string The scheme used for the request.
+	 */
 	public function scheme() {
 		if ($this->trustProxy && env('HTTP_X_FORWARDED_PROTO')) {
 			return env('HTTP_X_FORWARDED_PROTO');
@@ -747,50 +747,50 @@ class Request implements \ArrayAccess {
 		return env('HTTPS') ? 'https' : 'http';
 	}
 
-/**
- * Get the domain name and include $tldLength segments of the tld.
- *
- * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
- *   While `example.co.uk` contains 2.
- * @return string Domain name without subdomains.
- */
+	/**
+	 * Get the domain name and include $tldLength segments of the tld.
+	 *
+	 * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
+	 *   While `example.co.uk` contains 2.
+	 * @return string Domain name without subdomains.
+	 */
 	public function domain($tldLength = 1) {
 		$segments = explode('.', $this->host());
 		$domain = array_slice($segments, -1 * ($tldLength + 1));
 		return implode('.', $domain);
 	}
 
-/**
- * Get the subdomains for a host.
- *
- * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
- *   While `example.co.uk` contains 2.
- * @return array An array of subdomains.
- */
+	/**
+	 * Get the subdomains for a host.
+	 *
+	 * @param integer $tldLength Number of segments your tld contains. For example: `example.com` contains 1 tld.
+	 *   While `example.co.uk` contains 2.
+	 * @return array An array of subdomains.
+	 */
 	public function subdomains($tldLength = 1) {
 		$segments = explode('.', $this->host());
 		return array_slice($segments, 0, -1 * ($tldLength + 1));
 	}
 
-/**
- * Find out which content types the client accepts or check if they accept a
- * particular type of content.
- *
- * #### Get all types:
- *
- * `$this->request->accepts();`
- *
- * #### Check for a single type:
- *
- * `$this->request->accepts('application/json');`
- *
- * This method will order the returned content types by the preference values indicated
- * by the client.
- *
- * @param string $type The content type to check for. Leave null to get all types a client accepts.
- * @return mixed Either an array of all the types the client accepts or a boolean if they accept the
- *   provided type.
- */
+	/**
+	 * Find out which content types the client accepts or check if they accept a
+	 * particular type of content.
+	 *
+	 * #### Get all types:
+	 *
+	 * `$this->request->accepts();`
+	 *
+	 * #### Check for a single type:
+	 *
+	 * `$this->request->accepts('application/json');`
+	 *
+	 * This method will order the returned content types by the preference values indicated
+	 * by the client.
+	 *
+	 * @param string $type The content type to check for. Leave null to get all types a client accepts.
+	 * @return mixed Either an array of all the types the client accepts or a boolean if they accept the
+	 *   provided type.
+	 */
 	public function accepts($type = null) {
 		$raw = $this->parseAccept();
 		$accept = array();
@@ -803,33 +803,33 @@ class Request implements \ArrayAccess {
 		return in_array($type, $accept);
 	}
 
-/**
- * Parse the HTTP_ACCEPT header and return a sorted array with content types
- * as the keys, and pref values as the values.
- *
- * Generally you want to use Cake\Network\Request::accept() to get a simple list
- * of the accepted content types.
- *
- * @return array An array of prefValue => array(content/types)
- */
+	/**
+	 * Parse the HTTP_ACCEPT header and return a sorted array with content types
+	 * as the keys, and pref values as the values.
+	 *
+	 * Generally you want to use Cake\Network\Request::accept() to get a simple list
+	 * of the accepted content types.
+	 *
+	 * @return array An array of prefValue => array(content/types)
+	 */
 	public function parseAccept() {
 		return $this->_parseAcceptWithQualifier($this->header('accept'));
 	}
 
-/**
- * Get the languages accepted by the client, or check if a specific language is accepted.
- *
- * Get the list of accepted languages:
- *
- * {{{ \Cake\Network\Request::acceptLanguage(); }}}
- *
- * Check if a specific language is accepted:
- *
- * {{{ \Cake\Network\Request::acceptLanguage('es-es'); }}}
- *
- * @param string $language The language to test.
- * @return If a $language is provided, a boolean. Otherwise the array of accepted languages.
- */
+	/**
+	 * Get the languages accepted by the client, or check if a specific language is accepted.
+	 *
+	 * Get the list of accepted languages:
+	 *
+	 * {{{ \Cake\Network\Request::acceptLanguage(); }}}
+	 *
+	 * Check if a specific language is accepted:
+	 *
+	 * {{{ \Cake\Network\Request::acceptLanguage('es-es'); }}}
+	 *
+	 * @param string $language The language to test.
+	 * @return If a $language is provided, a boolean. Otherwise the array of accepted languages.
+	 */
 	public static function acceptLanguage($language = null) {
 		$raw = static::_parseAcceptWithQualifier(static::header('Accept-Language'));
 		$accept = array();
@@ -848,15 +848,15 @@ class Request implements \ArrayAccess {
 		return in_array(strtolower($language), $accept);
 	}
 
-/**
- * Parse Accept* headers with qualifier options.
- *
- * Only qualifiers will be extracted, any other accept extensions will be
- * discarded as they are not frequently used.
- *
- * @param string $header
- * @return array
- */
+	/**
+	 * Parse Accept* headers with qualifier options.
+	 *
+	 * Only qualifiers will be extracted, any other accept extensions will be
+	 * discarded as they are not frequently used.
+	 *
+	 * @param string $header
+	 * @return array
+	 */
 	protected static function _parseAcceptWithQualifier($header) {
 		$accept = array();
 		$header = explode(',', $header);
@@ -887,37 +887,37 @@ class Request implements \ArrayAccess {
 		return $accept;
 	}
 
-/**
- * Provides a read accessor for `$this->query`. Allows you
- * to use a syntax similar to `CakeSession` for reading URL query data.
- *
- * @param string $name Query string variable name
- * @return mixed The value being read
- */
+	/**
+	 * Provides a read accessor for `$this->query`. Allows you
+	 * to use a syntax similar to `CakeSession` for reading URL query data.
+	 *
+	 * @param string $name Query string variable name
+	 * @return mixed The value being read
+	 */
 	public function query($name) {
 		return Hash::get($this->query, $name);
 	}
 
-/**
- * Provides a read/write accessor for `$this->data`. Allows you
- * to use a syntax similar to `Cake\Model\Datasource\Session` for reading post data.
- *
- * ## Reading values.
- *
- * `$request->data('Post.title');`
- *
- * When reading values you will get `null` for keys/values that do not exist.
- *
- * ## Writing values
- *
- * `$request->data('Post.title', 'New post!');`
- *
- * You can write to any value, even paths/keys that do not exist, and the arrays
- * will be created for you.
- *
- * @param string $name,... Dot separated name of the value to read/write
- * @return mixed Either the value being read, or this so you can chain consecutive writes.
- */
+	/**
+	 * Provides a read/write accessor for `$this->data`. Allows you
+	 * to use a syntax similar to `Cake\Model\Datasource\Session` for reading post data.
+	 *
+	 * ## Reading values.
+	 *
+	 * `$request->data('Post.title');`
+	 *
+	 * When reading values you will get `null` for keys/values that do not exist.
+	 *
+	 * ## Writing values
+	 *
+	 * `$request->data('Post.title', 'New post!');`
+	 *
+	 * You can write to any value, even paths/keys that do not exist, and the arrays
+	 * will be created for you.
+	 *
+	 * @param string $name,... Dot separated name of the value to read/write
+	 * @return mixed Either the value being read, or this so you can chain consecutive writes.
+	 */
 	public function data($name) {
 		$args = func_get_args();
 		if (count($args) == 2) {
@@ -927,13 +927,13 @@ class Request implements \ArrayAccess {
 		return Hash::get($this->data, $name);
 	}
 
-/**
- * Safely access the values in $this->params.
- *
- * @param string $name The name of the parameter to get.
- * @return mixed The value of the provided parameter. Will
- *   return false if the parameter doesn't exist or is falsey.
- */
+	/**
+	 * Safely access the values in $this->params.
+	 *
+	 * @param string $name The name of the parameter to get.
+	 * @return mixed The value of the provided parameter. Will
+	 *   return false if the parameter doesn't exist or is falsey.
+	 */
 	public function param($name) {
 		if (!isset($this->params[$name])) {
 			return false;
@@ -941,25 +941,25 @@ class Request implements \ArrayAccess {
 		return $this->params[$name];
 	}
 
-/**
- * Read data from `php://input`. Useful when interacting with XML or JSON
- * request body content.
- *
- * Getting input with a decoding function:
- *
- * `$this->request->input('json_decode');`
- *
- * Getting input using a decoding function, and additional params:
- *
- * `$this->request->input('Xml::build', array('return' => 'DOMDocument'));`
- *
- * Any additional parameters are applied to the callback in the order they are given.
- *
- * @param string $callback A decoding callback that will convert the string data to another
- *     representation. Leave empty to access the raw input data. You can also
- *     supply additional parameters for the decoding callback using var args, see above.
- * @return The decoded/processed request data.
- */
+	/**
+	 * Read data from `php://input`. Useful when interacting with XML or JSON
+	 * request body content.
+	 *
+	 * Getting input with a decoding function:
+	 *
+	 * `$this->request->input('json_decode');`
+	 *
+	 * Getting input using a decoding function, and additional params:
+	 *
+	 * `$this->request->input('Xml::build', array('return' => 'DOMDocument'));`
+	 *
+	 * Any additional parameters are applied to the callback in the order they are given.
+	 *
+	 * @param string $callback A decoding callback that will convert the string data to another
+	 *     representation. Leave empty to access the raw input data. You can also
+	 *     supply additional parameters for the decoding callback using var args, see above.
+	 * @return The decoded/processed request data.
+	 */
 	public function input($callback = null) {
 		$input = $this->_readInput();
 		$args = func_get_args();
@@ -971,12 +971,12 @@ class Request implements \ArrayAccess {
 		return $input;
 	}
 
-/**
- * Read cookie data from the request's cookie data.
- *
- * @param string $key The key you want to read.
- * @return null|string Either the cookie value, or null if the value doesn't exist.
- */
+	/**
+	 * Read cookie data from the request's cookie data.
+	 *
+	 * @param string $key The key you want to read.
+	 * @return null|string Either the cookie value, or null if the value doesn't exist.
+	 */
 	public function cookie($key) {
 		if (isset($this->cookies[$key])) {
 			return $this->cookies[$key];
@@ -984,23 +984,23 @@ class Request implements \ArrayAccess {
 		return null;
 	}
 
-/**
- * Only allow certain HTTP request methods, if the request method does not match
- * a 405 error will be shown and the required "Allow" response header will be set.
- *
- * Example:
- *
- * $this->request->onlyAllow('post', 'delete');
- * or
- * $this->request->onlyAllow(array('post', 'delete'));
- *
- * If the request would be GET, response header "Allow: POST, DELETE" will be set
- * and a 405 error will be returned
- *
- * @param string|array $methods Allowed HTTP request methods
- * @return boolean true
- * @throws Cake\Error\MethodNotAllowedException
- */
+	/**
+	 * Only allow certain HTTP request methods, if the request method does not match
+	 * a 405 error will be shown and the required "Allow" response header will be set.
+	 *
+	 * Example:
+	 *
+	 * $this->request->onlyAllow('post', 'delete');
+	 * or
+	 * $this->request->onlyAllow(array('post', 'delete'));
+	 *
+	 * If the request would be GET, response header "Allow: POST, DELETE" will be set
+	 * and a 405 error will be returned
+	 *
+	 * @param string|array $methods Allowed HTTP request methods
+	 * @return boolean true
+	 * @throws Cake\Error\MethodNotAllowedException
+	 */
 	public function onlyAllow($methods) {
 		if (!is_array($methods)) {
 			$methods = func_get_args();
@@ -1016,11 +1016,11 @@ class Request implements \ArrayAccess {
 		throw $e;
 	}
 
-/**
- * Read data from php://input, mocked in tests.
- *
- * @return string contents of php://input
- */
+	/**
+	 * Read data from php://input, mocked in tests.
+	 *
+	 * @return string contents of php://input
+	 */
 	protected function _readInput() {
 		if (empty($this->_input)) {
 			$fh = fopen('php://input', 'r');
@@ -1031,12 +1031,12 @@ class Request implements \ArrayAccess {
 		return $this->_input;
 	}
 
-/**
- * Array access read implementation
- *
- * @param string $name Name of the key being accessed.
- * @return mixed
- */
+	/**
+	 * Array access read implementation
+	 *
+	 * @param string $name Name of the key being accessed.
+	 * @return mixed
+	 */
 	public function offsetGet($name) {
 		if (isset($this->params[$name])) {
 			return $this->params[$name];
@@ -1050,33 +1050,33 @@ class Request implements \ArrayAccess {
 		return null;
 	}
 
-/**
- * Array access write implementation
- *
- * @param string $name Name of the key being written
- * @param mixed $value The value being written.
- * @return void
- */
+	/**
+	 * Array access write implementation
+	 *
+	 * @param string $name Name of the key being written
+	 * @param mixed $value The value being written.
+	 * @return void
+	 */
 	public function offsetSet($name, $value) {
 		$this->params[$name] = $value;
 	}
 
-/**
- * Array access isset() implementation
- *
- * @param string $name thing to check.
- * @return boolean
- */
+	/**
+	 * Array access isset() implementation
+	 *
+	 * @param string $name thing to check.
+	 * @return boolean
+	 */
 	public function offsetExists($name) {
 		return isset($this->params[$name]);
 	}
 
-/**
- * Array access unset() implementation
- *
- * @param string $name Name to unset.
- * @return void
- */
+	/**
+	 * Array access unset() implementation
+	 *
+	 * @param string $name Name to unset.
+	 * @return void
+	 */
 	public function offsetUnset($name) {
 		unset($this->params[$name]);
 	}

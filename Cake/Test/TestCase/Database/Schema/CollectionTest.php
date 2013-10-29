@@ -27,35 +27,35 @@ use Cake\TestSuite\TestCase;
  */
 class CollectionTest extends TestCase {
 
-/**
- * Setup function
- *
- * @return void
- */
+	/**
+	 * Setup function
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->connection = ConnectionManager::get('test');
 	}
 
-/**
- * Teardown function
- *
- * @return void
- */
+	/**
+	 * Teardown function
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->connection);
 	}
 
-/**
- * Test that describing non-existent tables fails.
- *
- * Tests for positive describe() calls are in each platformSchema
- * test case.
- *
- * @expectedException Cake\Database\Exception
- * @return void
- */
+	/**
+	 * Test that describing non-existent tables fails.
+	 *
+	 * Tests for positive describe() calls are in each platformSchema
+	 * test case.
+	 *
+	 * @expectedException Cake\Database\Exception
+	 * @return void
+	 */
 	public function testDescribeIncorrectTable() {
 		$schema = new Collection($this->connection);
 		$this->assertNull($schema->describe('derp'));

@@ -27,12 +27,12 @@ use Cake\Utility\String;
  */
 class QueryLogger {
 
-/**
- * Writes a LoggedQuery into a log
- *
- * @param LoggedQuery $query to be written in log
- * @return void
- */
+	/**
+	 * Writes a LoggedQuery into a log
+	 *
+	 * @param LoggedQuery $query to be written in log
+	 * @return void
+	 */
 	public function log(LoggedQuery $query) {
 		if (!empty($query->params)) {
 			$query->query = $this->_interpolate($query);
@@ -40,23 +40,23 @@ class QueryLogger {
 		$this->_log($query);
 	}
 
-/**
- * Wrapper function for the logger object, useful for unit testing
- * or for overriding in subclasses.
- *
- * @param LoggedQuery $query to be written in log
- * @return void
- */
+	/**
+	 * Wrapper function for the logger object, useful for unit testing
+	 * or for overriding in subclasses.
+	 *
+	 * @param LoggedQuery $query to be written in log
+	 * @return void
+	 */
 	protected function _log($query) {
 		Log::write('debug', $query, ['queriesLog']);
 	}
 
-/**
- * Helper function used to replace query placeholders by the real
- * params used to execute the query
- *
- * @return string
- */
+	/**
+	 * Helper function used to replace query placeholders by the real
+	 * params used to execute the query
+	 *
+	 * @return string
+	 */
 	protected function _interpolate($query) {
 		$params = array_map(function($p) {
 			if (is_null($p)) {

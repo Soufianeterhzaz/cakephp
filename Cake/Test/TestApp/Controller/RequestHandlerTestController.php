@@ -24,38 +24,38 @@ use Cake\Controller\Controller;
  */
 class RequestHandlerTestController extends Controller {
 
-/**
- * uses property
- *
- * @var mixed null
- */
+	/**
+	 * uses property
+	 *
+	 * @var mixed null
+	 */
 	public $uses = null;
 
-/**
- * test method for ajax redirection
- *
- * @return void
- */
+	/**
+	 * test method for ajax redirection
+	 *
+	 * @return void
+	 */
 	public function destination() {
 		$this->viewPath = 'Posts';
 		$this->render('index');
 	}
 
-/**
- * test method for ajax redirection + parameter parsing
- *
- * @return void
- */
+	/**
+	 * test method for ajax redirection + parameter parsing
+	 *
+	 * @return void
+	 */
 	public function param_method($one = null, $two = null) {
 		echo "one: $one two: $two";
 		$this->autoRender = false;
 	}
 
-/**
- * test method for testing layout rendering when isAjax()
- *
- * @return void
- */
+	/**
+	 * test method for testing layout rendering when isAjax()
+	 *
+	 * @return void
+	 */
 	public function ajax2_layout() {
 		if ($this->autoLayout) {
 			$this->layout = 'ajax2';

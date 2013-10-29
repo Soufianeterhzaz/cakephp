@@ -23,17 +23,17 @@ namespace Cake\Model;
  */
 class AcoAction extends Model {
 
-/**
- * Model name
- *
- * @var string
- */
+	/**
+	 * Model name
+	 *
+	 * @var string
+	 */
 	public $name = 'AcoAction';
 
-/**
- * ACO Actions belong to ACOs
- *
- * @var array
- */
+	/**
+	 * ACO Actions belong to ACOs
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array('Aco');
 }

@@ -35,22 +35,22 @@ use Cake\Routing\Router;
  */
 class CrudAuthorize extends BaseAuthorize {
 
-/**
- * Sets up additional actionMap values that match the configured `Routing.prefixes`.
- *
- * @param ComponentRegistry $registry The component registry from the controller.
- * @param string $settings An array of settings. This class does not use any settings.
- */
+	/**
+	 * Sets up additional actionMap values that match the configured `Routing.prefixes`.
+	 *
+	 * @param ComponentRegistry $registry The component registry from the controller.
+	 * @param string $settings An array of settings. This class does not use any settings.
+	 */
 	public function __construct(ComponentRegistry $registry, $settings = array()) {
 		parent::__construct($registry, $settings);
 		$this->_setPrefixMappings();
 	}
 
-/**
- * sets the crud mappings for prefix routes.
- *
- * @return void
- */
+	/**
+	 * sets the crud mappings for prefix routes.
+	 *
+	 * @return void
+	 */
 	protected function _setPrefixMappings() {
 		$crud = array('create', 'read', 'update', 'delete');
 		$map = array_combine($crud, $crud);
@@ -74,13 +74,13 @@ class CrudAuthorize extends BaseAuthorize {
 		$this->mapActions($map);
 	}
 
-/**
- * Authorize a user using the mapped actions and the AclComponent.
- *
- * @param array $user The user to authorize
- * @param Cake\Network\Request $request The request needing authorization.
- * @return boolean
- */
+	/**
+	 * Authorize a user using the mapped actions and the AclComponent.
+	 *
+	 * @param array $user The user to authorize
+	 * @param Cake\Network\Request $request The request needing authorization.
+	 * @return boolean
+	 */
 	public function authorize($user, Request $request) {
 		if (!isset($this->settings['actionMap'][$request->params['action']])) {
 			trigger_error(__d('cake_dev',

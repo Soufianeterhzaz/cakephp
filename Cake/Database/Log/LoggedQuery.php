@@ -22,39 +22,39 @@ namespace Cake\Database\Log;
  */
 class LoggedQuery {
 
-/**
- * Query string that was executed
- *
- * @var string
- */
+	/**
+	 * Query string that was executed
+	 *
+	 * @var string
+	 */
 	public $query = '';
 
-/**
- * Number of milliseconds this query took to complete
- *
- * @var float
- */
+	/**
+	 * Number of milliseconds this query took to complete
+	 *
+	 * @var float
+	 */
 	public $took = 0;
 
-/**
- * Associative array with the params bound to the query string
- *
- * @var string
- */
+	/**
+	 * Associative array with the params bound to the query string
+	 *
+	 * @var string
+	 */
 	public $params = [];
 
-/**
- * Number of rows affected or returned by the query execution
- *
- * @var integer
- */
+	/**
+	 * Number of rows affected or returned by the query execution
+	 *
+	 * @var integer
+	 */
 	public $numRows = 0;
 
-/**
- * Returns the string representation of this logged query
- *
- * @return void
- */
+	/**
+	 * Returns the string representation of this logged query
+	 *
+	 * @return void
+	 */
 	public function __toString() {
 		return $this->query;
 	}

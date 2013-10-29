@@ -23,14 +23,14 @@ use Cake\Network\Http\Request;
  */
 class Basic {
 
-/**
- * Add Authorization header to the request.
- *
- * @param Request $request
- * @param array $credentials
- * @return void
- * @see http://www.ietf.org/rfc/rfc2617.txt
- */
+	/**
+	 * Add Authorization header to the request.
+	 *
+	 * @param Request $request
+	 * @param array $credentials
+	 * @return void
+	 * @see http://www.ietf.org/rfc/rfc2617.txt
+	 */
 	public function authentication(Request $request, $credentials) {
 		if (isset($credentials['username'], $credentials['password'])) {
 			$value = $this->_generateHeader($credentials['username'], $credentials['password']);
@@ -38,14 +38,14 @@ class Basic {
 		}
 	}
 
-/**
- * Proxy Authentication
- *
- * @param HttpSocket $http
- * @param array $proxyInfo
- * @return void
- * @see http://www.ietf.org/rfc/rfc2617.txt
- */
+	/**
+	 * Proxy Authentication
+	 *
+	 * @param HttpSocket $http
+	 * @param array $proxyInfo
+	 * @return void
+	 * @see http://www.ietf.org/rfc/rfc2617.txt
+	 */
 	public function proxyAuthentication(Request $request, $credentials) {
 		if (isset($credentials['username'], $credentials['password'])) {
 			$value = $this->_generateHeader($credentials['username'], $credentials['password']);
@@ -53,13 +53,13 @@ class Basic {
 		}
 	}
 
-/**
- * Generate basic [proxy] authentication header
- *
- * @param string $user
- * @param string $pass
- * @return string
- */
+	/**
+	 * Generate basic [proxy] authentication header
+	 *
+	 * @param string $user
+	 * @param string $pass
+	 * @return string
+	 */
 	protected function _generateHeader($user, $pass) {
 		return 'Basic ' . base64_encode($user . ':' . $pass);
 	}

@@ -25,22 +25,22 @@ use Cake\TestSuite\TestCase;
  */
 class DateTypeTest extends TestCase {
 
-/**
- * Setup
- *
- * @return void
- */
+	/**
+	 * Setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->type = Type::build('date');
 		$this->driver = $this->getMock('Cake\Database\Driver');
 	}
 
-/**
- * Test toPHP
- *
- * @return void
- */
+	/**
+	 * Test toPHP
+	 *
+	 * @return void
+	 */
 	public function testToPHP() {
 		$this->assertNull($this->type->toPHP(null, $this->driver));
 
@@ -54,11 +54,11 @@ class DateTypeTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * Test converting to database format
- *
- * @return void
- */
+	/**
+	 * Test converting to database format
+	 *
+	 * @return void
+	 */
 	public function testToDatabase() {
 		$value = '2001-01-04';
 		$result = $this->type->toDatabase($value, $this->driver);

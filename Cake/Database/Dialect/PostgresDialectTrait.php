@@ -30,37 +30,37 @@ trait PostgresDialectTrait {
 
 	use SqlDialectTrait;
 
-/**
- *  String used to start a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 *  String used to start a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_startQuote = '"';
 
-/**
- * String used to end a database identifier quoting to make it safe
- *
- * @var string
- */
+	/**
+	 * String used to end a database identifier quoting to make it safe
+	 *
+	 * @var string
+	 */
 	protected $_endQuote = '"';
 
-/**
- * Returns a query that has been transformed to the specific SQL dialect
- * by changing or re-arranging SQL clauses as required.
- *
- * @param Cake\Database\Query $query
- * @return Cake\Database\Query
- */
+	/**
+	 * Returns a query that has been transformed to the specific SQL dialect
+	 * by changing or re-arranging SQL clauses as required.
+	 *
+	 * @param Cake\Database\Query $query
+	 * @return Cake\Database\Query
+	 */
 	protected function _selectQueryTranslator($query) {
 		return $query;
 	}
 
-/**
- * Returns an dictionary of expressions to be transformed when compiling a Query
- * to SQL. Array keys are method names to be called in this class
- *
- * @return array
- */
+	/**
+	 * Returns an dictionary of expressions to be transformed when compiling a Query
+	 * to SQL. Array keys are method names to be called in this class
+	 *
+	 * @return array
+	 */
 	protected function _expressionTranslators() {
 		$namespace = 'Cake\Database\Expression';
 		return [
@@ -68,13 +68,13 @@ trait PostgresDialectTrait {
 		];
 	}
 
-/**
- * Receives a FunctionExpression and changes it so that it conforms to this
- * SQL dialect.
- *
- * @param Cake\Database\Expression\FunctionExpression
- * @return void
- */
+	/**
+	 * Receives a FunctionExpression and changes it so that it conforms to this
+	 * SQL dialect.
+	 *
+	 * @param Cake\Database\Expression\FunctionExpression
+	 * @return void
+	 */
 	protected function _transformFunctionExpression(FunctionExpression $expression) {
 		switch ($expression->name()) {
 			case 'CONCAT':
@@ -103,14 +103,14 @@ trait PostgresDialectTrait {
 		}
 	}
 
-/**
- * Get the schema dialect.
- *
- * Used by Cake\Schema package to reflect schema and
- * generate schema.
- *
- * @return Cake\Database\Schema\PostgresSchema
- */
+	/**
+	 * Get the schema dialect.
+	 *
+	 * Used by Cake\Schema package to reflect schema and
+	 * generate schema.
+	 *
+	 * @return Cake\Database\Schema\PostgresSchema
+	 */
 	public function schemaDialect() {
 		return new \Cake\Database\Schema\PostgresSchema($this);
 	}

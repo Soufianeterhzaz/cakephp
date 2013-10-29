@@ -19,11 +19,11 @@ namespace Company\TestPluginThree\Utility;
 
 class Hello {
 
-/**
- * foo method
- *
- * @return string
- */
+	/**
+	 * foo method
+	 *
+	 * @return string
+	 */
 	public function foo() {
 		return 'bar';
 	}

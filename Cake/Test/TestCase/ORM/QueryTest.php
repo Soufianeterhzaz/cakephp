@@ -32,19 +32,19 @@ use Cake\TestSuite\TestCase;
  */
 class QueryTest extends TestCase {
 
-/**
- * Fixture to be used
- *
- * @var array
- */
+	/**
+	 * Fixture to be used
+	 *
+	 * @var array
+	 */
 	public $fixtures = ['core.article', 'core.author', 'core.tag',
 		'core.articles_tag', 'core.post'];
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->connection = ConnectionManager::get('test');
@@ -78,21 +78,21 @@ class QueryTest extends TestCase {
 		$companies->belongsTo('category');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Tests that fully defined belongsTo and hasOne relationships are joined correctly
- *
- * @return void
- **/
+	/**
+	 * Tests that fully defined belongsTo and hasOne relationships are joined correctly
+	 *
+	 * @return void
+	 **/
 	public function testContainToJoinsOneLevel() {
 		$contains = [
 			'client' => [
@@ -170,11 +170,11 @@ class QueryTest extends TestCase {
 			->contain($contains)->sql();
 	}
 
-/**
- * Test that fields for contained models are aliased and added to the select clause
- *
- * @return void
- **/
+	/**
+	 * Test that fields for contained models are aliased and added to the select clause
+	 *
+	 * @return void
+	 **/
 	public function testContainToFieldsPredefined() {
 		$contains = [
 			'client' => [
@@ -199,12 +199,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $select);
 	}
 
-/**
- * Tests that default fields for associations are added to the select clause when
- * none is specified
- *
- * @return void
- **/
+	/**
+	 * Tests that default fields for associations are added to the select clause when
+	 * none is specified
+	 *
+	 * @return void
+	 **/
 	public function testContainToFieldsDefault() {
 		$contains = ['client' => ['order']];
 
@@ -240,12 +240,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $select);
 	}
 
-/**
- * Tests that results are grouped correctly when using contain()
- * and results are not hydrated
- *
- * @return void
- */
+	/**
+	 * Tests that results are grouped correctly when using contain()
+	 * and results are not hydrated
+	 *
+	 * @return void
+	 */
 	public function testContainResultFetchingOneLevel() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$table->belongsTo('author');
@@ -294,24 +294,24 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Data provider for the two types of strategies HasMany implements
- *
- * @return void
- */
+	/**
+	 * Data provider for the two types of strategies HasMany implements
+	 *
+	 * @return void
+	 */
 	public function strategiesProvider() {
 		return [['subquery'], ['select']];
 	}
 
-/**
- * Tests that HasMany associations are correctly eager loaded and results
- * correctly nested when no hydration is used
- * Also that the query object passes the correct parent model keys to the
- * association objects in order to perform eager loading with select strategy
- *
- * @dataProvider strategiesProvider
- * @return void
- */
+	/**
+	 * Tests that HasMany associations are correctly eager loaded and results
+	 * correctly nested when no hydration is used
+	 * Also that the query object passes the correct parent model keys to the
+	 * association objects in order to perform eager loading with select strategy
+	 *
+	 * @dataProvider strategiesProvider
+	 * @return void
+	 */
 	public function testHasManyEagerLoadingNoHydration($strategy) {
 		$table = TableRegistry::get('author');
 		TableRegistry::get('article');
@@ -381,12 +381,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($table->association('article')->strategy(), $strategy);
 	}
 
-/**
- * Tests that it is possible to set fields & order in a hasMany result set
- *
- * @dataProvider strategiesProvider
- * @return void
- **/
+	/**
+	 * Tests that it is possible to set fields & order in a hasMany result set
+	 *
+	 * @dataProvider strategiesProvider
+	 * @return void
+	 **/
 	public function testHasManyEagerLoadingFieldsAndOrderNoHydration($strategy) {
 		$table = TableRegistry::get('author');
 		TableRegistry::get('article');
@@ -430,12 +430,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that deep associations can be eagerly loaded
- *
- * @dataProvider strategiesProvider
- * @return void
- */
+	/**
+	 * Tests that deep associations can be eagerly loaded
+	 *
+	 * @dataProvider strategiesProvider
+	 * @return void
+	 */
 	public function testHasManyEagerLoadingDeep($strategy) {
 		$table = TableRegistry::get('author');
 		$article = TableRegistry::get('article');
@@ -500,13 +500,13 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that hasMany associations can be loaded even when related to a secondary
- * model in the query
- *
- * @dataProvider strategiesProvider
- * @return void
- */
+	/**
+	 * Tests that hasMany associations can be loaded even when related to a secondary
+	 * model in the query
+	 *
+	 * @dataProvider strategiesProvider
+	 * @return void
+	 */
 	public function testHasManyEagerLoadingFromSecondaryTable($strategy) {
 		$author = TableRegistry::get('author');
 		$article = TableRegistry::get('article');
@@ -601,14 +601,14 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that BelongsToMany associations are correctly eager loaded.
- * Also that the query object passes the correct parent model keys to the
- * association objects in order to perform eager loading with select strategy
- *
- * @dataProvider strategiesProvider
- * @return void
- **/
+	/**
+	 * Tests that BelongsToMany associations are correctly eager loaded.
+	 * Also that the query object passes the correct parent model keys to the
+	 * association objects in order to perform eager loading with select strategy
+	 *
+	 * @dataProvider strategiesProvider
+	 * @return void
+	 **/
 	public function testBelongsToManyEagerLoadingNoHydration($strategy) {
 		$table = TableRegistry::get('Article');
 		TableRegistry::get('Tag');
@@ -706,11 +706,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($table->association('Tag')->strategy(), $strategy);
 	}
 
-/**
- * Tests that tables results can be filtered by the result of a HasMany
- *
- * @return void
- */
+	/**
+	 * Tests that tables results can be filtered by the result of a HasMany
+	 *
+	 * @return void
+	 */
 	public function testFilteringByHasManyNoHydration() {
 		$query = new Query($this->connection, $this->table);
 		$table = TableRegistry::get('author');
@@ -741,13 +741,13 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Tests that BelongsToMany associations are correctly eager loaded.
- * Also that the query object passes the correct parent model keys to the
- * association objects in order to perform eager loading with select strategy
- *
- * @return void
- **/
+	/**
+	 * Tests that BelongsToMany associations are correctly eager loaded.
+	 * Also that the query object passes the correct parent model keys to the
+	 * association objects in order to perform eager loading with select strategy
+	 *
+	 * @return void
+	 **/
 	public function testFilteringByBelongsToManyNoHydration() {
 		$query = new Query($this->connection, $this->table);
 		$table = TableRegistry::get('Article');
@@ -803,11 +803,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $results);
 	}
 
-/**
- * Test setResult()
- *
- * @return void
- */
+	/**
+	 * Test setResult()
+	 *
+	 * @return void
+	 */
 	public function testSetResult() {
 		$query = new Query($this->connection, $this->table);
 		$stmt = $this->getMock('Cake\Database\StatementInterface');
@@ -816,11 +816,11 @@ class QueryTest extends TestCase {
 		$this->assertSame($results, $query->execute());
 	}
 
-/**
- * Test enabling buffering of results.
- *
- * @return void
- */
+	/**
+	 * Test enabling buffering of results.
+	 *
+	 * @return void
+	 */
 	public function testBufferResults() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$query = new Query($this->connection, $table);
@@ -831,12 +831,12 @@ class QueryTest extends TestCase {
 		$this->assertInstanceOf('Cake\ORM\BufferedResultSet', $result);
 	}
 
-/**
- * Tests that applying array options to a query will convert them
- * to equivalent function calls with the correspondent array values
- *
- * @return void
- */
+	/**
+	 * Tests that applying array options to a query will convert them
+	 * to equivalent function calls with the correspondent array values
+	 *
+	 * @return void
+	 */
 	public function testApplyOptions() {
 		$options = [
 			'fields' => ['field_a', 'field_b'],
@@ -879,11 +879,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $query->contain());
 	}
 
-/**
- * Tests getOptions() method
- *
- * @return void
- */
+	/**
+	 * Tests getOptions() method
+	 *
+	 * @return void
+	 */
 	public function testGetOptions() {
 		$options = ['doABarrelRoll' => true, 'fields' => ['id', 'name']];
 		$query = new Query($this->connection, $this->table);
@@ -896,11 +896,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $query->getOptions());
 	}
 
-/**
- * Tests registering mappers with mapReduce()
- *
- * @return void
- */
+	/**
+	 * Tests registering mappers with mapReduce()
+	 *
+	 * @return void
+	 */
 	public function testMapReduceOnlyMapper() {
 		$mapper1 = function() {
 		};
@@ -924,11 +924,11 @@ class QueryTest extends TestCase {
 		);
 	}
 
-/**
- * Tests registering mappers and reducers with mapReduce()
- *
- * @return void
- */
+	/**
+	 * Tests registering mappers and reducers with mapReduce()
+	 *
+	 * @return void
+	 */
 	public function testMapReduceBothMethods() {
 		$mapper1 = function() {
 		};
@@ -955,11 +955,11 @@ class QueryTest extends TestCase {
 		);
 	}
 
-/**
- * Tests that it is possible to overwrite previous map reducers
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to overwrite previous map reducers
+	 *
+	 * @return void
+	 */
 	public function testOverwriteMapReduce() {
 		$mapper1 = function() {
 		};
@@ -983,11 +983,11 @@ class QueryTest extends TestCase {
 		);
 	}
 
-/**
- * Tests that multiple map reducers can be stacked
- *
- * @return void
- */
+	/**
+	 * Tests that multiple map reducers can be stacked
+	 *
+	 * @return void
+	 */
 	public function testResultsAreWrappedInMapReduce() {
 		$params = [$this->connection, $this->table];
 		$query = $this->getMock('\Cake\ORM\Query', ['executeStatement'], $params);
@@ -1016,11 +1016,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals([2, 3], iterator_to_array($query->execute()));
 	}
 
-/**
- * Tests first() method when the query has not been executed before
- *
- * @return void
- */
+	/**
+	 * Tests first() method when the query has not been executed before
+	 *
+	 * @return void
+	 */
 	public function testFirstDirtyQuery() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$query = new Query($this->connection, $table);
@@ -1031,11 +1031,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals(['id' => 1], $result);
 	}
 
-/**
- * Tests that first can be called again on an already executed query
- *
- * @return void
- */
+	/**
+	 * Tests that first can be called again on an already executed query
+	 *
+	 * @return void
+	 */
 	public function testFirstCleanQuery() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$query = new Query($this->connection, $table);
@@ -1046,11 +1046,11 @@ class QueryTest extends TestCase {
 		$this->assertNull($query->clause('limit'));
 	}
 
-/**
- * Tests that first() will not execute the same query twice
- *
- * @return void
- */
+	/**
+	 * Tests that first() will not execute the same query twice
+	 *
+	 * @return void
+	 */
 	public function testFirstSameResult() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$query = new Query($this->connection, $table);
@@ -1062,11 +1062,11 @@ class QueryTest extends TestCase {
 		$this->assertSame($resultSet, $query->execute());
 	}
 
-/**
- * Testing hydrating a result set into Entity objects
- *
- * @return void
- */
+	/**
+	 * Testing hydrating a result set into Entity objects
+	 *
+	 * @return void
+	 */
 	public function testHydrateSimple() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		$query = new Query($this->connection, $table);
@@ -1085,11 +1085,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals('Y', $first->published);
 	}
 
-/**
- * Tests that has many results are also hydrated correctly
- *
- * @return void
- */
+	/**
+	 * Tests that has many results are also hydrated correctly
+	 *
+	 * @return void
+	 */
 	public function testHydrateWithHasMany() {
 		$table = TableRegistry::get('author');
 		TableRegistry::get('article');
@@ -1126,11 +1126,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $first->articles[1]->toArray());
 	}
 
-/**
- * Tests that belongsToMany associations are also correctly hydrated
- *
- * @return void
- */
+	/**
+	 * Tests that belongsToMany associations are also correctly hydrated
+	 *
+	 * @return void
+	 */
 	public function testHydrateBelongsToMany() {
 		$table = TableRegistry::get('Article');
 		TableRegistry::get('Tag');
@@ -1166,11 +1166,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $first->tags[1]->toArray());
 	}
 
-/**
- * Tests that belongsTo relations are correctly hydrated
- *
- * @return void
- */
+	/**
+	 * Tests that belongsTo relations are correctly hydrated
+	 *
+	 * @return void
+	 */
 	public function testHydrateBelongsTo() {
 		$table = TableRegistry::get('article', ['table' => 'articles']);
 		TableRegistry::get('author');
@@ -1189,11 +1189,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $first->author->toArray());
 	}
 
-/**
- * Tests that deeply nested associations are also hydrated correctly
- *
- * @return void
- */
+	/**
+	 * Tests that deeply nested associations are also hydrated correctly
+	 *
+	 * @return void
+	 */
 	public function testHydrateDeep() {
 		$table = TableRegistry::get('author');
 		$article = TableRegistry::get('article');
@@ -1216,11 +1216,11 @@ class QueryTest extends TestCase {
 		$this->assertFalse(isset($results[3]->articles));
 	}
 
-/**
- * Tests that it is possible to use a custom entity class
- *
- * @return void
- */
+	/**
+	 * Tests that it is possible to use a custom entity class
+	 *
+	 * @return void
+	 */
 	public function testHydrateCustomObject() {
 		$class = $this->getMockClass('\Cake\ORM\Entity', ['fakeMethod']);
 		$table = TableRegistry::get('article', [
@@ -1243,12 +1243,12 @@ class QueryTest extends TestCase {
 		$this->assertEquals('Y', $first->published);
 	}
 
-/**
- * Tests that has many results are also hydrated correctly
- * when specified a custom entity class
- *
- * @return void
- */
+	/**
+	 * Tests that has many results are also hydrated correctly
+	 * when specified a custom entity class
+	 *
+	 * @return void
+	 */
 	public function testHydrateWithHasManyCustomEntity() {
 		$authorEntity = $this->getMockClass('\Cake\ORM\Entity', ['foo']);
 		$articleEntity = $this->getMockClass('\Cake\ORM\Entity', ['foo']);
@@ -1284,11 +1284,11 @@ class QueryTest extends TestCase {
 		$this->assertEquals($expected, $first->articles[0]->toArray());
 	}
 
-/**
- * Tests that belongsTo relations are correctly hydrated into a custom entity class
- *
- * @return void
- */
+	/**
+	 * Tests that belongsTo relations are correctly hydrated into a custom entity class
+	 *
+	 * @return void
+	 */
 	public function testHydrateBelongsToCustomEntity() {
 		$authorEntity = $this->getMockClass('\Cake\ORM\Entity', ['foo']);
 		$table = TableRegistry::get('article', ['table' => 'articles']);

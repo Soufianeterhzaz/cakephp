@@ -34,18 +34,18 @@ use Cake\Utility\Inflector;
  */
 class TestShell extends Shell {
 
-/**
- * Dispatcher object for the run.
- *
- * @var CakeTestDispatcher
- */
+	/**
+	 * Dispatcher object for the run.
+	 *
+	 * @var CakeTestDispatcher
+	 */
 	protected $_dispatcher = null;
 
-/**
- * get the option parser for the test suite.
- *
- * @return void
- */
+	/**
+	 * get the option parser for the test suite.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = new ConsoleOptionParser($this->name);
 		$parser->description(array(
@@ -165,12 +165,12 @@ class TestShell extends Shell {
 		return $parser;
 	}
 
-/**
- * Initialization method installs PHPUnit and loads all plugins
- *
- * @return void
- * @throws Exception
- */
+	/**
+	 * Initialization method installs PHPUnit and loads all plugins
+	 *
+	 * @return void
+	 * @throws Exception
+	 */
 	public function initialize() {
 		$this->_dispatcher = new TestSuiteDispatcher();
 		$sucess = $this->_dispatcher->loadTestFramework();
@@ -179,11 +179,11 @@ class TestShell extends Shell {
 		}
 	}
 
-/**
- * Parse the CLI options into an array Cake\TestSuite\TestDispatcher can use.
- *
- * @return array Array of params for Cake\TestSuite\TestDispatcher
- */
+	/**
+	 * Parse the CLI options into an array Cake\TestSuite\TestDispatcher can use.
+	 *
+	 * @return array Array of params for Cake\TestSuite\TestDispatcher
+	 */
 	protected function _parseArgs() {
 		if (empty($this->args)) {
 			return;
@@ -216,11 +216,11 @@ class TestShell extends Shell {
 		return $params;
 	}
 
-/**
- * Converts the options passed to the shell as options for the PHPUnit cli runner
- *
- * @return array Array of params for Cake\TestSuite\TestDispatcher
- */
+	/**
+	 * Converts the options passed to the shell as options for the PHPUnit cli runner
+	 *
+	 * @return array Array of params for Cake\TestSuite\TestDispatcher
+	 */
 	protected function _runnerOptions() {
 		$options = array();
 		$params = $this->params;
@@ -244,11 +244,11 @@ class TestShell extends Shell {
 		return $options;
 	}
 
-/**
- * Main entry point to this shell
- *
- * @return void
- */
+	/**
+	 * Main entry point to this shell
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out(__d('cake_console', 'CakePHP Test Shell'));
 		$this->hr();
@@ -262,13 +262,13 @@ class TestShell extends Shell {
 		$this->_run($args, $this->_runnerOptions());
 	}
 
-/**
- * Runs the test case from $runnerArgs
- *
- * @param array $runnerArgs list of arguments as obtained from _parseArgs()
- * @param array $options list of options as constructed by _runnerOptions()
- * @return void
- */
+	/**
+	 * Runs the test case from $runnerArgs
+	 *
+	 * @param array $runnerArgs list of arguments as obtained from _parseArgs()
+	 * @param array $options list of options as constructed by _runnerOptions()
+	 * @return void
+	 */
 	protected function _run($runnerArgs, $options = array()) {
 		restore_error_handler();
 		restore_error_handler();
@@ -277,11 +277,11 @@ class TestShell extends Shell {
 		$testCli->run($options);
 	}
 
-/**
- * Shows a list of available test cases and gives the option to run one of them
- *
- * @return void
- */
+	/**
+	 * Shows a list of available test cases and gives the option to run one of them
+	 *
+	 * @return void
+	 */
 	public function available() {
 		$params = $this->_parseArgs();
 		$testCases = TestLoader::generateTestList($params);
@@ -334,15 +334,15 @@ class TestShell extends Shell {
 		}
 	}
 
-/**
- * Find the test case for the passed file. The file could itself be a test.
- *
- * @param string $file
- * @param string $category
- * @param boolean $throwOnMissingFile
- * @return array array(type, case)
- * @throws Exception
- */
+	/**
+	 * Find the test case for the passed file. The file could itself be a test.
+	 *
+	 * @param string $file
+	 * @param string $category
+	 * @param boolean $throwOnMissingFile
+	 * @return array array(type, case)
+	 * @throws Exception
+	 */
 	protected function _mapFileToCase($file, $category, $throwOnMissingFile = true) {
 		if (!$category || (substr($file, -4) !== '.php')) {
 			return false;
@@ -411,12 +411,12 @@ class TestShell extends Shell {
 		return $testCase;
 	}
 
-/**
- * For the given file, what category of test is it? returns app, core or the name of the plugin
- *
- * @param string $file
- * @return string
- */
+	/**
+	 * For the given file, what category of test is it? returns app, core or the name of the plugin
+	 *
+	 * @param string $file
+	 * @return string
+	 */
 	protected function _mapFileToCategory($file) {
 		$_file = realpath($file);
 		if ($_file) {

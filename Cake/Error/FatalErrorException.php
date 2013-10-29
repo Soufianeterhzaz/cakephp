@@ -23,14 +23,14 @@ namespace Cake\Error;
  */
 class FatalErrorException extends Exception {
 
-/**
- * Constructor
- *
- * @param string $message
- * @param integer $code
- * @param string $file
- * @param integer $line
- */
+	/**
+	 * Constructor
+	 *
+	 * @param string $message
+	 * @param integer $code
+	 * @param string $file
+	 * @param integer $line
+	 */
 	public function __construct($message, $code = 500, $file = null, $line = null) {
 		parent::__construct($message, $code);
 		if ($file) {

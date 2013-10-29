@@ -26,12 +26,12 @@ class BufferedStatement extends StatementDecorator {
 
 	protected $_counter = 0;
 
-/**
- * Constructor
- *
- * @param Statement implementation such as PDOStatement
- * @return void
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Statement implementation such as PDOStatement
+	 * @return void
+	 */
 	public function __construct($statement = null, $driver = null) {
 		parent::__construct($statement, $driver);
 		$this->_reset();

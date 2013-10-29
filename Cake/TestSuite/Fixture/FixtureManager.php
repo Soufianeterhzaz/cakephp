@@ -34,33 +34,33 @@ use Cake\Utility\Inflector;
  */
 class FixtureManager {
 
-/**
- * Was this class already initialized?
- *
- * @var boolean
- */
+	/**
+	 * Was this class already initialized?
+	 *
+	 * @var boolean
+	 */
 	protected $_initialized = false;
 
-/**
- * Holds the fixture classes that where instantiated
- *
- * @var array
- */
+	/**
+	 * Holds the fixture classes that where instantiated
+	 *
+	 * @var array
+	 */
 	protected $_loaded = array();
 
-/**
- * Holds the fixture classes that where instantiated indexed by class name
- *
- * @var array
- */
+	/**
+	 * Holds the fixture classes that where instantiated indexed by class name
+	 *
+	 * @var array
+	 */
 	protected $_fixtureMap = array();
 
-/**
- * Inspects the test to look for unloaded fixtures and loads them
- *
- * @param Cake\TestSuite\TestCase $test the test case to inspect
- * @return void
- */
+	/**
+	 * Inspects the test to look for unloaded fixtures and loads them
+	 *
+	 * @param Cake\TestSuite\TestCase $test the test case to inspect
+	 * @return void
+	 */
 	public function fixturize($test) {
 		$this->_initDb();
 		if (empty($test->fixtures) || !empty($this->_processed[get_class($test)])) {
@@ -77,14 +77,14 @@ class FixtureManager {
 		$this->_processed[get_class($test)] = true;
 	}
 
-/**
- * Add aliaes for all non test prefixed connections.
- *
- * This allows models to use the test connections without 
- * a pile of configuration work.
- *
- * @return void
- */
+	/**
+	 * Add aliaes for all non test prefixed connections.
+	 *
+	 * This allows models to use the test connections without 
+	 * a pile of configuration work.
+	 *
+	 * @return void
+	 */
 	protected function _aliasConnections() {
 		$connections = ConnectionManager::configured();
 		ConnectionManager::alias('test', 'default');
@@ -106,11 +106,11 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Initializes this class with a DataSource object to use as default for all fixtures
- *
- * @return void
- */
+	/**
+	 * Initializes this class with a DataSource object to use as default for all fixtures
+	 *
+	 * @return void
+	 */
 	protected function _initDb() {
 		if ($this->_initialized) {
 			return;
@@ -119,13 +119,13 @@ class FixtureManager {
 		$this->_initialized = true;
 	}
 
-/**
- * Looks for fixture files and instantiates the classes accordingly
- *
- * @param array $fixtures the fixture names to load using the notation {type}.{name}
- * @return void
- * @throws UnexpectedValueException when a referenced fixture does not exist.
- */
+	/**
+	 * Looks for fixture files and instantiates the classes accordingly
+	 *
+	 * @param array $fixtures the fixture names to load using the notation {type}.{name}
+	 * @return void
+	 * @throws UnexpectedValueException when a referenced fixture does not exist.
+	 */
 	protected function _loadFixtures($fixtures) {
 		foreach ($fixtures as $fixture) {
 			$fixtureFile = null;
@@ -158,14 +158,14 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Runs the drop and create commands on the fixtures if necessary.
- *
- * @param Cake\TestSuite\Fixture\TestFixture $fixture the fixture object to create
- * @param Connection $db the datasource instance to use
- * @param boolean $drop whether drop the fixture if it is already created or not
- * @return void
- */
+	/**
+	 * Runs the drop and create commands on the fixtures if necessary.
+	 *
+	 * @param Cake\TestSuite\Fixture\TestFixture $fixture the fixture object to create
+	 * @param Connection $db the datasource instance to use
+	 * @param boolean $drop whether drop the fixture if it is already created or not
+	 * @return void
+	 */
 	protected function _setupTable(TestFixture $fixture, Connection $db = null, $drop = true) {
 		if (!$db) {
 			if (!empty($fixture->connection)) {
@@ -194,13 +194,13 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Creates the fixtures tables and inserts data on them.
- *
- * @param Cake\TestSuite\TestCase $test the test to inspect for fixture loading
- * @return void
- * @throws Cake\Error\Exception When fixture records cannot be inserted.
- */
+	/**
+	 * Creates the fixtures tables and inserts data on them.
+	 *
+	 * @param Cake\TestSuite\TestCase $test the test to inspect for fixture loading
+	 * @return void
+	 * @throws Cake\Error\Exception When fixture records cannot be inserted.
+	 */
 	public function load(TestCase $test) {
 		if (empty($test->fixtures)) {
 			return;
@@ -234,12 +234,12 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Truncates the fixtures tables
- *
- * @param Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
- * @return void
- */
+	/**
+	 * Truncates the fixtures tables
+	 *
+	 * @param Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
+	 * @return void
+	 */
 	public function unload(TestCase $test) {
 		$fixtures = !empty($test->fixtures) ? $test->fixtures : array();
 		foreach (array_reverse($fixtures) as $f) {
@@ -255,15 +255,15 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Creates a single fixture table and loads data into it.
- *
- * @param string $name of the fixture
- * @param DataSource $db DataSource instance or leave null to get DataSource from the fixture
- * @param boolean $dropTables Whether or not tables should be dropped and re-created.
- * @return void
- * @throws UnexpectedValueException if $name is not a previously loaded class
- */
+	/**
+	 * Creates a single fixture table and loads data into it.
+	 *
+	 * @param string $name of the fixture
+	 * @param DataSource $db DataSource instance or leave null to get DataSource from the fixture
+	 * @param boolean $dropTables Whether or not tables should be dropped and re-created.
+	 * @return void
+	 * @throws UnexpectedValueException if $name is not a previously loaded class
+	 */
 	public function loadSingle($name, $db = null, $dropTables = true) {
 		if (isset($this->_fixtureMap[$name])) {
 			$fixture = $this->_fixtureMap[$name];
@@ -278,14 +278,14 @@ class FixtureManager {
 		}
 	}
 
-/**
- * Drop all fixture tables loaded by this class
- *
- * This will also close the session, as failing to do so will cause
- * fatal errors with database sessions.
- *
- * @return void
- */
+	/**
+	 * Drop all fixture tables loaded by this class
+	 *
+	 * This will also close the session, as failing to do so will cause
+	 * fatal errors with database sessions.
+	 *
+	 * @return void
+	 */
 	public function shutDown() {
 		if (session_id()) {
 			session_write_close();

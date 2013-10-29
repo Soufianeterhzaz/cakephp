@@ -18,13 +18,13 @@ namespace Cake\Database;
 
 trait SqlDialectTrait {
 
-/**
- * Quotes a database identifier (a column name, table name, etc..) to
- * be used safely in queries without the risk of using reserver words
- *
- * @param string $identifier
- * @return string
- */
+	/**
+	 * Quotes a database identifier (a column name, table name, etc..) to
+	 * be used safely in queries without the risk of using reserver words
+	 *
+	 * @param string $identifier
+	 * @return string
+	 */
 	public function quoteIdentifier($identifier) {
 		$identifier = trim($identifier);
 
@@ -61,15 +61,15 @@ trait SqlDialectTrait {
 		return $identifier;
 	}
 
-/**
- * Returns a callable function that will be used to transform a passed Query object.
- * This function, in turn, will return an instance of a Query object that has been
- * transformed to accommodate any specificities of the SQL dialect in use.
- *
- * @param string $type the type of query to be transformed
- * (select, insert, update, delete)
- * @return callable
- */
+	/**
+	 * Returns a callable function that will be used to transform a passed Query object.
+	 * This function, in turn, will return an instance of a Query object that has been
+	 * transformed to accommodate any specificities of the SQL dialect in use.
+	 *
+	 * @param string $type the type of query to be transformed
+	 * (select, insert, update, delete)
+	 * @return callable
+	 */
 	public function queryTranslator($type) {
 		return function($query) use ($type) {
 			$query = $this->{'_' . $type . 'QueryTranslator'}($query);
@@ -89,23 +89,23 @@ trait SqlDialectTrait {
 		};
 	}
 
-/**
- * Returns an associative array of methods that will transform Expression
- * objects to conform with the specific SQL dialect. Keys are class names
- * and values a method in this class.
- *
- * @return void
- */
+	/**
+	 * Returns an associative array of methods that will transform Expression
+	 * objects to conform with the specific SQL dialect. Keys are class names
+	 * and values a method in this class.
+	 *
+	 * @return void
+	 */
 	protected function _expressionTranslators() {
 		return [];
 	}
 
-/**
- * Apply translation steps to select queries.
- *
- * @param Query $query The query to translate
- * @return Query The modified query
- */
+	/**
+	 * Apply translation steps to select queries.
+	 *
+	 * @param Query $query The query to translate
+	 * @return Query The modified query
+	 */
 	protected function _selectQueryTranslator($query) {
 		if (is_array($query->clause('distinct'))) {
 			$query->group($query->clause('distinct'), true);
@@ -115,62 +115,62 @@ trait SqlDialectTrait {
 		return $query;
 	}
 
-/**
- * Apply translation steps to delete queries.
- *
- * @param Query $query The query to translate
- * @return Query The modified query
- */
+	/**
+	 * Apply translation steps to delete queries.
+	 *
+	 * @param Query $query The query to translate
+	 * @return Query The modified query
+	 */
 	protected function _deleteQueryTranslator($query) {
 		return $query;
 	}
 
-/**
- * Apply translation steps to update queries.
- *
- * @param Query $query The query to translate
- * @return Query The modified query
- */
+	/**
+	 * Apply translation steps to update queries.
+	 *
+	 * @param Query $query The query to translate
+	 * @return Query The modified query
+	 */
 	protected function _updateQueryTranslator($query) {
 		return $query;
 	}
 
-/**
- * Apply translation steps to insert queries.
- *
- * @param Query $query The query to translate
- * @return Query The modified query
- */
+	/**
+	 * Apply translation steps to insert queries.
+	 *
+	 * @param Query $query The query to translate
+	 * @return Query The modified query
+	 */
 	protected function _insertQueryTranslator($query) {
 		return $query;
 	}
 
-/**
- * Returns a SQL snippet for creating a new transaction savepoint
- *
- * @param string save point name
- * @return string
- */
+	/**
+	 * Returns a SQL snippet for creating a new transaction savepoint
+	 *
+	 * @param string save point name
+	 * @return string
+	 */
 	public function savePointSQL($name) {
 		return 'SAVEPOINT LEVEL' . $name;
 	}
 
-/**
- * Returns a SQL snippet for releasing a previously created save point
- *
- * @param string save point name
- * @return string
- */
+	/**
+	 * Returns a SQL snippet for releasing a previously created save point
+	 *
+	 * @param string save point name
+	 * @return string
+	 */
 	public function releaseSavePointSQL($name) {
 		return 'RELEASE SAVEPOINT LEVEL' . $name;
 	}
 
-/**
- * Returns a SQL snippet for rollbacking a previously created save point
- *
- * @param string save point name
- * @return string
- */
+	/**
+	 * Returns a SQL snippet for rollbacking a previously created save point
+	 *
+	 * @param string save point name
+	 * @return string
+	 */
 	public function rollbackSavePointSQL($name) {
 		return 'ROLLBACK TO SAVEPOINT LEVEL' . $name;
 	}

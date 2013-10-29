@@ -25,13 +25,13 @@ class Post extends AppModel {
 
 	public $name = 'Post';
 
-/**
- * find method
- *
- * @param string $type
- * @param array $options
- * @return void
- */
+	/**
+	 * find method
+	 *
+	 * @param string $type
+	 * @param array $options
+	 * @return void
+	 */
 	public function find($type = 'first', $options = array()) {
 		if ($type == 'popular') {
 			$conditions = array($this->name . '.' . $this->primaryKey . ' > ' => '1');

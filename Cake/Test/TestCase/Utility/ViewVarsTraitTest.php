@@ -22,20 +22,20 @@ use Cake\Utility\ViewVarsTrait;
  */
 class ViewVarsTraitTest extends TestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		$this->subject = $this->getObjectForTrait('Cake\Utility\ViewVarsTrait');
 	}
 
-/**
- * Test set() with one param.
- *
- * @return void
- */
+	/**
+	 * Test set() with one param.
+	 *
+	 * @return void
+	 */
 	public function testSetOneParam() {
 		$data = ['test' => 'val', 'foo' => 'bar'];
 		$this->subject->set($data);
@@ -46,21 +46,21 @@ class ViewVarsTraitTest extends TestCase {
 		$this->assertEquals('updated', $this->subject->viewVars['test']);
 	}
 
-/**
- * test set() with 2 params
- *
- * @return void
- */
+	/**
+	 * test set() with 2 params
+	 *
+	 * @return void
+	 */
 	public function testSetTwoParam() {
 		$this->subject->set('testing', 'value');
 		$this->assertEquals(['testing' => 'value'], $this->subject->viewVars);
 	}
 
-/**
- * test set() with 2 params in combine mode
- *
- * @return void
- */
+	/**
+	 * test set() with 2 params in combine mode
+	 *
+	 * @return void
+	 */
 	public function testSetTwoParamCombind() {
 		$keys = ['one', 'key'];
 		$vals = ['two', 'val'];

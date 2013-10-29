@@ -38,39 +38,39 @@ class ConnectionManager {
 		config as protected _config;
 	}
 
-/**
- * Holds a list of connection configurations
- *
- * @var array
- */
+	/**
+	 * Holds a list of connection configurations
+	 *
+	 * @var array
+	 */
 	protected static $_config = [];
 
-/**
- * A map of connection aliases.
- *
- * @var array
- */
+	/**
+	 * A map of connection aliases.
+	 *
+	 * @var array
+	 */
 	protected static $_aliasMap = [];
 
-/**
- * The ConnectionRegistry used by the manager.
- *
- * @var Cake\Database\ConnectionRegistry
- */
+	/**
+	 * The ConnectionRegistry used by the manager.
+	 *
+	 * @var Cake\Database\ConnectionRegistry
+	 */
 	protected static $_registry = null;
 
-/**
- * Configure a new connection object.
- *
- * The connection will not be constructed until it is first used.
- *
- * @see Cake\Core\StaticConfigTrait::config()
- *
- * @param string|array $key The name of the connection config, or an array of multiple configs.
- * @param array $config An array of name => config data for adapter.
- * @return mixed null when adding configuration and an array of configuration data when reading.
- * @throws Cake\Error\Exception When trying to modify an existing config.
- */
+	/**
+	 * Configure a new connection object.
+	 *
+	 * The connection will not be constructed until it is first used.
+	 *
+	 * @see Cake\Core\StaticConfigTrait::config()
+	 *
+	 * @param string|array $key The name of the connection config, or an array of multiple configs.
+	 * @param array $config An array of name => config data for adapter.
+	 * @return mixed null when adding configuration and an array of configuration data when reading.
+	 * @throws Cake\Error\Exception When trying to modify an existing config.
+	 */
 	public static function config($key, $config = null) {
 		if (is_array($config)) {
 			$config['name'] = $key;
@@ -78,24 +78,24 @@ class ConnectionManager {
 		return static::_config($key, $config);
 	}
 
-/**
- * Set one or more connection aliases.
- *
- * Connection aliases allow you to rename active connections without overwriting
- * the aliased connection. This is most useful in the testsuite for replacing
- * connections with their test variant.
- *
- * Defined aliases will take precedence over normal connection names. For example,
- * if you alias 'default' to 'test', fetching 'default' will always return the 'test'
- * connection as long as the alias is defined.
- *
- * You can remove aliases with ConnectionManager::dropAlias().
- *
- * @param string $from The connection to add an alias to.
- * @param string $to The alias to create. $from should return when loaded with get().
- * @return void
- * @throws Cake\Error\MissingDatasourceConfigException When aliasing a connection that does not exist.
- */
+	/**
+	 * Set one or more connection aliases.
+	 *
+	 * Connection aliases allow you to rename active connections without overwriting
+	 * the aliased connection. This is most useful in the testsuite for replacing
+	 * connections with their test variant.
+	 *
+	 * Defined aliases will take precedence over normal connection names. For example,
+	 * if you alias 'default' to 'test', fetching 'default' will always return the 'test'
+	 * connection as long as the alias is defined.
+	 *
+	 * You can remove aliases with ConnectionManager::dropAlias().
+	 *
+	 * @param string $from The connection to add an alias to.
+	 * @param string $to The alias to create. $from should return when loaded with get().
+	 * @return void
+	 * @throws Cake\Error\MissingDatasourceConfigException When aliasing a connection that does not exist.
+	 */
 	public static function alias($from, $to) {
 		if (empty(static::$_config[$to]) && empty(static::$_config[$from])) {
 			throw new Error\MissingDatasourceConfigException(
@@ -105,31 +105,31 @@ class ConnectionManager {
 		static::$_aliasMap[$to] = $from;
 	}
 
-/**
- * Drop an alias.
- *
- * Removes an alias from ConnectionManager. Fetching the aliased
- * connection may fail if there is no other connection with that name.
- *
- * @param string $name The connection name to remove aliases for.
- * @return void
- */
+	/**
+	 * Drop an alias.
+	 *
+	 * Removes an alias from ConnectionManager. Fetching the aliased
+	 * connection may fail if there is no other connection with that name.
+	 *
+	 * @param string $name The connection name to remove aliases for.
+	 * @return void
+	 */
 	public static function dropAlias($name) {
 		unset(static::$_aliasMap[$name]);
 	}
 
-/**
- * Get a connection.
- *
- * If the connection has not been constructed an instance will be added
- * to the registry. This method will use any aliases that have been
- * defined. If you want the original unaliased connections use getOriginal()
- *
- * @param string $name The connection name.
- * @param boolean $useAliases Set to false to not use aliased connections.
- * @return Connection A connection object.
- * @throws Cake\Error\MissingDatasourceConfigException When config data is missing.
- */
+	/**
+	 * Get a connection.
+	 *
+	 * If the connection has not been constructed an instance will be added
+	 * to the registry. This method will use any aliases that have been
+	 * defined. If you want the original unaliased connections use getOriginal()
+	 *
+	 * @param string $name The connection name.
+	 * @param boolean $useAliases Set to false to not use aliased connections.
+	 * @return Connection A connection object.
+	 * @throws Cake\Error\MissingDatasourceConfigException When config data is missing.
+	 */
 	public static function get($name, $useAliases = true) {
 		if ($useAliases && isset(static::$_aliasMap[$name])) {
 			$name = static::$_aliasMap[$name];
@@ -146,26 +146,26 @@ class ConnectionManager {
 		return static::$_registry->load($name, static::$_config[$name]);
 	}
 
-/**
- * Gets a reference to a DataSource object
- *
- * @param string $name The name of the DataSource, as defined in app/Config/datasources.php
- * @return DataSource Instance
- * @throws Cake\Error\MissingDatasourceException
- * @deprecated Will be removed in 3.0 stable.
- */
+	/**
+	 * Gets a reference to a DataSource object
+	 *
+	 * @param string $name The name of the DataSource, as defined in app/Config/datasources.php
+	 * @return DataSource Instance
+	 * @throws Cake\Error\MissingDatasourceException
+	 * @deprecated Will be removed in 3.0 stable.
+	 */
 	public static function getDataSource($name) {
 		return static::get($name);
 	}
 
-/**
- * Dynamically creates a DataSource object at runtime, with the given name and settings
- *
- * @param string $name The DataSource name
- * @param array $config The DataSource configuration settings
- * @return DataSource A reference to the DataSource object, or null if creation failed
- * @deprecated Will be removed in 3.0 stable
- */
+	/**
+	 * Dynamically creates a DataSource object at runtime, with the given name and settings
+	 *
+	 * @param string $name The DataSource name
+	 * @param array $config The DataSource configuration settings
+	 * @return DataSource A reference to the DataSource object, or null if creation failed
+	 * @deprecated Will be removed in 3.0 stable
+	 */
 	public static function create($name = '', $config = array()) {
 		static::config($name, $config);
 		return static::get($name);

@@ -30,37 +30,37 @@ namespace Cake\Utility;
  */
 abstract class ObjectRegistry {
 
-/**
- * Map of loaded objects.
- *
- * @var array
- */
+	/**
+	 * Map of loaded objects.
+	 *
+	 * @var array
+	 */
 	protected $_loaded = [];
 
-/**
- * Loads/constructs a object instance.
- *
- * Will return the instance in the registry if it already exists.
- * If a subclass provides event support, you can use `$settings['enabled'] = false`
- * to exclude constructed objects from being registered for events.
- *
- * Using Cake\Controller\Controller::$components as an example. You can alias 
- * an object by setting the 'className' key, i.e.,
- *
- * {{{
- * public $components = [
- *   'Email' => [
- *     'className' => '\App\Controller\Component\AliasedEmailComponent'
- *   ];
- * ];
- * }}}
- *
- * All calls to the `Email` component would use `AliasedEmail` instead.
- *
- * @param string $name The name/class of the object to load.
- * @param array $settings Additional settings to use when loading the object.
- * @return mixed
- */
+	/**
+	 * Loads/constructs a object instance.
+	 *
+	 * Will return the instance in the registry if it already exists.
+	 * If a subclass provides event support, you can use `$settings['enabled'] = false`
+	 * to exclude constructed objects from being registered for events.
+	 *
+	 * Using Cake\Controller\Controller::$components as an example. You can alias 
+	 * an object by setting the 'className' key, i.e.,
+	 *
+	 * {{{
+	 * public $components = [
+	 *   'Email' => [
+	 *     'className' => '\App\Controller\Component\AliasedEmailComponent'
+	 *   ];
+	 * ];
+	 * }}}
+	 *
+	 * All calls to the `Email` component would use `AliasedEmail` instead.
+	 *
+	 * @param string $name The name/class of the object to load.
+	 * @param array $settings Additional settings to use when loading the object.
+	 * @return mixed
+	 */
 	public function load($objectName, $settings = []) {
 		list($plugin, $name) = pluginSplit($objectName);
 		if (isset($this->_loaded[$name])) {
@@ -80,41 +80,41 @@ abstract class ObjectRegistry {
 		return $instance;
 	}
 
-/**
- * Should resolve the classname for a given object type.
- *
- * @param string $class The class to resolve.
- * @return string|false The resolved name or false for failure.
- */
+	/**
+	 * Should resolve the classname for a given object type.
+	 *
+	 * @param string $class The class to resolve.
+	 * @return string|false The resolved name or false for failure.
+	 */
 	abstract protected function _resolveClassName($class);
 
-/**
- * Throw an exception when the requested object name is missing.
- *
- * @param string $class The class that is missing.
- * @param string $plugin The plugin $class is missing from.
- * @throw Cake\Exception
- */
+	/**
+	 * Throw an exception when the requested object name is missing.
+	 *
+	 * @param string $class The class that is missing.
+	 * @param string $plugin The plugin $class is missing from.
+	 * @throw Cake\Exception
+	 */
 	abstract protected function _throwMissingClassError($class, $plugin);
 
-/**
- * Create an instance of a given classname.
- *
- * This method should construct and do any other initialization logic
- * required.
- *
- * @param string $class The class to build.
- * @param array $settings The settings for construction
- * @return mixed
- */
+	/**
+	 * Create an instance of a given classname.
+	 *
+	 * This method should construct and do any other initialization logic
+	 * required.
+	 *
+	 * @param string $class The class to build.
+	 * @param array $settings The settings for construction
+	 * @return mixed
+	 */
 	abstract protected function _create($class, $settings);
 
-/**
- * Get the loaded object list, or get the object instance at a given name.
- *
- * @param null|string $name The object name to get or null.
- * @return array|Helper Either a list of object names, or a loaded object.
- */
+	/**
+	 * Get the loaded object list, or get the object instance at a given name.
+	 *
+	 * @param null|string $name The object name to get or null.
+	 * @return array|Helper Either a list of object names, or a loaded object.
+	 */
 	public function loaded($name = null) {
 		if (!empty($name)) {
 			return isset($this->_loaded[$name]);
@@ -122,12 +122,12 @@ abstract class ObjectRegistry {
 		return array_keys($this->_loaded);
 	}
 
-/**
- * Provide public read access to the loaded objects
- *
- * @param string $name Name of property to read
- * @return mixed
- */
+	/**
+	 * Provide public read access to the loaded objects
+	 *
+	 * @param string $name Name of property to read
+	 * @return mixed
+	 */
 	public function __get($name) {
 		if (isset($this->_loaded[$name])) {
 			return $this->_loaded[$name];
@@ -135,23 +135,23 @@ abstract class ObjectRegistry {
 		return null;
 	}
 
-/**
- * Provide isset access to _loaded
- *
- * @param string $name Name of object being checked.
- * @return boolean
- */
+	/**
+	 * Provide isset access to _loaded
+	 *
+	 * @param string $name Name of object being checked.
+	 * @return boolean
+	 */
 	public function __isset($name) {
 		return isset($this->_loaded[$name]);
 	}
 
-/**
- * Normalizes an object array, creates an array that makes lazy loading
- * easier
- *
- * @param array $objects Array of child objects to normalize.
- * @return array Array of normalized objects.
- */
+	/**
+	 * Normalizes an object array, creates an array that makes lazy loading
+	 * easier
+	 *
+	 * @param array $objects Array of child objects to normalize.
+	 * @return array Array of normalized objects.
+	 */
 	public function normalizeArray($objects) {
 		$normal = array();
 		foreach ($objects as $i => $objectName) {
@@ -166,11 +166,11 @@ abstract class ObjectRegistry {
 		return $normal;
 	}
 
-/**
- * Clear loaded instances in the registry.
- *
- * @return void
- */
+	/**
+	 * Clear loaded instances in the registry.
+	 *
+	 * @return void
+	 */
 	public function reset() {
 		$this->_loaded = [];
 	}

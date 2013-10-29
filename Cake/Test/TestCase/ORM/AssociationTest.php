@@ -34,11 +34,11 @@ class TestTable extends Table {
  */
 class AssociationTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Set up
- *
- * @return void
- */
+	/**
+	 * Set up
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->source = new TestTable;
@@ -57,55 +57,55 @@ class AssociationTest extends \Cake\TestSuite\TestCase {
 		);
 	}
 
-/**
- * Tear down
- *
- * @return void
- */
+	/**
+	 * Tear down
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		TableRegistry::clear();
 	}
 
-/**
- * Tests that _options acts as a callback where subclasses can add their own
- * initialization code based on the passed configuration array
- *
- * @return void
- */
+	/**
+	 * Tests that _options acts as a callback where subclasses can add their own
+	 * initialization code based on the passed configuration array
+	 *
+	 * @return void
+	 */
 	public function testOptionsIsCalled() {
 		$options = ['foo' => 'bar'];
 		$this->association->expects($this->once())->method('_options')->with($options);
 		$this->association->__construct('Name', $options);
 	}
 
-/**
- * Tests that name() returns the correct configure association name
- *
- * @return void
- */
+	/**
+	 * Tests that name() returns the correct configure association name
+	 *
+	 * @return void
+	 */
 	public function testName() {
 		$this->assertEquals('Foo', $this->association->name());
 		$this->association->name('Bar');
 		$this->assertEquals('Bar', $this->association->name());
 	}
 
-/**
- * Tests that name() returns the correct configured value
- *
- * @return void
- */
+	/**
+	 * Tests that name() returns the correct configured value
+	 *
+	 * @return void
+	 */
 	public function testForeignKey() {
 		$this->assertEquals('a_key', $this->association->foreignKey());
 		$this->association->foreignKey('another_key');
 		$this->assertEquals('another_key', $this->association->foreignKey());
 	}
 
-/**
- * Tests that conditions() returns the correct configured value
- *
- * @return void
- */
+	/**
+	 * Tests that conditions() returns the correct configured value
+	 *
+	 * @return void
+	 */
 	public function testConditions() {
 		$this->assertEquals(['field' => 'value'], $this->association->conditions());
 		$conds = ['another_key' => 'another value'];
@@ -113,20 +113,20 @@ class AssociationTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals($conds, $this->association->conditions());
 	}
 
-/**
- * Tests that canBeJoined() returns the correct configured value
- *
- * @return void
- */
+	/**
+	 * Tests that canBeJoined() returns the correct configured value
+	 *
+	 * @return void
+	 */
 	public function testCanBeJoined() {
 		$this->assertFalse($this->association->canBeJoined());
 	}
 
-/**
- * Tests that target() returns the correct Table object
- *
- * @return void
- */
+	/**
+	 * Tests that target() returns the correct Table object
+	 *
+	 * @return void
+	 */
 	public function testTarget() {
 		$table = $this->association->target();
 		$this->assertInstanceOf(__NAMESPACE__ . '\TestTable', $table);
@@ -136,11 +136,11 @@ class AssociationTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($other, $this->association->target());
 	}
 
-/**
- * Tests that source() returns the correct Table object
- *
- * @return void
- */
+	/**
+	 * Tests that source() returns the correct Table object
+	 *
+	 * @return void
+	 */
 	public function testSource() {
 		$table = $this->association->source();
 		$this->assertSame($this->source, $table);
@@ -150,33 +150,33 @@ class AssociationTest extends \Cake\TestSuite\TestCase {
 		$this->assertSame($other, $this->association->source());
 	}
 
-/**
- * Tests joinType method
- *
- * @return void
- */
+	/**
+	 * Tests joinType method
+	 *
+	 * @return void
+	 */
 	public function testJoinType() {
 		$this->assertEquals('INNER', $this->association->joinType());
 		$this->association->joinType('LEFT');
 		$this->assertEquals('LEFT', $this->association->joinType());
 	}
 
-/**
- * Tests property method
- *
- * @return void
- */
+	/**
+	 * Tests property method
+	 *
+	 * @return void
+	 */
 	public function testProperty() {
 		$this->assertEquals('Foo', $this->association->property());
 		$this->association->property('thing');
 		$this->assertEquals('thing', $this->association->property());
 	}
 
-/**
- * Tests strategy method
- *
- * @return void
- */
+	/**
+	 * Tests strategy method
+	 *
+	 * @return void
+	 */
 	public function testStrategy() {
 		$this->assertEquals('join', $this->association->strategy());
 		$this->association->strategy('select');
@@ -185,12 +185,12 @@ class AssociationTest extends \Cake\TestSuite\TestCase {
 		$this->assertEquals('subquery', $this->association->strategy());
 	}
 
-/**
- * Tests that providing an invalid strategy throws an exception
- *
- * @expectedException \InvalidArgumentException
- * @return void
- */
+	/**
+	 * Tests that providing an invalid strategy throws an exception
+	 *
+	 * @expectedException \InvalidArgumentException
+	 * @return void
+	 */
 	public function testInvalidStrategy() {
 		$this->association->strategy('anotherThing');
 		$this->assertEquals('subquery', $this->association->strategy());

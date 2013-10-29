@@ -24,11 +24,11 @@ use Cake\Database\Log\LoggedQuery;
  **/
 class LoggedQueryTest extends \Cake\TestSuite\TestCase {
 
-/**
- * Tests that LoggedQuery can be converted to string
- *
- * @return void
- */
+	/**
+	 * Tests that LoggedQuery can be converted to string
+	 *
+	 * @return void
+	 */
 	public function testStringConversion() {
 		$logged = new LoggedQuery;
 		$logged->query = 'SELECT foo FROM bar';

@@ -61,11 +61,11 @@ class Grandchild extends Child {
  */
 class MergeVariablesTraitTest extends TestCase {
 
-/**
- * Test merging vars as a list.
- *
- * @return void
- */
+	/**
+	 * Test merging vars as a list.
+	 *
+	 * @return void
+	 */
 	public function testMergeVarsAsList() {
 		$object = new Grandchild();
 		$object->mergeVars(['listProperty']);
@@ -74,11 +74,11 @@ class MergeVariablesTraitTest extends TestCase {
 		$this->assertSame($expected, $object->listProperty);
 	}
 
-/**
- * Test merging vars as an assoc list.
- *
- * @return void
- */
+	/**
+	 * Test merging vars as an assoc list.
+	 *
+	 * @return void
+	 */
 	public function testMergeVarsAsAssoc() {
 		$object = new Grandchild();
 		$object->mergeVars(['assocProperty'], ['associative' => ['assocProperty']]);
@@ -91,9 +91,9 @@ class MergeVariablesTraitTest extends TestCase {
 		$this->assertEquals($expected, $object->assocProperty);
 	}
 
-/**
- * Test merging vars with mixed modes.
- */
+	/**
+	 * Test merging vars with mixed modes.
+	 */
 	public function testMergeVarsMixedModes() {
 		$object = new Grandchild();
 		$object->mergeVars(['assocProperty', 'listProperty'], ['associative' => ['assocProperty']]);
@@ -109,23 +109,23 @@ class MergeVariablesTraitTest extends TestCase {
 		$this->assertSame($expected, $object->listProperty);
 	}
 
-/**
- * Test that merging variables with booleans in the class hierarchy
- * doesn't cause issues.
- *
- * @return void
- */
+	/**
+	 * Test that merging variables with booleans in the class hierarchy
+	 * doesn't cause issues.
+	 *
+	 * @return void
+	 */
 	public function testMergeVarsWithBoolean() {
 		$object = new Child();
 		$object->mergeVars(['hasBoolean']);
 		$this->assertEquals(['test'], $object->hasBoolean);
 	}
 
-/**
- * Test that merging reversed works.
- *
- * @return void
- */
+	/**
+	 * Test that merging reversed works.
+	 *
+	 * @return void
+	 */
 	public function testMergeVariablesReversed() {
 		$object = new Grandchild();
 		$object->mergeVars(['listProperty'], ['reverse' => ['listProperty']]);

@@ -27,20 +27,20 @@ use Cake\View\View;
  */
 class CacheDispatcher extends DispatcherFilter {
 
-/**
- * Default priority for all methods in this filter
- * This filter should run before the request gets parsed by router
- *
- * @var integer
- */
+	/**
+	 * Default priority for all methods in this filter
+	 * This filter should run before the request gets parsed by router
+	 *
+	 * @var integer
+	 */
 	public $priority = 9;
 
-/**
- * Checks whether the response was cached and set the body accordingly.
- *
- * @param Cake\Event\Event $event containing the request and response object
- * @return Cake\NetworkResponse with cached content if found, null otherwise
- */
+	/**
+	 * Checks whether the response was cached and set the body accordingly.
+	 *
+	 * @param Cake\Event\Event $event containing the request and response object
+	 * @return Cake\NetworkResponse with cached content if found, null otherwise
+	 */
 	public function beforeDispatch(Event $event) {
 		if (Configure::read('Cache.check') !== true) {
 			return;

@@ -28,19 +28,19 @@ use Cake\Utility\String;
  */
 class ProjectTask extends Shell {
 
-/**
- * App path (used in testing).
- *
- * @var string
- */
+	/**
+	 * App path (used in testing).
+	 *
+	 * @var string
+	 */
 	public $appPath = null;
 
-/**
- * Checks that given project path does not already exist, and
- * finds the app directory in it. Then it calls bake() with that information.
- *
- * @return mixed
- */
+	/**
+	 * Checks that given project path does not already exist, and
+	 * finds the app directory in it. Then it calls bake() with that information.
+	 *
+	 * @return mixed
+	 */
 	public function execute() {
 		$project = null;
 		if (isset($this->args[0])) {
@@ -90,12 +90,12 @@ class ProjectTask extends Shell {
 		}
 	}
 
-/**
- * Uses composer to generate a new package using the cakephp/app project.
- *
- * @param string $path Project path
- * @return mixed
- */
+	/**
+	 * Uses composer to generate a new package using the cakephp/app project.
+	 *
+	 * @param string $path Project path
+	 * @return mixed
+	 */
 	public function bake($path) {
 		$composer = $this->params['composer'];
 		if (!file_exists($composer)) {
@@ -138,12 +138,12 @@ class ProjectTask extends Shell {
 		return true;
 	}
 
-/**
- * Enables Configure::read('Routing.prefixes') in /app/Config/routes.php
- *
- * @param string $name Name to use as admin routing
- * @return boolean Success
- */
+	/**
+	 * Enables Configure::read('Routing.prefixes') in /app/Config/routes.php
+	 *
+	 * @param string $name Name to use as admin routing
+	 * @return boolean Success
+	 */
 	public function cakeAdmin($name) {
 		$path = $this->appPath ?: APP;
 		$path .= 'Config/';
@@ -159,11 +159,11 @@ class ProjectTask extends Shell {
 		return false;
 	}
 
-/**
- * Checks for Configure::read('Routing.prefixes') and forces user to input it if not enabled
- *
- * @return string Admin route to use
- */
+	/**
+	 * Checks for Configure::read('Routing.prefixes') and forces user to input it if not enabled
+	 *
+	 * @return string Admin route to use
+	 */
 	public function getPrefix() {
 		$admin = '';
 		$prefixes = Configure::read('Routing.prefixes');
@@ -207,11 +207,11 @@ class ProjectTask extends Shell {
 		return '';
 	}
 
-/**
- * get the option parser.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(

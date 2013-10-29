@@ -9,36 +9,36 @@ use Cake\TestSuite\Fixture\TestModel;
  */
 class PaginatorCustomPost extends TestModel {
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'posts';
 
-/**
- * belongsTo property
- *
- * @var string
- */
+	/**
+	 * belongsTo property
+	 *
+	 * @var string
+	 */
 	public $belongsTo = array('Author');
 
-/**
- * findMethods property
- *
- * @var array
- */
+	/**
+	 * findMethods property
+	 *
+	 * @var array
+	 */
 	public $findMethods = array(
 		'published' => true,
 		'totals' => true,
 		'totalsOperation' => true
 	);
 
-/**
- * _findPublished custom find
- *
- * @return array
- */
+	/**
+	 * _findPublished custom find
+	 *
+	 * @return array
+	 */
 	protected function _findPublished($state, $query, $results = array()) {
 		if ($state === 'before') {
 			$query['conditions']['published'] = 'Y';
@@ -47,11 +47,11 @@ class PaginatorCustomPost extends TestModel {
 		return $results;
 	}
 
-/**
- * _findTotals custom find
- *
- * @return array
- */
+	/**
+	 * _findTotals custom find
+	 *
+	 * @return array
+	 */
 	protected function _findTotals($state, $query, $results = array()) {
 		if ($state == 'before') {
 			$query['fields'] = array('author_id');
@@ -65,11 +65,11 @@ class PaginatorCustomPost extends TestModel {
 		return $results;
 	}
 
-/**
- * _findTotalsOperation custom find
- *
- * @return array
- */
+	/**
+	 * _findTotalsOperation custom find
+	 *
+	 * @return array
+	 */
 	protected function _findTotalsOperation($state, $query, $results = array()) {
 		if ($state == 'before') {
 			if (!empty($query['operation']) && $query['operation'] === 'count') {
