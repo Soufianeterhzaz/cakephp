@@ -27,21 +27,21 @@ App::uses('L10n', 'I18n');
  */
 class L10nTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::delete('Config.language');
 	}
 
-/**
- * testGet method
- *
- * @return void
- */
+	/**
+	 * testGet method
+	 *
+	 * @return void
+	 */
 	public function testGet() {
 		$localize = new L10n();
 
@@ -81,11 +81,11 @@ class L10nTest extends CakeTestCase {
 		$this->assertEquals('en-us', $localize->lang);
 	}
 
-/**
- * testGetAutoLanguage method
- *
- * @return void
- */
+	/**
+	 * testGetAutoLanguage method
+	 *
+	 * @return void
+	 */
 	public function testGetAutoLanguage() {
 		$serverBackup = $_SERVER;
 		$_SERVER['HTTP_ACCEPT_LANGUAGE'] = 'inexistent,en-ca';
@@ -121,11 +121,11 @@ class L10nTest extends CakeTestCase {
 		$_SERVER = $serverBackup;
 	}
 
-/**
- * testGet method with deprecated constant DEFAULT_LANGUAGE
- *
- * @return void
- */
+	/**
+	 * testGet method with deprecated constant DEFAULT_LANGUAGE
+	 *
+	 * @return void
+	 */
 	public function testGetWithDeprecatedConstant() {
 		$this->skipIf(defined('DEFAULT_LANGUAGE'), 'Cannot re-define already defined constant.');
 
@@ -149,11 +149,11 @@ class L10nTest extends CakeTestCase {
 		$this->assertEquals('en_us', $localize->locale);
 	}
 
-/**
- * testMap method
- *
- * @return void
- */
+	/**
+	 * testMap method
+	 *
+	 * @return void
+	 */
 	public function testMap() {
 		$localize = new L10n();
 
@@ -486,11 +486,11 @@ class L10nTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testCatalog method
- *
- * @return void
- */
+	/**
+	 * testCatalog method
+	 *
+	 * @return void
+	 */
 	public function testCatalog() {
 		$localize = new L10n();
 

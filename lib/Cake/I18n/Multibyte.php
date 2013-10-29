@@ -26,34 +26,34 @@
  */
 class Multibyte {
 
-/**
- *  Holds the case folding values
- *
- * @var array
- */
+	/**
+	 *  Holds the case folding values
+	 *
+	 * @var array
+	 */
 	protected static $_caseFold = array();
 
-/**
- * Holds an array of Unicode code point ranges
- *
- * @var array
- */
+	/**
+	 * Holds an array of Unicode code point ranges
+	 *
+	 * @var array
+	 */
 	protected static $_codeRange = array();
 
-/**
- * Holds the current code point range
- *
- * @var string
- */
+	/**
+	 * Holds the current code point range
+	 *
+	 * @var string
+	 */
 	protected static $_table = null;
 
-/**
- * Converts a multibyte character string
- * to the decimal value of the character
- *
- * @param string $string
- * @return array
- */
+	/**
+	 * Converts a multibyte character string
+	 * to the decimal value of the character
+	 *
+	 * @param string $string
+	 * @return array
+	 */
 	public static function utf8($string) {
 		$map = array();
 
@@ -86,13 +86,13 @@ class Multibyte {
 		return $map;
 	}
 
-/**
- * Converts the decimal value of a multibyte character string
- * to a string
- *
- * @param array $array
- * @return string
- */
+	/**
+	 * Converts the decimal value of a multibyte character string
+	 * to a string
+	 *
+	 * @param array $array
+	 * @return string
+	 */
 	public static function ascii($array) {
 		$ascii = '';
 
@@ -111,15 +111,15 @@ class Multibyte {
 		return $ascii;
 	}
 
-/**
- * Find position of first occurrence of a case-insensitive string.
- *
- * @param string $haystack The string from which to get the position of the first occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param integer $offset The position in $haystack to start searching.
- * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string,
- *    or false if $needle is not found.
- */
+	/**
+	 * Find position of first occurrence of a case-insensitive string.
+	 *
+	 * @param string $haystack The string from which to get the position of the first occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param integer $offset The position in $haystack to start searching.
+	 * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string,
+	 *    or false if $needle is not found.
+	 */
 	public static function stripos($haystack, $needle, $offset = 0) {
 		if (Multibyte::checkMultibyte($haystack)) {
 			$haystack = Multibyte::strtoupper($haystack);
@@ -129,17 +129,17 @@ class Multibyte {
 		return stripos($haystack, $needle, $offset);
 	}
 
-/**
- * Finds first occurrence of a string within another, case insensitive.
- *
- * @param string $haystack The string from which to get the first occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param boolean $part Determines which portion of $haystack this function returns.
- *    If set to true, it returns all of $haystack from the beginning to the first occurrence of $needle.
- *    If set to false, it returns all of $haystack from the first occurrence of $needle to the end,
- *    Default value is false.
- * @return integer|boolean The portion of $haystack, or false if $needle is not found.
- */
+	/**
+	 * Finds first occurrence of a string within another, case insensitive.
+	 *
+	 * @param string $haystack The string from which to get the first occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param boolean $part Determines which portion of $haystack this function returns.
+	 *    If set to true, it returns all of $haystack from the beginning to the first occurrence of $needle.
+	 *    If set to false, it returns all of $haystack from the first occurrence of $needle to the end,
+	 *    Default value is false.
+	 * @return integer|boolean The portion of $haystack, or false if $needle is not found.
+	 */
 	public static function stristr($haystack, $needle, $part = false) {
 		$php = (PHP_VERSION < 5.3);
 
@@ -190,12 +190,12 @@ class Multibyte {
 		return stristr($haystack, $needle);
 	}
 
-/**
- * Get string length.
- *
- * @param string $string The string being checked for length.
- * @return integer The number of characters in string $string
- */
+	/**
+	 * Get string length.
+	 *
+	 * @param string $string The string being checked for length.
+	 * @return integer The number of characters in string $string
+	 */
 	public static function strlen($string) {
 		if (Multibyte::checkMultibyte($string)) {
 			$string = Multibyte::utf8($string);
@@ -204,15 +204,15 @@ class Multibyte {
 		return strlen($string);
 	}
 
-/**
- * Find position of first occurrence of a string.
- *
- * @param string $haystack The string being checked.
- * @param string $needle The position counted from the beginning of haystack.
- * @param integer $offset The search offset. If it is not specified, 0 is used.
- * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string.
- *    If $needle is not found, it returns false.
- */
+	/**
+	 * Find position of first occurrence of a string.
+	 *
+	 * @param string $haystack The string being checked.
+	 * @param string $needle The position counted from the beginning of haystack.
+	 * @param integer $offset The search offset. If it is not specified, 0 is used.
+	 * @return integer|boolean The numeric position of the first occurrence of $needle in the $haystack string.
+	 *    If $needle is not found, it returns false.
+	 */
 	public static function strpos($haystack, $needle, $offset = 0) {
 		if (Multibyte::checkMultibyte($haystack)) {
 			$found = false;
@@ -247,17 +247,17 @@ class Multibyte {
 		return strpos($haystack, $needle, $offset);
 	}
 
-/**
- * Finds the last occurrence of a character in a string within another.
- *
- * @param string $haystack The string from which to get the last occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param boolean $part Determines which portion of $haystack this function returns.
- *    If set to true, it returns all of $haystack from the beginning to the last occurrence of $needle.
- *    If set to false, it returns all of $haystack from the last occurrence of $needle to the end,
- *    Default value is false.
- * @return string|boolean The portion of $haystack. or false if $needle is not found.
- */
+	/**
+	 * Finds the last occurrence of a character in a string within another.
+	 *
+	 * @param string $haystack The string from which to get the last occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param boolean $part Determines which portion of $haystack this function returns.
+	 *    If set to true, it returns all of $haystack from the beginning to the last occurrence of $needle.
+	 *    If set to false, it returns all of $haystack from the last occurrence of $needle to the end,
+	 *    Default value is false.
+	 * @return string|boolean The portion of $haystack. or false if $needle is not found.
+	 */
 	public static function strrchr($haystack, $needle, $part = false) {
 		$check = Multibyte::utf8($haystack);
 		$found = false;
@@ -307,17 +307,17 @@ class Multibyte {
 		return false;
 	}
 
-/**
- * Finds the last occurrence of a character in a string within another, case insensitive.
- *
- * @param string $haystack The string from which to get the last occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param boolean $part Determines which portion of $haystack this function returns.
- *    If set to true, it returns all of $haystack from the beginning to the last occurrence of $needle.
- *    If set to false, it returns all of $haystack from the last occurrence of $needle to the end,
- *    Default value is false.
- * @return string|boolean The portion of $haystack. or false if $needle is not found.
- */
+	/**
+	 * Finds the last occurrence of a character in a string within another, case insensitive.
+	 *
+	 * @param string $haystack The string from which to get the last occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param boolean $part Determines which portion of $haystack this function returns.
+	 *    If set to true, it returns all of $haystack from the beginning to the last occurrence of $needle.
+	 *    If set to false, it returns all of $haystack from the last occurrence of $needle to the end,
+	 *    Default value is false.
+	 * @return string|boolean The portion of $haystack. or false if $needle is not found.
+	 */
 	public static function strrichr($haystack, $needle, $part = false) {
 		$check = Multibyte::strtoupper($haystack);
 		$check = Multibyte::utf8($check);
@@ -369,15 +369,15 @@ class Multibyte {
 		return false;
 	}
 
-/**
- * Finds position of last occurrence of a string within another, case insensitive
- *
- * @param string $haystack The string from which to get the position of the last occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param integer $offset The position in $haystack to start searching.
- * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string,
- *    or false if $needle is not found.
- */
+	/**
+	 * Finds position of last occurrence of a string within another, case insensitive
+	 *
+	 * @param string $haystack The string from which to get the position of the last occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param integer $offset The position in $haystack to start searching.
+	 * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string,
+	 *    or false if $needle is not found.
+	 */
 	public static function strripos($haystack, $needle, $offset = 0) {
 		if (Multibyte::checkMultibyte($haystack)) {
 			$found = false;
@@ -419,16 +419,16 @@ class Multibyte {
 		return strripos($haystack, $needle, $offset);
 	}
 
-/**
- * Find position of last occurrence of a string in a string.
- *
- * @param string $haystack The string being checked, for the last occurrence of $needle.
- * @param string $needle The string to find in $haystack.
- * @param integer $offset May be specified to begin searching an arbitrary number of characters into the string.
- *    Negative values will stop searching at an arbitrary point prior to the end of the string.
- * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string.
- *    If $needle is not found, it returns false.
- */
+	/**
+	 * Find position of last occurrence of a string in a string.
+	 *
+	 * @param string $haystack The string being checked, for the last occurrence of $needle.
+	 * @param string $needle The string to find in $haystack.
+	 * @param integer $offset May be specified to begin searching an arbitrary number of characters into the string.
+	 *    Negative values will stop searching at an arbitrary point prior to the end of the string.
+	 * @return integer|boolean The numeric position of the last occurrence of $needle in the $haystack string.
+	 *    If $needle is not found, it returns false.
+	 */
 	public static function strrpos($haystack, $needle, $offset = 0) {
 		if (Multibyte::checkMultibyte($haystack)) {
 			$found = false;
@@ -469,17 +469,17 @@ class Multibyte {
 		return strrpos($haystack, $needle, $offset);
 	}
 
-/**
- * Finds first occurrence of a string within another
- *
- * @param string $haystack The string from which to get the first occurrence of $needle.
- * @param string $needle The string to find in $haystack
- * @param boolean $part Determines which portion of $haystack this function returns.
- *    If set to true, it returns all of $haystack from the beginning to the first occurrence of $needle.
- *    If set to false, it returns all of $haystack from the first occurrence of $needle to the end,
- *    Default value is FALSE.
- * @return string|boolean The portion of $haystack, or true if $needle is not found.
- */
+	/**
+	 * Finds first occurrence of a string within another
+	 *
+	 * @param string $haystack The string from which to get the first occurrence of $needle.
+	 * @param string $needle The string to find in $haystack
+	 * @param boolean $part Determines which portion of $haystack this function returns.
+	 *    If set to true, it returns all of $haystack from the beginning to the first occurrence of $needle.
+	 *    If set to false, it returns all of $haystack from the first occurrence of $needle to the end,
+	 *    Default value is FALSE.
+	 * @return string|boolean The portion of $haystack, or true if $needle is not found.
+	 */
 	public static function strstr($haystack, $needle, $part = false) {
 		$php = (PHP_VERSION < 5.3);
 
@@ -528,12 +528,12 @@ class Multibyte {
 		return strstr($haystack, $needle);
 	}
 
-/**
- * Make a string lowercase
- *
- * @param string $string The string being lowercased.
- * @return string with all alphabetic characters converted to lowercase.
- */
+	/**
+	 * Make a string lowercase
+	 *
+	 * @param string $string The string being lowercased.
+	 * @return string with all alphabetic characters converted to lowercase.
+	 */
 	public static function strtolower($string) {
 		$utf8Map = Multibyte::utf8($string);
 
@@ -572,12 +572,12 @@ class Multibyte {
 		return Multibyte::ascii($lowerCase);
 	}
 
-/**
- * Make a string uppercase
- *
- * @param string $string The string being uppercased.
- * @return string with all alphabetic characters converted to uppercase.
- */
+	/**
+	 * Make a string uppercase
+	 *
+	 * @param string $string The string being uppercased.
+	 * @return string with all alphabetic characters converted to uppercase.
+	 */
 	public static function strtoupper($string) {
 		$utf8Map = Multibyte::utf8($string);
 
@@ -660,13 +660,13 @@ class Multibyte {
 		return Multibyte::ascii($upperCase);
 	}
 
-/**
- * Count the number of substring occurrences
- *
- * @param string $haystack The string being checked.
- * @param string $needle The string being found.
- * @return integer The number of times the $needle substring occurs in the $haystack string.
- */
+	/**
+	 * Count the number of substring occurrences
+	 *
+	 * @param string $haystack The string being checked.
+	 * @param string $needle The string being found.
+	 * @return integer The number of times the $needle substring occurs in the $haystack string.
+	 */
 	public static function substrCount($haystack, $needle) {
 		$count = 0;
 		$haystack = Multibyte::utf8($haystack);
@@ -695,14 +695,14 @@ class Multibyte {
 		return $count;
 	}
 
-/**
- * Get part of string
- *
- * @param string $string The string being checked.
- * @param integer $start The first position used in $string.
- * @param integer $length The maximum length of the returned string.
- * @return string The portion of $string specified by the $string and $length parameters.
- */
+	/**
+	 * Get part of string
+	 *
+	 * @param string $string The string being checked.
+	 * @param integer $start The first position used in $string.
+	 * @param integer $length The maximum length of the returned string.
+	 * @return string The portion of $string specified by the $string and $length parameters.
+	 */
 	public static function substr($string, $start, $length = null) {
 		if ($start === 0 && $length === null) {
 			return $string;
@@ -726,14 +726,14 @@ class Multibyte {
 		return Multibyte::ascii($value);
 	}
 
-/**
- * Prepare a string for mail transport, using the provided encoding
- *
- * @param string $string value to encode
- * @param string $charset charset to use for encoding. defaults to UTF-8
- * @param string $newline
- * @return string
- */
+	/**
+	 * Prepare a string for mail transport, using the provided encoding
+	 *
+	 * @param string $string value to encode
+	 * @param string $charset charset to use for encoding. defaults to UTF-8
+	 * @param string $newline
+	 * @return string
+	 */
 	public static function mimeEncode($string, $charset = null, $newline = "\r\n") {
 		if (!Multibyte::checkMultibyte($string) && strlen($string) < 75) {
 			return $string;
@@ -774,12 +774,12 @@ class Multibyte {
 		return $start . $string . $end;
 	}
 
-/**
- * Return the Code points range for Unicode characters
- *
- * @param integer $decimal
- * @return string
- */
+	/**
+	 * Return the Code points range for Unicode characters
+	 *
+	 * @param integer $decimal
+	 * @return string
+	 */
 	protected static function _codepoint($decimal) {
 		if ($decimal > 128 && $decimal < 256) {
 			$return = '0080_00ff'; // Latin-1 Supplement
@@ -822,13 +822,13 @@ class Multibyte {
 		return $return;
 	}
 
-/**
- * Find the related code folding values for $char
- *
- * @param integer $char decimal value of character
- * @param string $type
- * @return array
- */
+	/**
+	 * Find the related code folding values for $char
+	 *
+	 * @param integer $char decimal value of character
+	 * @param string $type
+	 * @return array
+	 */
 	protected static function _find($char, $type = 'lower') {
 		$found = array();
 		if (!isset(self::$_codeRange[$char])) {
@@ -861,11 +861,11 @@ class Multibyte {
 		return $found;
 	}
 
-/**
- * Check the $string for multibyte characters
- * @param string $string value to test
- * @return boolean
- */
+	/**
+	 * Check the $string for multibyte characters
+	 * @param string $string value to test
+	 * @return boolean
+	 */
 	public static function checkMultibyte($string) {
 		$length = strlen($string);
 

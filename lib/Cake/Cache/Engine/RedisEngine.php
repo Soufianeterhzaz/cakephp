@@ -26,34 +26,34 @@
  */
 class RedisEngine extends CacheEngine {
 
-/**
- * Redis wrapper.
- *
- * @var Redis
- */
+	/**
+	 * Redis wrapper.
+	 *
+	 * @var Redis
+	 */
 	protected $_Redis = null;
 
-/**
- * Settings
- *
- *  - server = string URL or ip to the Redis server host
- *  - port = integer port number to the Redis server (default: 6379)
- *  - timeout = float timeout in seconds (default: 0)
- *  - persistent = boolean Connects to the Redis server with a persistent connection (default: true)
- *
- * @var array
- */
+	/**
+	 * Settings
+	 *
+	 *  - server = string URL or ip to the Redis server host
+	 *  - port = integer port number to the Redis server (default: 6379)
+	 *  - timeout = float timeout in seconds (default: 0)
+	 *  - persistent = boolean Connects to the Redis server with a persistent connection (default: true)
+	 *
+	 * @var array
+	 */
 	public $settings = array();
 
-/**
- * Initialize the Cache Engine
- *
- * Called automatically by the cache frontend
- * To reinitialize the settings call Cache::engine('EngineName', [optional] settings = array());
- *
- * @param array $settings array of setting for the engine
- * @return boolean True if the engine has been successfully initialized, false if not
- */
+	/**
+	 * Initialize the Cache Engine
+	 *
+	 * Called automatically by the cache frontend
+	 * To reinitialize the settings call Cache::engine('EngineName', [optional] settings = array());
+	 *
+	 * @param array $settings array of setting for the engine
+	 * @return boolean True if the engine has been successfully initialized, false if not
+	 */
 	public function init($settings = array()) {
 		if (!class_exists('Redis')) {
 			return false;
@@ -72,11 +72,11 @@ class RedisEngine extends CacheEngine {
 		return $this->_connect();
 	}
 
-/**
- * Connects to a Redis server
- *
- * @return boolean True if Redis server was connected
- */
+	/**
+	 * Connects to a Redis server
+	 *
+	 * @return boolean True if Redis server was connected
+	 */
 	protected function _connect() {
 		$return = false;
 		try {
@@ -95,14 +95,14 @@ class RedisEngine extends CacheEngine {
 		return $return;
 	}
 
-/**
- * Write data for key into cache.
- *
- * @param string $key Identifier for the data
- * @param mixed $value Data to be cached
- * @param integer $duration How long to cache the data, in seconds
- * @return boolean True if the data was successfully cached, false on failure
- */
+	/**
+	 * Write data for key into cache.
+	 *
+	 * @param string $key Identifier for the data
+	 * @param mixed $value Data to be cached
+	 * @param integer $duration How long to cache the data, in seconds
+	 * @return boolean True if the data was successfully cached, false on failure
+	 */
 	public function write($key, $value, $duration) {
 		if (!is_int($value)) {
 			$value = serialize($value);
@@ -114,12 +114,12 @@ class RedisEngine extends CacheEngine {
 		return $this->_Redis->setex($key, $duration, $value);
 	}
 
-/**
- * Read a key from the cache
- *
- * @param string $key Identifier for the data
- * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
- */
+	/**
+	 * Read a key from the cache
+	 *
+	 * @param string $key Identifier for the data
+	 * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
+	 */
 	public function read($key) {
 		$value = $this->_Redis->get($key);
 		if (ctype_digit($value)) {
@@ -131,46 +131,46 @@ class RedisEngine extends CacheEngine {
 		return $value;
 	}
 
-/**
- * Increments the value of an integer cached key
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to increment
- * @return New incremented value, false otherwise
- * @throws CacheException when you try to increment with compress = true
- */
+	/**
+	 * Increments the value of an integer cached key
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to increment
+	 * @return New incremented value, false otherwise
+	 * @throws CacheException when you try to increment with compress = true
+	 */
 	public function increment($key, $offset = 1) {
 		return (int)$this->_Redis->incrBy($key, $offset);
 	}
 
-/**
- * Decrements the value of an integer cached key
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to subtract
- * @return New decremented value, false otherwise
- * @throws CacheException when you try to decrement with compress = true
- */
+	/**
+	 * Decrements the value of an integer cached key
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to subtract
+	 * @return New decremented value, false otherwise
+	 * @throws CacheException when you try to decrement with compress = true
+	 */
 	public function decrement($key, $offset = 1) {
 		return (int)$this->_Redis->decrBy($key, $offset);
 	}
 
-/**
- * Delete a key from the cache
- *
- * @param string $key Identifier for the data
- * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
- */
+	/**
+	 * Delete a key from the cache
+	 *
+	 * @param string $key Identifier for the data
+	 * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
+	 */
 	public function delete($key) {
 		return $this->_Redis->delete($key) > 0;
 	}
 
-/**
- * Delete all keys from the cache
- *
- * @param boolean $check
- * @return boolean True if the cache was successfully cleared, false otherwise
- */
+	/**
+	 * Delete all keys from the cache
+	 *
+	 * @param boolean $check
+	 * @return boolean True if the cache was successfully cleared, false otherwise
+	 */
 	public function clear($check) {
 		if ($check) {
 			return true;
@@ -181,13 +181,13 @@ class RedisEngine extends CacheEngine {
 		return true;
 	}
 
-/**
- * Returns the `group value` for each of the configured groups
- * If the group initial value was not found, then it initializes
- * the group accordingly.
- *
- * @return array
- */
+	/**
+	 * Returns the `group value` for each of the configured groups
+	 * If the group initial value was not found, then it initializes
+	 * the group accordingly.
+	 *
+	 * @return array
+	 */
 	public function groups() {
 		$result = array();
 		foreach ($this->settings['groups'] as $group) {
@@ -201,19 +201,19 @@ class RedisEngine extends CacheEngine {
 		return $result;
 	}
 
-/**
- * Increments the group value to simulate deletion of all keys under a group
- * old values will remain in storage until they expire.
- *
- * @return boolean success
- */
+	/**
+	 * Increments the group value to simulate deletion of all keys under a group
+	 * old values will remain in storage until they expire.
+	 *
+	 * @return boolean success
+	 */
 	public function clearGroup($group) {
 		return (bool)$this->_Redis->incr($this->settings['prefix'] . $group);
 	}
 
-/**
- * Disconnects from the redis server
- */
+	/**
+	 * Disconnects from the redis server
+	 */
 	public function __destruct() {
 		if (!$this->settings['persistent']) {
 			$this->_Redis->close();

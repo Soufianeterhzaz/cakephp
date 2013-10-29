@@ -32,35 +32,35 @@ require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
  */
 class MysqlTest extends CakeTestCase {
 
-/**
- * autoFixtures property
- *
- * @var boolean
- */
+	/**
+	 * autoFixtures property
+	 *
+	 * @var boolean
+	 */
 	public $autoFixtures = false;
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.apple', 'core.article', 'core.articles_tag', 'core.attachment', 'core.comment',
 		'core.sample', 'core.tag', 'core.user', 'core.post', 'core.author', 'core.data_test',
 		'core.binary_test', 'core.inno'
 	);
 
-/**
- * The Dbo instance to be tested
- *
- * @var DboSource
- */
+	/**
+	 * The Dbo instance to be tested
+	 *
+	 * @var DboSource
+	 */
 	public $Dbo = null;
 
-/**
- * Sets up a Dbo class instance for testing
- *
- */
+	/**
+	 * Sets up a Dbo class instance for testing
+	 *
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Dbo = ConnectionManager::getDataSource('test');
@@ -72,10 +72,10 @@ class MysqlTest extends CakeTestCase {
 		$this->model = ClassRegistry::init('MysqlTestModel');
 	}
 
-/**
- * Sets up a Dbo class instance for testing
- *
- */
+	/**
+	 * Sets up a Dbo class instance for testing
+	 *
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->model);
@@ -83,11 +83,11 @@ class MysqlTest extends CakeTestCase {
 		Configure::write('debug', $this->_debug);
 	}
 
-/**
- * Test Dbo value method
- *
- * @group quoting
- */
+	/**
+	 * Test Dbo value method
+	 *
+	 * @group quoting
+	 */
 	public function testQuoting() {
 		$result = $this->Dbo->fields($this->model);
 		$expected = array(
@@ -142,12 +142,12 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that localized floats don't cause trouble.
- *
- * @group quoting
- * @return void
- */
+	/**
+	 * test that localized floats don't cause trouble.
+	 *
+	 * @group quoting
+	 * @return void
+	 */
 	public function testLocalizedFloats() {
 		$this->skipIf(DS === '\\', 'The locale is not supported in Windows and affect the others tests.');
 
@@ -179,11 +179,11 @@ class MysqlTest extends CakeTestCase {
 		setlocale(LC_NUMERIC, $restore);
 	}
 
-/**
- * test that scientific notations are working correctly
- *
- * @return void
- */
+	/**
+	 * test that scientific notations are working correctly
+	 *
+	 * @return void
+	 */
 	public function testScientificNotation() {
 		$result = $this->db->value(2.2E-54, 'float');
 		$this->assertEquals('2.2E-54', (string)$result);
@@ -192,12 +192,12 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('2.2E-54', (string)$result);
 	}
 
-/**
- * testTinyintCasting method
- *
- *
- * @return void
- */
+	/**
+	 * testTinyintCasting method
+	 *
+	 *
+	 * @return void
+	 */
 	public function testTinyintCasting() {
 		$this->Dbo->cacheSources = false;
 		$tableName = 'tinyint_' . uniqid();
@@ -232,12 +232,12 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->rawQuery('DROP TABLE ' . $this->Dbo->fullTableName($tableName));
 	}
 
-/**
- * testLastAffected method
- *
- *
- * @return void
- */
+	/**
+	 * testLastAffected method
+	 *
+	 *
+	 * @return void
+	 */
 	public function testLastAffected() {
 		$this->Dbo->cacheSources = false;
 		$tableName = 'tinyint_' . uniqid();
@@ -257,12 +257,12 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->rawQuery('DROP TABLE ' . $this->Dbo->fullTableName($tableName));
 	}
 
-/**
- * testIndexDetection method
- *
- * @group indices
- * @return void
- */
+	/**
+	 * testIndexDetection method
+	 *
+	 * @group indices
+	 * @return void
+	 */
 	public function testIndexDetection() {
 		$this->Dbo->cacheSources = false;
 
@@ -357,11 +357,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBuildColumn method
- *
- * @return void
- */
+	/**
+	 * testBuildColumn method
+	 *
+	 * @return void
+	 */
 	public function testBuildColumn() {
 		$restore = $this->Dbo->columns;
 		$this->Dbo->columns = array('varchar(255)' => 1);
@@ -392,13 +392,13 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->columns = $restore;
 	}
 
-/**
- * MySQL 4.x returns index data in a different format,
- * Using a mock ensure that MySQL 4.x output is properly parsed.
- *
- * @group indices
- * @return void
- */
+	/**
+	 * MySQL 4.x returns index data in a different format,
+	 * Using a mock ensure that MySQL 4.x output is properly parsed.
+	 *
+	 * @group indices
+	 * @return void
+	 */
 	public function testIndexOnMySQL4Output() {
 		$name = $this->Dbo->fullTableName('simple');
 
@@ -497,11 +497,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testColumn method
- *
- * @return void
- */
+	/**
+	 * testColumn method
+	 *
+	 * @return void
+	 */
 	public function testColumn() {
 		$result = $this->Dbo->column('varchar(50)');
 		$expected = 'string';
@@ -556,12 +556,12 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAlterSchemaIndexes method
- *
- * @group indices
- * @return void
- */
+	/**
+	 * testAlterSchemaIndexes method
+	 *
+	 * @group indices
+	 * @return void
+	 */
 	public function testAlterSchemaIndexes() {
 		$this->Dbo->cacheSources = $this->Dbo->testing = false;
 		$table = $this->Dbo->fullTableName('altertest');
@@ -657,11 +657,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($query->queryString, $result);
 	}
 
-/**
- * test saving and retrieval of blobs
- *
- * @return void
- */
+	/**
+	 * test saving and retrieval of blobs
+	 *
+	 * @return void
+	 */
 	public function testBlobSaving() {
 		$this->loadFixtures('BinaryTest');
 		$this->Dbo->cacheSources = false;
@@ -674,11 +674,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($data, $result['BinaryTest']['data']);
 	}
 
-/**
- * test altering the table settings with schema.
- *
- * @return void
- */
+	/**
+	 * test altering the table settings with schema.
+	 *
+	 * @return void
+	 */
 	public function testAlteringTableParameters() {
 		$this->Dbo->cacheSources = $this->Dbo->testing = false;
 
@@ -723,11 +723,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->rawQuery($this->Dbo->dropSchema($schemaA));
 	}
 
-/**
- * test alterSchema on two tables.
- *
- * @return void
- */
+	/**
+	 * test alterSchema on two tables.
+	 *
+	 * @return void
+	 */
 	public function testAlteringTwoTables() {
 		$schema1 = new CakeSchema(array(
 			'name' => 'AlterTest1',
@@ -757,11 +757,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals(2, substr_count($result, 'field_two'), 'Too many fields');
 	}
 
-/**
- * testReadTableParameters method
- *
- * @return void
- */
+	/**
+	 * testReadTableParameters method
+	 *
+	 * @return void
+	 */
 	public function testReadTableParameters() {
 		$this->Dbo->cacheSources = $this->Dbo->testing = false;
 		$tableName = 'tinyint_' . uniqid();
@@ -786,11 +786,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBuildTableParameters method
- *
- * @return void
- */
+	/**
+	 * testBuildTableParameters method
+	 *
+	 * @return void
+	 */
 	public function testBuildTableParameters() {
 		$this->Dbo->cacheSources = $this->Dbo->testing = false;
 		$data = array(
@@ -805,11 +805,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testGetCharsetName method
- *
- * @return void
- */
+	/**
+	 * testGetCharsetName method
+	 *
+	 * @return void
+	 */
 	public function testGetCharsetName() {
 		$this->Dbo->cacheSources = $this->Dbo->testing = false;
 		$result = $this->Dbo->getCharsetName('utf8_unicode_ci');
@@ -818,11 +818,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('cp1250', $result);
 	}
 
-/**
- * testGetCharsetNameCaching method
- *
- * @return void
- */
+	/**
+	 * testGetCharsetNameCaching method
+	 *
+	 * @return void
+	 */
 	public function testGetCharsetNameCaching() {
 		$db = $this->getMock('Mysql', array('connect', '_execute', 'getVersion'));
 		$queryResult = $this->getMock('PDOStatement');
@@ -846,11 +846,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('utf8', $result);
 	}
 
-/**
- * test that changing the virtualFieldSeparator allows for __ fields.
- *
- * @return void
- */
+	/**
+	 * test that changing the virtualFieldSeparator allows for __ fields.
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldSeparators() {
 		$this->loadFixtures('BinaryTest');
 		$model = new CakeTestModel(array('table' => 'binary_tests', 'ds' => 'test', 'name' => 'BinaryTest'));
@@ -865,11 +865,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test describe() on a fixture.
- *
- * @return void
- */
+	/**
+	 * Test describe() on a fixture.
+	 *
+	 * @return void
+	 */
 	public function testDescribe() {
 		$this->loadFixtures('Apple');
 
@@ -885,11 +885,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertTrue(isset($result['color']));
 	}
 
-/**
- * test that a describe() gets additional fieldParameters
- *
- * @return void
- */
+	/**
+	 * test that a describe() gets additional fieldParameters
+	 *
+	 * @return void
+	 */
 	public function testDescribeGettingFieldParameters() {
 		$schema = new CakeSchema(array(
 			'connection' => 'test',
@@ -920,11 +920,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('Test Comment', $result['other_col']['comment']);
 	}
 
-/**
- * Test that two columns with key => primary doesn't create invalid sql.
- *
- * @return void
- */
+	/**
+	 * Test that two columns with key => primary doesn't create invalid sql.
+	 *
+	 * @return void
+	 */
 	public function testTwoColumnsWithPrimaryKey() {
 		$schema = new CakeSchema(array(
 			'connection' => 'test',
@@ -959,11 +959,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertContains('`user_id` int(11) NOT NULL,', $result);
 	}
 
-/**
- * Test that the primary flag is handled correctly.
- *
- * @return void
- */
+	/**
+	 * Test that the primary flag is handled correctly.
+	 *
+	 * @return void
+	 */
 	public function testCreateSchemaAutoPrimaryKey() {
 		$schema = new CakeSchema();
 		$schema->tables = array(
@@ -1005,10 +1005,10 @@ class MysqlTest extends CakeTestCase {
 		$this->assertContains('UNIQUE KEY `some_index` (`data`)', $result);
 	}
 
-/**
- * Tests that listSources method sends the correct query and parses the result accordingly
- * @return void
- */
+	/**
+	 * Tests that listSources method sends the correct query and parses the result accordingly
+	 * @return void
+	 */
 	public function testListSources() {
 		$db = $this->getMock('Mysql', array('connect', '_execute'));
 		$queryResult = $this->getMock('PDOStatement');
@@ -1030,11 +1030,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals(array('cake_table', 'another_table'), $tables);
 	}
 
-/**
- * test that listDetailedSources with a named table that doesn't exist.
- *
- * @return void
- */
+	/**
+	 * test that listDetailedSources with a named table that doesn't exist.
+	 *
+	 * @return void
+	 */
 	public function testListDetailedSourcesNamed() {
 		$this->loadFixtures('Apple');
 
@@ -1046,19 +1046,19 @@ class MysqlTest extends CakeTestCase {
 		$this->assertTrue(isset($result[$tableName]), 'Key should exist');
 	}
 
-/**
- * Tests that getVersion method sends the correct query for getting the mysql version
- * @return void
- */
+	/**
+	 * Tests that getVersion method sends the correct query for getting the mysql version
+	 * @return void
+	 */
 	public function testGetVersion() {
 		$version = $this->Dbo->getVersion();
 		$this->assertTrue(is_string($version));
 	}
 
-/**
- * Tests that getVersion method sends the correct query for getting the client encoding
- * @return void
- */
+	/**
+	 * Tests that getVersion method sends the correct query for getting the client encoding
+	 * @return void
+	 */
 	public function testGetEncoding() {
 		$db = $this->getMock('Mysql', array('connect', '_execute'));
 		$queryResult = $this->getMock('PDOStatement');
@@ -1077,11 +1077,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('utf-8', $encoding);
 	}
 
-/**
- * testFieldDoubleEscaping method
- *
- * @return void
- */
+	/**
+	 * testFieldDoubleEscaping method
+	 *
+	 * @return void
+	 */
 	public function testFieldDoubleEscaping() {
 		$db = $this->Dbo->config['database'];
 		$test = $this->getMock('Mysql', array('connect', '_execute', 'execute'));
@@ -1122,11 +1122,11 @@ class MysqlTest extends CakeTestCase {
 		));
 	}
 
-/**
- * testGenerateAssociationQuerySelfJoin method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQuerySelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQuerySelfJoin() {
 		$this->Dbo = $this->getMock('Mysql', array('connect', '_execute', 'execute'));
 		$this->startTime = microtime(true);
@@ -1215,12 +1215,12 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('INNER', $_queryData['joins'][0]['type']);
 	}
 
-/**
- * buildRelatedModels method
- *
- * @param Model $model
- * @return void
- */
+	/**
+	 * buildRelatedModels method
+	 *
+	 * @param Model $model
+	 * @return void
+	 */
 	protected function _buildRelatedModels(Model $model) {
 		foreach ($model->associations() as $type) {
 			foreach ($model->{$type} as $assocData) {
@@ -1235,14 +1235,14 @@ class MysqlTest extends CakeTestCase {
 		}
 	}
 
-/**
- * &_prepareAssociationQuery method
- *
- * @param Model $model
- * @param array $queryData
- * @param array $binding
- * @return void
- */
+	/**
+	 * &_prepareAssociationQuery method
+	 *
+	 * @param Model $model
+	 * @param array $queryData
+	 * @param array $binding
+	 * @return void
+	 */
 	protected function &_prepareAssociationQuery(Model $model, &$queryData, $binding) {
 		$type = $binding['type'];
 		$assoc = $binding['model'];
@@ -1257,12 +1257,12 @@ class MysqlTest extends CakeTestCase {
 		return $result;
 	}
 
-/**
- * Helper method copied from DboSource::_scrubQueryData()
- *
- * @param array $data
- * @return array
- */
+	/**
+	 * Helper method copied from DboSource::_scrubQueryData()
+	 *
+	 * @param array $data
+	 * @return array
+	 */
 	protected function _scrubQueryData($data) {
 		static $base = null;
 		if ($base === null) {
@@ -1272,11 +1272,11 @@ class MysqlTest extends CakeTestCase {
 		return (array)$data + $base;
 	}
 
-/**
- * testGenerateInnerJoinAssociationQuery method
- *
- * @return void
- */
+	/**
+	 * testGenerateInnerJoinAssociationQuery method
+	 *
+	 * @return void
+	 */
 	public function testGenerateInnerJoinAssociationQuery() {
 		$db = $this->Dbo->config['database'];
 		$test = $this->getMock('Mysql', array('connect', '_execute', 'execute'));
@@ -1305,11 +1305,11 @@ class MysqlTest extends CakeTestCase {
 		$test->read($this->Model, array('recursive' => 1));
 	}
 
-/**
- * testGenerateAssociationQuerySelfJoinWithConditionsInHasOneBinding method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQuerySelfJoinWithConditionsInHasOneBinding method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQuerySelfJoinWithConditionsInHasOneBinding() {
 		$this->Model = new TestModel8();
 		$this->Model->schema();
@@ -1331,11 +1331,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?1\s+=\s+1(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQuerySelfJoinWithConditionsInBelongsToBinding method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQuerySelfJoinWithConditionsInBelongsToBinding method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQuerySelfJoinWithConditionsInBelongsToBinding() {
 		$this->Model = new TestModel9();
 		$this->Model->schema();
@@ -1357,11 +1357,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?1\s+=\s+1(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQuerySelfJoinWithConditions method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQuerySelfJoinWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQuerySelfJoinWithConditions() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1418,11 +1418,11 @@ class MysqlTest extends CakeTestCase {
 		);
 	}
 
-/**
- * testGenerateAssociationQueryHasOne method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasOne method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasOne() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1451,11 +1451,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?\s*1 = 1\s*(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasOneWithConditions method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasOneWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasOneWithConditions() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1480,11 +1480,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?\s*`TestModel5`.`name`\s+!=\s+\'mariano\'\s*(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryBelongsTo method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryBelongsTo method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryBelongsTo() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1512,11 +1512,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?\s*1 = 1\s*(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryBelongsToWithConditions method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryBelongsToWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryBelongsToWithConditions() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1544,11 +1544,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+`TestModel5`.`name` != \'mariano\'\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasMany method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasMany method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasMany() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1573,11 +1573,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?\s*1 = 1\s*(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasManyWithLimit method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasManyWithLimit method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyWithLimit() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1612,11 +1612,11 @@ class MysqlTest extends CakeTestCase {
 		);
 	}
 
-/**
- * testGenerateAssociationQueryHasManyWithConditions method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasManyWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyWithConditions() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1640,11 +1640,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?`TestModel5`.`name`\s+!=\s+\'mariano\'(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasManyWithOffsetAndLimit method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasManyWithOffsetAndLimit method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyWithOffsetAndLimit() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1677,11 +1677,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Model->hasMany['TestModel6'] = $backup;
 	}
 
-/**
- * testGenerateAssociationQueryHasManyWithPageAndLimit method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasManyWithPageAndLimit method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyWithPageAndLimit() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1713,11 +1713,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Model->hasMany['TestModel6'] = $backup;
 	}
 
-/**
- * testGenerateAssociationQueryHasManyWithFields method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasManyWithFields method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyWithFields() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1838,11 +1838,11 @@ class MysqlTest extends CakeTestCase {
 		unset($this->Model->hasMany['TestModel6']['fields']);
 	}
 
-/**
- * test generateAssociationQuery with a hasMany and an aggregate function.
- *
- * @return void
- */
+	/**
+	 * test generateAssociationQuery with a hasMany and an aggregate function.
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasManyAndAggregateFunction() {
 		$this->Model = new TestModel5();
 		$this->Model->schema();
@@ -1860,11 +1860,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^SELECT\s+MIN\(`TestModel5`\.`test_model4_id`\)\s+FROM/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasAndBelongsToMany method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasAndBelongsToMany method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasAndBelongsToMany() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1891,11 +1891,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+WHERE\s+(?:\()?1 = 1(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasAndBelongsToManyWithConditions method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasAndBelongsToManyWithConditions method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasAndBelongsToManyWithConditions() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1919,11 +1919,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/\s+FROM\s+\S+`test_model4` AS `TestModel4`\s+WHERE\s+(?:\()?`TestModel4`.`name`\s+!=\s+\'mariano\'(?:\))?\s*$/', $result);
 	}
 
-/**
- * testGenerateAssociationQueryHasAndBelongsToManyWithOffsetAndLimit method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasAndBelongsToManyWithOffsetAndLimit method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasAndBelongsToManyWithOffsetAndLimit() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1955,11 +1955,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Model->hasAndBelongsToMany['TestModel7'] = $backup;
 	}
 
-/**
- * testGenerateAssociationQueryHasAndBelongsToManyWithPageAndLimit method
- *
- * @return void
- */
+	/**
+	 * testGenerateAssociationQueryHasAndBelongsToManyWithPageAndLimit method
+	 *
+	 * @return void
+	 */
 	public function testGenerateAssociationQueryHasAndBelongsToManyWithPageAndLimit() {
 		$this->Model = new TestModel4();
 		$this->Model->schema();
@@ -1991,11 +1991,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Model->hasAndBelongsToMany['TestModel7'] = $backup;
 	}
 
-/**
- * testSelectDistict method
- *
- * @return void
- */
+	/**
+	 * testSelectDistict method
+	 *
+	 * @return void
+	 */
 	public function testSelectDistict() {
 		$this->Model = new TestModel4();
 		$result = $this->Dbo->fields($this->Model, 'Vendor', "DISTINCT Vendor.id, Vendor.name");
@@ -2003,11 +2003,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testStringConditionsParsing method
- *
- * @return void
- */
+	/**
+	 * testStringConditionsParsing method
+	 *
+	 * @return void
+	 */
 	public function testStringConditionsParsing() {
 		$result = $this->Dbo->conditions("ProjectBid.project_id = Project.id");
 		$expected = " WHERE `ProjectBid`.`project_id` = `Project`.`id`";
@@ -2124,11 +2124,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testQuotesInStringConditions method
- *
- * @return void
- */
+	/**
+	 * testQuotesInStringConditions method
+	 *
+	 * @return void
+	 */
 	public function testQuotesInStringConditions() {
 		$result = $this->Dbo->conditions('Member.email = \'mariano@cricava.com\'');
 		$expected = ' WHERE `Member`.`email` = \'mariano@cricava.com\'';
@@ -2147,11 +2147,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that - in conditions and field names works
- *
- * @return void
- */
+	/**
+	 * test that - in conditions and field names works
+	 *
+	 * @return void
+	 */
 	public function testHypenInStringConditionsAndFieldNames() {
 		$result = $this->Dbo->conditions('I18n__title_pt-br.content = "test"');
 		$this->assertEquals(' WHERE `I18n__title_pt-br`.`content` = "test"', $result);
@@ -2166,11 +2166,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals(' WHERE NOW()-`Model`.`created` < 7200', $result);
 	}
 
-/**
- * testParenthesisInStringConditions method
- *
- * @return void
- */
+	/**
+	 * testParenthesisInStringConditions method
+	 *
+	 * @return void
+	 */
 	public function testParenthesisInStringConditions() {
 		$result = $this->Dbo->conditions('Member.name = \'(lu\'');
 		$this->assertRegExp('/^\s+WHERE\s+`Member`.`name`\s+=\s+\'\(lu\'$/', $result);
@@ -2215,11 +2215,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s+WHERE\s+`Member`.`name`\s+=\s+\'\(mariano.iglesias\) CakePHP\'$/', $result);
 	}
 
-/**
- * testParenthesisInArrayConditions method
- *
- * @return void
- */
+	/**
+	 * testParenthesisInArrayConditions method
+	 *
+	 * @return void
+	 */
 	public function testParenthesisInArrayConditions() {
 		$result = $this->Dbo->conditions(array('Member.name' => '(lu'));
 		$this->assertRegExp('/^\s+WHERE\s+`Member`.`name`\s+=\s+\'\(lu\'$/', $result);
@@ -2264,11 +2264,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s+WHERE\s+`Member`.`name`\s+=\s+\'\(mariano.iglesias\) CakePHP\'$/', $result);
 	}
 
-/**
- * testArrayConditionsParsing method
- *
- * @return void
- */
+	/**
+	 * testArrayConditionsParsing method
+	 *
+	 * @return void
+	 */
 	public function testArrayConditionsParsing() {
 		$this->loadFixtures('Post', 'Author');
 		$result = $this->Dbo->conditions(array('Stereo.type' => 'in dash speakers'));
@@ -2516,11 +2516,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that array conditions with only one element work.
- *
- * @return void
- */
+	/**
+	 * Test that array conditions with only one element work.
+	 *
+	 * @return void
+	 */
 	public function testArrayConditionsOneElement() {
 		$conditions = array('id' => array(1));
 		$result = $this->Dbo->conditions($conditions);
@@ -2533,11 +2533,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testArrayConditionsParsingComplexKeys method
- *
- * @return void
- */
+	/**
+	 * testArrayConditionsParsingComplexKeys method
+	 *
+	 * @return void
+	 */
 	public function testArrayConditionsParsingComplexKeys() {
 		$result = $this->Dbo->conditions(array(
 			'CAST(Book.created AS DATE)' => '2008-08-02'
@@ -2558,11 +2558,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMixedConditionsParsing method
- *
- * @return void
- */
+	/**
+	 * testMixedConditionsParsing method
+	 *
+	 * @return void
+	 */
 	public function testMixedConditionsParsing() {
 		$conditions[] = 'User.first_name = \'Firstname\'';
 		$conditions[] = array('User.last_name' => 'Lastname');
@@ -2579,11 +2579,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s*WHERE\s+`Thread`.`project_id`\s*=\s*5\s+AND\s+`Thread`.`buyer_id`\s*=\s*14\s+AND\s+1\s*=\s*1\s+GROUP BY `Thread`.`project_id`$/', $result);
 	}
 
-/**
- * testConditionsOptionalArguments method
- *
- * @return void
- */
+	/**
+	 * testConditionsOptionalArguments method
+	 *
+	 * @return void
+	 */
 	public function testConditionsOptionalArguments() {
 		$result = $this->Dbo->conditions(array('Member.name' => 'Mariano'), true, false);
 		$this->assertRegExp('/^\s*`Member`.`name`\s*=\s*\'Mariano\'\s*$/', $result);
@@ -2592,11 +2592,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s*1\s*=\s*1\s*$/', $result);
 	}
 
-/**
- * testConditionsWithModel
- *
- * @return void
- */
+	/**
+	 * testConditionsWithModel
+	 *
+	 * @return void
+	 */
 	public function testConditionsWithModel() {
 		$this->Model = new Article2();
 
@@ -2625,11 +2625,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFieldParsing method
- *
- * @return void
- */
+	/**
+	 * testFieldParsing method
+	 *
+	 * @return void
+	 */
 	public function testFieldParsing() {
 		$this->Model = new TestModel();
 		$result = $this->Dbo->fields($this->Model, 'Vendor', "Vendor.id, COUNT(Model.vendor_id) AS `Vendor`.`count`");
@@ -2750,11 +2750,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that fields() will accept objects made from DboSource::expression
- *
- * @return void
- */
+	/**
+	 * test that fields() will accept objects made from DboSource::expression
+	 *
+	 * @return void
+	 */
 	public function testFieldsWithExpression() {
 		$this->Model = new TestModel;
 		$expression = $this->Dbo->expression("CASE Sample.id WHEN 1 THEN 'Id One' ELSE 'Other Id' END AS case_col");
@@ -2766,11 +2766,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRenderStatement method
- *
- * @return void
- */
+	/**
+	 * testRenderStatement method
+	 *
+	 * @return void
+	 */
 	public function testRenderStatement() {
 		$result = $this->Dbo->renderStatement('select', array(
 			'fields' => 'id', 'table' => 'table', 'conditions' => 'WHERE 1=1',
@@ -2791,11 +2791,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s*DELETE\s+alias\s+FROM\s+table\s+AS\s+alias\s+WHERE\s+1=1\s*$/', $result);
 	}
 
-/**
- * testSchema method
- *
- * @return void
- */
+	/**
+	 * testSchema method
+	 *
+	 * @return void
+	 */
 	public function testSchema() {
 		$Schema = new CakeSchema();
 		$Schema->tables = array('table' => array(), 'anotherTable' => array());
@@ -2807,21 +2807,21 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/^\s*DROP TABLE IF EXISTS\s+' . $this->Dbo->fullTableName('table') . ';\s*$/s', $result);
 	}
 
-/**
- * testDropSchemaNoSchema method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
+	/**
+	 * testDropSchemaNoSchema method
+	 *
+	 * @expectedException PHPUnit_Framework_Error
+	 * @return void
+	 */
 	public function testDropSchemaNoSchema() {
 		$this->Dbo->dropSchema(null);
 	}
 
-/**
- * testOrderParsing method
- *
- * @return void
- */
+	/**
+	 * testOrderParsing method
+	 *
+	 * @return void
+	 */
 	public function testOrderParsing() {
 		$result = $this->Dbo->order("ADDTIME(Event.time_begin, '-06:00:00') ASC");
 		$expected = " ORDER BY ADDTIME(`Event`.`time_begin`, '-06:00:00') ASC";
@@ -2892,21 +2892,21 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testComplexSortExpression method
- *
- * @return void
- */
+	/**
+	 * testComplexSortExpression method
+	 *
+	 * @return void
+	 */
 	public function testComplexSortExpression() {
 		$result = $this->Dbo->order(array('(Model.field > 100) DESC', 'Model.field ASC'));
 		$this->assertRegExp("/^\s*ORDER BY\s+\(`Model`\.`field`\s+>\s+100\)\s+DESC,\s+`Model`\.`field`\s+ASC\s*$/", $result);
 	}
 
-/**
- * testCalculations method
- *
- * @return void
- */
+	/**
+	 * testCalculations method
+	 *
+	 * @return void
+	 */
 	public function testCalculations() {
 		$this->Model = new TestModel();
 		$result = $this->Dbo->calculate($this->Model, 'count');
@@ -2944,11 +2944,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals('MIN(`left`) AS `left`', $result);
 	}
 
-/**
- * testLength method
- *
- * @return void
- */
+	/**
+	 * testLength method
+	 *
+	 * @return void
+	 */
 	public function testLength() {
 		$result = $this->Dbo->length('varchar(255)');
 		$expected = 255;
@@ -2986,11 +2986,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * testBuildIndex method
- *
- * @return void
- */
+	/**
+	 * testBuildIndex method
+	 *
+	 * @return void
+	 */
 	public function testBuildIndex() {
 		$data = array(
 			'PRIMARY' => array('column' => 'id')
@@ -3035,11 +3035,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBuildColumn method
- *
- * @return void
- */
+	/**
+	 * testBuildColumn method
+	 *
+	 * @return void
+	 */
 	public function testBuildColumn2() {
 		$data = array(
 			'name' => 'testName',
@@ -3138,12 +3138,12 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testBuildColumnBadType method
- *
- * @expectedException PHPUnit_Framework_Error
- * @return void
- */
+	/**
+	 * testBuildColumnBadType method
+	 *
+	 * @expectedException PHPUnit_Framework_Error
+	 * @return void
+	 */
 	public function testBuildColumnBadType() {
 		$data = array(
 			'name' => 'testName',
@@ -3155,11 +3155,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->buildColumn($data);
 	}
 
-/**
- * test hasAny()
- *
- * @return void
- */
+	/**
+	 * test hasAny()
+	 *
+	 * @return void
+	 */
 	public function testHasAny() {
 		$db = $this->Dbo->config['database'];
 		$this->Dbo = $this->getMock('Mysql', array('connect', '_execute', 'execute', 'value'));
@@ -3184,11 +3184,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->hasAny($this->Model, array());
 	}
 
-/**
- * test fields generating usable virtual fields to use in query
- *
- * @return void
- */
+	/**
+	 * test fields generating usable virtual fields to use in query
+	 *
+	 * @return void
+	 */
 	public function testVirtualFields() {
 		$this->loadFixtures('Article', 'Comment', 'Tag');
 		$this->Dbo->virtualFieldSeparator = '__';
@@ -3256,11 +3256,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test conditions to generate query conditions for virtual fields
- *
- * @return void
- */
+	/**
+	 * test conditions to generate query conditions for virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsInConditions() {
 		$Article = ClassRegistry::init('Article');
 		$commentsTable = $this->Dbo->fullTableName('comments', false, false);
@@ -3292,11 +3292,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that virtualFields with complex functions and aliases work.
- *
- * @return void
- */
+	/**
+	 * test that virtualFields with complex functions and aliases work.
+	 *
+	 * @return void
+	 */
 	public function testConditionsWithComplexVirtualFields() {
 		$Article = ClassRegistry::init('Article', 'Comment', 'Tag');
 		$Article->virtualFields = array(
@@ -3315,11 +3315,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/[`\'"]Article[`\'"].[`\'"]longitude[`\'"]/', $result);
 	}
 
-/**
- * test calculate to generate claculate statements on virtual fields
- *
- * @return void
- */
+	/**
+	 * test calculate to generate claculate statements on virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsInCalculate() {
 		$Article = ClassRegistry::init('Article');
 		$commentsTable = $this->Dbo->fullTableName('comments', false, false);
@@ -3339,11 +3339,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test reading virtual fields containing newlines when recursive > 0
- *
- * @return void
- */
+	/**
+	 * test reading virtual fields containing newlines when recursive > 0
+	 *
+	 * @return void
+	 */
 	public function testReadVirtualFieldsWithNewLines() {
 		$Article = new Article();
 		$Article->recursive = 1;
@@ -3357,11 +3357,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/[`\"]User[`\"]\.[`\"]id[`\"] \+ [`\"]User[`\"]\.[`\"]id[`\"]/', $result[7]);
 	}
 
-/**
- * test group to generate GROUP BY statements on virtual fields
- *
- * @return void
- */
+	/**
+	 * test group to generate GROUP BY statements on virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsInGroup() {
 		$Article = ClassRegistry::init('Article');
 		$Article->virtualFields = array(
@@ -3374,11 +3374,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that virtualFields with complex functions and aliases work.
- *
- * @return void
- */
+	/**
+	 * test that virtualFields with complex functions and aliases work.
+	 *
+	 * @return void
+	 */
 	public function testFieldsWithComplexVirtualFields() {
 		$Article = new Article();
 		$Article->virtualFields = array(
@@ -3401,11 +3401,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertRegExp('/[`\'"]Article[`\'"].[`\'"]longitude[`\'"]/', $result[1]);
 	}
 
-/**
- * test that execute runs queries.
- *
- * @return void
- */
+	/**
+	 * test that execute runs queries.
+	 *
+	 * @return void
+	 */
 	public function testExecute() {
 		$query = 'SELECT * FROM ' . $this->Dbo->fullTableName('articles') . ' WHERE 1 = 1';
 		$this->Dbo->took = null;
@@ -3421,11 +3421,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertNotNull($this->Dbo->affected, 'Stats were not set %s');
 	}
 
-/**
- * test a full example of using virtual fields
- *
- * @return void
- */
+	/**
+	 * test a full example of using virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsFetch() {
 		$this->loadFixtures('Article', 'Comment');
 
@@ -3445,11 +3445,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test reading complex virtualFields with subqueries.
- *
- * @return void
- */
+	/**
+	 * test reading complex virtualFields with subqueries.
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsComplexRead() {
 		$this->loadFixtures('DataTest', 'Article', 'Comment', 'User', 'Tag', 'ArticlesTag');
 
@@ -3478,11 +3478,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertTrue($result[0]['DataTest']['complicated'] > 0);
 	}
 
-/**
- * testIntrospectType method
- *
- * @return void
- */
+	/**
+	 * testIntrospectType method
+	 *
+	 * @return void
+	 */
 	public function testIntrospectType() {
 		$this->assertEquals('integer', $this->Dbo->introspectType(0));
 		$this->assertEquals('integer', $this->Dbo->introspectType(2));
@@ -3636,11 +3636,11 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals("'a bc'", $result);
 	}
 
-/**
- * testRealQueries method
- *
- * @return void
- */
+	/**
+	 * testRealQueries method
+	 *
+	 * @return void
+	 */
 	public function testRealQueries() {
 		$this->loadFixtures('Apple', 'Article', 'User', 'Comment', 'Tag', 'Sample', 'ArticlesTag');
 
@@ -3705,10 +3705,10 @@ class MysqlTest extends CakeTestCase {
 		$this->assertFalse(Set::matches('/Comment[id=10]', $result));
 	}
 
-/**
- * @expectedException MissingConnectionException
- * @return void
- */
+	/**
+	 * @expectedException MissingConnectionException
+	 * @return void
+	 */
 	public function testExceptionOnBrokenConnection() {
 		new Mysql(array(
 			'driver' => 'mysql',
@@ -3719,11 +3719,11 @@ class MysqlTest extends CakeTestCase {
 		));
 	}
 
-/**
- * testStatements method
- *
- * @return void
- */
+	/**
+	 * testStatements method
+	 *
+	 * @return void
+	 */
 	public function testUpdateStatements() {
 		$this->loadFixtures('Article', 'User');
 		$test = ConnectionManager::getDatasource('test');
@@ -3751,11 +3751,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->update($Article, array('field1'), array("'value'"), array('index' => 'val'));
 	}
 
-/**
- * Test deletes with a mock.
- *
- * @return void
- */
+	/**
+	 * Test deletes with a mock.
+	 *
+	 * @return void
+	 */
 	public function testDeleteStatements() {
 		$this->loadFixtures('Article', 'User');
 		$test = ConnectionManager::getDatasource('test');
@@ -3782,11 +3782,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->delete($Article, '2=2');
 	}
 
-/**
- * Test truncate with a mock.
- *
- * @return void
- */
+	/**
+	 * Test truncate with a mock.
+	 *
+	 * @return void
+	 */
 	public function testTruncateStatements() {
 		$this->loadFixtures('Article', 'User');
 		$db = ConnectionManager::getDatasource('test');
@@ -3815,11 +3815,11 @@ class MysqlTest extends CakeTestCase {
 		$this->Dbo->truncate('articles');
 	}
 
-/**
- * Test nested transaction
- *
- * @return void
- */
+	/**
+	 * Test nested transaction
+	 *
+	 * @return void
+	 */
 	public function testNestedTransaction() {
 		$nested = $this->Dbo->useNestedTransactions;
 		$this->Dbo->useNestedTransactions = true;

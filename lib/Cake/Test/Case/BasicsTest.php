@@ -29,11 +29,11 @@ App::uses('CakeResponse', 'Network');
  */
 class BasicsTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
@@ -41,11 +41,11 @@ class BasicsTest extends CakeTestCase {
 		));
 	}
 
-/**
- * test the array_diff_key compatibility function.
- *
- * @return void
- */
+	/**
+	 * test the array_diff_key compatibility function.
+	 *
+	 * @return void
+	 */
 	public function testArrayDiffKey() {
 		$one = array('one' => 1, 'two' => 2, 'three' => 3);
 		$two = array('one' => 'one', 'two' => 'two');
@@ -71,11 +71,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * testHttpBase method
- *
- * @return void
- */
+	/**
+	 * testHttpBase method
+	 *
+	 * @return void
+	 */
 	public function testEnv() {
 		$this->skipIf(!function_exists('ini_get') || ini_get('safe_mode') === '1', 'Safe mode is on.');
 
@@ -176,11 +176,11 @@ class BasicsTest extends CakeTestCase {
 		$_ENV = $env;
 	}
 
-/**
- * Test h()
- *
- * @return void
- */
+	/**
+	 * Test h()
+	 *
+	 * @return void
+	 */
 	public function testH() {
 		$string = '<foo>';
 		$result = h($string);
@@ -245,11 +245,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals('Body content', $result);
 	}
 
-/**
- * Test am()
- *
- * @return void
- */
+	/**
+	 * Test am()
+	 *
+	 * @return void
+	 */
 	public function testAm() {
 		$result = am(array('one', 'two'), 2, 3, 4);
 		$expected = array('one', 'two', 2, 3, 4);
@@ -260,11 +260,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test cache()
- *
- * @return void
- */
+	/**
+	 * test cache()
+	 *
+	 * @return void
+	 */
 	public function testCache() {
 		$_cacheDisable = Configure::read('Cache.disable');
 		$this->skipIf($_cacheDisable, 'Cache is disabled, skipping cache() tests.');
@@ -295,11 +295,11 @@ class BasicsTest extends CakeTestCase {
 		Configure::write('Cache.disable', $_cacheDisable);
 	}
 
-/**
- * test clearCache()
- *
- * @return void
- */
+	/**
+	 * test clearCache()
+	 *
+	 * @return void
+	 */
 	public function testClearCache() {
 		$cacheOff = Configure::read('Cache.disable');
 		$this->skipIf($cacheOff, 'Cache is disabled, skipping clearCache() tests.');
@@ -357,11 +357,11 @@ class BasicsTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test __()
- *
- * @return void
- */
+	/**
+	 * test __()
+	 *
+	 * @return void
+	 */
 	public function testTranslate() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -398,11 +398,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __n()
- *
- * @return void
- */
+	/**
+	 * test __n()
+	 *
+	 * @return void
+	 */
 	public function testTranslatePlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -431,11 +431,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __d()
- *
- * @return void
- */
+	/**
+	 * test __d()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomain() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -464,11 +464,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dn()
- *
- * @return void
- */
+	/**
+	 * test __dn()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainPlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -501,11 +501,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __c()
- *
- * @return void
- */
+	/**
+	 * test __c()
+	 *
+	 * @return void
+	 */
 	public function testTranslateCategory() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -530,11 +530,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dc()
- *
- * @return void
- */
+	/**
+	 * test __dc()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainCategory() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -567,11 +567,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test __dcn()
- *
- * @return void
- */
+	/**
+	 * test __dcn()
+	 *
+	 * @return void
+	 */
 	public function testTranslateDomainCategoryPlural() {
 		Configure::write('Config.language', 'rule_1_po');
 
@@ -600,11 +600,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test LogError()
- *
- * @return void
- */
+	/**
+	 * test LogError()
+	 *
+	 * @return void
+	 */
 	public function testLogError() {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
@@ -628,11 +628,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertRegExp('/Error: Testing with multi-line string/', $result);
 	}
 
-/**
- * test fileExistsInPath()
- *
- * @return void
- */
+	/**
+	 * test fileExistsInPath()
+	 *
+	 * @return void
+	 */
 	public function testFileExistsInPath() {
 		if (!function_exists('ini_set')) {
 			$this->markTestSkipped('%s ini_set function not available');
@@ -674,11 +674,11 @@ class BasicsTest extends CakeTestCase {
 		ini_set('include_path', $_includePath);
 	}
 
-/**
- * test convertSlash()
- *
- * @return void
- */
+	/**
+	 * test convertSlash()
+	 *
+	 * @return void
+	 */
 	public function testConvertSlash() {
 		$result = convertSlash('\path\to\location\\');
 		$expected = '\path\to\location\\';
@@ -689,11 +689,11 @@ class BasicsTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test debug()
- *
- * @return void
- */
+	/**
+	 * test debug()
+	 *
+	 * @return void
+	 */
 	public function testDebug() {
 		ob_start();
 		debug('this-is-a-test', false);
@@ -854,11 +854,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test pr()
- *
- * @return void
- */
+	/**
+	 * test pr()
+	 *
+	 * @return void
+	 */
 	public function testPr() {
 		$this->skipIf(php_sapi_name() == 'cli', 'Skipping web test in cli mode');
 		ob_start();
@@ -874,11 +874,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test pr()
- *
- * @return void
- */
+	/**
+	 * test pr()
+	 *
+	 * @return void
+	 */
 	public function testPrCli() {
 		$this->skipIf(php_sapi_name() != 'cli', 'Skipping cli test in web mode');
 		ob_start();
@@ -894,11 +894,11 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test stripslashes_deep()
- *
- * @return void
- */
+	/**
+	 * test stripslashes_deep()
+	 *
+	 * @return void
+	 */
 	public function testStripslashesDeep() {
 		$this->skipIf(ini_get('magic_quotes_sybase') === '1', 'magic_quotes_sybase is on.');
 
@@ -931,11 +931,11 @@ EXPECTED;
 		$this->assertEquals($expected, stripslashes_deep($nested));
 	}
 
-/**
- * test stripslashes_deep() with magic_quotes_sybase on
- *
- * @return void
- */
+	/**
+	 * test stripslashes_deep() with magic_quotes_sybase on
+	 *
+	 * @return void
+	 */
 	public function testStripslashesDeepSybase() {
 		if (!(ini_get('magic_quotes_sybase') === '1')) {
 			$this->markTestSkipped('magic_quotes_sybase is off');
@@ -966,11 +966,11 @@ EXPECTED;
 		$this->assertEquals($expected, stripslashes_deep($nested));
 	}
 
-/**
- * test pluginSplit
- *
- * @return void
- */
+	/**
+	 * test pluginSplit
+	 *
+	 * @return void
+	 */
 	public function testPluginSplit() {
 		$result = pluginSplit('Something.else');
 		$this->assertEquals(array('Something', 'else'), $result);

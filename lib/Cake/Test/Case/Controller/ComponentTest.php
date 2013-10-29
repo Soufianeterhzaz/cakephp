@@ -28,11 +28,11 @@ App::uses('Component', 'Controller');
  */
 class ParamTestComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Banana' => array('config' => 'value'));
 }
 
@@ -43,11 +43,11 @@ class ParamTestComponent extends Component {
  */
 class ComponentTestController extends Controller {
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
 }
@@ -59,26 +59,26 @@ class ComponentTestController extends Controller {
  */
 class AppleComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Orange');
 
-/**
- * testName property
- *
- * @var mixed null
- */
+	/**
+	 * testName property
+	 *
+	 * @var mixed null
+	 */
 	public $testName = null;
 
-/**
- * startup method
- *
- * @param Controller $controller
- * @return void
- */
+	/**
+	 * startup method
+	 *
+	 * @param Controller $controller
+	 * @return void
+	 */
 	public function startup(Controller $controller) {
 		$this->testName = $controller->name;
 	}
@@ -92,30 +92,30 @@ class AppleComponent extends Component {
  */
 class OrangeComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Banana');
 
-/**
- * initialize method
- *
- * @param Controller $controller
- * @return void
- */
+	/**
+	 * initialize method
+	 *
+	 * @param Controller $controller
+	 * @return void
+	 */
 	public function initialize(Controller $controller) {
 		$this->Controller = $controller;
 		$this->Banana->testField = 'OrangeField';
 	}
 
-/**
- * startup method
- *
- * @param Controller $controller
- * @return string
- */
+	/**
+	 * startup method
+	 *
+	 * @param Controller $controller
+	 * @return string
+	 */
 	public function startup(Controller $controller) {
 		$controller->foo = 'pass';
 	}
@@ -129,19 +129,19 @@ class OrangeComponent extends Component {
  */
 class BananaComponent extends Component {
 
-/**
- * testField property
- *
- * @var string
- */
+	/**
+	 * testField property
+	 *
+	 * @var string
+	 */
 	public $testField = 'BananaField';
 
-/**
- * startup method
- *
- * @param Controller $controller
- * @return string
- */
+	/**
+	 * startup method
+	 *
+	 * @param Controller $controller
+	 * @return string
+	 */
 	public function startup(Controller $controller) {
 		$controller->bar = 'fail';
 	}
@@ -155,11 +155,11 @@ class BananaComponent extends Component {
  */
 class MutuallyReferencingOneComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('MutuallyReferencingTwo');
 }
 
@@ -170,11 +170,11 @@ class MutuallyReferencingOneComponent extends Component {
  */
 class MutuallyReferencingTwoComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('MutuallyReferencingOne');
 }
 
@@ -185,11 +185,11 @@ class MutuallyReferencingTwoComponent extends Component {
  */
 class SomethingWithEmailComponent extends Component {
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Email');
 }
 
@@ -200,11 +200,11 @@ class SomethingWithEmailComponent extends Component {
  */
 class ComponentTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->_pluginPaths = App::path('plugins');
@@ -213,11 +213,11 @@ class ComponentTest extends CakeTestCase {
 		));
 	}
 
-/**
- * test accessing inner components.
- *
- * @return void
- */
+	/**
+	 * test accessing inner components.
+	 *
+	 * @return void
+	 */
 	public function testInnerComponentConstruction() {
 		$Collection = new ComponentCollection();
 		$Component = new AppleComponent($Collection);
@@ -225,11 +225,11 @@ class ComponentTest extends CakeTestCase {
 		$this->assertInstanceOf('OrangeComponent', $Component->Orange, 'class is wrong');
 	}
 
-/**
- * test component loading
- *
- * @return void
- */
+	/**
+	 * test component loading
+	 *
+	 * @return void
+	 */
 	public function testNestedComponentLoading() {
 		$Collection = new ComponentCollection();
 		$Apple = new AppleComponent($Collection);
@@ -240,11 +240,11 @@ class ComponentTest extends CakeTestCase {
 		$this->assertTrue(empty($Apple->Orange->Session));
 	}
 
-/**
- * test that component components are not enabled in the collection.
- *
- * @return void
- */
+	/**
+	 * test that component components are not enabled in the collection.
+	 *
+	 * @return void
+	 */
 	public function testInnerComponentsAreNotEnabled() {
 		$Collection = new ComponentCollection();
 		$Apple = $Collection->load('Apple');
@@ -254,11 +254,11 @@ class ComponentTest extends CakeTestCase {
 		$this->assertEquals(array('Apple'), $result, 'Too many components enabled.');
 	}
 
-/**
- * test a component being used more than once.
- *
- * @return void
- */
+	/**
+	 * test a component being used more than once.
+	 *
+	 * @return void
+	 */
 	public function testMultipleComponentInitialize() {
 		$Collection = new ComponentCollection();
 		$Banana = $Collection->load('Banana');
@@ -270,11 +270,11 @@ class ComponentTest extends CakeTestCase {
 		$this->assertSame($Banana->testField, $Orange->Banana->testField, 'References are broken');
 	}
 
-/**
- * Test mutually referencing components.
- *
- * @return void
- */
+	/**
+	 * Test mutually referencing components.
+	 *
+	 * @return void
+	 */
 	public function testSomethingReferencingEmailComponent() {
 		$Controller = new ComponentTestController();
 		$Controller->components = array('SomethingWithEmail');

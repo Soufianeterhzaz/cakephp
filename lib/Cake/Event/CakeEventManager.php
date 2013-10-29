@@ -29,45 +29,45 @@ App::uses('CakeEventListener', 'Event');
  */
 class CakeEventManager {
 
-/**
- * The default priority queue value for new, attached listeners
- *
- * @var integer
- */
+	/**
+	 * The default priority queue value for new, attached listeners
+	 *
+	 * @var integer
+	 */
 	public static $defaultPriority = 10;
 
-/**
- * The globally available instance, used for dispatching events attached from any scope
- *
- * @var CakeEventManager
- */
+	/**
+	 * The globally available instance, used for dispatching events attached from any scope
+	 *
+	 * @var CakeEventManager
+	 */
 	protected static $_generalManager = null;
 
-/**
- * List of listener callbacks associated to
- *
- * @var object $Listeners
- */
+	/**
+	 * List of listener callbacks associated to
+	 *
+	 * @var object $Listeners
+	 */
 	protected $_listeners = array();
 
-/**
- * Internal flag to distinguish a common manager from the singleton
- *
- * @var boolean
- */
+	/**
+	 * Internal flag to distinguish a common manager from the singleton
+	 *
+	 * @var boolean
+	 */
 	protected $_isGlobal = false;
 
-/**
- * Returns the globally available instance of a CakeEventManager
- * this is used for dispatching events attached from outside the scope
- * other managers were created. Usually for creating hook systems or inter-class
- * communication
- *
- * If called with the first parameter, it will be set as the globally available instance
- *
- * @param CakeEventManager $manager
- * @return CakeEventManager the global event manager
- */
+	/**
+	 * Returns the globally available instance of a CakeEventManager
+	 * this is used for dispatching events attached from outside the scope
+	 * other managers were created. Usually for creating hook systems or inter-class
+	 * communication
+	 *
+	 * If called with the first parameter, it will be set as the globally available instance
+	 *
+	 * @param CakeEventManager $manager
+	 * @return CakeEventManager the global event manager
+	 */
 	public static function instance($manager = null) {
 		if ($manager instanceof CakeEventManager) {
 			self::$_generalManager = $manager;
@@ -80,26 +80,26 @@ class CakeEventManager {
 		return self::$_generalManager;
 	}
 
-/**
- * Adds a new listener to an event. Listeners
- *
- * @param callback|CakeEventListener $callable PHP valid callback type or instance of CakeEventListener to be called
- * when the event named with $eventKey is triggered. If a CakeEventListener instance is passed, then the `implementedEvents`
- * method will be called on the object to register the declared events individually as methods to be managed by this class.
- * It is possible to define multiple event handlers per event name.
- *
- * @param string $eventKey The event unique identifier name with which the callback will be associated. If $callable
- * is an instance of CakeEventListener this argument will be ignored
- *
- * @param array $options used to set the `priority` and `passParams` flags to the listener.
- * Priorities are handled like queues, and multiple attachments added to the same priority queue will be treated in
- * the order of insertion. `passParams` means that the event data property will be converted to function arguments
- * when the listener is called. If $called is an instance of CakeEventListener, this parameter will be ignored
- *
- * @return void
- * @throws InvalidArgumentException When event key is missing or callable is not an
- *   instance of CakeEventListener.
- */
+	/**
+	 * Adds a new listener to an event. Listeners
+	 *
+	 * @param callback|CakeEventListener $callable PHP valid callback type or instance of CakeEventListener to be called
+	 * when the event named with $eventKey is triggered. If a CakeEventListener instance is passed, then the `implementedEvents`
+	 * method will be called on the object to register the declared events individually as methods to be managed by this class.
+	 * It is possible to define multiple event handlers per event name.
+	 *
+	 * @param string $eventKey The event unique identifier name with which the callback will be associated. If $callable
+	 * is an instance of CakeEventListener this argument will be ignored
+	 *
+	 * @param array $options used to set the `priority` and `passParams` flags to the listener.
+	 * Priorities are handled like queues, and multiple attachments added to the same priority queue will be treated in
+	 * the order of insertion. `passParams` means that the event data property will be converted to function arguments
+	 * when the listener is called. If $called is an instance of CakeEventListener, this parameter will be ignored
+	 *
+	 * @return void
+	 * @throws InvalidArgumentException When event key is missing or callable is not an
+	 *   instance of CakeEventListener.
+	 */
 	public function attach($callable, $eventKey = null, $options = array()) {
 		if (!$eventKey && !($callable instanceof CakeEventListener)) {
 			throw new InvalidArgumentException(__d('cake_dev', 'The eventKey variable is required'));
@@ -115,13 +115,13 @@ class CakeEventManager {
 		);
 	}
 
-/**
- * Auxiliary function to attach all implemented callbacks of a CakeEventListener class instance
- * as individual methods on this manager
- *
- * @param CakeEventListener $subscriber
- * @return void
- */
+	/**
+	 * Auxiliary function to attach all implemented callbacks of a CakeEventListener class instance
+	 * as individual methods on this manager
+	 *
+	 * @param CakeEventListener $subscriber
+	 * @return void
+	 */
 	protected function _attachSubscriber(CakeEventListener $subscriber) {
 		foreach ($subscriber->implementedEvents() as $eventKey => $function) {
 			$options = array();
@@ -142,14 +142,14 @@ class CakeEventManager {
 		}
 	}
 
-/**
- * Auxiliary function to extract and return a PHP callback type out of the callable definition
- * from the return value of the `implementedEvents` method on a CakeEventListener
- *
- * @param array $function the array taken from a handler definition for an event
- * @param CakeEventListener $object The handler object
- * @return callback
- */
+	/**
+	 * Auxiliary function to extract and return a PHP callback type out of the callable definition
+	 * from the return value of the `implementedEvents` method on a CakeEventListener
+	 *
+	 * @param array $function the array taken from a handler definition for an event
+	 * @param CakeEventListener $object The handler object
+	 * @return callback
+	 */
 	protected function _extractCallable($function, $object) {
 		$method = $function['callable'];
 		$options = $function;
@@ -160,13 +160,13 @@ class CakeEventManager {
 		return array($method, $options);
 	}
 
-/**
- * Removes a listener from the active listeners.
- *
- * @param callback|CakeEventListener $callable any valid PHP callback type or an instance of CakeEventListener
- * @param string $eventKey The event unique identifier name with which the callback has been associated
- * @return void
- */
+	/**
+	 * Removes a listener from the active listeners.
+	 *
+	 * @param callback|CakeEventListener $callable any valid PHP callback type or an instance of CakeEventListener
+	 * @param string $eventKey The event unique identifier name with which the callback has been associated
+	 * @return void
+	 */
 	public function detach($callable, $eventKey = null) {
 		if ($callable instanceof CakeEventListener) {
 			return $this->_detachSubscriber($callable, $eventKey);
@@ -190,13 +190,13 @@ class CakeEventManager {
 		}
 	}
 
-/**
- * Auxiliary function to help detach all listeners provided by an object implementing CakeEventListener
- *
- * @param CakeEventListener $subscriber the subscriber to be detached
- * @param string $eventKey optional event key name to unsubscribe the listener from
- * @return void
- */
+	/**
+	 * Auxiliary function to help detach all listeners provided by an object implementing CakeEventListener
+	 *
+	 * @param CakeEventListener $subscriber the subscriber to be detached
+	 * @param string $eventKey optional event key name to unsubscribe the listener from
+	 * @return void
+	 */
 	protected function _detachSubscriber(CakeEventListener $subscriber, $eventKey = null) {
 		$events = $subscriber->implementedEvents();
 		if (!empty($eventKey) && empty($events[$eventKey])) {
@@ -219,12 +219,12 @@ class CakeEventManager {
 		}
 	}
 
-/**
- * Dispatches a new event to all configured listeners
- *
- * @param string|CakeEvent $event the event key name or instance of CakeEvent
- * @return void
- */
+	/**
+	 * Dispatches a new event to all configured listeners
+	 *
+	 * @param string|CakeEvent $event the event key name or instance of CakeEvent
+	 * @return void
+	 */
 	public function dispatch($event) {
 		if (is_string($event)) {
 			$event = new CakeEvent($event);
@@ -257,12 +257,12 @@ class CakeEventManager {
 		}
 	}
 
-/**
- * Returns a list of all listeners for an eventKey in the order they should be called
- *
- * @param string $eventKey
- * @return array
- */
+	/**
+	 * Returns a list of all listeners for an eventKey in the order they should be called
+	 *
+	 * @param string $eventKey
+	 * @return array
+	 */
 	public function listeners($eventKey) {
 		if (empty($this->_listeners[$eventKey])) {
 			return array();

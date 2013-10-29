@@ -25,21 +25,21 @@
  */
 class AppTest extends CakeTestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		CakePlugin::unload();
 	}
 
-/**
- * testBuild method
- *
- * @return void
- */
+	/**
+	 * testBuild method
+	 *
+	 * @return void
+	 */
 	public function testBuild() {
 		$old = App::path('Model');
 		$expected = array(
@@ -96,11 +96,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals($old, $defaults);
 	}
 
-/**
- * tests that it is possible to set up paths using the CakePHP 1.3 notation for them (models, behaviors, controllers...)
- *
- * @return void
- */
+	/**
+	 * tests that it is possible to set up paths using the CakePHP 1.3 notation for them (models, behaviors, controllers...)
+	 *
+	 * @return void
+	 */
 	public function testCompatibleBuild() {
 		$old = App::path('models');
 		$expected = array(
@@ -187,11 +187,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals($old, $defaults);
 	}
 
-/**
- * test package build() with App::REGISTER.
- *
- * @return void
- */
+	/**
+	 * test package build() with App::REGISTER.
+	 *
+	 * @return void
+	 */
 	public function testBuildPackage() {
 		$pluginPaths = array(
 			'/foo/bar',
@@ -230,11 +230,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals(array(), $paths);
 	}
 
-/**
- * test path() with a plugin.
- *
- * @return void
- */
+	/**
+	 * test path() with a plugin.
+	 *
+	 * @return void
+	 */
 	public function testPathWithPlugins() {
 		$basepath = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
 		App::build(array(
@@ -246,11 +246,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals($basepath . 'TestPlugin' . DS . 'Vendor' . DS, $result[0]);
 	}
 
-/**
- * testBuildWithReset method
- *
- * @return void
- */
+	/**
+	 * testBuildWithReset method
+	 *
+	 * @return void
+	 */
 	public function testBuildWithReset() {
 		$old = App::path('Model');
 		$expected = array(
@@ -272,11 +272,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals($old, $defaults);
 	}
 
-/**
- * testCore method
- *
- * @return void
- */
+	/**
+	 * testCore method
+	 *
+	 * @return void
+	 */
 	public function testCore() {
 		$model = App::core('Model');
 		$this->assertEquals(array(CAKE . 'Model' . DS), $model);
@@ -297,11 +297,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals(array(CAKE . 'Model' . DS . 'Datasource' . DS), str_replace('/', DS, $datasource));
 	}
 
-/**
- * testListObjects method
- *
- * @return void
- */
+	/**
+	 * testListObjects method
+	 *
+	 * @return void
+	 */
 	public function testListObjects() {
 		$result = App::objects('class', CAKE . 'Routing', false);
 		$this->assertTrue(in_array('Dispatcher', $result));
@@ -362,9 +362,9 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * Make sure that .svn and friends are excluded from App::objects('plugin')
- */
+	/**
+	 * Make sure that .svn and friends are excluded from App::objects('plugin')
+	 */
 	public function testListObjectsIgnoreDotDirectories() {
 		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
 
@@ -380,11 +380,11 @@ class AppTest extends CakeTestCase {
 		$this->assertNotContains('.svn', $result);
 	}
 
-/**
- * Tests listing objects within a plugin
- *
- * @return void
- */
+	/**
+	 * Tests listing objects within a plugin
+	 *
+	 * @return void
+	 */
 	public function testListObjectsInPlugin() {
 		App::build(array(
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
@@ -430,11 +430,11 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * test that pluginPath can find paths for plugins.
- *
- * @return void
- */
+	/**
+	 * test that pluginPath can find paths for plugins.
+	 *
+	 * @return void
+	 */
 	public function testPluginPath() {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
@@ -451,11 +451,11 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * test that themePath can find paths for themes.
- *
- * @return void
- */
+	/**
+	 * test that themePath can find paths for themes.
+	 *
+	 * @return void
+	 */
 	public function testThemePath() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
@@ -471,11 +471,11 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * testClassLoading method
- *
- * @return void
- */
+	/**
+	 * testClassLoading method
+	 *
+	 * @return void
+	 */
 	public function testClassLoading() {
 		$file = App::import('Model', 'Model', false);
 		$this->assertTrue($file);
@@ -550,11 +550,11 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * test import() with plugins
- *
- * @return void
- */
+	/**
+	 * test import() with plugins
+	 *
+	 * @return void
+	 */
 	public function testPluginImporting() {
 		App::build(array(
 			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
@@ -593,12 +593,12 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * test that building helper paths actually works.
- *
- * @return void
- * @link https://cakephp.lighthouseapp.com/projects/42648/tickets/410
- */
+	/**
+	 * test that building helper paths actually works.
+	 *
+	 * @return void
+	 * @link https://cakephp.lighthouseapp.com/projects/42648/tickets/410
+	 */
 	public function testImportingHelpersFromAlternatePaths() {
 		$this->assertFalse(class_exists('BananaHelper', false), 'BananaHelper exists, cannot test importing it.');
 		App::build(array(
@@ -613,11 +613,11 @@ class AppTest extends CakeTestCase {
 		App::build();
 	}
 
-/**
- * testFileLoading method
- *
- * @return void
- */
+	/**
+	 * testFileLoading method
+	 *
+	 * @return void
+	 */
 	public function testFileLoading() {
 		$file = App::import('File', 'RealFile', false, array(), CAKE . 'Config' . DS . 'config.php');
 		$this->assertTrue($file);
@@ -626,11 +626,11 @@ class AppTest extends CakeTestCase {
 		$this->assertFalse($file);
 	}
 
-/**
- * testFileLoadingWithArray method
- *
- * @return void
- */
+	/**
+	 * testFileLoadingWithArray method
+	 *
+	 * @return void
+	 */
 	public function testFileLoadingWithArray() {
 		$type = array(
 			'type' => 'File',
@@ -651,11 +651,11 @@ class AppTest extends CakeTestCase {
 		$this->assertFalse($file);
 	}
 
-/**
- * testFileLoadingReturnValue method
- *
- * @return void
- */
+	/**
+	 * testFileLoadingReturnValue method
+	 *
+	 * @return void
+	 */
 	public function testFileLoadingReturnValue() {
 		$file = App::import('File', 'Name', false, array(), CAKE . 'Config' . DS . 'config.php', true);
 		$this->assertTrue(!empty($file));
@@ -674,11 +674,11 @@ class AppTest extends CakeTestCase {
 		$this->assertTrue(isset($file['Cake.version']));
 	}
 
-/**
- * testLoadingWithSearch method
- *
- * @return void
- */
+	/**
+	 * testLoadingWithSearch method
+	 *
+	 * @return void
+	 */
 	public function testLoadingWithSearch() {
 		$file = App::import('File', 'NewName', false, array(CAKE . 'Config' . DS), 'config.php');
 		$this->assertTrue($file);
@@ -687,11 +687,11 @@ class AppTest extends CakeTestCase {
 		$this->assertFalse($file);
 	}
 
-/**
- * testLoadingWithSearchArray method
- *
- * @return void
- */
+	/**
+	 * testLoadingWithSearchArray method
+	 *
+	 * @return void
+	 */
 	public function testLoadingWithSearchArray() {
 		$type = array(
 			'type' => 'File',
@@ -714,11 +714,11 @@ class AppTest extends CakeTestCase {
 		$this->assertFalse($file);
 	}
 
-/**
- * testMultipleLoading method
- *
- * @return void
- */
+	/**
+	 * testMultipleLoading method
+	 *
+	 * @return void
+	 */
 	public function testMultipleLoading() {
 		if (class_exists('PersisterOne', false) || class_exists('PersisterTwo', false)) {
 			$this->markTestSkipped('Cannot test loading of classes that exist.');
@@ -791,11 +791,11 @@ class AppTest extends CakeTestCase {
 		$this->assertEquals('This is the welcome.php file in test_plugin/vendors directory', $text);
 	}
 
-/**
- * Tests that the automatic class loader will also find in "libs" folder for both
- * app and plugins if it does not find the class in other configured paths
- *
- */
+	/**
+	 * Tests that the automatic class loader will also find in "libs" folder for both
+	 * app and plugins if it does not find the class in other configured paths
+	 *
+	 */
 	public function testLoadClassInLibs() {
 		App::build(array(
 			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
@@ -812,21 +812,21 @@ class AppTest extends CakeTestCase {
 		$this->assertTrue(class_exists('TestUtilityClass'));
 	}
 
-/**
- * Tests that App::location() returns the defined path for a class
- *
- * @return void
- */
+	/**
+	 * Tests that App::location() returns the defined path for a class
+	 *
+	 * @return void
+	 */
 	public function testClassLocation() {
 		App::uses('MyCustomClass', 'MyPackage/Name');
 		$this->assertEquals('MyPackage/Name', App::location('MyCustomClass'));
 	}
 
-/**
- * Test that paths() works.
- *
- * @return void
- */
+	/**
+	 * Test that paths() works.
+	 *
+	 * @return void
+	 */
 	public function testPaths() {
 		$result = App::paths();
 		$this->assertArrayHasKey('Plugin', $result);
@@ -834,12 +834,12 @@ class AppTest extends CakeTestCase {
 		$this->assertArrayHasKey('Controller/Component', $result);
 	}
 
-/**
- * Proves that it is possible to load plugin libraries in top
- * level Lib dir for plugins
- *
- * @return void
- */
+	/**
+	 * Proves that it is possible to load plugin libraries in top
+	 * level Lib dir for plugins
+	 *
+	 * @return void
+	 */
 	public function testPluginLibClasses() {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)

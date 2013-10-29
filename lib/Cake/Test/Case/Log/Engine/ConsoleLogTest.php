@@ -73,9 +73,9 @@ class ConsoleLogTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Test writing to ConsoleOutput
- */
+	/**
+	 * Test writing to ConsoleOutput
+	 */
 	public function testConsoleOutputWrites() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
@@ -92,9 +92,9 @@ class ConsoleLogTest extends CakeTestCase {
 		TestCakeLog::write(LOG_ERR, $message);
 	}
 
-/**
- * Test logging to both ConsoleLog and FileLog
- */
+	/**
+	 * Test logging to both ConsoleLog and FileLog
+	 */
 	public function testCombinedLogWriting() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',
@@ -128,9 +128,9 @@ class ConsoleLogTest extends CakeTestCase {
 		$this->assertContains($message, $logOutput);
 	}
 
-/**
- * test default value of stream 'outputAs'
- */
+	/**
+	 * test default value of stream 'outputAs'
+	 */
 	public function testDefaultOutputAs() {
 		TestCakeLog::config('test_console_log', array(
 			'engine' => 'TestConsole',

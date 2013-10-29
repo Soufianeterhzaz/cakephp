@@ -27,25 +27,25 @@
  */
 class TestPluginPost extends TestPluginAppModel {
 
-/**
- * Name property
- *
- * @var string
- */
+	/**
+	 * Name property
+	 *
+	 * @var string
+	 */
 	public $name = 'Post';
 
-/**
- * useTable property
- *
- * @var string
- */
+	/**
+	 * useTable property
+	 *
+	 * @var string
+	 */
 	public $useTable = 'posts';
 
-/**
- * Validation rules
- *
- * @var array
- */
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'title' => array(
 			'rule' => array('custom', '.*'),
@@ -68,11 +68,11 @@ class TestPluginPost extends TestPluginAppModel {
 		),
 	);
 
-/**
- * Translation domain to use for validation messages
- *
- * @var string
- */
+	/**
+	 * Translation domain to use for validation messages
+	 *
+	 * @var string
+	 */
 	public $validationDomain = 'test_plugin';
 
 }

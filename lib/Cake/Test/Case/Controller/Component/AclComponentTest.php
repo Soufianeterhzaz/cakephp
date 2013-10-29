@@ -28,11 +28,11 @@ class_exists('AclComponent');
  */
 class AclComponentTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		if (!class_exists('MockAclImplementation', false)) {
@@ -43,34 +43,34 @@ class AclComponentTest extends CakeTestCase {
 		$this->Acl = new AclComponent($Collection);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Acl);
 	}
 
-/**
- * test that constructor throws an exception when Acl.classname is a
- * non-existent class
- *
- * @expectedException CakeException
- * @return void
- */
+	/**
+	 * test that constructor throws an exception when Acl.classname is a
+	 * non-existent class
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
 	public function testConstrutorException() {
 		Configure::write('Acl.classname', 'AclClassNameThatDoesNotExist');
 		$Collection = new ComponentCollection();
 		new AclComponent($Collection);
 	}
 
-/**
- * test that adapter() allows control of the internal implementation AclComponent uses.
- *
- * @return void
- */
+	/**
+	 * test that adapter() allows control of the internal implementation AclComponent uses.
+	 *
+	 * @return void
+	 */
 	public function testAdapter() {
 		$implementation = new MockAclImplementation();
 		$implementation->expects($this->once())->method('initialize')->with($this->Acl);
@@ -79,12 +79,12 @@ class AclComponentTest extends CakeTestCase {
 		$this->assertEquals($this->Acl->adapter(), $implementation, 'Returned object is different %s');
 	}
 
-/**
- * test that adapter() whines when the class is not an AclBase
- *
- * @expectedException CakeException
- * @return void
- */
+	/**
+	 * test that adapter() whines when the class is not an AclBase
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
 	public function testAdapterException() {
 		$thing = new StdClass();
 		$this->Acl->adapter($thing);

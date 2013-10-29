@@ -25,11 +25,11 @@
  */
 class DataTestFixture extends CakeTestFixture {
 
-/**
- * Fields property
- *
- * @var array
- */
+	/**
+	 * Fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'count' => array('type' => 'integer', 'default' => 0),
@@ -38,11 +38,11 @@ class DataTestFixture extends CakeTestFixture {
 		'updated' => array('type' => 'datetime', 'default' => null)
 	);
 
-/**
- * Records property
- *
- * @var array
- */
+	/**
+	 * Records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array(
 			'count' => 2,

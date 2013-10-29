@@ -33,11 +33,11 @@ App::uses('CakeTestLoader', 'TestSuite');
  */
 class TestsuiteShell extends TestShell {
 
-/**
- * get the option parser for the test suite.
- *
- * @return void
- */
+	/**
+	 * get the option parser for the test suite.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		$parser->description(array(
@@ -48,11 +48,11 @@ class TestsuiteShell extends TestShell {
 		return $parser;
 	}
 
-/**
- * Parse the CLI options into an array CakeTestDispatcher can use.
- *
- * @return array Array of params for CakeTestDispatcher
- */
+	/**
+	 * Parse the CLI options into an array CakeTestDispatcher can use.
+	 *
+	 * @return array Array of params for CakeTestDispatcher
+	 */
 	protected function _parseArgs() {
 		if (empty($this->args)) {
 			return;
@@ -80,11 +80,11 @@ class TestsuiteShell extends TestShell {
 		return $params;
 	}
 
-/**
- * Main entry point to this shell
- *
- * @return void
- */
+	/**
+	 * Main entry point to this shell
+	 *
+	 * @return void
+	 */
 	public function main() {
 		$this->out(__d('cake_console', 'CakePHP Test Shell'));
 		$this->hr();

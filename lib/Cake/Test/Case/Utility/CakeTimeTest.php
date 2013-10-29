@@ -27,18 +27,18 @@ App::uses('CakeTime', 'Utility');
  */
 class CakeTimeTest extends CakeTestCase {
 
-/**
- * Default system timezone identifier
- *
- * @var string
- */
+	/**
+	 * Default system timezone identifier
+	 *
+	 * @var string
+	 */
 	protected $_systemTimezoneIdentifier = null;
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Time = new CakeTime();
@@ -46,32 +46,32 @@ class CakeTimeTest extends CakeTestCase {
 		Configure::write('Config.language', 'eng');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Time);
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * Restored the original system timezone
- *
- * @param string $timezoneIdentifier Timezone string
- * @return void
- */
+	/**
+	 * Restored the original system timezone
+	 *
+	 * @param string $timezoneIdentifier Timezone string
+	 * @return void
+	 */
 	protected function _restoreSystemTimezone() {
 		date_default_timezone_set($this->_systemTimezoneIdentifier);
 	}
 
-/**
- * testToQuarter method
- *
- * @return void
- */
+	/**
+	 * testToQuarter method
+	 *
+	 * @return void
+	 */
 	public function testToQuarter() {
 		$result = $this->Time->toQuarter('2007-12-25');
 		$this->assertEquals(4, $result);
@@ -95,11 +95,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals(array('2007-10-01', '2007-12-31'), $result);
 	}
 
-/**
- * provider for timeAgoInWords() tests
- *
- * @return array
- */
+	/**
+	 * provider for timeAgoInWords() tests
+	 *
+	 * @return array
+	 */
 	public static function timeAgoProvider() {
 		return array(
 			array('-12 seconds', '12 seconds ago'),
@@ -118,22 +118,22 @@ class CakeTimeTest extends CakeTestCase {
 		);
 	}
 
-/**
- * testTimeAgoInWords method
- *
- * @dataProvider timeAgoProvider
- * @return void
- */
+	/**
+	 * testTimeAgoInWords method
+	 *
+	 * @dataProvider timeAgoProvider
+	 * @return void
+	 */
 	public function testTimeAgoInWords($input, $expected) {
 		$result = $this->Time->timeAgoInWords($input);
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * provider for timeAgo with an end date.
- *
- * @return void
- */
+	/**
+	 * provider for timeAgo with an end date.
+	 *
+	 * @return void
+	 */
 	public function timeAgoEndProvider() {
 		return array(
 			array(
@@ -174,12 +174,12 @@ class CakeTimeTest extends CakeTestCase {
 		);
 	}
 
-/**
- * test the end option for timeAgoInWords
- *
- * @dataProvider timeAgoEndProvider
- * @return void
- */
+	/**
+	 * test the end option for timeAgoInWords
+	 *
+	 * @dataProvider timeAgoEndProvider
+	 * @return void
+	 */
 	public function testTimeAgoInWordsEnd($input, $expected, $end) {
 		$result = $this->Time->timeAgoInWords(
 			$input, array('end' => $end)
@@ -187,11 +187,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test the custom string options for timeAgoInWords
- *
- * @return void
- */
+	/**
+	 * test the custom string options for timeAgoInWords
+	 *
+	 * @return void
+	 */
 	public function testTimeAgoInWordsCustomStrings() {
 		$result = $this->Time->timeAgoInWords(
 			strtotime('-8 years -4 months -2 weeks -3 days'),
@@ -208,11 +208,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the accuracy option for timeAgoInWords()
- *
- * @return void
- */
+	/**
+	 * Test the accuracy option for timeAgoInWords()
+	 *
+	 * @return void
+	 */
 	public function testTimeAgoInWordsAccuracy() {
 		$result = $this->Time->timeAgoInWords(
 			strtotime('+8 years +4 months +2 weeks +3 days'),
@@ -264,11 +264,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the format option of timeAgoInWords()
- *
- * @return void
- */
+	/**
+	 * Test the format option of timeAgoInWords()
+	 *
+	 * @return void
+	 */
 	public function testTimeAgoInWordsWithFormat() {
 		$result = $this->Time->timeAgoInWords('2007-9-25', 'Y-m-d');
 		$this->assertEquals('on 2007-09-25', $result);
@@ -289,11 +289,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals('on ' . date('Y-m-d', strtotime('+2 months +2 days')), $result);
 	}
 
-/**
- * test timeAgoInWords() with negative values.
- *
- * @return void
- */
+	/**
+	 * test timeAgoInWords() with negative values.
+	 *
+	 * @return void
+	 */
 	public function testTimeAgoInWordsNegativeValues() {
 		$result = $this->Time->timeAgoInWords(
 			strtotime('-2 months -2 days'),
@@ -363,11 +363,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals('about a day ago', $result);
 	}
 
-/**
- * testNice method
- *
- * @return void
- */
+	/**
+	 * testNice method
+	 *
+	 * @return void
+	 */
 	public function testNice() {
 		$time = time() + 2 * DAY;
 		$this->assertEquals(date('D, M jS Y, H:i', $time), $this->Time->nice($time));
@@ -404,11 +404,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * testNiceShort method
- *
- * @return void
- */
+	/**
+	 * testNiceShort method
+	 *
+	 * @return void
+	 */
 	public function testNiceShort() {
 		$time = time();
 		$this->assertEquals('Today, ' . date('H:i', $time), $this->Time->niceShort($time));
@@ -437,11 +437,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * testDaysAsSql method
- *
- * @return void
- */
+	/**
+	 * testDaysAsSql method
+	 *
+	 * @return void
+	 */
 	public function testDaysAsSql() {
 		$begin = time();
 		$end = time() + DAY;
@@ -450,11 +450,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $this->Time->daysAsSql($begin, $end, $field));
 	}
 
-/**
- * testDayAsSql method
- *
- * @return void
- */
+	/**
+	 * testDayAsSql method
+	 *
+	 * @return void
+	 */
 	public function testDayAsSql() {
 		$time = time();
 		$field = 'my_field';
@@ -462,11 +462,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $this->Time->dayAsSql($time, $field));
 	}
 
-/**
- * testToUnix method
- *
- * @return void
- */
+	/**
+	 * testToUnix method
+	 *
+	 * @return void
+	 */
 	public function testToUnix() {
 		$this->assertEquals(time(), $this->Time->toUnix(time()));
 		$this->assertEquals(strtotime('+1 day'), $this->Time->toUnix('+1 day'));
@@ -476,11 +476,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals(false, $this->Time->toUnix(null));
 	}
 
-/**
- * testToServer method
- *
- * @return void
- */
+	/**
+	 * testToServer method
+	 *
+	 * @return void
+	 */
 	public function testToServer() {
 		date_default_timezone_set('Europe/Paris');
 
@@ -552,20 +552,20 @@ class CakeTimeTest extends CakeTestCase {
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * testToAtom method
- *
- * @return void
- */
+	/**
+	 * testToAtom method
+	 *
+	 * @return void
+	 */
 	public function testToAtom() {
 		$this->assertEquals(date('Y-m-d\TH:i:s\Z'), $this->Time->toAtom(time()));
 	}
 
-/**
- * testToRss method
- *
- * @return void
- */
+	/**
+	 * testToRss method
+	 *
+	 * @return void
+	 */
 	public function testToRss() {
 		$date = '2012-08-12 12:12:45';
 		$time = strtotime($date);
@@ -582,11 +582,11 @@ class CakeTimeTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testFormat method
- *
- * @return void
- */
+	/**
+	 * testFormat method
+	 *
+	 * @return void
+	 */
 	public function testFormat() {
 		$format = 'D-M-Y';
 		$tz = date_default_timezone_get();
@@ -609,11 +609,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals('invalid', $result);
 	}
 
-/**
- * testOfGmt method
- *
- * @return void
- */
+	/**
+	 * testOfGmt method
+	 *
+	 * @return void
+	 */
 	public function testGmt() {
 		$hour = 3;
 		$min = 4;
@@ -635,11 +635,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $this->Time->gmt(null));
 	}
 
-/**
- * testIsToday method
- *
- * @return void
- */
+	/**
+	 * testIsToday method
+	 *
+	 * @return void
+	 */
 	public function testIsToday() {
 		$result = $this->Time->isToday('+1 day');
 		$this->assertFalse($result);
@@ -651,11 +651,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testIsFuture method
- *
- * @return void
- */
+	/**
+	 * testIsFuture method
+	 *
+	 * @return void
+	 */
 	public function testIsFuture() {
 		$this->assertTrue($this->Time->isFuture('+1 month'));
 		$this->assertTrue($this->Time->isFuture('+1 days'));
@@ -668,11 +668,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($this->Time->isFuture('-1 month'));
 	}
 
-/**
- * testIsPast method
- *
- * @return void
- */
+	/**
+	 * testIsPast method
+	 *
+	 * @return void
+	 */
 	public function testIsPast() {
 		$this->assertFalse($this->Time->isPast('+1 month'));
 		$this->assertFalse($this->Time->isPast('+1 days'));
@@ -685,11 +685,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertTrue($this->Time->isPast('-1 month'));
 	}
 
-/**
- * testIsThisWeek method
- *
- * @return void
- */
+	/**
+	 * testIsThisWeek method
+	 *
+	 * @return void
+	 */
 	public function testIsThisWeek() {
 		// A map of days which goes from -1 day of week to +1 day of week
 		$map = array(
@@ -706,11 +706,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($this->Time->isThisWeek('+' . $days[1] . ' days'));
 	}
 
-/**
- * testIsThisMonth method
- *
- * @return void
- */
+	/**
+	 * testIsThisMonth method
+	 *
+	 * @return void
+	 */
 	public function testIsThisMonth() {
 		$result = $this->Time->isThisMonth('+0 day');
 		$this->assertTrue($result);
@@ -722,11 +722,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testIsThisYear method
- *
- * @return void
- */
+	/**
+	 * testIsThisYear method
+	 *
+	 * @return void
+	 */
 	public function testIsThisYear() {
 		$result = $this->Time->isThisYear('+0 day');
 		$this->assertTrue($result);
@@ -734,11 +734,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testWasYesterday method
- *
- * @return void
- */
+	/**
+	 * testWasYesterday method
+	 *
+	 * @return void
+	 */
 	public function testWasYesterday() {
 		$result = $this->Time->wasYesterday('+1 day');
 		$this->assertFalse($result);
@@ -754,11 +754,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testIsTomorrow method
- *
- * @return void
- */
+	/**
+	 * testIsTomorrow method
+	 *
+	 * @return void
+	 */
 	public function testIsTomorrow() {
 		$result = $this->Time->isTomorrow('+1 day');
 		$this->assertTrue($result);
@@ -770,11 +770,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
-/**
- * testWasWithinLast method
- *
- * @return void
- */
+	/**
+	 * testWasWithinLast method
+	 *
+	 * @return void
+	 */
 	public function testWasWithinLast() {
 		$this->assertTrue($this->Time->wasWithinLast('1 day', '-1 day'));
 		$this->assertTrue($this->Time->wasWithinLast('1 week', '-1 week'));
@@ -815,11 +815,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertTrue($this->Time->wasWithinLast('1   ', '-23 hours -59 minutes -59 seconds'));
 	}
 
-/**
- * testWasWithinLast method
- *
- * @return void
- */
+	/**
+	 * testWasWithinLast method
+	 *
+	 * @return void
+	 */
 	public function testIsWithinNext() {
 		$this->assertFalse($this->Time->isWithinNext('1 day', '-1 day'));
 		$this->assertFalse($this->Time->isWithinNext('1 week', '-1 week'));
@@ -863,11 +863,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertFalse($this->Time->isWithinNext('7 days', '6 days, 23 hours, 59 minutes, 61 seconds'));
 	}
 
-/**
- * testUserOffset method
- *
- * @return void
- */
+	/**
+	 * testUserOffset method
+	 *
+	 * @return void
+	 */
 	public function testUserOffset() {
 		$timezoneServer = new DateTimeZone(date_default_timezone_get());
 		$timeServer = new DateTime('now', $timezoneServer);
@@ -889,11 +889,11 @@ class CakeTimeTest extends CakeTestCase {
 		Configure::delete('Config.timezone');
 	}
 
-/**
- * test fromString()
- *
- * @return void
- */
+	/**
+	 * test fromString()
+	 *
+	 * @return void
+	 */
 	public function testFromString() {
 		$result = $this->Time->fromString('');
 		$this->assertFalse($result);
@@ -923,11 +923,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * test fromString() with a DateTime object as the dateString
- *
- * @return void
- */
+	/**
+	 * test fromString() with a DateTime object as the dateString
+	 *
+	 * @return void
+	 */
 	public function testFromStringWithDateTime() {
 		date_default_timezone_set('UTC');
 
@@ -950,11 +950,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->_restoreSystemTimezone();
 	}
 
-/**
- * Test that datetimes in the default timezone are not modified.
- *
- * @return void
- */
+	/**
+	 * Test that datetimes in the default timezone are not modified.
+	 *
+	 * @return void
+	 */
 	public function testFromStringWithDateTimeNoConversion() {
 		Configure::write('Config.timezone', date_default_timezone_get());
 		$date = new DateTime('2013-04-09');
@@ -962,11 +962,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($result, $date->format('U'));
 	}
 
-/**
- * test converting time specifiers using a time definition localfe file
- *
- * @return void
- */
+	/**
+	 * test converting time specifiers using a time definition localfe file
+	 *
+	 * @return void
+	 */
 	public function testConvertSpecifiers() {
 		App::build(array(
 			'Locale' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Locale' . DS)
@@ -1051,11 +1051,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test convert %e on windows.
- *
- * @return void
- */
+	/**
+	 * test convert %e on windows.
+	 *
+	 * @return void
+	 */
 	public function testConvertPercentE() {
 		$this->skipIf(DIRECTORY_SEPARATOR !== '\\', 'Cannot run windows tests on non-windows OS.');
 
@@ -1069,11 +1069,11 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test formatting dates taking in account preferred i18n locale file
- *
- * @return void
- */
+	/**
+	 * test formatting dates taking in account preferred i18n locale file
+	 *
+	 * @return void
+	 */
 	public function testI18nFormat() {
 		App::build(array(
 			'Locale' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Locale' . DS)
@@ -1113,22 +1113,22 @@ class CakeTimeTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test new format() syntax which inverts first and second parameters
- *
- * @return void
- */
+	/**
+	 * test new format() syntax which inverts first and second parameters
+	 *
+	 * @return void
+	 */
 	public function testFormatNewSyntax() {
 		$time = time();
 		$this->assertEquals($this->Time->format($time), $this->Time->i18nFormat($time));
 		$this->assertEquals($this->Time->format($time, '%c'), $this->Time->i18nFormat($time, '%c'));
 	}
 
-/**
- * testListTimezones
- *
- * @return void
- */
+	/**
+	 * testListTimezones
+	 *
+	 * @return void
+	 */
 	public function testListTimezones() {
 		$return = CakeTime::listTimezones();
 		$this->assertTrue(isset($return['Asia']['Asia/Bangkok']));
@@ -1158,12 +1158,12 @@ class CakeTimeTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Tests that using CakeTime::format() with the correct sytax actually converts
- * from one timezone to the other correctly
- *
- * @return void
- */
+	/**
+	 * Tests that using CakeTime::format() with the correct sytax actually converts
+	 * from one timezone to the other correctly
+	 *
+	 * @return void
+	 */
 	public function testCorrectTimezoneConversion() {
 		date_default_timezone_set('UTC');
 		$date = '2012-01-01 10:00:00';

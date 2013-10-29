@@ -29,11 +29,11 @@ App::uses('View', 'View');
  */
 class JqueryEngineHelperTest extends CakeTestCase {
 
-/**
- * setUp
- *
- * @return void
- */
+	/**
+	 * setUp
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$controller = null;
@@ -41,21 +41,21 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->Jquery = new JqueryEngineHelper($this->View);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Jquery);
 	}
 
-/**
- * test selector method
- *
- * @return void
- */
+	/**
+	 * test selector method
+	 *
+	 * @return void
+	 */
 	public function testSelector() {
 		$result = $this->Jquery->get('#content');
 		$this->assertEquals($this->Jquery, $result);
@@ -74,11 +74,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($this->Jquery->selection, '$("ul")');
 	}
 
-/**
- * test event binding
- *
- * @return void
- */
+	/**
+	 * test event binding
+	 *
+	 * @return void
+	 */
 	public function testEvent() {
 		$this->Jquery->get('#myLink');
 		$result = $this->Jquery->event('click', 'doClick', array('wrap' => false));
@@ -94,22 +94,22 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test dom ready event creation
- *
- * @return void
- */
+	/**
+	 * test dom ready event creation
+	 *
+	 * @return void
+	 */
 	public function testDomReady() {
 		$result = $this->Jquery->domReady('foo.name = "bar";');
 		$expected = '$(document).ready(function () {foo.name = "bar";});';
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Each method
- *
- * @return void
- */
+	/**
+	 * test Each method
+	 *
+	 * @return void
+	 */
 	public function testEach() {
 		$this->Jquery->get('#foo');
 		$result = $this->Jquery->each('$(this).hide();');
@@ -117,11 +117,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Effect generation
- *
- * @return void
- */
+	/**
+	 * test Effect generation
+	 *
+	 * @return void
+	 */
 	public function testEffect() {
 		$this->Jquery->get('#foo');
 		$result = $this->Jquery->effect('show');
@@ -161,11 +161,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test Request Generation
- *
- * @return void
- */
+	/**
+	 * Test Request Generation
+	 *
+	 * @return void
+	 */
 	public function testRequest() {
 		$result = $this->Jquery->request(array('controller' => 'posts', 'action' => 'view', 1));
 		$expected = '$.ajax({url:"\\/posts\\/view\\/1"});';
@@ -221,11 +221,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that querystring arguments are not double escaped.
- *
- * @return void
- */
+	/**
+	 * Test that querystring arguments are not double escaped.
+	 *
+	 * @return void
+	 */
 	public function testRequestWithQueryStringArguments() {
 		$url = '/users/search/sort:User.name/direction:desc?nome=&cpm=&audience=public';
 		$result = $this->Jquery->request($url);
@@ -233,11 +233,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that alternate jQuery object values work for request()
- *
- * @return void
- */
+	/**
+	 * test that alternate jQuery object values work for request()
+	 *
+	 * @return void
+	 */
 	public function testRequestWithAlternateJqueryObject() {
 		$this->Jquery->jQueryObject = '$j';
 
@@ -253,11 +253,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test sortable list generation
- *
- * @return void
- */
+	/**
+	 * test sortable list generation
+	 *
+	 * @return void
+	 */
 	public function testSortable() {
 		$this->Jquery->get('#myList');
 		$result = $this->Jquery->sortable(array(
@@ -282,11 +282,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test drag() method
- *
- * @return void
- */
+	/**
+	 * test drag() method
+	 *
+	 * @return void
+	 */
 	public function testDrag() {
 		$this->Jquery->get('#element');
 		$result = $this->Jquery->drag(array(
@@ -311,11 +311,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test drop() method
- *
- * @return void
- */
+	/**
+	 * test drop() method
+	 *
+	 * @return void
+	 */
 	public function testDrop() {
 		$this->Jquery->get('#element');
 		$result = $this->Jquery->drop(array(
@@ -338,11 +338,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test slider generation
- *
- * @return void
- */
+	/**
+	 * test slider generation
+	 *
+	 * @return void
+	 */
 	public function testSlider() {
 		$this->Jquery->get('#element');
 		$result = $this->Jquery->slider(array(
@@ -369,11 +369,11 @@ class JqueryEngineHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test the serializeForm method
- *
- * @return void
- */
+	/**
+	 * test the serializeForm method
+	 *
+	 * @return void
+	 */
 	public function testSerializeForm() {
 		$this->Jquery->get('#element');
 		$result = $this->Jquery->serializeForm(array('isForm' => false));

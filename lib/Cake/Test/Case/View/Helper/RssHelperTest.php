@@ -30,11 +30,11 @@ App::uses('File', 'Utility');
  */
 class RssHelperTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$controller = null;
@@ -42,21 +42,21 @@ class RssHelperTest extends CakeTestCase {
 		$this->Rss = new RssHelper($this->View);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Rss);
 	}
 
-/**
- * testDocument method
- *
- * @return void
- */
+	/**
+	 * testDocument method
+	 *
+	 * @return void
+	 */
 	public function testDocument() {
 		$result = $this->Rss->document();
 		$expected = array(
@@ -86,11 +86,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * testChannel method
- *
- * @return void
- */
+	/**
+	 * testChannel method
+	 *
+	 * @return void
+	 */
 	public function testChannel() {
 		$attrib = array('a' => '1', 'b' => '2');
 		$elements = array('title' => 'Title');
@@ -115,11 +115,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test correct creation of channel sub elements.
- *
- * @return void
- */
+	/**
+	 * test correct creation of channel sub elements.
+	 *
+	 * @return void
+	 */
 	public function testChannelElements() {
 		$attrib = array();
 		$elements = array(
@@ -206,11 +206,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * testItems method
- *
- * @return void
- */
+	/**
+	 * testItems method
+	 *
+	 * @return void
+	 */
 	public function testItems() {
 		$items = array(
 			array('title' => 'title1', 'guid' => 'http://www.example.com/guid1', 'link' => 'http://www.example.com/link1', 'description' => 'description1'),
@@ -275,11 +275,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testItem method
- *
- * @return void
- */
+	/**
+	 * testItem method
+	 *
+	 * @return void
+	 */
 	public function testItem() {
 		$item = array(
 			'title' => 'My title',
@@ -448,11 +448,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test item() with cdata blocks.
- *
- * @return void
- */
+	/**
+	 * test item() with cdata blocks.
+	 *
+	 * @return void
+	 */
 	public function testItemCdata() {
 		$item = array(
 			'title' => array(
@@ -571,11 +571,11 @@ class RssHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test item() with enclosure data.
- *
- * @return void
- */
+	/**
+	 * test item() with enclosure data.
+	 *
+	 * @return void
+	 */
 	public function testItemEnclosureLength() {
 		if (!is_writable(WWW_ROOT)) {
 			$this->markTestSkipped(__d('cake_dev', 'Webroot is not writable.'));
@@ -670,11 +670,11 @@ class RssHelperTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testElementAttrNotInParent method
- *
- * @return void
- */
+	/**
+	 * testElementAttrNotInParent method
+	 *
+	 * @return void
+	 */
 	public function testElementAttrNotInParent() {
 		$attributes = array(
 			'title' => 'Some Title',

@@ -30,53 +30,53 @@ App::uses('File', 'Utility');
  */
 class CakeSchema extends Object {
 
-/**
- * Name of the schema
- *
- * @var string
- */
+	/**
+	 * Name of the schema
+	 *
+	 * @var string
+	 */
 	public $name = null;
 
-/**
- * Path to write location
- *
- * @var string
- */
+	/**
+	 * Path to write location
+	 *
+	 * @var string
+	 */
 	public $path = null;
 
-/**
- * File to write
- *
- * @var string
- */
+	/**
+	 * File to write
+	 *
+	 * @var string
+	 */
 	public $file = 'schema.php';
 
-/**
- * Connection used for read
- *
- * @var string
- */
+	/**
+	 * Connection used for read
+	 *
+	 * @var string
+	 */
 	public $connection = 'default';
 
-/**
- * plugin name.
- *
- * @var string
- */
+	/**
+	 * plugin name.
+	 *
+	 * @var string
+	 */
 	public $plugin = null;
 
-/**
- * Set of tables
- *
- * @var array
- */
+	/**
+	 * Set of tables
+	 *
+	 * @var array
+	 */
 	public $tables = array();
 
-/**
- * Constructor
- *
- * @param array $options optional load object properties
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $options optional load object properties
+	 */
 	public function __construct($options = array()) {
 		parent::__construct();
 
@@ -99,12 +99,12 @@ class CakeSchema extends Object {
 		$this->build($options);
 	}
 
-/**
- * Builds schema object properties
- *
- * @param array $data loaded object properties
- * @return void
- */
+	/**
+	 * Builds schema object properties
+	 *
+	 * @param array $data loaded object properties
+	 * @return void
+	 */
 	public function build($data) {
 		$file = null;
 		foreach ($data as $key => $val) {
@@ -130,31 +130,31 @@ class CakeSchema extends Object {
 		}
 	}
 
-/**
- * Before callback to be implemented in subclasses
- *
- * @param array $event schema object properties
- * @return boolean Should process continue
- */
+	/**
+	 * Before callback to be implemented in subclasses
+	 *
+	 * @param array $event schema object properties
+	 * @return boolean Should process continue
+	 */
 	public function before($event = array()) {
 		return true;
 	}
 
-/**
- * After callback to be implemented in subclasses
- *
- * @param array $event schema object properties
- * @return void
- */
+	/**
+	 * After callback to be implemented in subclasses
+	 *
+	 * @param array $event schema object properties
+	 * @return void
+	 */
 	public function after($event = array()) {
 	}
 
-/**
- * Reads database and creates schema tables
- *
- * @param array $options schema object properties
- * @return array Set of name and tables
- */
+	/**
+	 * Reads database and creates schema tables
+	 *
+	 * @param array $options schema object properties
+	 * @return array Set of name and tables
+	 */
 	public function load($options = array()) {
 		if (is_string($options)) {
 			$options = array('path' => $options);
@@ -180,18 +180,18 @@ class CakeSchema extends Object {
 		return false;
 	}
 
-/**
- * Reads database and creates schema tables
- *
- * Options
- *
- * - 'connection' - the db connection to use
- * - 'name' - name of the schema
- * - 'models' - a list of models to use, or false to ignore models
- *
- * @param array $options schema object properties
- * @return array Array indexed by name and tables
- */
+	/**
+	 * Reads database and creates schema tables
+	 *
+	 * Options
+	 *
+	 * - 'connection' - the db connection to use
+	 * - 'name' - name of the schema
+	 * - 'models' - a list of models to use, or false to ignore models
+	 *
+	 * @param array $options schema object properties
+	 * @return array Array indexed by name and tables
+	 */
 	public function read($options = array()) {
 		extract(array_merge(
 			array(
@@ -342,13 +342,13 @@ class CakeSchema extends Object {
 		return compact('name', 'tables');
 	}
 
-/**
- * Writes schema file from object or options
- *
- * @param array|object $object schema object or options array
- * @param array $options schema object properties to override object
- * @return mixed false or string written to file
- */
+	/**
+	 * Writes schema file from object or options
+	 *
+	 * @param array|object $object schema object or options array
+	 * @param array $options schema object properties to override object
+	 * @return mixed false or string written to file
+	 */
 	public function write($object, $options = array()) {
 		if (is_object($object)) {
 			$object = get_object_vars($object);
@@ -399,14 +399,14 @@ class CakeSchema extends Object {
 		return false;
 	}
 
-/**
- * Generate the code for a table. Takes a table name and $fields array
- * Returns a completed variable declaration to be used in schema classes
- *
- * @param string $table Table name you want returned.
- * @param array $fields Array of field information to generate the table with.
- * @return string Variable declaration for a schema class
- */
+	/**
+	 * Generate the code for a table. Takes a table name and $fields array
+	 * Returns a completed variable declaration to be used in schema classes
+	 *
+	 * @param string $table Table name you want returned.
+	 * @param array $fields Array of field information to generate the table with.
+	 * @return string Variable declaration for a schema class
+	 */
 	public function generateTable($table, $fields) {
 		$out = "\tpublic \${$table} = array(\n";
 		if (is_array($fields)) {
@@ -444,13 +444,13 @@ class CakeSchema extends Object {
 		return $out;
 	}
 
-/**
- * Compares two sets of schemas
- *
- * @param array|object $old Schema object or array
- * @param array|object $new Schema object or array
- * @return array Tables (that are added, dropped, or changed)
- */
+	/**
+	 * Compares two sets of schemas
+	 *
+	 * @param array|object $old Schema object or array
+	 * @param array|object $new Schema object or array
+	 * @return array Tables (that are added, dropped, or changed)
+	 */
 	public function compare($old, $new = null) {
 		if (empty($new)) {
 			$new = $this;
@@ -530,19 +530,19 @@ class CakeSchema extends Object {
 		return $tables;
 	}
 
-/**
- * Extended array_diff_assoc noticing change from/to NULL values
- *
- * It behaves almost the same way as array_diff_assoc except for NULL values: if
- * one of the values is not NULL - change is detected. It is useful in situation
- * where one value is strval('') ant other is strval(null) - in string comparing
- * methods this results as EQUAL, while it is not.
- *
- * @param array $array1 Base array
- * @param array $array2 Corresponding array checked for equality
- * @return array Difference as array with array(keys => values) from input array
- *     where match was not found.
- */
+	/**
+	 * Extended array_diff_assoc noticing change from/to NULL values
+	 *
+	 * It behaves almost the same way as array_diff_assoc except for NULL values: if
+	 * one of the values is not NULL - change is detected. It is useful in situation
+	 * where one value is strval('') ant other is strval(null) - in string comparing
+	 * methods this results as EQUAL, while it is not.
+	 *
+	 * @param array $array1 Base array
+	 * @param array $array2 Corresponding array checked for equality
+	 * @return array Difference as array with array(keys => values) from input array
+	 *     where match was not found.
+	 */
 	protected function _arrayDiffAssoc($array1, $array2) {
 		$difference = array();
 		foreach ($array1 as $key => $value) {
@@ -570,12 +570,12 @@ class CakeSchema extends Object {
 		return $difference;
 	}
 
-/**
- * Formats Schema columns from Model Object
- *
- * @param array $values options keys(type, null, default, key, length, extra)
- * @return array Formatted values
- */
+	/**
+	 * Formats Schema columns from Model Object
+	 *
+	 * @param array $values options keys(type, null, default, key, length, extra)
+	 * @return array Formatted values
+	 */
 	protected function _values($values) {
 		$vals = array();
 		if (is_array($values)) {
@@ -598,12 +598,12 @@ class CakeSchema extends Object {
 		return $vals;
 	}
 
-/**
- * Formats Schema columns from Model Object
- *
- * @param array $Obj model object
- * @return array Formatted columns
- */
+	/**
+	 * Formats Schema columns from Model Object
+	 *
+	 * @param array $Obj model object
+	 * @return array Formatted columns
+	 */
 	protected function _columns(&$Obj) {
 		$db = $Obj->getDataSource();
 		$fields = $Obj->schema(true);
@@ -641,13 +641,13 @@ class CakeSchema extends Object {
 		return $columns;
 	}
 
-/**
- * Compare two schema files table Parameters
- *
- * @param array $new New indexes
- * @param array $old Old indexes
- * @return mixed False on failure, or an array of parameters to add & drop.
- */
+	/**
+	 * Compare two schema files table Parameters
+	 *
+	 * @param array $new New indexes
+	 * @param array $old Old indexes
+	 * @return mixed False on failure, or an array of parameters to add & drop.
+	 */
 	protected function _compareTableParameters($new, $old) {
 		if (!is_array($new) || !is_array($old)) {
 			return false;
@@ -656,13 +656,13 @@ class CakeSchema extends Object {
 		return $change;
 	}
 
-/**
- * Compare two schema indexes
- *
- * @param array $new New indexes
- * @param array $old Old indexes
- * @return mixed false on failure or array of indexes to add and drop
- */
+	/**
+	 * Compare two schema indexes
+	 *
+	 * @param array $new New indexes
+	 * @param array $old Old indexes
+	 * @return mixed false on failure or array of indexes to add and drop
+	 */
 	protected function _compareIndexes($new, $old) {
 		if (!is_array($new) || !is_array($old)) {
 			return false;
@@ -707,13 +707,13 @@ class CakeSchema extends Object {
 		return array_filter(compact('add', 'drop'));
 	}
 
-/**
- * Trim the table prefix from the full table name, and return the prefix-less table
- *
- * @param string $prefix Table prefix
- * @param string $table Full table name
- * @return string Prefix-less table name
- */
+	/**
+	 * Trim the table prefix from the full table name, and return the prefix-less table
+	 *
+	 * @param string $prefix Table prefix
+	 * @param string $table Full table name
+	 * @return string Prefix-less table name
+	 */
 	protected function _noPrefixTable($prefix, $table) {
 		return preg_replace('/^' . preg_quote($prefix) . '/', '', $table);
 	}

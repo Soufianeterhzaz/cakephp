@@ -57,23 +57,23 @@ class OptionEngineHelper extends JsBaseEngineHelper {
 		)
 	);
 
-/**
- * test method for testing option mapping
- *
- * @param array $options
- * @return array
- */
+	/**
+	 * test method for testing option mapping
+	 *
+	 * @param array $options
+	 * @return array
+	 */
 	public function testMap($options = array()) {
 		return $this->_mapOptions('request', $options);
 	}
 
-/**
- * test method for option parsing
- *
- * @param $options
- * @param array $safe
- * @return void
- */
+	/**
+	 * test method for option parsing
+	 *
+	 * @param $options
+	 * @param array $safe
+	 * @return void
+	 */
 	public function testParseOptions($options, $safe = array()) {
 		return $this->_parseOptions($options, $safe);
 	}
@@ -120,25 +120,25 @@ class OptionEngineHelper extends JsBaseEngineHelper {
  */
 class JsHelperTest extends CakeTestCase {
 
-/**
- * Regexp for CDATA start block
- *
- * @var string
- */
+	/**
+	 * Regexp for CDATA start block
+	 *
+	 * @var string
+	 */
 	public $cDataStart = 'preg:/^\/\/<!\[CDATA\[[\n\r]*/';
 
-/**
- * Regexp for CDATA end block
- *
- * @var string
- */
+	/**
+	 * Regexp for CDATA end block
+	 *
+	 * @var string
+	 */
 	public $cDataEnd = 'preg:/[^\]]*\]\]\>[\s\r\n]*/';
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -158,21 +158,21 @@ class JsHelperTest extends CakeTestCase {
 		$this->Js->OptionEngine = new OptionEngineHelper($this->View);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Js);
 	}
 
-/**
- * Switches $this->Js to a mocked engine.
- *
- * @return void
- */
+	/**
+	 * Switches $this->Js to a mocked engine.
+	 *
+	 * @return void
+	 */
 	protected function _useMock() {
 		$request = new CakeRequest(null, false);
 
@@ -191,11 +191,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->Js->Form->Html = new HtmlHelper($this->View);
 	}
 
-/**
- * test object construction
- *
- * @return void
- */
+	/**
+	 * test object construction
+	 *
+	 * @return void
+	 */
 	public function testConstruction() {
 		$js = new JsHelper($this->View);
 		$this->assertEquals(array('Html', 'Form', 'JqueryEngine'), $js->helpers);
@@ -210,12 +210,12 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertEquals(array('Html', 'Form', 'MyPlugin.DojoEngine'), $js->helpers);
 	}
 
-/**
- * test that methods dispatch internally and to the engine class
- *
- * @expectedException PHPUnit_Framework_Error_Warning
- * @return void
- */
+	/**
+	 * test that methods dispatch internally and to the engine class
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @return void
+	 */
 	public function testMethodDispatching() {
 		$this->_useMock();
 
@@ -230,11 +230,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->Js->someMethodThatSurelyDoesntExist();
 	}
 
-/**
- * Test that method dispatching for events respects buffer parameters and bufferedMethods Lists.
- *
- * @return void
- */
+	/**
+	 * Test that method dispatching for events respects buffer parameters and bufferedMethods Lists.
+	 *
+	 * @return void
+	 */
 	public function testEventDispatchWithBuffering() {
 		$this->_useMock();
 
@@ -259,11 +259,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertEquals('This is an event call', $result);
 	}
 
-/**
- * Test that method dispatching for effects respects buffer parameters and bufferedMethods Lists.
- *
- * @return void
- */
+	/**
+	 * Test that method dispatching for effects respects buffer parameters and bufferedMethods Lists.
+	 *
+	 * @return void
+	 */
 	public function testEffectDispatchWithBuffering() {
 		$this->_useMock();
 		$this->Js->TestJsEngine->expects($this->exactly(4))
@@ -294,11 +294,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertEquals('I am not buffered.', $buffer[0]);
 	}
 
-/**
- * test that writeScripts generates scripts inline.
- *
- * @return void
- */
+	/**
+	 * test that writeScripts generates scripts inline.
+	 *
+	 * @return void
+	 */
 	public function testWriteScriptsNoFile() {
 		$this->_useMock();
 		$this->Js->buffer('one = 1;');
@@ -322,11 +322,11 @@ class JsHelperTest extends CakeTestCase {
 		$result = $this->Js->writeBuffer(array('onDomReady' => false, 'inline' => false, 'cache' => false));
 	}
 
-/**
- * test that writing the buffer with inline = false includes a script tag.
- *
- * @return void
- */
+	/**
+	 * test that writing the buffer with inline = false includes a script tag.
+	 *
+	 * @return void
+	 */
 	public function testWriteBufferNotInline() {
 		$this->Js->set('foo', 1);
 
@@ -337,12 +337,12 @@ class JsHelperTest extends CakeTestCase {
 		$this->Js->writeBuffer(array('onDomReady' => false, 'inline' => false, 'safe' => false));
 	}
 
-/**
- * test that writeBuffer() sets domReady = false when the request is done by XHR.
- * Including a domReady() when in XHR can cause issues as events aren't triggered by some libraries
- *
- * @return void
- */
+	/**
+	 * test that writeBuffer() sets domReady = false when the request is done by XHR.
+	 * Including a domReady() when in XHR can cause issues as events aren't triggered by some libraries
+	 *
+	 * @return void
+	 */
 	public function testWriteBufferAndXhr() {
 		$this->_useMock();
 		$requestWith = null;
@@ -361,11 +361,11 @@ class JsHelperTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test that writeScripts makes files, and puts the events into them.
- *
- * @return void
- */
+	/**
+	 * test that writeScripts makes files, and puts the events into them.
+	 *
+	 * @return void
+	 */
 	public function testWriteScriptsInFile() {
 		$this->skipIf(!is_writable(JS), 'webroot/js is not Writable, script caching test has been skipped.');
 
@@ -395,11 +395,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertFalse(file_exists(WWW_ROOT . $filename[1]));
 	}
 
-/**
- * test link()
- *
- * @return void
- */
+	/**
+	 * test link()
+	 *
+	 * @return void
+	 */
 	public function testLinkWithMock() {
 		$this->_useMock();
 
@@ -426,11 +426,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test link with a mock and confirmation
- *
- * @return void
- */
+	/**
+	 * test link with a mock and confirmation
+	 *
+	 * @return void
+	 */
 	public function testLinkWithMockAndConfirm() {
 		$this->_useMock();
 
@@ -463,11 +463,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test link passing on htmlAttributes
- *
- * @return void
- */
+	/**
+	 * test link passing on htmlAttributes
+	 *
+	 * @return void
+	 */
 	public function testLinkWithAribtraryAttributes() {
 		$this->_useMock();
 
@@ -482,11 +482,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test that link() and no buffering returns an <a> and <script> tags.
- *
- * @return void
- */
+	/**
+	 * test that link() and no buffering returns an <a> and <script> tags.
+	 *
+	 * @return void
+	 */
 	public function testLinkWithNoBuffering() {
 		$this->_useMock();
 
@@ -514,11 +514,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test link with buffering off and safe on.
- *
- * @return void
- */
+	/**
+	 * test link with buffering off and safe on.
+	 *
+	 * @return void
+	 */
 	public function testLinkWithNoBufferingAndSafe() {
 		$this->_useMock();
 
@@ -545,11 +545,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test submit() with a Mock to check Engine method calls
- *
- * @return void
- */
+	/**
+	 * test submit() with a Mock to check Engine method calls
+	 *
+	 * @return void
+	 */
 	public function testSubmitWithMock() {
 		$this->_useMock();
 
@@ -584,11 +584,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test submit() with a mock
- *
- * @return void
- */
+	/**
+	 * test submit() with a mock
+	 *
+	 * @return void
+	 */
 	public function testSubmitWithMockRequestParams() {
 		$this->_useMock();
 
@@ -630,11 +630,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * test that no buffer works with submit() and that parameters are leaking into the script tag.
- *
- * @return void
- */
+	/**
+	 * test that no buffer works with submit() and that parameters are leaking into the script tag.
+	 *
+	 * @return void
+	 */
 	public function testSubmitWithNoBuffer() {
 		$this->_useMock();
 		$options = array('update' => '#content', 'id' => 'test-submit', 'buffer' => false, 'safe' => false);
@@ -675,34 +675,34 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertTags($result, $expected);
 	}
 
-/**
- * Test that Object::Object() is not breaking json output in JsHelper
- *
- * @return void
- */
+	/**
+	 * Test that Object::Object() is not breaking json output in JsHelper
+	 *
+	 * @return void
+	 */
 	public function testObjectPassThrough() {
 		$result = $this->Js->object(array('one' => 'first', 'two' => 'second'));
 		$expected = '{"one":"first","two":"second"}';
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that inherited Helper::value() is overwritten in JsHelper::value()
- * and calls JsBaseEngineHelper::value().
- *
- * @return void
- */
+	/**
+	 * Test that inherited Helper::value() is overwritten in JsHelper::value()
+	 * and calls JsBaseEngineHelper::value().
+	 *
+	 * @return void
+	 */
 	public function testValuePassThrough() {
 		$result = $this->Js->value('string "quote"', true);
 		$expected = '"string \"quote\""';
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test set()'ing variables to the JavaScript buffer and controlling the output var name.
- *
- * @return void
- */
+	/**
+	 * test set()'ing variables to the JavaScript buffer and controlling the output var name.
+	 *
+	 * @return void
+	 */
 	public function testSet() {
 		$this->Js->set('loggedIn', true);
 		$this->Js->set(array('height' => 'tall', 'color' => 'purple'));
@@ -725,11 +725,11 @@ class JsHelperTest extends CakeTestCase {
 		$this->assertEquals($expected, $result[0]);
 	}
 
-/**
- * test that vars set with Js->set() go to the top of the buffered scripts list.
- *
- * @return void
- */
+	/**
+	 * test that vars set with Js->set() go to the top of the buffered scripts list.
+	 *
+	 * @return void
+	 */
 	public function testSetVarsAtTopOfBufferedScripts() {
 		$this->Js->set(array('height' => 'tall', 'color' => 'purple'));
 		$this->Js->alert('hey you!', array('buffer' => true));
@@ -751,11 +751,11 @@ class JsHelperTest extends CakeTestCase {
  */
 class JsBaseEngineTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$controller = null;
@@ -763,21 +763,21 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->JsEngine = new OptionEngineHelper($this->View);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->JsEngine);
 	}
 
-/**
- * test escape string skills
- *
- * @return void
- */
+	/**
+	 * test escape string skills
+	 *
+	 * @return void
+	 */
 	public function testEscaping() {
 		$result = $this->JsEngine->escape('');
 		$expected = '';
@@ -804,11 +804,11 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test prompt() creation
- *
- * @return void
- */
+	/**
+	 * test prompt() creation
+	 *
+	 * @return void
+	 */
 	public function testPrompt() {
 		$result = $this->JsEngine->prompt('Hey, hey you', 'hi!');
 		$expected = 'prompt("Hey, hey you", "hi!");';
@@ -819,11 +819,11 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test alert generation
- *
- * @return void
- */
+	/**
+	 * test alert generation
+	 *
+	 * @return void
+	 */
 	public function testAlert() {
 		$result = $this->JsEngine->alert('Hey there');
 		$expected = 'alert("Hey there");';
@@ -834,11 +834,11 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test confirm generation
- *
- * @return void
- */
+	/**
+	 * test confirm generation
+	 *
+	 * @return void
+	 */
 	public function testConfirm() {
 		$result = $this->JsEngine->confirm('Are you sure?');
 		$expected = 'confirm("Are you sure?");';
@@ -849,22 +849,22 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Redirect
- *
- * @return void
- */
+	/**
+	 * test Redirect
+	 *
+	 * @return void
+	 */
 	public function testRedirect() {
 		$result = $this->JsEngine->redirect(array('controller' => 'posts', 'action' => 'view', 1));
 		$expected = 'window.location = "/posts/view/1";';
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testObject encoding with non-native methods.
- *
- * @return void
- */
+	/**
+	 * testObject encoding with non-native methods.
+	 *
+	 * @return void
+	 */
 	public function testObject() {
 		$object = array('title' => 'New thing', 'indexes' => array(5, 6, 7, 8));
 		$result = $this->JsEngine->object($object);
@@ -915,11 +915,11 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertNotRegExp('/.POSTFIX./', $result);
 	}
 
-/**
- * test Mapping of options.
- *
- * @return void
- */
+	/**
+	 * test Mapping of options.
+	 *
+	 * @return void
+	 */
 	public function testOptionMapping() {
 		$JsEngine = new OptionEngineHelper($this->View);
 		$result = $JsEngine->testMap();
@@ -935,11 +935,11 @@ class JsBaseEngineTest extends CakeTestCase {
 		$this->assertEquals(array('success' => 'myFunc', 'dataType' => 'json', 'update' => '#element'), $result);
 	}
 
-/**
- * test that option parsing escapes strings and saves what is supposed to be saved.
- *
- * @return void
- */
+	/**
+	 * test that option parsing escapes strings and saves what is supposed to be saved.
+	 *
+	 * @return void
+	 */
 	public function testOptionParsing() {
 		$JsEngine = new OptionEngineHelper($this->View);
 

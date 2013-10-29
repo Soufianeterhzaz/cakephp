@@ -113,28 +113,28 @@ class DboSecondTestSource extends DboSource {
  */
 class DboSourceTest extends CakeTestCase {
 
-/**
- * autoFixtures property
- *
- * @var boolean
- */
+	/**
+	 * autoFixtures property
+	 *
+	 * @var boolean
+	 */
 	public $autoFixtures = false;
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array(
 		'core.apple', 'core.article', 'core.articles_tag', 'core.attachment', 'core.comment',
 		'core.sample', 'core.tag', 'core.user', 'core.post', 'core.author', 'core.data_test'
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->__config = $this->db->config;
@@ -147,21 +147,21 @@ class DboSourceTest extends CakeTestCase {
 		$this->Model = new TestModel();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Model);
 	}
 
-/**
- * test that booleans and null make logical condition strings.
- *
- * @return void
- */
+	/**
+	 * test that booleans and null make logical condition strings.
+	 *
+	 * @return void
+	 */
 	public function testBooleanNullConditionsParsing() {
 		$result = $this->testDb->conditions(true);
 		$this->assertEquals(' WHERE 1 = 1', $result, 'true conditions failed %s');
@@ -182,11 +182,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals(' WHERE 1 = 1', $result);
 	}
 
-/**
- * test that booleans work on empty set.
- *
- * @return void
- */
+	/**
+	 * test that booleans work on empty set.
+	 *
+	 * @return void
+	 */
 	public function testBooleanEmptyConditionsParsing() {
 		$result = $this->testDb->conditions(array('OR' => array()));
 		$this->assertEquals(' WHERE  1 = 1', $result, 'empty conditions failed');
@@ -195,11 +195,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals(' WHERE  1 = 1', $result, 'nested empty conditions failed');
 	}
 
-/**
- * test that order() will accept objects made from DboSource::expression
- *
- * @return void
- */
+	/**
+	 * test that order() will accept objects made from DboSource::expression
+	 *
+	 * @return void
+	 */
 	public function testOrderWithExpression() {
 		$expression = $this->testDb->expression("CASE Sample.id WHEN 1 THEN 'Id One' ELSE 'Other Id' END AS case_col");
 		$result = $this->testDb->order($expression);
@@ -207,11 +207,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testMergeAssociations method
- *
- * @return void
- */
+	/**
+	 * testMergeAssociations method
+	 *
+	 * @return void
+	 */
 	public function testMergeAssociations() {
 		$data = array('Article2' => array(
 				'id' => '1', 'user_id' => '1', 'title' => 'First Article',
@@ -480,11 +480,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $data);
 	}
 
-/**
- * testMagicMethodQuerying method
- *
- * @return void
- */
+	/**
+	 * testMagicMethodQuerying method
+	 *
+	 * @return void
+	 */
 	public function testMagicMethodQuerying() {
 		$result = $this->db->query('findByFieldName', array('value'), $this->Model);
 		$expected = array('first', array(
@@ -542,20 +542,20 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- *
- * @expectedException PDOException
- * @return void
- */
+	/**
+	 *
+	 * @expectedException PDOException
+	 * @return void
+	 */
 	public function testDirectCallThrowsException() {
 		$this->db->query('directCall', array(), $this->Model);
 	}
 
-/**
- * testValue method
- *
- * @return void
- */
+	/**
+	 * testValue method
+	 *
+	 * @return void
+	 */
 	public function testValue() {
 		if ($this->db instanceof Sqlserver) {
 			$this->markTestSkipped('Cannot run this test with SqlServer');
@@ -568,22 +568,22 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests if the connection can be re-established and that the new (optional) config is set.
- *
- * @return void
- */
+	/**
+	 * Tests if the connection can be re-established and that the new (optional) config is set.
+	 *
+	 * @return void
+	 */
 	public function testReconnect() {
 		$this->testDb->reconnect(array('prefix' => 'foo'));
 		$this->assertTrue($this->testDb->connected);
 		$this->assertEquals('foo', $this->testDb->config['prefix']);
 	}
 
-/**
- * testName method
- *
- * @return void
- */
+	/**
+	 * testName method
+	 *
+	 * @return void
+	 */
 	public function testName() {
 		$result = $this->testDb->name('name');
 		$expected = '`name`';
@@ -642,11 +642,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that cacheMethod works as expected
- *
- * @return void
- */
+	/**
+	 * test that cacheMethod works as expected
+	 *
+	 * @return void
+	 */
 	public function testCacheMethod() {
 		$this->testDb->cacheMethods = true;
 		$result = $this->testDb->cacheMethod('name', 'some-key', 'stuff');
@@ -669,11 +669,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertNull($result);
 	}
 
-/**
- * Test that rare collisions do not happen with method caching
- *
- * @return void
- */
+	/**
+	 * Test that rare collisions do not happen with method caching
+	 *
+	 * @return void
+	 */
 	public function testNameMethodCacheCollisions() {
 		$this->testDb->cacheMethods = true;
 		$this->testDb->flushMethodCache();
@@ -683,11 +683,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that flushMethodCache works as expected
- *
- * @return void
- */
+	/**
+	 * Test that flushMethodCache works as expected
+	 *
+	 * @return void
+	 */
 	public function testFlushMethodCache() {
 		$this->testDb->cacheMethods = true;
 		$this->testDb->cacheMethod('name', 'some-key', 'stuff');
@@ -699,12 +699,12 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertNull($result);
 	}
 
-/**
- * testLog method
- *
- * @outputBuffering enabled
- * @return void
- */
+	/**
+	 * testLog method
+	 *
+	 * @outputBuffering enabled
+	 * @return void
+	 */
 	public function testLog() {
 		$this->testDb->logQuery('Query 1');
 		$this->testDb->logQuery('Query 2');
@@ -733,11 +733,11 @@ class DboSourceTest extends CakeTestCase {
 		Configure::write('debug', $oldDebug);
 	}
 
-/**
- * test getting the query log as an array.
- *
- * @return void
- */
+	/**
+	 * test getting the query log as an array.
+	 *
+	 * @return void
+	 */
 	public function testGetLog() {
 		$this->testDb->logQuery('Query 1');
 		$this->testDb->logQuery('Query 2');
@@ -751,11 +751,11 @@ class DboSourceTest extends CakeTestCase {
 		$expected = array('query' => 'Error 1', 'affected' => '', 'numRows' => '', 'took' => '');
 	}
 
-/**
- * test getting the query log as an array, setting bind params.
- *
- * @return void
- */
+	/**
+	 * test getting the query log as an array, setting bind params.
+	 *
+	 * @return void
+	 */
 	public function testGetLogParams() {
 		$this->testDb->logQuery('Query 1', array(1, 2, 'abc'));
 		$this->testDb->logQuery('Query 2', array('field1' => 1, 'field2' => 'abc'));
@@ -767,11 +767,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $log['log'][1]);
 	}
 
-/**
- * test that query() returns boolean values from operations like CREATE TABLE
- *
- * @return void
- */
+	/**
+	 * test that query() returns boolean values from operations like CREATE TABLE
+	 *
+	 * @return void
+	 */
 	public function testFetchAllBooleanReturns() {
 		$name = $this->db->fullTableName('test_query');
 		$query = "CREATE TABLE {$name} (name varchar(10));";
@@ -783,11 +783,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertTrue($result, 'Query did not return a boolean');
 	}
 
-/**
- * test order to generate query order clause for virtual fields
- *
- * @return void
- */
+	/**
+	 * test order to generate query order clause for virtual fields
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldsInOrder() {
 		$Article = ClassRegistry::init('Article');
 		$Article->virtualFields = array(
@@ -805,11 +805,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test the permutations of fullTableName()
- *
- * @return void
- */
+	/**
+	 * test the permutations of fullTableName()
+	 *
+	 * @return void
+	 */
 	public function testFullTablePermutations() {
 		$Article = ClassRegistry::init('Article');
 		$result = $this->testDb->fullTableName($Article, false, false);
@@ -845,11 +845,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals('t_post_tag', $result);
 	}
 
-/**
- * test that read() only calls queryAssociation on db objects when the method is defined.
- *
- * @return void
- */
+	/**
+	 * test that read() only calls queryAssociation on db objects when the method is defined.
+	 *
+	 * @return void
+	 */
 	public function testReadOnlyCallingQueryAssociationWhenDefined() {
 		$this->loadFixtures('Article', 'User', 'ArticlesTag', 'Tag');
 		ConnectionManager::create('test_no_queryAssociation', array(
@@ -861,12 +861,12 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertTrue(is_array($result));
 	}
 
-/**
- * test that queryAssociation() reuse already joined data for 'belongsTo' and 'hasOne' associations
- * instead of running unneeded queries for each record
- *
- * @return void
- */
+	/**
+	 * test that queryAssociation() reuse already joined data for 'belongsTo' and 'hasOne' associations
+	 * instead of running unneeded queries for each record
+	 *
+	 * @return void
+	 */
 	public function testQueryAssociationUnneededQueries() {
 		$this->loadFixtures('Article', 'User', 'Comment', 'Attachment', 'Tag', 'ArticlesTag');
 		$Comment = new Comment;
@@ -917,11 +917,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->db->fullDebug = $fullDebug;
 	}
 
-/**
- * test that fields() is using methodCache()
- *
- * @return void
- */
+	/**
+	 * test that fields() is using methodCache()
+	 *
+	 * @return void
+	 */
 	public function testFieldsUsingMethodCache() {
 		$this->testDb->cacheMethods = false;
 		DboTestSource::$methodCache = array();
@@ -931,11 +931,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertTrue(empty(DboTestSource::$methodCache['fields']), 'Cache not empty');
 	}
 
-/**
- * test that fields() method cache detects datasource changes
- *
- * @return void
- */
+	/**
+	 * test that fields() method cache detects datasource changes
+	 *
+	 * @return void
+	 */
 	public function testFieldsCacheKeyWithDatasourceChange() {
 		ConnectionManager::create('firstschema', array(
 			'datasource' => 'DboTestSource'
@@ -961,11 +961,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals(2, count(DboTestSource::$methodCache['fields']));
 	}
 
-/**
- * test that fields() method cache detects schema name changes
- *
- * @return void
- */
+	/**
+	 * test that fields() method cache detects schema name changes
+	 *
+	 * @return void
+	 */
 	public function testFieldsCacheKeyWithSchemanameChange() {
 		if ($this->db instanceof Postgres || $this->db instanceof Sqlserver) {
 			$this->markTestSkipped('Cannot run this test with SqlServer or Postgres');
@@ -986,19 +986,19 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals(2, count(DboSource::$methodCache['fields']));
 	}
 
-/**
- * Test that group works without a model
- *
- * @return void
- */
+	/**
+	 * Test that group works without a model
+	 *
+	 * @return void
+	 */
 	public function testGroupNoModel() {
 		$result = $this->db->group('created');
 		$this->assertEquals(' GROUP BY created', $result);
 	}
 
-/**
- * Test getting the last error.
- */
+	/**
+	 * Test getting the last error.
+	 */
 	public function testLastError() {
 		$stmt = $this->getMock('PDOStatement');
 		$stmt->expects($this->any())
@@ -1010,11 +1010,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Tests that transaction commands are logged
- *
- * @return void
- */
+	/**
+	 * Tests that transaction commands are logged
+	 *
+	 * @return void
+	 */
 	public function testTransactionLogging() {
 		$conn = $this->getMock('MockPDO');
 		$db = new DboTestSource;
@@ -1045,11 +1045,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $log['log'][0]);
 	}
 
-/**
- * Test nested transaction calls
- *
- * @return void
- */
+	/**
+	 * Test nested transaction calls
+	 *
+	 * @return void
+	 */
 	public function testTransactionNested() {
 		$conn = $this->getMock('MockPDO');
 		$db = new DboTestSource();
@@ -1067,11 +1067,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->_runTransactions($db);
 	}
 
-/**
- * Test nested transaction calls without support
- *
- * @return void
- */
+	/**
+	 * Test nested transaction calls without support
+	 *
+	 * @return void
+	 */
 	public function testTransactionNestedWithoutSupport() {
 		$conn = $this->getMock('MockPDO');
 		$db = new DboTestSource();
@@ -1086,11 +1086,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->_runTransactions($db);
 	}
 
-/**
- * Test nested transaction disabled
- *
- * @return void
- */
+	/**
+	 * Test nested transaction disabled
+	 *
+	 * @return void
+	 */
 	public function testTransactionNestedDisabled() {
 		$conn = $this->getMock('MockPDO');
 		$db = new DboTestSource();
@@ -1105,12 +1105,12 @@ class DboSourceTest extends CakeTestCase {
 		$this->_runTransactions($db);
 	}
 
-/**
- * Nested transaction calls
- *
- * @param DboTestSource $db
- * @return void
- */
+	/**
+	 * Nested transaction calls
+	 *
+	 * @param DboTestSource $db
+	 * @return void
+	 */
 	protected function _runTransactions($db) {
 		$db->begin();
 		$db->begin();
@@ -1120,11 +1120,11 @@ class DboSourceTest extends CakeTestCase {
 		$db->commit();
 	}
 
-/**
- * Test build statement with some fields missing
- *
- * @return void
- */
+	/**
+	 * Test build statement with some fields missing
+	 *
+	 * @return void
+	 */
 	public function testBuildStatementDefaults() {
 		$conn = $this->getMock('MockPDO', array('quote'));
 		$conn->expects($this->at(0))
@@ -1147,11 +1147,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $subQuery);
 	}
 
-/**
- * data provider for testBuildJoinStatement
- *
- * @return array
- */
+	/**
+	 * data provider for testBuildJoinStatement
+	 *
+	 * @return array
+	 */
 	public static function joinStatements() {
 		return array(
 			array(array(
@@ -1175,13 +1175,13 @@ class DboSourceTest extends CakeTestCase {
 		);
 	}
 
-/**
- * Test buildJoinStatement()
- * ensure that schemaName is not added when table value is a subquery
- *
- * @dataProvider joinStatements
- * @return void
- */
+	/**
+	 * Test buildJoinStatement()
+	 * ensure that schemaName is not added when table value is a subquery
+	 *
+	 * @dataProvider joinStatements
+	 * @return void
+	 */
 	public function testBuildJoinStatement($join, $expected) {
 		$db = $this->getMock('DboTestSource', array('getSchemaName'));
 		$db->expects($this->any())
@@ -1191,11 +1191,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * data provider for testBuildJoinStatementWithTablePrefix
- *
- * @return array
- */
+	/**
+	 * data provider for testBuildJoinStatementWithTablePrefix
+	 *
+	 * @return array
+	 */
 	public static function joinStatementsWithPrefix($schema) {
 		return array(
 			array(array(
@@ -1213,13 +1213,13 @@ class DboSourceTest extends CakeTestCase {
 			);
 	}
 
-/**
- * Test buildJoinStatement()
- * ensure that prefix is not added when table value is a subquery
- *
- * @dataProvider joinStatementsWithPrefix
- * @return void
- */
+	/**
+	 * Test buildJoinStatement()
+	 * ensure that prefix is not added when table value is a subquery
+	 *
+	 * @dataProvider joinStatementsWithPrefix
+	 * @return void
+	 */
 	public function testBuildJoinStatementWithTablePrefix($join, $expected) {
 		$db = new DboTestSource;
 		$db->config['prefix'] = 'pre_';
@@ -1227,11 +1227,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test conditionKeysToString()
- *
- * @return void
- */
+	/**
+	 * Test conditionKeysToString()
+	 *
+	 * @return void
+	 */
 	public function testConditionKeysToString() {
 		$Article = ClassRegistry::init('Article');
 		$conn = $this->getMock('MockPDO', array('quote'));
@@ -1260,11 +1260,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result[0]);
 	}
 
-/**
- * Test conditionKeysToString() with virtual field
- *
- * @return void
- */
+	/**
+	 * Test conditionKeysToString() with virtual field
+	 *
+	 * @return void
+	 */
 	public function testConditionKeysToStringVirtualField() {
 		$Article = ClassRegistry::init('Article');
 		$Article->virtualFields = array(
@@ -1296,11 +1296,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertEquals($expected, $result[0]);
 	}
 
-/**
- * Test the limit function.
- *
- * @return void
- */
+	/**
+	 * Test the limit function.
+	 *
+	 * @return void
+	 */
 	public function testLimit() {
 		$db = new DboTestSource;
 
@@ -1321,11 +1321,11 @@ class DboSourceTest extends CakeTestCase {
 		$this->assertNotContains($scientificNotation, $result);
 	}
 
-/**
- * Test insertMulti with id position.
- *
- * @return void
- */
+	/**
+	 * Test insertMulti with id position.
+	 *
+	 * @return void
+	 */
 	public function testInsertMultiId() {
 		$this->loadFixtures('Article');
 		$Article = ClassRegistry::init('Article');

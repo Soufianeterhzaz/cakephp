@@ -30,62 +30,62 @@ App::uses('Validation', 'Utility');
  */
 class ModelTask extends BakeTask {
 
-/**
- * path to Model directory
- *
- * @var string
- */
+	/**
+	 * path to Model directory
+	 *
+	 * @var string
+	 */
 	public $path = null;
 
-/**
- * tasks
- *
- * @var array
- */
+	/**
+	 * tasks
+	 *
+	 * @var array
+	 */
 	public $tasks = array('DbConfig', 'Fixture', 'Test', 'Template');
 
-/**
- * Tables to skip when running all()
- *
- * @var array
- */
+	/**
+	 * Tables to skip when running all()
+	 *
+	 * @var array
+	 */
 	public $skipTables = array('i18n');
 
-/**
- * Holds tables found on connection.
- *
- * @var array
- */
+	/**
+	 * Holds tables found on connection.
+	 *
+	 * @var array
+	 */
 	protected $_tables = array();
 
-/**
- * Holds the model names
- *
- * @var array
- */
+	/**
+	 * Holds the model names
+	 *
+	 * @var array
+	 */
 	protected $_modelNames = array();
 
-/**
- * Holds validation method map.
- *
- * @var array
- */
+	/**
+	 * Holds validation method map.
+	 *
+	 * @var array
+	 */
 	protected $_validations = array();
 
-/**
- * Override initialize
- *
- * @return void
- */
+	/**
+	 * Override initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 		$this->path = current(App::path('Model'));
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		parent::execute();
 
@@ -114,11 +114,11 @@ class ModelTask extends BakeTask {
 		}
 	}
 
-/**
- * Bake all models at once.
- *
- * @return void
- */
+	/**
+	 * Bake all models at once.
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->listAll($this->connection, false);
 		$unitTestExists = $this->_checkUnitTest();
@@ -136,13 +136,13 @@ class ModelTask extends BakeTask {
 		}
 	}
 
-/**
- * Get a model object for a class name.
- *
- * @param string $className Name of class you want model to be.
- * @param string $table Table name
- * @return Model Model instance
- */
+	/**
+	 * Get a model object for a class name.
+	 *
+	 * @param string $className Name of class you want model to be.
+	 * @param string $table Table name
+	 * @return Model Model instance
+	 */
 	protected function _getModelObject($className, $table = null) {
 		if (!$table) {
 			$table = Inflector::tableize($className);
@@ -158,14 +158,14 @@ class ModelTask extends BakeTask {
 		return $object;
 	}
 
-/**
- * Generate a key value list of options and a prompt.
- *
- * @param array $options Array of options to use for the selections. indexes must start at 0
- * @param string $prompt Prompt to use for options list.
- * @param integer $default The default option for the given prompt.
- * @return integer Result of user choice.
- */
+	/**
+	 * Generate a key value list of options and a prompt.
+	 *
+	 * @param array $options Array of options to use for the selections. indexes must start at 0
+	 * @param string $prompt Prompt to use for options list.
+	 * @param integer $default The default option for the given prompt.
+	 * @return integer Result of user choice.
+	 */
 	public function inOptions($options, $prompt = null, $default = null) {
 		$valid = false;
 		$max = count($options);
@@ -185,11 +185,11 @@ class ModelTask extends BakeTask {
 		return $choice - 1;
 	}
 
-/**
- * Handles interactive baking
- *
- * @return boolean
- */
+	/**
+	 * Handles interactive baking
+	 *
+	 * @return boolean
+	 */
 	protected function _interactive() {
 		$this->hr();
 		$this->out(__d('cake_console', "Bake Model\nPath: %s", $this->getPath()));
@@ -289,14 +289,14 @@ class ModelTask extends BakeTask {
 		}
 	}
 
-/**
- * Print out all the associations of a particular type
- *
- * @param string $modelName Name of the model relations belong to.
- * @param string $type Name of association you want to see. i.e. 'belongsTo'
- * @param string $associations Collection of associations.
- * @return void
- */
+	/**
+	 * Print out all the associations of a particular type
+	 *
+	 * @param string $modelName Name of the model relations belong to.
+	 * @param string $type Name of association you want to see. i.e. 'belongsTo'
+	 * @param string $associations Collection of associations.
+	 * @return void
+	 */
 	protected function _printAssociation($modelName, $type, $associations) {
 		if (!empty($associations[$type])) {
 			for ($i = 0, $len = count($associations[$type]); $i < $len; $i++) {
@@ -306,12 +306,12 @@ class ModelTask extends BakeTask {
 		}
 	}
 
-/**
- * Finds a primary Key in a list of fields.
- *
- * @param array $fields Array of fields that might have a primary key.
- * @return string Name of field that is a primary key.
- */
+	/**
+	 * Finds a primary Key in a list of fields.
+	 *
+	 * @param array $fields Array of fields that might have a primary key.
+	 * @return string Name of field that is a primary key.
+	 */
 	public function findPrimaryKey($fields) {
 		$name = 'id';
 		foreach ($fields as $name => $field) {
@@ -322,12 +322,12 @@ class ModelTask extends BakeTask {
 		return $this->in(__d('cake_console', 'What is the primaryKey?'), null, $name);
 	}
 
-/**
- * interact with the user to find the displayField value for a model.
- *
- * @param array $fields Array of fields to look for and choose as a displayField
- * @return mixed Name of field to use for displayField or false if the user declines to choose
- */
+	/**
+	 * interact with the user to find the displayField value for a model.
+	 *
+	 * @param array $fields Array of fields to look for and choose as a displayField
+	 * @return mixed Name of field to use for displayField or false if the user declines to choose
+	 */
 	public function findDisplayField($fields) {
 		$fieldNames = array_keys($fields);
 		$prompt = __d('cake_console', "A displayField could not be automatically detected\nwould you like to choose one?");
@@ -340,12 +340,12 @@ class ModelTask extends BakeTask {
 		return $fieldNames[$choice];
 	}
 
-/**
- * Handles Generation and user interaction for creating validation.
- *
- * @param Model $model Model to have validations generated for.
- * @return array $validate Array of user selected validations.
- */
+	/**
+	 * Handles Generation and user interaction for creating validation.
+	 *
+	 * @param Model $model Model to have validations generated for.
+	 * @return array $validate Array of user selected validations.
+	 */
 	public function doValidation($model) {
 		if (!$model instanceof Model) {
 			return false;
@@ -366,11 +366,11 @@ class ModelTask extends BakeTask {
 		return $validate;
 	}
 
-/**
- * Populate the _validations array
- *
- * @return void
- */
+	/**
+	 * Populate the _validations array
+	 *
+	 * @return void
+	 */
 	public function initValidations() {
 		$options = $choices = array();
 		if (class_exists('Validation')) {
@@ -389,14 +389,14 @@ class ModelTask extends BakeTask {
 		return $choices;
 	}
 
-/**
- * Does individual field validation handling.
- *
- * @param string $fieldName Name of field to be validated.
- * @param array $metaData metadata for field
- * @param string $primaryKey
- * @return array Array of validation for the field.
- */
+	/**
+	 * Does individual field validation handling.
+	 *
+	 * @param string $fieldName Name of field to be validated.
+	 * @param array $metaData metadata for field
+	 * @param string $primaryKey
+	 * @return array Array of validation for the field.
+	 */
 	public function fieldValidation($fieldName, $metaData, $primaryKey = 'id') {
 		$defaultChoice = count($this->_validations);
 		$validate = $alreadyChosen = array();
@@ -486,12 +486,12 @@ class ModelTask extends BakeTask {
 		return $validate;
 	}
 
-/**
- * Handles associations
- *
- * @param Model $model
- * @return array Associations
- */
+	/**
+	 * Handles associations
+	 *
+	 * @param Model $model
+	 * @return array Associations
+	 */
 	public function doAssociations($model) {
 		if (!$model instanceof Model) {
 			return false;
@@ -538,12 +538,12 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Handles behaviors
- *
- * @param Model $model
- * @return array Behaviors
- */
+	/**
+	 * Handles behaviors
+	 *
+	 * @param Model $model
+	 * @return array Behaviors
+	 */
 	public function doActsAs($model) {
 		if (!$model instanceof Model) {
 			return false;
@@ -562,13 +562,13 @@ class ModelTask extends BakeTask {
 		return $behaviors;
 	}
 
-/**
- * Find belongsTo relations and add them to the associations list.
- *
- * @param Model $model Model instance of model being generated.
- * @param array $associations Array of in progress associations
- * @return array Associations with belongsTo added in.
- */
+	/**
+	 * Find belongsTo relations and add them to the associations list.
+	 *
+	 * @param Model $model Model instance of model being generated.
+	 * @param array $associations Array of in progress associations
+	 * @return array Associations with belongsTo added in.
+	 */
 	public function findBelongsTo(Model $model, $associations) {
 		$fieldNames = array_keys($model->schema(true));
 		foreach ($fieldNames as $fieldName) {
@@ -591,13 +591,13 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Find the hasOne and hasMany relations and add them to associations list
- *
- * @param Model $model Model instance being generated
- * @param array $associations Array of in progress associations
- * @return array Associations with hasOne and hasMany added in.
- */
+	/**
+	 * Find the hasOne and hasMany relations and add them to associations list
+	 *
+	 * @param Model $model Model instance being generated
+	 * @param array $associations Array of in progress associations
+	 * @return array Associations with hasOne and hasMany added in.
+	 */
 	public function findHasOneAndMany(Model $model, $associations) {
 		$foreignKey = $this->_modelKey($model->name);
 		foreach ($this->_tables as $otherTable) {
@@ -634,13 +634,13 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Find the hasAndBelongsToMany relations and add them to associations list
- *
- * @param Model $model Model instance being generated
- * @param array $associations Array of in-progress associations
- * @return array Associations with hasAndBelongsToMany added in.
- */
+	/**
+	 * Find the hasAndBelongsToMany relations and add them to associations list
+	 *
+	 * @param Model $model Model instance being generated
+	 * @param array $associations Array of in-progress associations
+	 * @return array Associations with hasAndBelongsToMany added in.
+	 */
 	public function findHasAndBelongsToMany(Model $model, $associations) {
 		$foreignKey = $this->_modelKey($model->name);
 		foreach ($this->_tables as $otherTable) {
@@ -667,13 +667,13 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Interact with the user and confirm associations.
- *
- * @param array $model Temporary Model instance.
- * @param array $associations Array of associations to be confirmed.
- * @return array Array of confirmed associations
- */
+	/**
+	 * Interact with the user and confirm associations.
+	 *
+	 * @param array $model Temporary Model instance.
+	 * @param array $associations Array of associations to be confirmed.
+	 * @return array Array of confirmed associations
+	 */
 	public function confirmAssociations(Model $model, $associations) {
 		foreach ($associations as $type => $settings) {
 			if (!empty($associations[$type])) {
@@ -693,13 +693,13 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Interact with the user and generate additional non-conventional associations
- *
- * @param Model $model Temporary model instance
- * @param array $associations Array of associations.
- * @return array Array of associations.
- */
+	/**
+	 * Interact with the user and generate additional non-conventional associations
+	 *
+	 * @param Model $model Temporary model instance
+	 * @param array $associations Array of associations.
+	 * @return array Array of associations.
+	 */
 	public function doMoreAssociations(Model $model, $associations) {
 		$prompt = __d('cake_console', 'Would you like to define some additional model associations?');
 		$wannaDoMoreAssoc = $this->in($prompt, array('y', 'n'), 'n');
@@ -768,11 +768,11 @@ class ModelTask extends BakeTask {
 		return $associations;
 	}
 
-/**
- * Finds all possible keys to use on custom associations.
- *
- * @return array Array of tables and possible keys
- */
+	/**
+	 * Finds all possible keys to use on custom associations.
+	 *
+	 * @return array Array of tables and possible keys
+	 */
 	protected function _generatePossibleKeys() {
 		$possible = array();
 		foreach ($this->_tables as $otherTable) {
@@ -787,13 +787,13 @@ class ModelTask extends BakeTask {
 		return $possible;
 	}
 
-/**
- * Assembles and writes a Model file.
- *
- * @param string|object $name Model name or object
- * @param array|boolean $data if array and $name is not an object assume bake data, otherwise boolean.
- * @return string
- */
+	/**
+	 * Assembles and writes a Model file.
+	 *
+	 * @param string|object $name Model name or object
+	 * @param array|boolean $data if array and $name is not an object assume bake data, otherwise boolean.
+	 * @return string
+	 */
 	public function bake($name, $data = array()) {
 		if ($name instanceof Model) {
 			if (!$data) {
@@ -841,12 +841,12 @@ class ModelTask extends BakeTask {
 		return $out;
 	}
 
-/**
- * Assembles and writes a unit test file
- *
- * @param string $className Model class name
- * @return string
- */
+	/**
+	 * Assembles and writes a unit test file
+	 *
+	 * @param string $className Model class name
+	 * @return string
+	 */
 	public function bakeTest($className) {
 		$this->Test->interactive = $this->interactive;
 		$this->Test->plugin = $this->plugin;
@@ -854,12 +854,12 @@ class ModelTask extends BakeTask {
 		return $this->Test->bake('Model', $className);
 	}
 
-/**
- * outputs the a list of possible models or controllers from database
- *
- * @param string $useDbConfig Database configuration name
- * @return array
- */
+	/**
+	 * outputs the a list of possible models or controllers from database
+	 *
+	 * @param string $useDbConfig Database configuration name
+	 * @return array
+	 */
 	public function listAll($useDbConfig = null) {
 		$this->_tables = (array)$this->getAllTables($useDbConfig);
 
@@ -878,13 +878,13 @@ class ModelTask extends BakeTask {
 		return $this->_tables;
 	}
 
-/**
- * Interact with the user to determine the table name of a particular model
- *
- * @param string $modelName Name of the model you want a table for.
- * @param string $useDbConfig Name of the database config you want to get tables from.
- * @return string Table name
- */
+	/**
+	 * Interact with the user to determine the table name of a particular model
+	 *
+	 * @param string $modelName Name of the model you want a table for.
+	 * @param string $useDbConfig Name of the database config you want to get tables from.
+	 * @return string Table name
+	 */
 	public function getTable($modelName, $useDbConfig = null) {
 		$useTable = Inflector::tableize($modelName);
 		if (in_array($modelName, $this->_modelNames)) {
@@ -911,13 +911,13 @@ class ModelTask extends BakeTask {
 		return $useTable;
 	}
 
-/**
- * Get an Array of all the tables in the supplied connection
- * will halt the script if no tables are found.
- *
- * @param string $useDbConfig Connection name to scan.
- * @return array Array of tables in the database.
- */
+	/**
+	 * Get an Array of all the tables in the supplied connection
+	 * will halt the script if no tables are found.
+	 *
+	 * @param string $useDbConfig Connection name to scan.
+	 * @return array Array of tables in the database.
+	 */
 	public function getAllTables($useDbConfig = null) {
 		if (!isset($useDbConfig)) {
 			$useDbConfig = $this->connection;
@@ -943,12 +943,12 @@ class ModelTask extends BakeTask {
 		return $tables;
 	}
 
-/**
- * Forces the user to specify the model he wants to bake, and returns the selected model name.
- *
- * @param string $useDbConfig Database config name
- * @return string The model name
- */
+	/**
+	 * Forces the user to specify the model he wants to bake, and returns the selected model name.
+	 *
+	 * @param string $useDbConfig Database config name
+	 * @return string The model name
+	 */
 	public function getName($useDbConfig = null) {
 		$this->listAll($useDbConfig);
 
@@ -976,11 +976,11 @@ class ModelTask extends BakeTask {
 		return $enteredModel;
 	}
 
-/**
- * get the option parser.
- *
- * @return void
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(
@@ -1004,14 +1004,14 @@ class ModelTask extends BakeTask {
 			))->epilog(__d('cake_console', 'Omitting all arguments and options will enter into an interactive mode.'));
 	}
 
-/**
- * Interact with FixtureTask to automatically bake fixtures when baking models.
- *
- * @param string $className Name of class to bake fixture for
- * @param string $useTable Optional table name for fixture to use.
- * @return void
- * @see FixtureTask::bake
- */
+	/**
+	 * Interact with FixtureTask to automatically bake fixtures when baking models.
+	 *
+	 * @param string $className Name of class to bake fixture for
+	 * @param string $useTable Optional table name for fixture to use.
+	 * @return void
+	 * @see FixtureTask::bake
+	 */
 	public function bakeFixture($className, $useTable = null) {
 		$this->Fixture->interactive = $this->interactive;
 		$this->Fixture->connection = $this->connection;

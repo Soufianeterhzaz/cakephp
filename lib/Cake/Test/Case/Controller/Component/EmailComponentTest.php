@@ -31,11 +31,11 @@ App::uses('AbstractTransport', 'Network/Email');
  */
 class EmailTestComponent extends EmailComponent {
 
-/**
- * Convenience method for testing.
- *
- * @return string
- */
+	/**
+	 * Convenience method for testing.
+	 *
+	 * @return string
+	 */
 	public function strip($content, $message = false) {
 		return parent::_strip($content, $message);
 	}
@@ -49,19 +49,19 @@ class EmailTestComponent extends EmailComponent {
  */
 class DebugCompTransport extends AbstractTransport {
 
-/**
- * Last email
- *
- * @var string
- */
+	/**
+	 * Last email
+	 *
+	 * @var string
+	 */
 	public static $lastEmail = null;
 
-/**
- * Send mail
- *
- * @params object $email CakeEmail
- * @return boolean
- */
+	/**
+	 * Send mail
+	 *
+	 * @params object $email CakeEmail
+	 * @return boolean
+	 */
 	public function send(CakeEmail $email) {
 		$email->addHeaders(array('Date' => EmailComponentTest::$sentDate));
 		$headers = $email->getHeaders(array_fill_keys(array('from', 'replyTo', 'readReceipt', 'returnPath', 'to', 'cc', 'bcc', 'subject'), true));
@@ -93,18 +93,18 @@ class DebugCompTransport extends AbstractTransport {
  */
 class EmailTestController extends Controller {
 
-/**
- * uses property
- *
- * @var mixed null
- */
+	/**
+	 * uses property
+	 *
+	 * @var mixed null
+	 */
 	public $uses = null;
 
-/**
- * components property
- *
- * @var array
- */
+	/**
+	 * components property
+	 *
+	 * @var array
+	 */
 	public $components = array('Session', 'EmailTest');
 
 }
@@ -116,32 +116,32 @@ class EmailTestController extends Controller {
  */
 class EmailComponentTest extends CakeTestCase {
 
-/**
- * Controller property
- *
- * @var EmailTestController
- */
+	/**
+	 * Controller property
+	 *
+	 * @var EmailTestController
+	 */
 	public $Controller;
 
-/**
- * name property
- *
- * @var string
- */
+	/**
+	 * name property
+	 *
+	 * @var string
+	 */
 	public $name = 'Email';
 
-/**
- * sentDate
- *
- * @var string
- */
+	/**
+	 * sentDate
+	 *
+	 * @var string
+	 */
 	public static $sentDate = null;
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -158,11 +158,11 @@ class EmailComponentTest extends CakeTestCase {
 		));
 	}
 
-/**
- * testSendFormats method
- *
- * @return void
- */
+	/**
+	 * testSendFormats method
+	 *
+	 * @return void
+	 */
 	public function testSendFormats() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -203,11 +203,11 @@ MSGBLOC;
 		$this->assertTextEquals(DebugCompTransport::$lastEmail, $expect);
 	}
 
-/**
- * testTemplates method
- *
- * @return void
- */
+	/**
+	 * testTemplates method
+	 *
+	 * @return void
+	 */
 	public function testTemplates() {
 		ClassRegistry::flush();
 
@@ -320,11 +320,11 @@ HTMLBLOC;
 		$this->assertTextEquals(DebugCompTransport::$lastEmail, $expect);
 	}
 
-/**
- * test that elements used in email templates get helpers.
- *
- * @return void
- */
+	/**
+	 * test that elements used in email templates get helpers.
+	 *
+	 * @return void
+	 */
 	public function testTemplateNestedElements() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -344,11 +344,11 @@ HTMLBLOC;
 		$this->assertRegExp('/http\:\/\/example\.com/', $result);
 	}
 
-/**
- * testSendDebug method
- *
- * @return void
- */
+	/**
+	 * testSendDebug method
+	 *
+	 * @return void
+	 */
 	public function testSendDebug() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -375,11 +375,11 @@ HTMLBLOC;
 		$this->assertRegExp('/This is the body of the message/', $result);
 	}
 
-/**
- * test send with delivery = debug and not using sessions.
- *
- * @return void
- */
+	/**
+	 * test send with delivery = debug and not using sessions.
+	 *
+	 * @return void
+	 */
 	public function testSendDebugWithNoSessions() {
 		$session = $this->Controller->Session;
 		unset($this->Controller->Session);
@@ -405,11 +405,11 @@ HTMLBLOC;
 		$this->Controller->Session = $session;
 	}
 
-/**
- * testMessageRetrievalWithoutTemplate method
- *
- * @return void
- */
+	/**
+	 * testMessageRetrievalWithoutTemplate method
+	 *
+	 * @return void
+	 */
 	public function testMessageRetrievalWithoutTemplate() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
@@ -442,11 +442,11 @@ HTMLBLOC;
 		$this->assertTextEquals($this->Controller->EmailTest->htmlMessage, $html);
 	}
 
-/**
- * testMessageRetrievalWithTemplate method
- *
- * @return void
- */
+	/**
+	 * testMessageRetrievalWithTemplate method
+	 *
+	 * @return void
+	 */
 	public function testMessageRetrievalWithTemplate() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
@@ -502,11 +502,11 @@ HTMLBLOC;
 		$this->assertTextEquals($this->Controller->EmailTest->htmlMessage, $html);
 	}
 
-/**
- * testMessageRetrievalWithHelper method
- *
- * @return void
- */
+	/**
+	 * testMessageRetrievalWithHelper method
+	 *
+	 * @return void
+	 */
 	public function testMessageRetrievalWithHelper() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
@@ -530,11 +530,11 @@ HTMLBLOC;
 		$this->assertTrue((bool)strpos($this->Controller->EmailTest->textMessage, 'Right now: ' . date('Y-m-d\TH:i:s\Z', $timestamp)));
 	}
 
-/**
- * testContentArray method
- *
- * @return void
- */
+	/**
+	 * testContentArray method
+	 *
+	 * @return void
+	 */
 	public function testSendContentArray() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -559,11 +559,11 @@ HTMLBLOC;
 		$this->assertRegExp('/Third line\n/', $result);
 	}
 
-/**
- * test setting a custom date.
- *
- * @return void
- */
+	/**
+	 * test setting a custom date.
+	 *
+	 * @return void
+	 */
 	public function testDateProperty() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -577,11 +577,11 @@ HTMLBLOC;
 		$this->assertRegExp('/Date: Today!\n/', $result);
 	}
 
-/**
- * testContentStripping method
- *
- * @return void
- */
+	/**
+	 * testContentStripping method
+	 *
+	 * @return void
+	 */
 	public function testContentStripping() {
 		$content = "Previous content\n--alt-\nContent-TypeContent-Type:: text/html; charsetcharset==utf-8\nContent-Transfer-Encoding: 8bit";
 		$content .= "\n\n<p>My own html content</p>";
@@ -602,11 +602,11 @@ HTMLBLOC;
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test that the _encode() will set mb_internal_encoding.
- *
- * @return void
- */
+	/**
+	 * test that the _encode() will set mb_internal_encoding.
+	 *
+	 * @return void
+	 */
 	public function testEncodeSettingInternalCharset() {
 		$this->skipIf(!function_exists('mb_internal_encoding'), 'Missing mb_* functions, cannot run test.');
 
@@ -635,11 +635,11 @@ HTMLBLOC;
 		mb_internal_encoding($restore);
 	}
 
-/**
- * testMultibyte method
- *
- * @return void
- */
+	/**
+	 * testMultibyte method
+	 *
+	 * @return void
+	 */
 	public function testMultibyte() {
 		$this->Controller->charset = 'UTF-8';
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
@@ -667,11 +667,11 @@ HTMLBLOC;
 		$this->assertEquals(trim($matches[1]), $subject);
 	}
 
-/**
- * undocumented function
- *
- * @return void
- */
+	/**
+	 * undocumented function
+	 *
+	 * @return void
+	 */
 	public function testSendWithAttachments() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -692,11 +692,11 @@ HTMLBLOC;
 		$this->assertRegExp('/' . preg_quote('Content-Disposition: attachment; filename="some-name.php"') . '/', $msg);
 	}
 
-/**
- * testSendAsIsNotIgnoredIfAttachmentsPresent method
- *
- * @return void
- */
+	/**
+	 * testSendAsIsNotIgnoredIfAttachmentsPresent method
+	 *
+	 * @return void
+	 */
 	public function testSendAsIsNotIgnoredIfAttachmentsPresent() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -728,11 +728,11 @@ HTMLBLOC;
 		$this->assertRegExp('/multipart\/alternative/', $msg);
 	}
 
-/**
- * testNoDoubleNewlinesInHeaders function
- *
- * @return void
- */
+	/**
+	 * testNoDoubleNewlinesInHeaders function
+	 *
+	 * @return void
+	 */
 	public function testNoDoubleNewlinesInHeaders() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -750,11 +750,11 @@ HTMLBLOC;
 		$this->assertRegExp('/\nContent-Transfer-Encoding/', $msg);
 	}
 
-/**
- * testReset method
- *
- * @return void
- */
+	/**
+	 * testReset method
+	 *
+	 * @return void
+	 */
 	public function testReset() {
 		$this->Controller->EmailTest->template = 'default';
 		$this->Controller->EmailTest->to = 'test.recipient@example.com';
@@ -820,20 +820,20 @@ HTMLBLOC;
 		$this->assertRegExp('/Body of message/', $result);
 	}
 
-/**
- * testStartup method
- *
- * @return void
- */
+	/**
+	 * testStartup method
+	 *
+	 * @return void
+	 */
 	public function testStartup() {
 		$this->assertNull($this->Controller->EmailTest->startup($this->Controller));
 	}
 
-/**
- * testMessageId method
- *
- * @return void
- */
+	/**
+	 * testMessageId method
+	 *
+	 * @return void
+	 */
 	public function testMessageId() {
 		$this->Controller->EmailTest->to = 'postmaster@example.com';
 		$this->Controller->EmailTest->from = 'noreply@example.com';
@@ -863,9 +863,9 @@ HTMLBLOC;
 		$this->assertNotRegExp('/Message-ID:/', $result);
 	}
 
-/**
- * Make sure from/to are not double encoded when UTF-8 is present
- */
+	/**
+	 * Make sure from/to are not double encoded when UTF-8 is present
+	 */
 	public function testEncodingFrom() {
 		$this->Controller->EmailTest->to = 'Teßt <test@example.com>';
 		$this->Controller->EmailTest->from = 'Teßt <test@example.com>';

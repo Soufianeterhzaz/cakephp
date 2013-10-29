@@ -58,29 +58,29 @@ class TimeHelperTest extends CakeTestCase {
 
 	public $CakeTime = null;
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->View);
 		parent::tearDown();
 	}
 
-/**
- * test CakeTime class methods are called correctly
- */
+	/**
+	 * test CakeTime class methods are called correctly
+	 */
 	public function testTimeHelperProxyMethodCalls() {
 		$methods = array(
 			'convertSpecifiers', 'convert', 'serverOffset', 'fromString',
@@ -104,9 +104,9 @@ class TimeHelperTest extends CakeTestCase {
 		$Time->timeAgoInWords('who', array('what'), array('when'), array('where'), array('how'));
 	}
 
-/**
- * test engine override
- */
+	/**
+	 * test engine override
+	 */
 	public function testEngineOverride() {
 		App::build(array(
 			'Utility' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Utility' . DS)
@@ -123,11 +123,11 @@ class TimeHelperTest extends CakeTestCase {
 		CakePlugin::unload('TestPlugin');
 	}
 
-/**
- * Test element wrapping in timeAgoInWords
- *
- * @return void
- */
+	/**
+	 * Test element wrapping in timeAgoInWords
+	 *
+	 * @return void
+	 */
 	public function testTimeAgoInWords() {
 		$Time = new TimeHelper($this->View);
 		$timestamp = strtotime('+8 years, +4 months +2 weeks +3 days');

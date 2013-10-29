@@ -31,19 +31,19 @@ App::uses('AppController', 'Controller');
  */
 class CakeErrorController extends AppController {
 
-/**
- * Uses Property
- *
- * @var array
- */
+	/**
+	 * Uses Property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * __construct
- *
- * @param CakeRequest $request
- * @param CakeResponse $response
- */
+	/**
+	 * __construct
+	 *
+	 * @param CakeRequest $request
+	 * @param CakeResponse $response
+	 */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
 		$this->constructClasses();

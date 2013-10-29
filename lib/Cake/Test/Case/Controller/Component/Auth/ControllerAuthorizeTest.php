@@ -30,11 +30,11 @@ App::uses('CakeResponse', 'Network');
  */
 class ControllerAuthorizeTest extends CakeTestCase {
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->controller = $this->getMock('Controller', array('isAuthorized'), array(), '', false);
@@ -46,36 +46,36 @@ class ControllerAuthorizeTest extends CakeTestCase {
 		$this->auth = new ControllerAuthorize($this->components);
 	}
 
-/**
- * @expectedException PHPUnit_Framework_Error
- */
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
 	public function testControllerTypeError() {
 		$this->auth->controller(new StdClass());
 	}
 
-/**
- * @expectedException CakeException
- */
+	/**
+	 * @expectedException CakeException
+	 */
 	public function testControllerErrorOnMissingMethod() {
 		$this->auth->controller(new Controller());
 	}
 
-/**
- * test failure
- *
- * @return void
- */
+	/**
+	 * test failure
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeFailure() {
 		$user = array();
 		$request = new CakeRequest('/posts/index', false);
 		$this->assertFalse($this->auth->authorize($user, $request));
 	}
 
-/**
- * test isAuthorized working.
- *
- * @return void
- */
+	/**
+	 * test isAuthorized working.
+	 *
+	 * @return void
+	 */
 	public function testAuthorizeSuccess() {
 		$user = array('User' => array('username' => 'mark'));
 		$request = new CakeRequest('/posts/index', false);

@@ -25,14 +25,14 @@
  */
 class DigestAuthentication {
 
-/**
- * Authentication
- *
- * @param HttpSocket $http
- * @param array $authInfo
- * @return void
- * @link http://www.ietf.org/rfc/rfc2617.txt
- */
+	/**
+	 * Authentication
+	 *
+	 * @param HttpSocket $http
+	 * @param array $authInfo
+	 * @return void
+	 * @link http://www.ietf.org/rfc/rfc2617.txt
+	 */
 	public static function authentication(HttpSocket $http, &$authInfo) {
 		if (isset($authInfo['user'], $authInfo['pass'])) {
 			if (!isset($authInfo['realm']) && !self::_getServerInformation($http, $authInfo)) {
@@ -42,13 +42,13 @@ class DigestAuthentication {
 		}
 	}
 
-/**
- * Retrieve information about the authentication
- *
- * @param HttpSocket $http
- * @param array $authInfo
- * @return boolean
- */
+	/**
+	 * Retrieve information about the authentication
+	 *
+	 * @param HttpSocket $http
+	 * @param array $authInfo
+	 * @return boolean
+	 */
 	protected static function _getServerInformation(HttpSocket $http, &$authInfo) {
 		$originalRequest = $http->request;
 		$http->configAuth(false);
@@ -69,13 +69,13 @@ class DigestAuthentication {
 		return true;
 	}
 
-/**
- * Generate the header Authorization
- *
- * @param HttpSocket $http
- * @param array $authInfo
- * @return string
- */
+	/**
+	 * Generate the header Authorization
+	 *
+	 * @param HttpSocket $http
+	 * @param array $authInfo
+	 * @return string
+	 */
 	protected static function _generateHeader(HttpSocket $http, &$authInfo) {
 		$a1 = md5($authInfo['user'] . ':' . $authInfo['realm'] . ':' . $authInfo['pass']);
 		$a2 = md5($http->request['method'] . ':' . $http->request['uri']['path']);

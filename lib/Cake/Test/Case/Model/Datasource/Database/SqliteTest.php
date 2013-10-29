@@ -31,29 +31,29 @@ require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
  */
 class DboSqliteTestDb extends Sqlite {
 
-/**
- * simulated property
- *
- * @var array
- */
+	/**
+	 * simulated property
+	 *
+	 * @var array
+	 */
 	public $simulated = array();
 
-/**
- * execute method
- *
- * @param mixed $sql
- * @return void
- */
+	/**
+	 * execute method
+	 *
+	 * @param mixed $sql
+	 * @return void
+	 */
 	protected function _execute($sql, $params = array(), $prepareOptions = array()) {
 		$this->simulated[] = $sql;
 		return null;
 	}
 
-/**
- * getLastQuery method
- *
- * @return void
- */
+	/**
+	 * getLastQuery method
+	 *
+	 * @return void
+	 */
 	public function getLastQuery() {
 		return $this->simulated[count($this->simulated) - 1];
 	}
@@ -67,31 +67,31 @@ class DboSqliteTestDb extends Sqlite {
  */
 class SqliteTest extends CakeTestCase {
 
-/**
- * Do not automatically load fixtures for each test, they will be loaded manually using CakeTestCase::loadFixtures
- *
- * @var boolean
- */
+	/**
+	 * Do not automatically load fixtures for each test, they will be loaded manually using CakeTestCase::loadFixtures
+	 *
+	 * @var boolean
+	 */
 	public $autoFixtures = false;
 
-/**
- * Fixtures
- *
- * @var object
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var object
+	 */
 	public $fixtures = array('core.user', 'core.uuid', 'core.datatype');
 
-/**
- * Actual DB connection used in testing
- *
- * @var DboSource
- */
+	/**
+	 * Actual DB connection used in testing
+	 *
+	 * @var DboSource
+	 */
 	public $Dbo = null;
 
-/**
- * Sets up a Dbo class instance for testing
- *
- */
+	/**
+	 * Sets up a Dbo class instance for testing
+	 *
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Cache.disable', true);
@@ -101,19 +101,19 @@ class SqliteTest extends CakeTestCase {
 		}
 	}
 
-/**
- * Sets up a Dbo class instance for testing
- *
- */
+	/**
+	 * Sets up a Dbo class instance for testing
+	 *
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('Cache.disable', false);
 	}
 
-/**
- * Tests that SELECT queries from DboSqlite::listSources() are not cached
- *
- */
+	/**
+	 * Tests that SELECT queries from DboSqlite::listSources() are not cached
+	 *
+	 */
 	public function testTableListCacheDisabling() {
 		$this->assertFalse(in_array('foo_test', $this->Dbo->listSources()));
 
@@ -125,11 +125,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertFalse(in_array('foo_test', $this->Dbo->listSources()));
 	}
 
-/**
- * test Index introspection.
- *
- * @return void
- */
+	/**
+	 * test Index introspection.
+	 *
+	 * @return void
+	 */
 	public function testIndex() {
 		$name = $this->Dbo->fullTableName('with_a_key', false, false);
 		$this->Dbo->query('CREATE TABLE ' . $name . ' ("id" int(11) PRIMARY KEY, "bool" int(1), "small_char" varchar(50), "description" varchar(40) );');
@@ -156,10 +156,10 @@ class SqliteTest extends CakeTestCase {
 		$this->Dbo->query('DROP TABLE ' . $name);
 	}
 
-/**
- * Tests that cached table descriptions are saved under the sanitized key name
- *
- */
+	/**
+	 * Tests that cached table descriptions are saved under the sanitized key name
+	 *
+	 */
 	public function testCacheKeyName() {
 		Configure::write('Cache.disable', false);
 
@@ -184,11 +184,11 @@ class SqliteTest extends CakeTestCase {
 		Configure::write('Cache.disable', true);
 	}
 
-/**
- * test building columns with SQLite
- *
- * @return void
- */
+	/**
+	 * test building columns with SQLite
+	 *
+	 * @return void
+	 */
 	public function testBuildColumn() {
 		$data = array(
 			'name' => 'int_field',
@@ -277,11 +277,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test describe() and normal results.
- *
- * @return void
- */
+	/**
+	 * test describe() and normal results.
+	 *
+	 * @return void
+	 */
 	public function testDescribe() {
 		$this->loadFixtures('User');
 		$Model = new Model(array(
@@ -336,11 +336,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that datatypes are reflected
- *
- * @return void
- */
+	/**
+	 * Test that datatypes are reflected
+	 *
+	 * @return void
+	 */
 	public function testDatatypes() {
 		$this->loadFixtures('Datatype');
 		$Model = new Model(array(
@@ -385,11 +385,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * test that describe does not corrupt UUID primary keys
- *
- * @return void
- */
+	/**
+	 * test that describe does not corrupt UUID primary keys
+	 *
+	 * @return void
+	 */
 	public function testDescribeWithUuidPrimaryKey() {
 		$tableName = 'uuid_tests';
 		$this->Dbo->query("CREATE TABLE {$tableName} (id VARCHAR(36) PRIMARY KEY, name VARCHAR, created DATETIME, modified DATETIME)");
@@ -420,11 +420,11 @@ class SqliteTest extends CakeTestCase {
 		$this->Dbo->query('DROP TABLE ' . $tableName);
 	}
 
-/**
- * Test virtualFields with functions.
- *
- * @return void
- */
+	/**
+	 * Test virtualFields with functions.
+	 *
+	 * @return void
+	 */
 	public function testVirtualFieldWithFunction() {
 		$this->loadFixtures('User');
 		$User = ClassRegistry::init('User');
@@ -436,12 +436,12 @@ class SqliteTest extends CakeTestCase {
 		$this->assertEquals('ett', $result['User']['name']);
 	}
 
-/**
- * Test that records can be inserted with UUID primary keys, and
- * that the primary key is not blank
- *
- * @return void
- */
+	/**
+	 * Test that records can be inserted with UUID primary keys, and
+	 * that the primary key is not blank
+	 *
+	 * @return void
+	 */
 	public function testUuidPrimaryKeyInsertion() {
 		$this->loadFixtures('Uuid');
 		$Model = ClassRegistry::init('Uuid');
@@ -458,11 +458,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertTrue(Validation::uuid($result['Uuid']['id']), 'Not a UUID');
 	}
 
-/**
- * Test nested transaction
- *
- * @return void
- */
+	/**
+	 * Test nested transaction
+	 *
+	 * @return void
+	 */
 	public function testNestedTransaction() {
 		$this->skipIf($this->Dbo->nestedTransactionSupported() === false, 'The Sqlite version do not support nested transaction');
 
@@ -491,11 +491,11 @@ class SqliteTest extends CakeTestCase {
 		$this->assertNotEmpty($model->read(null, 1));
 	}
 
-/**
- * Test the limit function.
- *
- * @return void
- */
+	/**
+	 * Test the limit function.
+	 *
+	 * @return void
+	 */
 	public function testLimit() {
 		$db = $this->Dbo;
 

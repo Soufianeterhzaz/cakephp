@@ -28,18 +28,18 @@ App::uses('SessionComponent', 'Controller/Component');
  */
 class SessionTestController extends Controller {
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * sessionId method
- *
- * @return string
- */
+	/**
+	 * sessionId method
+	 *
+	 * @return string
+	 */
 	public function sessionId() {
 		return $this->Session->id();
 	}
@@ -53,18 +53,18 @@ class SessionTestController extends Controller {
  */
 class OrangeSessionTestController extends Controller {
 
-/**
- * uses property
- *
- * @var array
- */
+	/**
+	 * uses property
+	 *
+	 * @var array
+	 */
 	public $uses = array();
 
-/**
- * sessionId method
- *
- * @return string
- */
+	/**
+	 * sessionId method
+	 *
+	 * @return string
+	 */
 	public function sessionId() {
 		return $this->Session->id();
 	}
@@ -80,18 +80,18 @@ class SessionComponentTest extends CakeTestCase {
 
 	protected static $_sessionBackup;
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = array('core.session');
 
-/**
- * test case startup
- *
- * @return void
- */
+	/**
+	 * test case startup
+	 *
+	 * @return void
+	 */
 	public static function setupBeforeClass() {
 		self::$_sessionBackup = Configure::read('Session');
 		Configure::write('Session', array(
@@ -101,41 +101,41 @@ class SessionComponentTest extends CakeTestCase {
 		));
 	}
 
-/**
- * cleanup after test case.
- *
- * @return void
- */
+	/**
+	 * cleanup after test case.
+	 *
+	 * @return void
+	 */
 	public static function teardownAfterClass() {
 		Configure::write('Session', self::$_sessionBackup);
 	}
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$_SESSION = null;
 		$this->ComponentCollection = new ComponentCollection();
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		CakeSession::destroy();
 	}
 
-/**
- * ensure that session ids don't change when request action is called.
- *
- * @return void
- */
+	/**
+	 * ensure that session ids don't change when request action is called.
+	 *
+	 * @return void
+	 */
 	public function testSessionIdConsistentAcrossRequestAction() {
 		$Session = new SessionComponent($this->ComponentCollection);
 		$Session->check('Test');
@@ -152,11 +152,11 @@ class SessionComponentTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testSessionValid method
- *
- * @return void
- */
+	/**
+	 * testSessionValid method
+	 *
+	 * @return void
+	 */
 	public function testSessionValid() {
 		$Session = new SessionComponent($this->ComponentCollection);
 
@@ -171,21 +171,21 @@ class SessionComponentTest extends CakeTestCase {
 		$this->assertFalse($Session->valid());
 	}
 
-/**
- * testSessionError method
- *
- * @return void
- */
+	/**
+	 * testSessionError method
+	 *
+	 * @return void
+	 */
 	public function testSessionError() {
 		$Session = new SessionComponent($this->ComponentCollection);
 		$this->assertFalse($Session->error());
 	}
 
-/**
- * testSessionReadWrite method
- *
- * @return void
- */
+	/**
+	 * testSessionReadWrite method
+	 *
+	 * @return void
+	 */
 	public function testSessionReadWrite() {
 		$Session = new SessionComponent($this->ComponentCollection);
 
@@ -213,11 +213,11 @@ class SessionComponentTest extends CakeTestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * testSessionDelete method
- *
- * @return void
- */
+	/**
+	 * testSessionDelete method
+	 *
+	 * @return void
+	 */
 	public function testSessionDelete() {
 		$Session = new SessionComponent($this->ComponentCollection);
 
@@ -227,11 +227,11 @@ class SessionComponentTest extends CakeTestCase {
 		$this->assertTrue($Session->delete('Test'));
 	}
 
-/**
- * testSessionCheck method
- *
- * @return void
- */
+	/**
+	 * testSessionCheck method
+	 *
+	 * @return void
+	 */
 	public function testSessionCheck() {
 		$Session = new SessionComponent($this->ComponentCollection);
 
@@ -242,11 +242,11 @@ class SessionComponentTest extends CakeTestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * testSessionFlash method
- *
- * @return void
- */
+	/**
+	 * testSessionFlash method
+	 *
+	 * @return void
+	 */
 	public function testSessionFlash() {
 		$Session = new SessionComponent($this->ComponentCollection);
 
@@ -267,11 +267,11 @@ class SessionComponentTest extends CakeTestCase {
 		$Session->delete('Message');
 	}
 
-/**
- * testSessionId method
- *
- * @return void
- */
+	/**
+	 * testSessionId method
+	 *
+	 * @return void
+	 */
 	public function testSessionId() {
 		unset($_SESSION);
 		$Session = new SessionComponent($this->ComponentCollection);
@@ -279,11 +279,11 @@ class SessionComponentTest extends CakeTestCase {
 		$this->assertEquals(session_id(), $Session->id());
 	}
 
-/**
- * testSessionDestroy method
- *
- * @return void
- */
+	/**
+	 * testSessionDestroy method
+	 *
+	 * @return void
+	 */
 	public function testSessionDestroy() {
 		$Session = new SessionComponent($this->ComponentCollection);
 

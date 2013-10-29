@@ -31,172 +31,172 @@ App::uses('View', 'View');
  */
 class DboSource extends DataSource {
 
-/**
- * Description string for this Database Data Source.
- *
- * @var string
- */
+	/**
+	 * Description string for this Database Data Source.
+	 *
+	 * @var string
+	 */
 	public $description = "Database Data Source";
 
-/**
- * index definition, standard cake, primary, index, unique
- *
- * @var array
- */
+	/**
+	 * index definition, standard cake, primary, index, unique
+	 *
+	 * @var array
+	 */
 	public $index = array('PRI' => 'primary', 'MUL' => 'index', 'UNI' => 'unique');
 
-/**
- * Database keyword used to assign aliases to identifiers.
- *
- * @var string
- */
+	/**
+	 * Database keyword used to assign aliases to identifiers.
+	 *
+	 * @var string
+	 */
 	public $alias = 'AS ';
 
-/**
- * Caches result from query parsing operations. Cached results for both DboSource::name() and
- * DboSource::conditions() will be stored here. Method caching uses `md5()`. If you have
- * problems with collisions, set DboSource::$cacheMethods to false.
- *
- * @var array
- */
+	/**
+	 * Caches result from query parsing operations. Cached results for both DboSource::name() and
+	 * DboSource::conditions() will be stored here. Method caching uses `md5()`. If you have
+	 * problems with collisions, set DboSource::$cacheMethods to false.
+	 *
+	 * @var array
+	 */
 	public static $methodCache = array();
 
-/**
- * Whether or not to cache the results of DboSource::name() and DboSource::conditions()
- * into the memory cache. Set to false to disable the use of the memory cache.
- *
- * @var boolean
- */
+	/**
+	 * Whether or not to cache the results of DboSource::name() and DboSource::conditions()
+	 * into the memory cache. Set to false to disable the use of the memory cache.
+	 *
+	 * @var boolean
+	 */
 	public $cacheMethods = true;
 
-/**
- * Flag to support nested transactions. If it is set to false, you will be able to use
- * the transaction methods (begin/commit/rollback), but just the global transaction will
- * be executed.
- *
- * @var boolean
- */
+	/**
+	 * Flag to support nested transactions. If it is set to false, you will be able to use
+	 * the transaction methods (begin/commit/rollback), but just the global transaction will
+	 * be executed.
+	 *
+	 * @var boolean
+	 */
 	public $useNestedTransactions = false;
 
-/**
- * Print full query debug info?
- *
- * @var boolean
- */
+	/**
+	 * Print full query debug info?
+	 *
+	 * @var boolean
+	 */
 	public $fullDebug = false;
 
-/**
- * String to hold how many rows were affected by the last SQL operation.
- *
- * @var string
- */
+	/**
+	 * String to hold how many rows were affected by the last SQL operation.
+	 *
+	 * @var string
+	 */
 	public $affected = null;
 
-/**
- * Number of rows in current resultset
- *
- * @var integer
- */
+	/**
+	 * Number of rows in current resultset
+	 *
+	 * @var integer
+	 */
 	public $numRows = null;
 
-/**
- * Time the last query took
- *
- * @var integer
- */
+	/**
+	 * Time the last query took
+	 *
+	 * @var integer
+	 */
 	public $took = null;
 
-/**
- * Result
- *
- * @var array
- */
+	/**
+	 * Result
+	 *
+	 * @var array
+	 */
 	protected $_result = null;
 
-/**
- * Queries count.
- *
- * @var integer
- */
+	/**
+	 * Queries count.
+	 *
+	 * @var integer
+	 */
 	protected $_queriesCnt = 0;
 
-/**
- * Total duration of all queries.
- *
- * @var integer
- */
+	/**
+	 * Total duration of all queries.
+	 *
+	 * @var integer
+	 */
 	protected $_queriesTime = null;
 
-/**
- * Log of queries executed by this DataSource
- *
- * @var array
- */
+	/**
+	 * Log of queries executed by this DataSource
+	 *
+	 * @var array
+	 */
 	protected $_queriesLog = array();
 
-/**
- * Maximum number of items in query log
- *
- * This is to prevent query log taking over too much memory.
- *
- * @var integer Maximum number of queries in the queries log.
- */
+	/**
+	 * Maximum number of items in query log
+	 *
+	 * This is to prevent query log taking over too much memory.
+	 *
+	 * @var integer Maximum number of queries in the queries log.
+	 */
 	protected $_queriesLogMax = 200;
 
-/**
- * Caches serialized results of executed queries
- *
- * @var array Cache of results from executed sql queries.
- */
+	/**
+	 * Caches serialized results of executed queries
+	 *
+	 * @var array Cache of results from executed sql queries.
+	 */
 	protected $_queryCache = array();
 
-/**
- * A reference to the physical connection of this DataSource
- *
- * @var array
- */
+	/**
+	 * A reference to the physical connection of this DataSource
+	 *
+	 * @var array
+	 */
 	protected $_connection = null;
 
-/**
- * The DataSource configuration key name
- *
- * @var string
- */
+	/**
+	 * The DataSource configuration key name
+	 *
+	 * @var string
+	 */
 	public $configKeyName = null;
 
-/**
- * The starting character that this DataSource uses for quoted identifiers.
- *
- * @var string
- */
+	/**
+	 * The starting character that this DataSource uses for quoted identifiers.
+	 *
+	 * @var string
+	 */
 	public $startQuote = null;
 
-/**
- * The ending character that this DataSource uses for quoted identifiers.
- *
- * @var string
- */
+	/**
+	 * The ending character that this DataSource uses for quoted identifiers.
+	 *
+	 * @var string
+	 */
 	public $endQuote = null;
 
-/**
- * The set of valid SQL operations usable in a WHERE statement
- *
- * @var array
- */
+	/**
+	 * The set of valid SQL operations usable in a WHERE statement
+	 *
+	 * @var array
+	 */
 	protected $_sqlOps = array('like', 'ilike', 'or', 'not', 'in', 'between', 'regexp', 'similar to');
 
-/**
- * Indicates the level of nested transactions
- *
- * @var integer
- */
+	/**
+	 * Indicates the level of nested transactions
+	 *
+	 * @var integer
+	 */
 	protected $_transactionNesting = 0;
 
-/**
- * Default fields that are used by the DBO
- *
- * @var array
- */
+	/**
+	 * Default fields that are used by the DBO
+	 *
+	 * @var array
+	 */
 	protected $_queryDefaults = array(
 		'conditions' => array(),
 		'fields' => null,
@@ -209,42 +209,42 @@ class DboSource extends DataSource {
 		'offset' => null
 	);
 
-/**
- * Separator string for virtualField composition
- *
- * @var string
- */
+	/**
+	 * Separator string for virtualField composition
+	 *
+	 * @var string
+	 */
 	public $virtualFieldSeparator = '__';
 
-/**
- * List of table engine specific parameters used on table creating
- *
- * @var array
- */
+	/**
+	 * List of table engine specific parameters used on table creating
+	 *
+	 * @var array
+	 */
 	public $tableParameters = array();
 
-/**
- * List of engine specific additional field parameters used on table creating
- *
- * @var array
- */
+	/**
+	 * List of engine specific additional field parameters used on table creating
+	 *
+	 * @var array
+	 */
 	public $fieldParameters = array();
 
-/**
- * Indicates whether there was a change on the cached results on the methods of this class
- * This will be used for storing in a more persistent cache
- *
- * @var boolean
- */
+	/**
+	 * Indicates whether there was a change on the cached results on the methods of this class
+	 * This will be used for storing in a more persistent cache
+	 *
+	 * @var boolean
+	 */
 	protected $_methodCacheChange = false;
 
-/**
- * Constructor
- *
- * @param array $config Array of configuration information for the Datasource.
- * @param boolean $autoConnect Whether or not the datasource should automatically connect.
- * @throws MissingConnectionException when a connection cannot be made.
- */
+	/**
+	 * Constructor
+	 *
+	 * @param array $config Array of configuration information for the Datasource.
+	 * @param boolean $autoConnect Whether or not the datasource should automatically connect.
+	 * @throws MissingConnectionException when a connection cannot be made.
+	 */
 	public function __construct($config = null, $autoConnect = true) {
 		if (!isset($config['prefix'])) {
 			$config['prefix'] = '';
@@ -263,12 +263,12 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Reconnects to database server with optional new settings
- *
- * @param array $config An array defining the new configuration settings
- * @return boolean True on success, false on failure
- */
+	/**
+	 * Reconnects to database server with optional new settings
+	 *
+	 * @param array $config An array defining the new configuration settings
+	 * @return boolean True on success, false on failure
+	 */
 	public function reconnect($config = array()) {
 		$this->disconnect();
 		$this->setConfig($config);
@@ -277,11 +277,11 @@ class DboSource extends DataSource {
 		return $this->connect();
 	}
 
-/**
- * Disconnects from database.
- *
- * @return boolean Always true
- */
+	/**
+	 * Disconnects from database.
+	 *
+	 * @return boolean Always true
+	 */
 	public function disconnect() {
 		if ($this->_result instanceof PDOStatement) {
 			$this->_result->closeCursor();
@@ -291,31 +291,31 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Get the underlying connection object.
- *
- * @return PDO
- */
+	/**
+	 * Get the underlying connection object.
+	 *
+	 * @return PDO
+	 */
 	public function getConnection() {
 		return $this->_connection;
 	}
 
-/**
- * Gets the version string of the database server
- *
- * @return string The database version
- */
+	/**
+	 * Gets the version string of the database server
+	 *
+	 * @return string The database version
+	 */
 	public function getVersion() {
 		return $this->_connection->getAttribute(PDO::ATTR_SERVER_VERSION);
 	}
 
-/**
- * Returns a quoted and escaped string of $data for use in an SQL statement.
- *
- * @param string $data String to be prepared for use in an SQL statement
- * @param string $column The column datatype into which this data will be inserted.
- * @return string Quoted and escaped data
- */
+	/**
+	 * Returns a quoted and escaped string of $data for use in an SQL statement.
+	 *
+	 * @param string $data String to be prepared for use in an SQL statement
+	 * @param string $column The column datatype into which this data will be inserted.
+	 * @return string Quoted and escaped data
+	 */
 	public function value($data, $column = null) {
 		if (is_array($data) && !empty($data)) {
 			return array_map(
@@ -365,13 +365,13 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Returns an object to represent a database identifier in a query. Expression objects
- * are not sanitized or escaped.
- *
- * @param string $identifier A SQL expression to be used as an identifier
- * @return stdClass An object representing a database identifier to be used in a query
- */
+	/**
+	 * Returns an object to represent a database identifier in a query. Expression objects
+	 * are not sanitized or escaped.
+	 *
+	 * @param string $identifier A SQL expression to be used as an identifier
+	 * @return stdClass An object representing a database identifier to be used in a query
+	 */
 	public function identifier($identifier) {
 		$obj = new stdClass();
 		$obj->type = 'identifier';
@@ -379,13 +379,13 @@ class DboSource extends DataSource {
 		return $obj;
 	}
 
-/**
- * Returns an object to represent a database expression in a query. Expression objects
- * are not sanitized or escaped.
- *
- * @param string $expression An arbitrary SQL expression to be inserted into a query.
- * @return stdClass An object representing a database expression to be used in a query
- */
+	/**
+	 * Returns an object to represent a database expression in a query. Expression objects
+	 * are not sanitized or escaped.
+	 *
+	 * @param string $expression An arbitrary SQL expression to be inserted into a query.
+	 * @return stdClass An object representing a database expression to be used in a query
+	 */
 	public function expression($expression) {
 		$obj = new stdClass();
 		$obj->type = 'expression';
@@ -393,32 +393,32 @@ class DboSource extends DataSource {
 		return $obj;
 	}
 
-/**
- * Executes given SQL statement.
- *
- * @param string $sql SQL statement
- * @param array $params Additional options for the query.
- * @return boolean
- */
+	/**
+	 * Executes given SQL statement.
+	 *
+	 * @param string $sql SQL statement
+	 * @param array $params Additional options for the query.
+	 * @return boolean
+	 */
 	public function rawQuery($sql, $params = array()) {
 		$this->took = $this->numRows = false;
 		return $this->execute($sql, $params);
 	}
 
-/**
- * Queries the database with given SQL statement, and obtains some metadata about the result
- * (rows affected, timing, any errors, number of rows in resultset). The query is also logged.
- * If Configure::read('debug') is set, the log is shown all the time, else it is only shown on errors.
- *
- * ### Options
- *
- * - log - Whether or not the query should be logged to the memory log.
- *
- * @param string $sql SQL statement
- * @param array $options
- * @param array $params values to be bound to the query
- * @return mixed Resource or object representing the result set, or false on failure
- */
+	/**
+	 * Queries the database with given SQL statement, and obtains some metadata about the result
+	 * (rows affected, timing, any errors, number of rows in resultset). The query is also logged.
+	 * If Configure::read('debug') is set, the log is shown all the time, else it is only shown on errors.
+	 *
+	 * ### Options
+	 *
+	 * - log - Whether or not the query should be logged to the memory log.
+	 *
+	 * @param string $sql SQL statement
+	 * @param array $options
+	 * @param array $params values to be bound to the query
+	 * @return mixed Resource or object representing the result set, or false on failure
+	 */
 	public function execute($sql, $options = array(), $params = array()) {
 		$options += array('log' => $this->fullDebug);
 
@@ -434,16 +434,16 @@ class DboSource extends DataSource {
 		return $this->_result;
 	}
 
-/**
- * Executes given SQL statement.
- *
- * @param string $sql SQL statement
- * @param array $params list of params to be bound to query
- * @param array $prepareOptions Options to be used in the prepare statement
- * @return mixed PDOStatement if query executes with no problem, true as the result of a successful, false on error
- * query returning no rows, such as a CREATE statement, false otherwise
- * @throws PDOException
- */
+	/**
+	 * Executes given SQL statement.
+	 *
+	 * @param string $sql SQL statement
+	 * @param array $params list of params to be bound to query
+	 * @param array $prepareOptions Options to be used in the prepare statement
+	 * @return mixed PDOStatement if query executes with no problem, true as the result of a successful, false on error
+	 * query returning no rows, such as a CREATE statement, false otherwise
+	 * @throws PDOException
+	 */
 	protected function _execute($sql, $params = array(), $prepareOptions = array()) {
 		$sql = trim($sql);
 		if (preg_match('/^(?:CREATE|ALTER|DROP)\s+(?:TABLE|INDEX)/i', $sql)) {
@@ -479,12 +479,12 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Returns a formatted error message from previous database operation.
- *
- * @param PDOStatement $query the query to extract the error from if any
- * @return string Error message with error number
- */
+	/**
+	 * Returns a formatted error message from previous database operation.
+	 *
+	 * @param PDOStatement $query the query to extract the error from if any
+	 * @return string Error message with error number
+	 */
 	public function lastError(PDOStatement $query = null) {
 		if ($query) {
 			$error = $query->errorInfo();
@@ -497,13 +497,13 @@ class DboSource extends DataSource {
 		return $error[1] . ': ' . $error[2];
 	}
 
-/**
- * Returns number of affected rows in previous database operation. If no previous operation exists,
- * this returns false.
- *
- * @param mixed $source
- * @return integer Number of affected rows
- */
+	/**
+	 * Returns number of affected rows in previous database operation. If no previous operation exists,
+	 * this returns false.
+	 *
+	 * @param mixed $source
+	 * @return integer Number of affected rows
+	 */
 	public function lastAffected($source = null) {
 		if ($this->hasResult()) {
 			return $this->_result->rowCount();
@@ -511,22 +511,22 @@ class DboSource extends DataSource {
 		return 0;
 	}
 
-/**
- * Returns number of rows in previous resultset. If no previous resultset exists,
- * this returns false.
- *
- * @param mixed $source Not used
- * @return integer Number of rows in resultset
- */
+	/**
+	 * Returns number of rows in previous resultset. If no previous resultset exists,
+	 * this returns false.
+	 *
+	 * @param mixed $source Not used
+	 * @return integer Number of rows in resultset
+	 */
 	public function lastNumRows($source = null) {
 		return $this->lastAffected();
 	}
 
-/**
- * DataSource Query abstraction
- *
- * @return resource Result resource identifier.
- */
+	/**
+	 * DataSource Query abstraction
+	 *
+	 * @return resource Result resource identifier.
+	 */
 	public function query() {
 		$args = func_get_args();
 		$fields = null;
@@ -612,12 +612,12 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Returns a row from current resultset as an array
- *
- * @param string $sql Some SQL to be executed.
- * @return array The fetched row as an array
- */
+	/**
+	 * Returns a row from current resultset as an array
+	 *
+	 * @param string $sql Some SQL to be executed.
+	 * @return array The fetched row as an array
+	 */
 	public function fetchRow($sql = null) {
 		if (is_string($sql) && strlen($sql) > 5 && !$this->execute($sql)) {
 			return null;
@@ -634,22 +634,22 @@ class DboSource extends DataSource {
 		return null;
 	}
 
-/**
- * Returns an array of all result rows for a given SQL query.
- * Returns false if no rows matched.
- *
- * ### Options
- *
- * - `cache` - Returns the cached version of the query, if exists and stores the result in cache.
- *   This is a non-persistent cache, and only lasts for a single request. This option
- *   defaults to true. If you are directly calling this method, you can disable caching
- *   by setting $options to `false`
- *
- * @param string $sql SQL statement
- * @param array $params parameters to be bound as values for the SQL statement
- * @param array $options additional options for the query.
- * @return boolean|array Array of resultset rows, or false if no rows matched
- */
+	/**
+	 * Returns an array of all result rows for a given SQL query.
+	 * Returns false if no rows matched.
+	 *
+	 * ### Options
+	 *
+	 * - `cache` - Returns the cached version of the query, if exists and stores the result in cache.
+	 *   This is a non-persistent cache, and only lasts for a single request. This option
+	 *   defaults to true. If you are directly calling this method, you can disable caching
+	 *   by setting $options to `false`
+	 *
+	 * @param string $sql SQL statement
+	 * @param array $params parameters to be bound as values for the SQL statement
+	 * @param array $options additional options for the query.
+	 * @return boolean|array Array of resultset rows, or false if no rows matched
+	 */
 	public function fetchAll($sql, $params = array(), $options = array()) {
 		if (is_string($options)) {
 			$options = array('modelName' => $options);
@@ -691,21 +691,21 @@ class DboSource extends DataSource {
 		return false;
 	}
 
-/**
- * Fetches the next row from the current result set
- *
- * @return boolean
- */
+	/**
+	 * Fetches the next row from the current result set
+	 *
+	 * @return boolean
+	 */
 	public function fetchResult() {
 		return false;
 	}
 
-/**
- * Modifies $result array to place virtual fields in model entry where they belongs to
- *
- * @param array $result Reference to the fetched row
- * @return void
- */
+	/**
+	 * Modifies $result array to place virtual fields in model entry where they belongs to
+	 *
+	 * @param array $result Reference to the fetched row
+	 * @return void
+	 */
 	public function fetchVirtualField(&$result) {
 		if (isset($result[0]) && is_array($result[0])) {
 			foreach ($result[0] as $field => $value) {
@@ -729,13 +729,13 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Returns a single field of the first of query results for a given SQL query, or false if empty.
- *
- * @param string $name Name of the field
- * @param string $sql SQL query
- * @return mixed Value of field read.
- */
+	/**
+	 * Returns a single field of the first of query results for a given SQL query, or false if empty.
+	 *
+	 * @param string $name Name of the field
+	 * @param string $sql SQL query
+	 * @return mixed Value of field read.
+	 */
 	public function field($name, $sql) {
 		$data = $this->fetchRow($sql);
 		if (empty($data[$name])) {
@@ -744,29 +744,29 @@ class DboSource extends DataSource {
 		return $data[$name];
 	}
 
-/**
- * Empties the method caches.
- * These caches are used by DboSource::name() and DboSource::conditions()
- *
- * @return void
- */
+	/**
+	 * Empties the method caches.
+	 * These caches are used by DboSource::name() and DboSource::conditions()
+	 *
+	 * @return void
+	 */
 	public function flushMethodCache() {
 		$this->_methodCacheChange = true;
 		self::$methodCache = array();
 	}
 
-/**
- * Cache a value into the methodCaches. Will respect the value of DboSource::$cacheMethods.
- * Will retrieve a value from the cache if $value is null.
- *
- * If caching is disabled and a write is attempted, the $value will be returned.
- * A read will either return the value or null.
- *
- * @param string $method Name of the method being cached.
- * @param string $key The key name for the cache operation.
- * @param mixed $value The value to cache into memory.
- * @return mixed Either null on failure, or the value if its set.
- */
+	/**
+	 * Cache a value into the methodCaches. Will respect the value of DboSource::$cacheMethods.
+	 * Will retrieve a value from the cache if $value is null.
+	 *
+	 * If caching is disabled and a write is attempted, the $value will be returned.
+	 * A read will either return the value or null.
+	 *
+	 * @param string $method Name of the method being cached.
+	 * @param string $key The key name for the cache operation.
+	 * @param mixed $value The value to cache into memory.
+	 * @return mixed Either null on failure, or the value if its set.
+	 */
 	public function cacheMethod($method, $key, $value = null) {
 		if ($this->cacheMethods === false) {
 			return $value;
@@ -781,18 +781,18 @@ class DboSource extends DataSource {
 		return self::$methodCache[$method][$key] = $value;
 	}
 
-/**
- * Returns a quoted name of $data for use in an SQL statement.
- * Strips fields out of SQL functions before quoting.
- *
- * Results of this method are stored in a memory cache. This improves performance, but
- * because the method uses a hashing algorithm it can have collisions.
- * Setting DboSource::$cacheMethods to false will disable the memory cache.
- *
- * @param mixed $data Either a string with a column to quote. An array of columns to quote or an
- *   object from DboSource::expression() or DboSource::identifier()
- * @return string SQL field
- */
+	/**
+	 * Returns a quoted name of $data for use in an SQL statement.
+	 * Strips fields out of SQL functions before quoting.
+	 *
+	 * Results of this method are stored in a memory cache. This improves performance, but
+	 * because the method uses a hashing algorithm it can have collisions.
+	 * Setting DboSource::$cacheMethods to false will disable the memory cache.
+	 *
+	 * @param mixed $data Either a string with a column to quote. An array of columns to quote or an
+	 *   object from DboSource::expression() or DboSource::identifier()
+	 * @return string SQL field
+	 */
 	public function name($data) {
 		if (is_object($data) && isset($data->type)) {
 			return $data->value;
@@ -846,31 +846,31 @@ class DboSource extends DataSource {
 		return $this->cacheMethod(__FUNCTION__, $cacheKey, $data);
 	}
 
-/**
- * Checks if the source is connected to the database.
- *
- * @return boolean True if the database is connected, else false
- */
+	/**
+	 * Checks if the source is connected to the database.
+	 *
+	 * @return boolean True if the database is connected, else false
+	 */
 	public function isConnected() {
 		return $this->connected;
 	}
 
-/**
- * Checks if the result is valid
- *
- * @return boolean True if the result is valid else false
- */
+	/**
+	 * Checks if the result is valid
+	 *
+	 * @return boolean True if the result is valid else false
+	 */
 	public function hasResult() {
 		return $this->_result instanceof PDOStatement;
 	}
 
-/**
- * Get the query log as an array.
- *
- * @param boolean $sorted Get the queries sorted by time taken, defaults to false.
- * @param boolean $clear If True the existing log will cleared.
- * @return array Array of queries run as an array
- */
+	/**
+	 * Get the query log as an array.
+	 *
+	 * @param boolean $sorted Get the queries sorted by time taken, defaults to false.
+	 * @param boolean $clear If True the existing log will cleared.
+	 * @return array Array of queries run as an array
+	 */
 	public function getLog($sorted = false, $clear = true) {
 		if ($sorted) {
 			$log = sortByKey($this->_queriesLog, 'took', 'desc', SORT_NUMERIC);
@@ -883,13 +883,13 @@ class DboSource extends DataSource {
 		return array('log' => $log, 'count' => $this->_queriesCnt, 'time' => $this->_queriesTime);
 	}
 
-/**
- * Outputs the contents of the queries log. If in a non-CLI environment the sql_log element
- * will be rendered and output. If in a CLI environment, a plain text log is generated.
- *
- * @param boolean $sorted Get the queries sorted by time taken, defaults to false.
- * @return void
- */
+	/**
+	 * Outputs the contents of the queries log. If in a non-CLI environment the sql_log element
+	 * will be rendered and output. If in a CLI environment, a plain text log is generated.
+	 *
+	 * @param boolean $sorted Get the queries sorted by time taken, defaults to false.
+	 * @return void
+	 */
 	public function showLog($sorted = false) {
 		$log = $this->getLog($sorted, false);
 		if (empty($log['log'])) {
@@ -907,13 +907,13 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Log given SQL query.
- *
- * @param string $sql SQL statement
- * @param array $params Values binded to the query (prepared statements)
- * @return void
- */
+	/**
+	 * Log given SQL query.
+	 *
+	 * @param string $sql SQL statement
+	 * @param array $params Values binded to the query (prepared statements)
+	 * @return void
+	 */
 	public function logQuery($sql, $params = array()) {
 		$this->_queriesCnt++;
 		$this->_queriesTime += $this->took;
@@ -929,14 +929,14 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Gets full table name including prefix
- *
- * @param Model|string $model Either a Model object or a string table name.
- * @param boolean $quote Whether you want the table name quoted.
- * @param boolean $schema Whether you want the schema name included.
- * @return string Full quoted table name
- */
+	/**
+	 * Gets full table name including prefix
+	 *
+	 * @param Model|string $model Either a Model object or a string table name.
+	 * @param boolean $quote Whether you want the table name quoted.
+	 * @param boolean $schema Whether you want the schema name included.
+	 * @return string Full quoted table name
+	 */
 	public function fullTableName($model, $quote = true, $schema = true) {
 		if (is_object($model)) {
 			$schemaName = $model->schemaName;
@@ -966,18 +966,18 @@ class DboSource extends DataSource {
 		return $table;
 	}
 
-/**
- * The "C" in CRUD
- *
- * Creates new records in the database.
- *
- * @param Model $model Model object that the record is for.
- * @param array $fields An array of field names to insert. If null, $model->data will be
- *   used to generate field names.
- * @param array $values An array of values with keys matching the fields. If null, $model->data will
- *   be used to generate values.
- * @return boolean Success
- */
+	/**
+	 * The "C" in CRUD
+	 *
+	 * Creates new records in the database.
+	 *
+	 * @param Model $model Model object that the record is for.
+	 * @param array $fields An array of field names to insert. If null, $model->data will be
+	 *   used to generate field names.
+	 * @param array $values An array of values with keys matching the fields. If null, $model->data will
+	 *   be used to generate values.
+	 * @return boolean Success
+	 */
 	public function create(Model $model, $fields = null, $values = null) {
 		$id = null;
 
@@ -1013,16 +1013,16 @@ class DboSource extends DataSource {
 		return false;
 	}
 
-/**
- * The "R" in CRUD
- *
- * Reads record(s) from the database.
- *
- * @param Model $model A Model object that the query is for.
- * @param array $queryData An array of queryData information containing keys similar to Model::find()
- * @param integer $recursive Number of levels of association
- * @return mixed boolean false on error/failure. An array of results on success.
- */
+	/**
+	 * The "R" in CRUD
+	 *
+	 * Reads record(s) from the database.
+	 *
+	 * @param Model $model A Model object that the query is for.
+	 * @param array $queryData An array of queryData information containing keys similar to Model::find()
+	 * @param integer $recursive Number of levels of association
+	 * @return mixed boolean false on error/failure. An array of results on success.
+	 */
 	public function read(Model $model, $queryData = array(), $recursive = null) {
 		$queryData = $this->_scrubQueryData($queryData);
 
@@ -1129,14 +1129,14 @@ class DboSource extends DataSource {
 		return $resultSet;
 	}
 
-/**
- * Passes association results thru afterFind filters of corresponding model
- *
- * @param array $results Reference of resultset to be filtered
- * @param Model $model Instance of model to operate against
- * @param array $filtered List of classes already filtered, to be skipped
- * @return array Array of results that have been filtered through $model->afterFind
- */
+	/**
+	 * Passes association results thru afterFind filters of corresponding model
+	 *
+	 * @param array $results Reference of resultset to be filtered
+	 * @param Model $model Instance of model to operate against
+	 * @param array $filtered List of classes already filtered, to be skipped
+	 * @return array Array of results that have been filtered through $model->afterFind
+	 */
 	protected function _filterResults(&$results, Model $model, $filtered = array()) {
 		if (!is_array($results)) {
 			return array();
@@ -1165,22 +1165,22 @@ class DboSource extends DataSource {
 		return $filtering;
 	}
 
-/**
- * Queries associations. Used to fetch results on recursive models.
- *
- * @param Model $model Primary Model object
- * @param Model $linkModel Linked model that
- * @param string $type Association type, one of the model association types ie. hasMany
- * @param string $association
- * @param array $assocData
- * @param array $queryData
- * @param boolean $external Whether or not the association query is on an external datasource.
- * @param array $resultSet Existing results
- * @param integer $recursive Number of levels of association
- * @param array $stack
- * @return mixed
- * @throws CakeException when results cannot be created.
- */
+	/**
+	 * Queries associations. Used to fetch results on recursive models.
+	 *
+	 * @param Model $model Primary Model object
+	 * @param Model $linkModel Linked model that
+	 * @param string $type Association type, one of the model association types ie. hasMany
+	 * @param string $association
+	 * @param array $assocData
+	 * @param array $queryData
+	 * @param boolean $external Whether or not the association query is on an external datasource.
+	 * @param array $resultSet Existing results
+	 * @param integer $recursive Number of levels of association
+	 * @param array $stack
+	 * @return mixed
+	 * @throws CakeException when results cannot be created.
+	 */
 	public function queryAssociation(Model $model, &$linkModel, $type, $association, $assocData, &$queryData, $external, &$resultSet, $recursive, $stack) {
 		if (isset($stack['_joined'])) {
 			$joined = $stack['_joined'];
@@ -1329,14 +1329,14 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * A more efficient way to fetch associations.
- *
- * @param Model $model Primary model object
- * @param string $query Association query
- * @param array $ids Array of IDs of associated records
- * @return array Association results
- */
+	/**
+	 * A more efficient way to fetch associations.
+	 *
+	 * @param Model $model Primary model object
+	 * @param string $query Association query
+	 * @param array $ids Array of IDs of associated records
+	 * @return array Association results
+	 */
 	public function fetchAssociated(Model $model, $query, $ids) {
 		$query = str_replace('{$__cakeID__$}', implode(', ', $ids), $query);
 		if (count($ids) > 1) {
@@ -1345,16 +1345,16 @@ class DboSource extends DataSource {
 		return $this->fetchAll($query, $model->cacheQueries);
 	}
 
-/**
- * Merge the results of hasMany relations.
- *
- * @param array $resultSet Data to merge into
- * @param array $merge Data to merge
- * @param string $association Name of Model being Merged
- * @param Model $model Model being merged onto
- * @param Model $linkModel Model being merged
- * @return void
- */
+	/**
+	 * Merge the results of hasMany relations.
+	 *
+	 * @param array $resultSet Data to merge into
+	 * @param array $merge Data to merge
+	 * @param string $association Name of Model being Merged
+	 * @param Model $model Model being merged onto
+	 * @param Model $linkModel Model being merged
+	 * @return void
+	 */
 	protected function _mergeHasMany(&$resultSet, $merge, $association, $model, $linkModel) {
 		$modelAlias = $model->alias;
 		$modelPK = $model->primaryKey;
@@ -1385,16 +1385,16 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Merge association of merge into data
- *
- * @param array $data
- * @param array $merge
- * @param string $association
- * @param string $type
- * @param boolean $selfJoin
- * @return void
- */
+	/**
+	 * Merge association of merge into data
+	 *
+	 * @param array $data
+	 * @param array $merge
+	 * @param string $association
+	 * @param string $type
+	 * @param boolean $selfJoin
+	 * @return void
+	 */
 	protected function _mergeAssociation(&$data, &$merge, $association, $type, $selfJoin = false) {
 		if (isset($merge[0]) && !isset($merge[0][$association])) {
 			$association = Inflector::pluralize($association);
@@ -1466,19 +1466,19 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Generates an array representing a query or part of a query from a single model or two associated models
- *
- * @param Model $model
- * @param Model $linkModel
- * @param string $type
- * @param string $association
- * @param array $assocData
- * @param array $queryData
- * @param boolean $external
- * @param array $resultSet
- * @return mixed
- */
+	/**
+	 * Generates an array representing a query or part of a query from a single model or two associated models
+	 *
+	 * @param Model $model
+	 * @param Model $linkModel
+	 * @param string $type
+	 * @param string $association
+	 * @param array $assocData
+	 * @param array $queryData
+	 * @param boolean $external
+	 * @param array $resultSet
+	 * @return mixed
+	 */
 	public function generateAssociationQuery(Model $model, $linkModel, $type, $association, $assocData, &$queryData, $external, &$resultSet) {
 		$queryData = $this->_scrubQueryData($queryData);
 		$assocData = $this->_scrubQueryData($assocData);
@@ -1633,17 +1633,17 @@ class DboSource extends DataSource {
 		return null;
 	}
 
-/**
- * Returns a conditions array for the constraint between two models
- *
- * @param string $type Association type
- * @param Model $model Model object
- * @param string $linkModel
- * @param string $alias
- * @param array $assoc
- * @param string $alias2
- * @return array Conditions array defining the constraint between $model and $association
- */
+	/**
+	 * Returns a conditions array for the constraint between two models
+	 *
+	 * @param string $type Association type
+	 * @param Model $model Model object
+	 * @param string $linkModel
+	 * @param string $alias
+	 * @param array $assoc
+	 * @param string $alias2
+	 * @return array Conditions array defining the constraint between $model and $association
+	 */
 	public function getConstraint($type, $model, $linkModel, $alias, $assoc, $alias2 = null) {
 		$assoc += array('external' => false, 'self' => false);
 
@@ -1671,14 +1671,14 @@ class DboSource extends DataSource {
 		return array();
 	}
 
-/**
- * Builds and generates a JOIN statement from an array. Handles final clean-up before conversion.
- *
- * @param array $join An array defining a JOIN statement in a query
- * @return string An SQL JOIN statement to be used in a query
- * @see DboSource::renderJoinStatement()
- * @see DboSource::buildStatement()
- */
+	/**
+	 * Builds and generates a JOIN statement from an array. Handles final clean-up before conversion.
+	 *
+	 * @param array $join An array defining a JOIN statement in a query
+	 * @return string An SQL JOIN statement to be used in a query
+	 * @see DboSource::renderJoinStatement()
+	 * @see DboSource::buildStatement()
+	 */
 	public function buildJoinStatement($join) {
 		$data = array_merge(array(
 			'type' => null,
@@ -1699,14 +1699,14 @@ class DboSource extends DataSource {
 		return $this->renderJoinStatement($data);
 	}
 
-/**
- * Builds and generates an SQL statement from an array. Handles final clean-up before conversion.
- *
- * @param array $query An array defining an SQL query
- * @param Model $model The model object which initiated the query
- * @return string An executable SQL statement
- * @see DboSource::renderStatement()
- */
+	/**
+	 * Builds and generates an SQL statement from an array. Handles final clean-up before conversion.
+	 *
+	 * @param array $query An array defining an SQL query
+	 * @param Model $model The model object which initiated the query
+	 * @return string An executable SQL statement
+	 * @see DboSource::renderStatement()
+	 */
 	public function buildStatement($query, $model) {
 		$query = array_merge($this->_queryDefaults, $query);
 		if (!empty($query['joins'])) {
@@ -1729,12 +1729,12 @@ class DboSource extends DataSource {
 		));
 	}
 
-/**
- * Renders a final SQL JOIN statement
- *
- * @param array $data
- * @return string
- */
+	/**
+	 * Renders a final SQL JOIN statement
+	 *
+	 * @param array $data
+	 * @return string
+	 */
 	public function renderJoinStatement($data) {
 		if (strtoupper($data['type']) === 'CROSS') {
 			return "{$data['type']} JOIN {$data['table']} {$data['alias']}";
@@ -1742,13 +1742,13 @@ class DboSource extends DataSource {
 		return trim("{$data['type']} JOIN {$data['table']} {$data['alias']} ON ({$data['conditions']})");
 	}
 
-/**
- * Renders a final SQL statement by putting together the component parts in the correct order
- *
- * @param string $type type of query being run. e.g select, create, update, delete, schema, alter.
- * @param array $data Array of data to insert into the query.
- * @return string Rendered SQL expression to be run.
- */
+	/**
+	 * Renders a final SQL statement by putting together the component parts in the correct order
+	 *
+	 * @param string $type type of query being run. e.g select, create, update, delete, schema, alter.
+	 * @param array $data Array of data to insert into the query.
+	 * @return string Rendered SQL expression to be run.
+	 */
 	public function renderStatement($type, $data) {
 		extract($data);
 		$aliases = null;
@@ -1785,13 +1785,13 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Merges a mixed set of string/array conditions
- *
- * @param mixed $query
- * @param mixed $assoc
- * @return array
- */
+	/**
+	 * Merges a mixed set of string/array conditions
+	 *
+	 * @param mixed $query
+	 * @param mixed $assoc
+	 * @return array
+	 */
 	protected function _mergeConditions($query, $assoc) {
 		if (empty($assoc)) {
 			return $query;
@@ -1814,16 +1814,16 @@ class DboSource extends DataSource {
 		return $assoc;
 	}
 
-/**
- * Generates and executes an SQL UPDATE statement for given model, fields, and values.
- * For databases that do not support aliases in UPDATE queries.
- *
- * @param Model $model
- * @param array $fields
- * @param array $values
- * @param mixed $conditions
- * @return boolean Success
- */
+	/**
+	 * Generates and executes an SQL UPDATE statement for given model, fields, and values.
+	 * For databases that do not support aliases in UPDATE queries.
+	 *
+	 * @param Model $model
+	 * @param array $fields
+	 * @param array $values
+	 * @param mixed $conditions
+	 * @return boolean Success
+	 */
 	public function update(Model $model, $fields = array(), $values = null, $conditions = null) {
 		if (!$values) {
 			$combined = $fields;
@@ -1849,15 +1849,15 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Quotes and prepares fields and values for an SQL UPDATE statement
- *
- * @param Model $model
- * @param array $fields
- * @param boolean $quoteValues If values should be quoted, or treated as SQL snippets
- * @param boolean $alias Include the model alias in the field name
- * @return array Fields and values, quoted and prepared
- */
+	/**
+	 * Quotes and prepares fields and values for an SQL UPDATE statement
+	 *
+	 * @param Model $model
+	 * @param array $fields
+	 * @param boolean $quoteValues If values should be quoted, or treated as SQL snippets
+	 * @param boolean $alias Include the model alias in the field name
+	 * @return array Fields and values, quoted and prepared
+	 */
 	protected function _prepareUpdateFields(Model $model, $fields, $quoteValues = true, $alias = false) {
 		$quotedAlias = $this->startQuote . $model->alias . $this->endQuote;
 
@@ -1895,14 +1895,14 @@ class DboSource extends DataSource {
 		return $updates;
 	}
 
-/**
- * Generates and executes an SQL DELETE statement.
- * For databases that do not support aliases in UPDATE queries.
- *
- * @param Model $model
- * @param mixed $conditions
- * @return boolean Success
- */
+	/**
+	 * Generates and executes an SQL DELETE statement.
+	 * For databases that do not support aliases in UPDATE queries.
+	 *
+	 * @param Model $model
+	 * @param mixed $conditions
+	 * @return boolean Success
+	 */
 	public function delete(Model $model, $conditions = null) {
 		$alias = $joins = null;
 		$table = $this->fullTableName($model);
@@ -1919,14 +1919,14 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Gets a list of record IDs for the given conditions. Used for multi-record updates and deletes
- * in databases that do not support aliases in UPDATE/DELETE queries.
- *
- * @param Model $model
- * @param mixed $conditions
- * @return array List of record IDs
- */
+	/**
+	 * Gets a list of record IDs for the given conditions. Used for multi-record updates and deletes
+	 * in databases that do not support aliases in UPDATE/DELETE queries.
+	 *
+	 * @param Model $model
+	 * @param mixed $conditions
+	 * @return array List of record IDs
+	 */
 	protected function _matchRecords(Model $model, $conditions = null) {
 		if ($conditions === true) {
 			$conditions = $this->conditions(true);
@@ -1968,12 +1968,12 @@ class DboSource extends DataSource {
 		return $conditions;
 	}
 
-/**
- * Returns an array of SQL JOIN fragments from a model's associations
- *
- * @param Model $model
- * @return array
- */
+	/**
+	 * Returns an array of SQL JOIN fragments from a model's associations
+	 *
+	 * @param Model $model
+	 * @return array
+	 */
 	protected function _getJoins(Model $model) {
 		$join = array();
 		$joins = array_merge($model->getAssociated('hasOne'), $model->getAssociated('belongsTo'));
@@ -1995,14 +1995,14 @@ class DboSource extends DataSource {
 		return $join;
 	}
 
-/**
- * Returns an SQL calculation, i.e. COUNT() or MAX()
- *
- * @param Model $model
- * @param string $func Lowercase name of SQL function, i.e. 'count' or 'max'
- * @param array $params Function parameters (any values must be quoted manually)
- * @return string An SQL calculation function
- */
+	/**
+	 * Returns an SQL calculation, i.e. COUNT() or MAX()
+	 *
+	 * @param Model $model
+	 * @param string $func Lowercase name of SQL function, i.e. 'count' or 'max'
+	 * @param array $params Function parameters (any values must be quoted manually)
+	 * @return string An SQL calculation function
+	 */
 	public function calculate(Model $model, $func, $params = array()) {
 		$params = (array)$params;
 
@@ -2034,33 +2034,33 @@ class DboSource extends DataSource {
 		}
 	}
 
-/**
- * Deletes all the records in a table and resets the count of the auto-incrementing
- * primary key, where applicable.
- *
- * @param Model|string $table A string or model class representing the table to be truncated
- * @return boolean SQL TRUNCATE TABLE statement, false if not applicable.
- */
+	/**
+	 * Deletes all the records in a table and resets the count of the auto-incrementing
+	 * primary key, where applicable.
+	 *
+	 * @param Model|string $table A string or model class representing the table to be truncated
+	 * @return boolean SQL TRUNCATE TABLE statement, false if not applicable.
+	 */
 	public function truncate($table) {
 		return $this->execute('TRUNCATE TABLE ' . $this->fullTableName($table));
 	}
 
-/**
- * Check if the server support nested transactions
- *
- * @return boolean
- */
+	/**
+	 * Check if the server support nested transactions
+	 *
+	 * @return boolean
+	 */
 	public function nestedTransactionSupported() {
 		return false;
 	}
 
-/**
- * Begin a transaction
- *
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions,
- * or a transaction has not started).
- */
+	/**
+	 * Begin a transaction
+	 *
+	 * @return boolean True on success, false on fail
+	 * (i.e. if the database/model does not support transactions,
+	 * or a transaction has not started).
+	 */
 	public function begin() {
 		if ($this->_transactionStarted) {
 			if ($this->nestedTransactionSupported()) {
@@ -2077,11 +2077,11 @@ class DboSource extends DataSource {
 		return $this->_transactionStarted = $this->_connection->beginTransaction();
 	}
 
-/**
- * Begin a nested transaction
- *
- * @return boolean
- */
+	/**
+	 * Begin a nested transaction
+	 *
+	 * @return boolean
+	 */
 	protected function _beginNested() {
 		$query = 'SAVEPOINT LEVEL' . ++$this->_transactionNesting;
 		if ($this->fullDebug) {
@@ -2091,13 +2091,13 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Commit a transaction
- *
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions,
- * or a transaction has not started).
- */
+	/**
+	 * Commit a transaction
+	 *
+	 * @return boolean True on success, false on fail
+	 * (i.e. if the database/model does not support transactions,
+	 * or a transaction has not started).
+	 */
 	public function commit() {
 		if (!$this->_transactionStarted) {
 			return false;
@@ -2119,11 +2119,11 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Commit a nested transaction
- *
- * @return boolean
- */
+	/**
+	 * Commit a nested transaction
+	 *
+	 * @return boolean
+	 */
 	protected function _commitNested() {
 		$query = 'RELEASE SAVEPOINT LEVEL' . $this->_transactionNesting--;
 		if ($this->fullDebug) {
@@ -2133,13 +2133,13 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Rollback a transaction
- *
- * @return boolean True on success, false on fail
- * (i.e. if the database/model does not support transactions,
- * or a transaction has not started).
- */
+	/**
+	 * Rollback a transaction
+	 *
+	 * @return boolean True on success, false on fail
+	 * (i.e. if the database/model does not support transactions,
+	 * or a transaction has not started).
+	 */
 	public function rollback() {
 		if (!$this->_transactionStarted) {
 			return false;
@@ -2161,11 +2161,11 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Rollback a nested transaction
- *
- * @return boolean
- */
+	/**
+	 * Rollback a nested transaction
+	 *
+	 * @return boolean
+	 */
 	protected function _rollbackNested() {
 		$query = 'ROLLBACK TO SAVEPOINT LEVEL' . $this->_transactionNesting--;
 		if ($this->fullDebug) {
@@ -2175,30 +2175,30 @@ class DboSource extends DataSource {
 		return true;
 	}
 
-/**
- * Returns the ID generated from the previous INSERT operation.
- *
- * @param mixed $source
- * @return mixed
- */
+	/**
+	 * Returns the ID generated from the previous INSERT operation.
+	 *
+	 * @param mixed $source
+	 * @return mixed
+	 */
 	public function lastInsertId($source = null) {
 		return $this->_connection->lastInsertId();
 	}
 
-/**
- * Creates a default set of conditions from the model if $conditions is null/empty.
- * If conditions are supplied then they will be returned. If a model doesn't exist and no conditions
- * were provided either null or false will be returned based on what was input.
- *
- * @param Model $model
- * @param string|array|boolean $conditions Array of conditions, conditions string, null or false. If an array of conditions,
- *   or string conditions those conditions will be returned. With other values the model's existence will be checked.
- *   If the model doesn't exist a null or false will be returned depending on the input value.
- * @param boolean $useAlias Use model aliases rather than table names when generating conditions
- * @return mixed Either null, false, $conditions or an array of default conditions to use.
- * @see DboSource::update()
- * @see DboSource::conditions()
- */
+	/**
+	 * Creates a default set of conditions from the model if $conditions is null/empty.
+	 * If conditions are supplied then they will be returned. If a model doesn't exist and no conditions
+	 * were provided either null or false will be returned based on what was input.
+	 *
+	 * @param Model $model
+	 * @param string|array|boolean $conditions Array of conditions, conditions string, null or false. If an array of conditions,
+	 *   or string conditions those conditions will be returned. With other values the model's existence will be checked.
+	 *   If the model doesn't exist a null or false will be returned depending on the input value.
+	 * @param boolean $useAlias Use model aliases rather than table names when generating conditions
+	 * @return mixed Either null, false, $conditions or an array of default conditions to use.
+	 * @see DboSource::update()
+	 * @see DboSource::conditions()
+	 */
 	public function defaultConditions(Model $model, $conditions, $useAlias = true) {
 		if (!empty($conditions)) {
 			return $conditions;
@@ -2217,14 +2217,14 @@ class DboSource extends DataSource {
 		return array("{$alias}.{$model->primaryKey}" => $model->getID());
 	}
 
-/**
- * Returns a key formatted like a string Model.fieldname(i.e. Post.title, or Country.name)
- *
- * @param Model $model
- * @param string $key
- * @param string $assoc
- * @return string
- */
+	/**
+	 * Returns a key formatted like a string Model.fieldname(i.e. Post.title, or Country.name)
+	 *
+	 * @param Model $model
+	 * @param string $key
+	 * @param string $assoc
+	 * @return string
+	 */
 	public function resolveKey(Model $model, $key, $assoc = null) {
 		if (strpos('.', $key) !== false) {
 			return $this->name($model->alias) . '.' . $this->name($key);
@@ -2232,12 +2232,12 @@ class DboSource extends DataSource {
 		return $key;
 	}
 
-/**
- * Private helper method to remove query metadata in given data array.
- *
- * @param array $data
- * @return array
- */
+	/**
+	 * Private helper method to remove query metadata in given data array.
+	 *
+	 * @param array $data
+	 * @return array
+	 */
 	protected function _scrubQueryData($data) {
 		static $base = null;
 		if ($base === null) {
@@ -2247,14 +2247,14 @@ class DboSource extends DataSource {
 		return (array)$data + $base;
 	}
 
-/**
- * Converts model virtual fields into sql expressions to be fetched later
- *
- * @param Model $model
- * @param string $alias Alias table name
- * @param array $fields virtual fields to be used on query
- * @return array
- */
+	/**
+	 * Converts model virtual fields into sql expressions to be fetched later
+	 *
+	 * @param Model $model
+	 * @param string $alias Alias table name
+	 * @param array $fields virtual fields to be used on query
+	 * @return array
+	 */
 	protected function _constructVirtualFields(Model $model, $alias, $fields) {
 		$virtual = array();
 		foreach ($fields as $field) {
@@ -2265,15 +2265,15 @@ class DboSource extends DataSource {
 		return $virtual;
 	}
 
-/**
- * Generates the fields list of an SQL query.
- *
- * @param Model $model
- * @param string $alias Alias table name
- * @param mixed $fields
- * @param boolean $quote If false, returns fields array unquoted
- * @return array
- */
+	/**
+	 * Generates the fields list of an SQL query.
+	 *
+	 * @param Model $model
+	 * @param string $alias Alias table name
+	 * @param mixed $fields
+	 * @param boolean $quote If false, returns fields array unquoted
+	 * @return array
+	 */
 	public function fields(Model $model, $alias = null, $fields = array(), $quote = true) {
 		if (empty($alias)) {
 			$alias = $model->alias;
@@ -2381,21 +2381,21 @@ class DboSource extends DataSource {
 		return $this->cacheMethod(__FUNCTION__, $cacheKey, array_unique($fields));
 	}
 
-/**
- * Creates a WHERE clause by parsing given conditions data. If an array or string
- * conditions are provided those conditions will be parsed and quoted. If a boolean
- * is given it will be integer cast as condition. Null will return 1 = 1.
- *
- * Results of this method are stored in a memory cache. This improves performance, but
- * because the method uses a hashing algorithm it can have collisions.
- * Setting DboSource::$cacheMethods to false will disable the memory cache.
- *
- * @param mixed $conditions Array or string of conditions, or any value.
- * @param boolean $quoteValues If true, values should be quoted
- * @param boolean $where If true, "WHERE " will be prepended to the return value
- * @param Model $model A reference to the Model instance making the query
- * @return string SQL fragment
- */
+	/**
+	 * Creates a WHERE clause by parsing given conditions data. If an array or string
+	 * conditions are provided those conditions will be parsed and quoted. If a boolean
+	 * is given it will be integer cast as condition. Null will return 1 = 1.
+	 *
+	 * Results of this method are stored in a memory cache. This improves performance, but
+	 * because the method uses a hashing algorithm it can have collisions.
+	 * Setting DboSource::$cacheMethods to false will disable the memory cache.
+	 *
+	 * @param mixed $conditions Array or string of conditions, or any value.
+	 * @param boolean $quoteValues If true, values should be quoted
+	 * @param boolean $where If true, "WHERE " will be prepended to the return value
+	 * @param Model $model A reference to the Model instance making the query
+	 * @return string SQL fragment
+	 */
 	public function conditions($conditions, $quoteValues = true, $where = true, $model = null) {
 		$clause = $out = '';
 
@@ -2427,14 +2427,14 @@ class DboSource extends DataSource {
 		return $clause . $conditions;
 	}
 
-/**
- * Creates a WHERE clause by parsing given conditions array. Used by DboSource::conditions().
- *
- * @param array $conditions Array or string of conditions
- * @param boolean $quoteValues If true, values should be quoted
- * @param Model $model A reference to the Model instance making the query
- * @return string SQL fragment
- */
+	/**
+	 * Creates a WHERE clause by parsing given conditions array. Used by DboSource::conditions().
+	 *
+	 * @param array $conditions Array or string of conditions
+	 * @param boolean $quoteValues If true, values should be quoted
+	 * @param Model $model A reference to the Model instance making the query
+	 * @return string SQL fragment
+	 */
 	public function conditionKeysToString($conditions, $quoteValues = true, $model = null) {
 		$out = array();
 		$data = $columnType = null;
@@ -2533,15 +2533,15 @@ class DboSource extends DataSource {
 		return $out;
 	}
 
-/**
- * Extracts a Model.field identifier and an SQL condition operator from a string, formats
- * and inserts values, and composes them into an SQL snippet.
- *
- * @param Model $model Model object initiating the query
- * @param string $key An SQL key snippet containing a field and optional SQL operator
- * @param mixed $value The value(s) to be inserted in the string
- * @return string
- */
+	/**
+	 * Extracts a Model.field identifier and an SQL condition operator from a string, formats
+	 * and inserts values, and composes them into an SQL snippet.
+	 *
+	 * @param Model $model Model object initiating the query
+	 * @param string $key An SQL key snippet containing a field and optional SQL operator
+	 * @param mixed $value The value(s) to be inserted in the string
+	 * @return string
+	 */
 	protected function _parseKey($model, $key, $value) {
 		$operatorMatch = '/^(((' . implode(')|(', $this->_sqlOps);
 		$operatorMatch .= ')\\x20?)|<[>=]?(?![^>]+>)\\x20?|[>=!]{1,3}(?!<)\\x20?)/is';
@@ -2626,12 +2626,12 @@ class DboSource extends DataSource {
 		return "{$key} {$operator} {$value}";
 	}
 
-/**
- * Quotes Model.fields
- *
- * @param string $conditions
- * @return string or false if no match
- */
+	/**
+	 * Quotes Model.fields
+	 *
+	 * @param string $conditions
+	 * @return string or false if no match
+	 */
 	protected function _quoteFields($conditions) {
 		$start = $end = null;
 		$original = $conditions;
@@ -2654,12 +2654,12 @@ class DboSource extends DataSource {
 		return $original;
 	}
 
-/**
- * Auxiliary function to quote matches `Model.fields` from a preg_replace_callback call
- *
- * @param string $match matched string
- * @return string quoted string
- */
+	/**
+	 * Auxiliary function to quote matches `Model.fields` from a preg_replace_callback call
+	 *
+	 * @param string $match matched string
+	 * @return string quoted string
+	 */
 	protected function _quoteMatchedField($match) {
 		if (is_numeric($match[0])) {
 			return $match[0];
@@ -2667,13 +2667,13 @@ class DboSource extends DataSource {
 		return $this->name($match[0]);
 	}
 
-/**
- * Returns a limit statement in the correct format for the particular database.
- *
- * @param integer $limit Limit of results returned
- * @param integer $offset Offset from which to start results
- * @return string SQL limit/offset statement
- */
+	/**
+	 * Returns a limit statement in the correct format for the particular database.
+	 *
+	 * @param integer $limit Limit of results returned
+	 * @param integer $offset Offset from which to start results
+	 * @return string SQL limit/offset statement
+	 */
 	public function limit($limit, $offset = null) {
 		if ($limit) {
 			$rt = ' LIMIT';
@@ -2688,14 +2688,14 @@ class DboSource extends DataSource {
 		return null;
 	}
 
-/**
- * Returns an ORDER BY clause as a string.
- *
- * @param array|string $keys Field reference, as a key (i.e. Post.title)
- * @param string $direction Direction (ASC or DESC)
- * @param Model $model model reference (used to look for virtual field)
- * @return string ORDER BY clause
- */
+	/**
+	 * Returns an ORDER BY clause as a string.
+	 *
+	 * @param array|string $keys Field reference, as a key (i.e. Post.title)
+	 * @param string $direction Direction (ASC or DESC)
+	 * @param Model $model model reference (used to look for virtual field)
+	 * @return string ORDER BY clause
+	 */
 	public function order($keys, $direction = 'ASC', $model = null) {
 		if (!is_array($keys)) {
 			$keys = array($keys);
@@ -2760,13 +2760,13 @@ class DboSource extends DataSource {
 		return '';
 	}
 
-/**
- * Create a GROUP BY SQL clause
- *
- * @param string $group Group By Condition
- * @param Model $model
- * @return string string condition or null
- */
+	/**
+	 * Create a GROUP BY SQL clause
+	 *
+	 * @param string $group Group By Condition
+	 * @param Model $model
+	 * @return string string condition or null
+	 */
 	public function group($group, $model = null) {
 		if ($group) {
 			if (!is_array($group)) {
@@ -2783,22 +2783,22 @@ class DboSource extends DataSource {
 		return null;
 	}
 
-/**
- * Disconnects database, kills the connection and says the connection is closed.
- *
- * @return void
- */
+	/**
+	 * Disconnects database, kills the connection and says the connection is closed.
+	 *
+	 * @return void
+	 */
 	public function close() {
 		$this->disconnect();
 	}
 
-/**
- * Checks if the specified table contains any record matching specified SQL
- *
- * @param Model $Model Model to search
- * @param string $sql SQL WHERE clause (condition only, not the "WHERE" part)
- * @return boolean True if the table has a matching record, else false
- */
+	/**
+	 * Checks if the specified table contains any record matching specified SQL
+	 *
+	 * @param Model $Model Model to search
+	 * @param string $sql SQL WHERE clause (condition only, not the "WHERE" part)
+	 * @return boolean True if the table has a matching record, else false
+	 */
 	public function hasAny(Model $Model, $sql) {
 		$sql = $this->conditions($sql);
 		$table = $this->fullTableName($Model);
@@ -2814,12 +2814,12 @@ class DboSource extends DataSource {
 		return false;
 	}
 
-/**
- * Gets the length of a database-native column description, or null if no length
- *
- * @param string $real Real database-layer column type (i.e. "varchar(255)")
- * @return mixed An integer or string representing the length of the column, or null for unknown length.
- */
+	/**
+	 * Gets the length of a database-native column description, or null if no length
+	 *
+	 * @param string $real Real database-layer column type (i.e. "varchar(255)")
+	 * @return mixed An integer or string representing the length of the column, or null for unknown length.
+	 */
 	public function length($real) {
 		if (!preg_match_all('/([\w\s]+)(?:\((\d+)(?:,(\d+))?\))?(\sunsigned)?(\szerofill)?/', $real, $result)) {
 			$col = str_replace(array(')', 'unsigned'), '', $real);
@@ -2873,13 +2873,13 @@ class DboSource extends DataSource {
 		return intval($length);
 	}
 
-/**
- * Translates between PHP boolean values and Database (faked) boolean values
- *
- * @param mixed $data Value to be translated
- * @param boolean $quote
- * @return string|boolean Converted boolean value
- */
+	/**
+	 * Translates between PHP boolean values and Database (faked) boolean values
+	 *
+	 * @param mixed $data Value to be translated
+	 * @param boolean $quote
+	 * @return string|boolean Converted boolean value
+	 */
 	public function boolean($data, $quote = false) {
 		if ($quote) {
 			return !empty($data) ? '1' : '0';
@@ -2887,16 +2887,16 @@ class DboSource extends DataSource {
 		return !empty($data);
 	}
 
-/**
- * Inserts multiple values into a table
- *
- * @param string $table The table being inserted into.
- * @param array $fields The array of field/column names being inserted.
- * @param array $values The array of values to insert. The values should
- *   be an array of rows. Each row should have values keyed by the column name.
- *   Each row must have the values in the same order as $fields.
- * @return boolean
- */
+	/**
+	 * Inserts multiple values into a table
+	 *
+	 * @param string $table The table being inserted into.
+	 * @param array $fields The array of field/column names being inserted.
+	 * @param array $values The array of values to insert. The values should
+	 *   be an array of rows. Each row should have values keyed by the column name.
+	 *   Each row must have the values in the same order as $fields.
+	 * @return boolean
+	 */
 	public function insertMulti($table, $fields, $values) {
 		$table = $this->fullTableName($table);
 		$holder = implode(',', array_fill(0, count($fields), '?'));
@@ -2936,37 +2936,37 @@ class DboSource extends DataSource {
 		return $this->commit();
 	}
 
-/**
- * Reset a sequence based on the MAX() value of $column. Useful
- * for resetting sequences after using insertMulti().
- *
- * This method should be implemented by datasources that require sequences to be used.
- *
- * @param string $table The name of the table to update.
- * @param string $column The column to use when resetting the sequence value.
- * @return boolean|void success.
- */
+	/**
+	 * Reset a sequence based on the MAX() value of $column. Useful
+	 * for resetting sequences after using insertMulti().
+	 *
+	 * This method should be implemented by datasources that require sequences to be used.
+	 *
+	 * @param string $table The name of the table to update.
+	 * @param string $column The column to use when resetting the sequence value.
+	 * @return boolean|void success.
+	 */
 	public function resetSequence($table, $column) {
 	}
 
-/**
- * Returns an array of the indexes in given datasource name.
- *
- * @param string $model Name of model to inspect
- * @return array Fields in table. Keys are column and unique
- */
+	/**
+	 * Returns an array of the indexes in given datasource name.
+	 *
+	 * @param string $model Name of model to inspect
+	 * @return array Fields in table. Keys are column and unique
+	 */
 	public function index($model) {
 		return array();
 	}
 
-/**
- * Generate a database-native schema for the given Schema object
- *
- * @param CakeSchema $schema An instance of a subclass of CakeSchema
- * @param string $tableName Optional. If specified only the table name given will be generated.
- *   Otherwise, all tables defined in the schema are generated.
- * @return string
- */
+	/**
+	 * Generate a database-native schema for the given Schema object
+	 *
+	 * @param CakeSchema $schema An instance of a subclass of CakeSchema
+	 * @param string $tableName Optional. If specified only the table name given will be generated.
+	 *   Otherwise, all tables defined in the schema are generated.
+	 * @return string
+	 */
 	public function createSchema($schema, $tableName = null) {
 		if (!$schema instanceof CakeSchema) {
 			trigger_error(__d('cake_dev', 'Invalid schema object'), E_USER_WARNING);
@@ -3023,25 +3023,25 @@ class DboSource extends DataSource {
 		return $out;
 	}
 
-/**
- * Generate a alter syntax from	CakeSchema::compare()
- *
- * @param mixed $compare
- * @param string $table
- * @return boolean
- */
+	/**
+	 * Generate a alter syntax from	CakeSchema::compare()
+	 *
+	 * @param mixed $compare
+	 * @param string $table
+	 * @return boolean
+	 */
 	public function alterSchema($compare, $table = null) {
 		return false;
 	}
 
-/**
- * Generate a "drop table" statement for the given Schema object
- *
- * @param CakeSchema $schema An instance of a subclass of CakeSchema
- * @param string $table Optional. If specified only the table name given will be generated.
- *   Otherwise, all tables defined in the schema are generated.
- * @return string
- */
+	/**
+	 * Generate a "drop table" statement for the given Schema object
+	 *
+	 * @param CakeSchema $schema An instance of a subclass of CakeSchema
+	 * @param string $table Optional. If specified only the table name given will be generated.
+	 *   Otherwise, all tables defined in the schema are generated.
+	 * @return string
+	 */
 	public function dropSchema(CakeSchema $schema, $table = null) {
 		$out = '';
 
@@ -3057,23 +3057,23 @@ class DboSource extends DataSource {
 		return $out;
 	}
 
-/**
- * Generate a "drop table" statement for a single table
- *
- * @param type $table Name of the table to drop
- * @return string Drop table SQL statement
- */
+	/**
+	 * Generate a "drop table" statement for a single table
+	 *
+	 * @param type $table Name of the table to drop
+	 * @return string Drop table SQL statement
+	 */
 	protected function _dropTable($table) {
 		return 'DROP TABLE ' . $this->fullTableName($table) . ";";
 	}
 
-/**
- * Generate a database-native column schema string
- *
- * @param array $column An array structured like the following: array('name' => 'value', 'type' => 'value'[, options]),
- *   where options can be 'default', 'length', or 'key'.
- * @return string
- */
+	/**
+	 * Generate a database-native column schema string
+	 *
+	 * @param array $column An array structured like the following: array('name' => 'value', 'type' => 'value'[, options]),
+	 *   where options can be 'default', 'length', or 'key'.
+	 * @return string
+	 */
 	public function buildColumn($column) {
 		$name = $type = null;
 		extract(array_merge(array('null' => true), $column));
@@ -3130,14 +3130,14 @@ class DboSource extends DataSource {
 		return $this->_buildFieldParameters($out, $column, 'afterDefault');
 	}
 
-/**
- * Build the field parameters, in a position
- *
- * @param string $columnString The partially built column string
- * @param array $columnData The array of column data.
- * @param string $position The position type to use. 'beforeDefault' or 'afterDefault' are common
- * @return string a built column with the field parameters added.
- */
+	/**
+	 * Build the field parameters, in a position
+	 *
+	 * @param string $columnString The partially built column string
+	 * @param array $columnData The array of column data.
+	 * @param string $position The position type to use. 'beforeDefault' or 'afterDefault' are common
+	 * @return string a built column with the field parameters added.
+	 */
 	protected function _buildFieldParameters($columnString, $columnData, $position) {
 		foreach ($this->fieldParameters as $paramName => $value) {
 			if (isset($columnData[$paramName]) && $value['position'] == $position) {
@@ -3154,13 +3154,13 @@ class DboSource extends DataSource {
 		return $columnString;
 	}
 
-/**
- * Format indexes for create table.
- *
- * @param array $indexes
- * @param string $table
- * @return array
- */
+	/**
+	 * Format indexes for create table.
+	 *
+	 * @param array $indexes
+	 * @param string $table
+	 * @return array
+	 */
 	public function buildIndex($indexes, $table = null) {
 		$join = array();
 		foreach ($indexes as $name => $value) {
@@ -3184,12 +3184,12 @@ class DboSource extends DataSource {
 		return $join;
 	}
 
-/**
- * Read additional table parameters
- *
- * @param string $name
- * @return array
- */
+	/**
+	 * Read additional table parameters
+	 *
+	 * @param string $name
+	 * @return array
+	 */
 	public function readTableParameters($name) {
 		$parameters = array();
 		if (method_exists($this, 'listDetailedSources')) {
@@ -3203,13 +3203,13 @@ class DboSource extends DataSource {
 		return $parameters;
 	}
 
-/**
- * Format parameters for create table
- *
- * @param array $parameters
- * @param string $table
- * @return array
- */
+	/**
+	 * Format parameters for create table
+	 *
+	 * @param array $parameters
+	 * @param string $table
+	 * @return array
+	 */
 	public function buildTableParameters($parameters, $table = null) {
 		$result = array();
 		foreach ($parameters as $name => $value) {
@@ -3223,12 +3223,12 @@ class DboSource extends DataSource {
 		return $result;
 	}
 
-/**
- * Guesses the data type of an array
- *
- * @param string $value
- * @return void
- */
+	/**
+	 * Guesses the data type of an array
+	 *
+	 * @param string $value
+	 * @return void
+	 */
 	public function introspectType($value) {
 		if (!is_array($value)) {
 			if (is_bool($value)) {
@@ -3278,27 +3278,27 @@ class DboSource extends DataSource {
 		return 'string';
 	}
 
-/**
- * Writes a new key for the in memory sql query cache
- *
- * @param string $sql SQL query
- * @param mixed $data result of $sql query
- * @param array $params query params bound as values
- * @return void
- */
+	/**
+	 * Writes a new key for the in memory sql query cache
+	 *
+	 * @param string $sql SQL query
+	 * @param mixed $data result of $sql query
+	 * @param array $params query params bound as values
+	 * @return void
+	 */
 	protected function _writeQueryCache($sql, $data, $params = array()) {
 		if (preg_match('/^\s*select/i', $sql)) {
 			$this->_queryCache[$sql][serialize($params)] = $data;
 		}
 	}
 
-/**
- * Returns the result for a sql query if it is already cached
- *
- * @param string $sql SQL query
- * @param array $params query params bound as values
- * @return mixed results for query if it is cached, false otherwise
- */
+	/**
+	 * Returns the result for a sql query if it is already cached
+	 *
+	 * @param string $sql SQL query
+	 * @param array $params query params bound as values
+	 * @return mixed results for query if it is cached, false otherwise
+	 */
 	public function getQueryCache($sql, $params = array()) {
 		if (isset($this->_queryCache[$sql]) && preg_match('/^\s*select/i', $sql)) {
 			$serialized = serialize($params);
@@ -3309,10 +3309,10 @@ class DboSource extends DataSource {
 		return false;
 	}
 
-/**
- * Used for storing in cache the results of the in-memory methodCache
- *
- */
+	/**
+	 * Used for storing in cache the results of the in-memory methodCache
+	 *
+	 */
 	public function __destruct() {
 		if ($this->_methodCacheChange) {
 			Cache::write('method_cache', self::$methodCache, '_cake_core_');

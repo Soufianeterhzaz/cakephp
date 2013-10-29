@@ -39,18 +39,18 @@ App::uses('Controller', 'Controller');
  */
 class ViewTaskComment extends Model {
 
-/**
- * Table name
- *
- * @var string
- */
+	/**
+	 * Table name
+	 *
+	 * @var string
+	 */
 	public $useTable = 'comments';
 
-/**
- * Belongs To Associations
- *
- * @var array
- */
+	/**
+	 * Belongs To Associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Article' => array(
 			'className' => 'TestTest.ViewTaskArticle',
@@ -66,11 +66,11 @@ class ViewTaskComment extends Model {
  */
 class ViewTaskArticle extends Model {
 
-/**
- * Table name
- *
- * @var string
- */
+	/**
+	 * Table name
+	 *
+	 * @var string
+	 */
 	public $useTable = 'articles';
 }
 
@@ -81,19 +81,19 @@ class ViewTaskArticle extends Model {
  */
 class ViewTaskCommentsController extends Controller {
 
-/**
- * Testing public controller action
- *
- * @return void
- */
+	/**
+	 * Testing public controller action
+	 *
+	 * @return void
+	 */
 	public function index() {
 	}
 
-/**
- * Testing public controller action
- *
- * @return void
- */
+	/**
+	 * Testing public controller action
+	 *
+	 * @return void
+	 */
 	public function add() {
 	}
 
@@ -106,59 +106,59 @@ class ViewTaskCommentsController extends Controller {
  */
 class ViewTaskArticlesController extends Controller {
 
-/**
- * Test public controller action
- *
- * @return void
- */
+	/**
+	 * Test public controller action
+	 *
+	 * @return void
+	 */
 	public function index() {
 	}
 
-/**
- * Test public controller action
- *
- * @return void
- */
+	/**
+	 * Test public controller action
+	 *
+	 * @return void
+	 */
 	public function add() {
 	}
 
-/**
- * Test admin prefixed controller action
- *
- * @return void
- */
+	/**
+	 * Test admin prefixed controller action
+	 *
+	 * @return void
+	 */
 	public function admin_index() {
 	}
 
-/**
- * Test admin prefixed controller action
- *
- * @return void
- */
+	/**
+	 * Test admin prefixed controller action
+	 *
+	 * @return void
+	 */
 	public function admin_add() {
 	}
 
-/**
- * Test admin prefixed controller action
- *
- * @return void
- */
+	/**
+	 * Test admin prefixed controller action
+	 *
+	 * @return void
+	 */
 	public function admin_view() {
 	}
 
-/**
- * Test admin prefixed controller action
- *
- * @return void
- */
+	/**
+	 * Test admin prefixed controller action
+	 *
+	 * @return void
+	 */
 	public function admin_edit() {
 	}
 
-/**
- * Test admin prefixed controller action
- *
- * @return void
- */
+	/**
+	 * Test admin prefixed controller action
+	 *
+	 * @return void
+	 */
 	public function admin_delete() {
 	}
 
@@ -171,20 +171,20 @@ class ViewTaskArticlesController extends Controller {
  */
 class ViewTaskTest extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.article', 'core.comment', 'core.articles_tag', 'core.tag');
 
-/**
- * setUp method
- *
- * Ensure that the default theme is used
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * Ensure that the default theme is used
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -204,21 +204,21 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->Template->templatePaths = array('default' => CAKE . 'Console' . DS . 'Templates' . DS . 'default' . DS);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Task, $this->Dispatch);
 	}
 
-/**
- * Test getContent and parsing of Templates.
- *
- * @return void
- */
+	/**
+	 * Test getContent and parsing of Templates.
+	 *
+	 * @return void
+	 */
 	public function testGetContent() {
 		$vars = array(
 			'modelClass' => 'TestViewModel',
@@ -244,11 +244,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->assertRegExp('/testViewModel\[\'TestViewModel\'\]\[\'body\'\]/', $result);
 	}
 
-/**
- * test getContent() using an admin_prefixed action.
- *
- * @return void
- */
+	/**
+	 * test getContent() using an admin_prefixed action.
+	 *
+	 * @return void
+	 */
 	public function testGetContentWithAdminAction() {
 		$_back = Configure::read('Routing');
 		Configure::write('Routing.prefixes', array('admin'));
@@ -283,11 +283,11 @@ class ViewTaskTest extends CakeTestCase {
 		Configure::write('Routing', $_back);
 	}
 
-/**
- * test Bake method
- *
- * @return void
- */
+	/**
+	 * test Bake method
+	 *
+	 * @return void
+	 */
 	public function testBakeView() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -300,11 +300,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->bake('view', true);
 	}
 
-/**
- * test baking an edit file
- *
- * @return void
- */
+	/**
+	 * test baking an edit file
+	 *
+	 * @return void
+	 */
 	public function testBakeEdit() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -316,11 +316,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->bake('edit', true);
 	}
 
-/**
- * test baking an index
- *
- * @return void
- */
+	/**
+	 * test baking an index
+	 *
+	 * @return void
+	 */
 	public function testBakeIndex() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -332,11 +332,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->bake('index', true);
 	}
 
-/**
- * test that baking a view with no template doesn't make a file.
- *
- * @return void
- */
+	/**
+	 * test that baking a view with no template doesn't make a file.
+	 *
+	 * @return void
+	 */
 	public function testBakeWithNoTemplate() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -344,11 +344,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->bake('delete', true);
 	}
 
-/**
- * test bake() with a -plugin param
- *
- * @return void
- */
+	/**
+	 * test bake() with a -plugin param
+	 *
+	 * @return void
+	 */
 	public function testBakeWithPlugin() {
 		$this->Task->controllerName = 'ViewTaskComments';
 		$this->Task->plugin = 'TestTest';
@@ -369,11 +369,11 @@ class ViewTaskTest extends CakeTestCase {
 		CakePlugin::unload();
 	}
 
-/**
- * test bake actions baking multiple actions.
- *
- * @return void
- */
+	/**
+	 * test bake actions baking multiple actions.
+	 *
+	 * @return void
+	 */
 	public function testBakeActions() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -396,11 +396,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->bakeActions(array('view', 'edit', 'index'), array());
 	}
 
-/**
- * test baking a customAction (non crud)
- *
- * @return void
- */
+	/**
+	 * test baking a customAction (non crud)
+	 *
+	 * @return void
+	 */
 	public function testCustomAction() {
 		$this->Task->controllerName = 'ViewTaskComments';
 
@@ -416,11 +416,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->customAction();
 	}
 
-/**
- * Test all()
- *
- * @return void
- */
+	/**
+	 * Test all()
+	 *
+	 * @return void
+	 */
 	public function testExecuteIntoAll() {
 		$this->Task->args[0] = 'all';
 
@@ -442,11 +442,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * Test all() with action parameter
- *
- * @return void
- */
+	/**
+	 * Test all() with action parameter
+	 *
+	 * @return void
+	 */
 	public function testExecuteIntoAllWithActionName() {
 		$this->Task->args = array('all', 'index');
 
@@ -462,11 +462,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test `cake bake view $controller view`
- *
- * @return void
- */
+	/**
+	 * test `cake bake view $controller view`
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithActionParam() {
 		$this->Task->args[0] = 'ViewTaskComments';
 		$this->Task->args[1] = 'view';
@@ -479,12 +479,12 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test `cake bake view $controller`
- * Ensure that views are only baked for actions that exist in the controller.
- *
- * @return void
- */
+	/**
+	 * test `cake bake view $controller`
+	 * Ensure that views are only baked for actions that exist in the controller.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithController() {
 		$this->Task->args[0] = 'ViewTaskComments';
 
@@ -503,21 +503,21 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * static dataprovider for test cases
- *
- * @return void
- */
+	/**
+	 * static dataprovider for test cases
+	 *
+	 * @return void
+	 */
 	public static function nameVariations() {
 		return array(array('ViewTaskComments'), array('ViewTaskComment'), array('view_task_comment'));
 	}
 
-/**
- * test that both plural and singular forms can be used for baking views.
- *
- * @dataProvider nameVariations
- * @return void
- */
+	/**
+	 * test that both plural and singular forms can be used for baking views.
+	 *
+	 * @dataProvider nameVariations
+	 * @return void
+	 */
 	public function testExecuteWithControllerVariations($name) {
 		$this->Task->args = array($name);
 
@@ -534,12 +534,12 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test `cake bake view $controller --admin`
- * Which only bakes admin methods, not non-admin methods.
- *
- * @return void
- */
+	/**
+	 * test `cake bake view $controller --admin`
+	 * Which only bakes admin methods, not non-admin methods.
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithControllerAndAdminFlag() {
 		$_back = Configure::read('Routing');
 		Configure::write('Routing.prefixes', array('admin'));
@@ -562,11 +562,11 @@ class ViewTaskTest extends CakeTestCase {
 		Configure::write('Routing', $_back);
 	}
 
-/**
- * test execute into interactive.
- *
- * @return void
- */
+	/**
+	 * test execute into interactive.
+	 *
+	 * @return void
+	 */
 	public function testExecuteInteractive() {
 		$this->Task->connection = 'test';
 		$this->Task->args = array();
@@ -606,11 +606,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test `cake bake view posts index list`
- *
- * @return void
- */
+	/**
+	 * test `cake bake view posts index list`
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithAlternateTemplates() {
 		$this->Task->connection = 'test';
 		$this->Task->args = array('ViewTaskComments', 'index', 'list');
@@ -624,11 +624,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test execute into interactive() with admin methods.
- *
- * @return void
- */
+	/**
+	 * test execute into interactive() with admin methods.
+	 *
+	 * @return void
+	 */
 	public function testExecuteInteractiveWithAdmin() {
 		Configure::write('Routing.prefixes', array('admin'));
 		$this->Task->connection = 'test';
@@ -671,11 +671,11 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->execute();
 	}
 
-/**
- * test getting templates, make sure noTemplateActions works and prefixed template is used before generic one.
- *
- * @return void
- */
+	/**
+	 * test getting templates, make sure noTemplateActions works and prefixed template is used before generic one.
+	 *
+	 * @return void
+	 */
 	public function testGetTemplate() {
 		$result = $this->Task->getTemplate('delete');
 		$this->assertFalse($result);

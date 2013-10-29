@@ -29,11 +29,11 @@ App::uses('CakeResponse', 'Network');
  */
 class MediaViewTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->MediaView = new MediaView();
@@ -47,21 +47,21 @@ class MediaViewTest extends CakeTestCase {
 		));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->MediaView);
 	}
 
-/**
- * testRender method
- *
- * @return void
- */
+	/**
+	 * testRender method
+	 *
+	 * @return void
+	 */
 	public function testRender() {
 		$vars = array(
 			'path' => CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor' . DS . 'css' . DS,
@@ -86,11 +86,11 @@ class MediaViewTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * Test render() when caching is on.
- *
- * @return void
- */
+	/**
+	 * Test render() when caching is on.
+	 *
+	 * @return void
+	 */
 	public function testRenderCachingAndName() {
 		$vars = array(
 			'path' => CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor' . DS . 'css' . DS,
@@ -125,11 +125,11 @@ class MediaViewTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * Test downloading files with UPPERCASE extensions.
- *
- * @return void
- */
+	/**
+	 * Test downloading files with UPPERCASE extensions.
+	 *
+	 * @return void
+	 */
 	public function testRenderUpperExtension() {
 		$this->MediaView->viewVars = array(
 			'path' => CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor' . DS . 'img' . DS,

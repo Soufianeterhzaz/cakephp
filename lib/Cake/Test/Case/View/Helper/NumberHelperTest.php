@@ -49,29 +49,29 @@ class CakeNumberMock {
  */
 class NumberHelperTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->View);
 	}
 
-/**
- * test CakeNumber class methods are called correctly
- */
+	/**
+	 * test CakeNumber class methods are called correctly
+	 */
 	public function testNumberHelperProxyMethodCalls() {
 		$methods = array(
 			'precision', 'toReadableSize', 'toPercentage', 'format',
@@ -86,9 +86,9 @@ class NumberHelperTest extends CakeTestCase {
 		}
 	}
 
-/**
- * test engine override
- */
+	/**
+	 * test engine override
+	 */
 	public function testEngineOverride() {
 		App::build(array(
 			'Utility' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Utility' . DS)

@@ -171,11 +171,11 @@ class HashTest extends CakeTestCase {
 		);
 	}
 
-/**
- * Test get()
- *
- * return void
- */
+	/**
+	 * Test get()
+	 *
+	 * return void
+	 */
 	public function testGet() {
 		$data = array('abc', 'def');
 
@@ -215,11 +215,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($data[1]['Article'], $result);
 	}
 
-/**
- * Test dimensions.
- *
- * @return void
- */
+	/**
+	 * Test dimensions.
+	 *
+	 * @return void
+	 */
 	public function testDimensions() {
 		$result = Hash::dimensions(array());
 		$this->assertEquals($result, 0);
@@ -245,11 +245,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($result, 2);
 	}
 
-/**
- * Test maxDimensions
- *
- * @return void
- */
+	/**
+	 * Test maxDimensions
+	 *
+	 * @return void
+	 */
 	public function testMaxDimensions() {
 		$data = array('1' => '1.1', '2', '3' => array('3.1' => '3.1.1'));
 		$result = Hash::maxDimensions($data);
@@ -292,11 +292,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($result, 5);
 	}
 
-/**
- * Tests Hash::flatten
- *
- * @return void
- */
+	/**
+	 * Tests Hash::flatten
+	 *
+	 * @return void
+	 */
 	public function testFlatten() {
 		$data = array('Larry', 'Curly', 'Moe');
 		$result = Hash::flatten($data);
@@ -361,11 +361,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test diff();
- *
- * @return void
- */
+	/**
+	 * Test diff();
+	 *
+	 * @return void
+	 */
 	public function testDiff() {
 		$a = array(
 			0 => array('name' => 'main'),
@@ -443,11 +443,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test merge()
- *
- * @return void
- */
+	/**
+	 * Test merge()
+	 *
+	 * @return void
+	 */
 	public function testMerge() {
 		$result = Hash::merge(array('foo'), array('bar'));
 		$this->assertEquals($result, array('foo', 'bar'));
@@ -530,11 +530,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(Hash::merge($a, $b), $expected);
 	}
 
-/**
- * test normalizing arrays
- *
- * @return void
- */
+	/**
+	 * test normalizing arrays
+	 *
+	 * @return void
+	 */
 	public function testNormalize() {
 		$result = Hash::normalize(array('one', 'two', 'three'));
 		$expected = array('one' => null, 'two' => null, 'three' => null);
@@ -557,11 +557,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testContains method
- *
- * @return void
- */
+	/**
+	 * testContains method
+	 *
+	 * @return void
+	 */
 	public function testContains() {
 		$data = array('apple', 'bee', 'cyclops');
 		$this->assertTrue(Hash::contains($data, array('apple')));
@@ -601,11 +601,11 @@ class HashTest extends CakeTestCase {
 		$this->assertTrue(Hash::contains($a, array('test')));
 	}
 
-/**
- * testFilter method
- *
- * @return void
- */
+	/**
+	 * testFilter method
+	 *
+	 * @return void
+	 */
 	public function testFilter() {
 		$result = Hash::filter(array('0', false, true, 0, array('one thing', 'I can tell you', 'is you got to be', false)));
 		$expected = array('0', 2 => true, 3 => 0, 4 => array('one thing', 'I can tell you', 'is you got to be'));
@@ -630,11 +630,11 @@ class HashTest extends CakeTestCase {
 		$this->assertSame(array(), Hash::filter(array()));
 	}
 
-/**
- * testNumericArrayCheck method
- *
- * @return void
- */
+	/**
+	 * testNumericArrayCheck method
+	 *
+	 * @return void
+	 */
 	public function testNumeric() {
 		$data = array('one');
 		$this->assertTrue(Hash::numeric(array_keys($data)));
@@ -667,11 +667,11 @@ class HashTest extends CakeTestCase {
 		$this->assertFalse(Hash::numeric(array_keys($data)));
 	}
 
-/**
- * Test simple paths.
- *
- * @return void
- */
+	/**
+	 * Test simple paths.
+	 *
+	 * @return void
+	 */
 	public function testExtractBasic() {
 		$data = self::articleData();
 
@@ -688,11 +688,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(array(), $result);
 	}
 
-/**
- * Test the {n} selector
- *
- * @return void
- */
+	/**
+	 * Test the {n} selector
+	 *
+	 * @return void
+	 */
 	public function testExtractNumericKey() {
 		$data = self::articleData();
 		$result = Hash::extract($data, '{n}.Article.title');
@@ -710,11 +710,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the {n} selector with inconsistent arrays
- *
- * @return void
- */
+	/**
+	 * Test the {n} selector with inconsistent arrays
+	 *
+	 * @return void
+	 */
 	public function testExtractNumericMixedKeys() {
 		$data = array(
 			'User' => array(
@@ -736,11 +736,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the {n} selector with non-zero based arrays
- *
- * @return void
- */
+	/**
+	 * Test the {n} selector with non-zero based arrays
+	 *
+	 * @return void
+	 */
 	public function testExtractNumericNonZero() {
 		$data = array(
 			1 => array(
@@ -767,11 +767,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test the {s} selector.
- *
- * @return void
- */
+	/**
+	 * Test the {s} selector.
+	 *
+	 * @return void
+	 */
 	public function testExtractStringKey() {
 		$data = self::articleData();
 		$result = Hash::extract($data, '{n}.{s}.user');
@@ -788,11 +788,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(array('foo'), $result);
 	}
 
-/**
- * Test the attribute presense selector.
- *
- * @return void
- */
+	/**
+	 * Test the attribute presense selector.
+	 *
+	 * @return void
+	 */
 	public function testExtractAttributePresence() {
 		$data = self::articleData();
 
@@ -805,11 +805,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test = and != operators.
- *
- * @return void
- */
+	/**
+	 * Test = and != operators.
+	 *
+	 * @return void
+	 */
 	public function testExtractAttributeEquality() {
 		$data = self::articleData();
 
@@ -828,11 +828,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(5, $result[3]['id']);
 	}
 
-/**
- * Test comparison operators.
- *
- * @return void
- */
+	/**
+	 * Test comparison operators.
+	 *
+	 * @return void
+	 */
 	public function testExtractAttributeComparison() {
 		$data = self::articleData();
 
@@ -857,11 +857,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(2, $expected[0]['user_id']);
 	}
 
-/**
- * Test multiple attributes with conditions.
- *
- * @return void
- */
+	/**
+	 * Test multiple attributes with conditions.
+	 *
+	 * @return void
+	 */
 	public function testExtractAttributeMultiple() {
 		$data = self::articleData();
 
@@ -874,11 +874,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(4, $expected[0]['user_id']);
 	}
 
-/**
- * Test attribute pattern matching.
- *
- * @return void
- */
+	/**
+	 * Test attribute pattern matching.
+	 *
+	 * @return void
+	 */
 	public function testExtractAttributePattern() {
 		$data = self::articleData();
 
@@ -891,9 +891,9 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that extract() + matching can hit null things.
- */
+	/**
+	 * Test that extract() + matching can hit null things.
+	 */
 	public function testExtractMatchesNull() {
 		$data = array(
 			'Country' => array(
@@ -914,11 +914,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that uneven keys are handled correctly.
- *
- * @return void
- */
+	/**
+	 * Test that uneven keys are handled correctly.
+	 *
+	 * @return void
+	 */
 	public function testExtractUnevenKeys() {
 		$data = array(
 			'Level1' => array(
@@ -953,11 +953,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, Hash::extract($data, 'Level1.Level2bis'));
 	}
 
-/**
- * testSort method
- *
- * @return void
- */
+	/**
+	 * testSort method
+	 *
+	 * @return void
+	 */
 	public function testSort() {
 		$result = Hash::sort(array(), '{n}.name', 'asc');
 		$this->assertEquals(array(), $result);
@@ -1105,11 +1105,11 @@ class HashTest extends CakeTestCase {
 		$this->assertSame($expected, $result);
 	}
 
-/**
- * Test sort() with numeric option.
- *
- * @return void
- */
+	/**
+	 * Test sort() with numeric option.
+	 *
+	 * @return void
+	 */
 	public function testSortNumeric() {
 		$items = array(
 			array('Item' => array('price' => '155,000')),
@@ -1139,11 +1139,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test natural sorting.
- *
- * @return void
- */
+	/**
+	 * Test natural sorting.
+	 *
+	 * @return void
+	 */
 	public function testSortNatural() {
 		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 			$this->markTestSkipped('SORT_NATURAL is available since PHP 5.4.');
@@ -1176,11 +1176,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that sort() with 'natural' type will fallback to 'regular' as SORT_NATURAL is introduced in PHP 5.4
- *
- * @return void
- */
+	/**
+	 * Test that sort() with 'natural' type will fallback to 'regular' as SORT_NATURAL is introduced in PHP 5.4
+	 *
+	 * @return void
+	 */
 	public function testSortNaturalFallbackToRegular() {
 		if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
 			$this->markTestSkipped('Skipping SORT_NATURAL fallback test on PHP >= 5.4');
@@ -1198,11 +1198,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($sorted, $b);
 	}
 
-/**
- * test sorting with out of order keys.
- *
- * @return void
- */
+	/**
+	 * test sorting with out of order keys.
+	 *
+	 * @return void
+	 */
 	public function testSortWithOutOfOrderKeys() {
 		$data = array(
 			9 => array('class' => 510, 'test2' => 2),
@@ -1225,11 +1225,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test sorting with string keys.
- *
- * @return void
- */
+	/**
+	 * test sorting with string keys.
+	 *
+	 * @return void
+	 */
 	public function testSortString() {
 		$toSort = array(
 			'four' => array('number' => 4, 'some' => 'foursome'),
@@ -1262,11 +1262,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test insert()
- *
- * @return void
- */
+	/**
+	 * Test insert()
+	 *
+	 * @return void
+	 */
 	public function testInsertSimple() {
 		$a = array(
 			'pages' => array('name' => 'page')
@@ -1288,11 +1288,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test inserting with multiple values.
- *
- * @return void
- */
+	/**
+	 * Test inserting with multiple values.
+	 *
+	 * @return void
+	 */
 	public function testInsertMulti() {
 		$data = self::articleData();
 
@@ -1322,11 +1322,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that insert() can insert data over a string value.
- *
- * @return void
- */
+	/**
+	 * Test that insert() can insert data over a string value.
+	 *
+	 * @return void
+	 */
 	public function testInsertOverwriteStringValue() {
 		$data = array(
 			'Some' => array(
@@ -1344,11 +1344,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test remove() method.
- *
- * @return void
- */
+	/**
+	 * Test remove() method.
+	 *
+	 * @return void
+	 */
 	public function testRemove() {
 		$a = array(
 			'pages' => array('name' => 'page'),
@@ -1402,11 +1402,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test removing multiple values.
- *
- * @return void
- */
+	/**
+	 * Test removing multiple values.
+	 *
+	 * @return void
+	 */
 	public function testRemoveMulti() {
 		$data = self::articleData();
 
@@ -1437,11 +1437,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($result, $expected);
 	}
 
-/**
- * testCheck method
- *
- * @return void
- */
+	/**
+	 * testCheck method
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$set = array(
 			'My Index 1' => array('First' => 'The first item')
@@ -1466,11 +1466,11 @@ class HashTest extends CakeTestCase {
 		$this->assertFalse(Hash::check($set, 'My Index 1.First.Seconds.Third.Fourth'));
 	}
 
-/**
- * testCombine method
- *
- * @return void
- */
+	/**
+	 * testCombine method
+	 *
+	 * @return void
+	 */
 	public function testCombine() {
 		$result = Hash::combine(array(), '{n}.User.id', '{n}.User.Data');
 		$this->assertTrue(empty($result));
@@ -1500,11 +1500,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test combine() with a group path.
- *
- * @return void
- */
+	/**
+	 * test combine() with a group path.
+	 *
+	 * @return void
+	 */
 	public function testCombineWithGroupPath() {
 		$a = self::userData();
 
@@ -1557,11 +1557,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test combine with formatting rules.
- *
- * @return void
- */
+	/**
+	 * Test combine with formatting rules.
+	 *
+	 * @return void
+	 */
 	public function testCombineWithFormatting() {
 		$a = self::userData();
 
@@ -1623,11 +1623,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFormat method
- *
- * @return void
- */
+	/**
+	 * testFormat method
+	 *
+	 * @return void
+	 */
 	public function testFormat() {
 		$data = self::userData();
 
@@ -1656,11 +1656,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testFormattingNullValues method
- *
- * @return void
- */
+	/**
+	 * testFormattingNullValues method
+	 *
+	 * @return void
+	 */
 	public function testFormatNullValues() {
 		$data = array(
 			array('Person' => array(
@@ -1683,11 +1683,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test map()
- *
- * @return void
- */
+	/**
+	 * Test map()
+	 *
+	 * @return void
+	 */
 	public function testMap() {
 		$data = self::articleData();
 
@@ -1703,11 +1703,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(15, $result);
 	}
 
-/**
- * Test reduce()
- *
- * @return void
- */
+	/**
+	 * Test reduce()
+	 *
+	 * @return void
+	 */
 	public function testReduce() {
 		$data = self::articleData();
 
@@ -1715,33 +1715,33 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals(15, $result);
 	}
 
-/**
- * testing method for map callbacks.
- *
- * @param mixed $value
- * @return mixed.
- */
+	/**
+	 * testing method for map callbacks.
+	 *
+	 * @param mixed $value
+	 * @return mixed.
+	 */
 	public function mapCallback($value) {
 		return $value * 2;
 	}
 
-/**
- * testing method for reduce callbacks.
- *
- * @param mixed $one
- * @param mixed $two
- * @return mixed.
- */
+	/**
+	 * testing method for reduce callbacks.
+	 *
+	 * @param mixed $one
+	 * @param mixed $two
+	 * @return mixed.
+	 */
 	public function reduceCallback($one, $two) {
 		return $one + $two;
 	}
 
-/**
- * test Hash nest with a normal model result set. For kicks rely on Hash nest detecting the key names
- * automatically
- *
- * @return void
- */
+	/**
+	 * test Hash nest with a normal model result set. For kicks rely on Hash nest detecting the key names
+	 * automatically
+	 *
+	 * @return void
+	 */
 	public function testNestModel() {
 		$input = array(
 			array(
@@ -1884,11 +1884,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Hash nest with a normal model result set, and a nominated root id
- *
- * @return void
- */
+	/**
+	 * test Hash nest with a normal model result set, and a nominated root id
+	 *
+	 * @return void
+	 */
 	public function testNestModelExplicitRoot() {
 		$input = array(
 			array(
@@ -1994,11 +1994,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Hash nest with a 1d array - this method should be able to handle any type of array input
- *
- * @return void
- */
+	/**
+	 * test Hash nest with a 1d array - this method should be able to handle any type of array input
+	 *
+	 * @return void
+	 */
 	public function testNest1Dimensional() {
 		$input = array(
 			array(
@@ -2101,14 +2101,14 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * test Hash nest with no specified parent data.
- *
- * The result should be the same as the input.
- * For an easier comparison, unset all the empty children arrays from the result
- *
- * @return void
- */
+	/**
+	 * test Hash nest with no specified parent data.
+	 *
+	 * The result should be the same as the input.
+	 * For an easier comparison, unset all the empty children arrays from the result
+	 *
+	 * @return void
+	 */
 	public function testMissingParent() {
 		$input = array(
 			array(
@@ -2152,11 +2152,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($input, $result);
 	}
 
-/**
- * testMergeDiff method
- *
- * @return void
- */
+	/**
+	 * testMergeDiff method
+	 *
+	 * @return void
+	 */
 	public function testMergeDiff() {
 		$first = array(
 			'ModelOne' => array(
@@ -2253,11 +2253,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($result, $first + $second);
 	}
 
-/**
- * Tests Hash::expand
- *
- * @return void
- */
+	/**
+	 * Tests Hash::expand
+	 *
+	 * @return void
+	 */
 	public function testExpand() {
 		$data = array('My', 'Array', 'To', 'Flatten');
 		$flat = Hash::flatten($data);
@@ -2311,11 +2311,11 @@ class HashTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * Test that flattening a large complex set doesn't loop forever.
- *
- * @return void
- */
+	/**
+	 * Test that flattening a large complex set doesn't loop forever.
+	 *
+	 * @return void
+	 */
 	public function testFlattenInfiniteLoop() {
 		$data = array(
 			'Order.ASI' => '0',

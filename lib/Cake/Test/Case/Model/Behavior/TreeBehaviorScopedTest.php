@@ -31,18 +31,18 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  */
 class TreeBehaviorScopedTest extends CakeTestCase {
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var boolean
- */
+	/**
+	 * Whether backup global state for each test method or not
+	 *
+	 * @var boolean
+	 */
 	public $backupGlobals = false;
 
-/**
- * settings property
- *
- * @var array
- */
+	/**
+	 * settings property
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'modelClass' => 'FlagTree',
 		'leftField' => 'lft',
@@ -50,18 +50,18 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		'parentField' => 'parent_id'
 	);
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.flag_tree', 'core.ad', 'core.campaign', 'core.translate', 'core.number_tree_two');
 
-/**
- * testStringScope method
- *
- * @return void
- */
+	/**
+	 * testStringScope method
+	 *
+	 * @return void
+	 */
 	public function testStringScope() {
 		$this->Tree = new FlagTree();
 		$this->Tree->order = null;
@@ -94,11 +94,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals(11, $this->Tree->find('count'));
 	}
 
-/**
- * testArrayScope method
- *
- * @return void
- */
+	/**
+	 * testArrayScope method
+	 *
+	 * @return void
+	 */
 	public function testArrayScope() {
 		$this->Tree = new FlagTree();
 		$this->Tree->order = null;
@@ -131,11 +131,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals(11, $this->Tree->find('count'));
 	}
 
-/**
- * testMoveUpWithScope method
- *
- * @return void
- */
+	/**
+	 * testMoveUpWithScope method
+	 *
+	 * @return void
+	 */
 	public function testMoveUpWithScope() {
 		$this->Ad = new Ad();
 		$this->Ad->order = null;
@@ -148,11 +148,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals(array(2, 2), Hash::extract($result, '{n}.Campaign.id'));
 	}
 
-/**
- * testMoveDownWithScope method
- *
- * @return void
- */
+	/**
+	 * testMoveDownWithScope method
+	 *
+	 * @return void
+	 */
 	public function testMoveDownWithScope() {
 		$this->Ad = new Ad();
 		$this->Ad->order = null;
@@ -165,12 +165,12 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals(array(2, 2), Hash::extract($result, '{n}.Campaign.id'));
 	}
 
-/**
- * Tests the interaction (non-interference) between TreeBehavior and other behaviors with respect
- * to callback hooks
- *
- * @return void
- */
+	/**
+	 * Tests the interaction (non-interference) between TreeBehavior and other behaviors with respect
+	 * to callback hooks
+	 *
+	 * @return void
+	 */
 	public function testTranslatingTree() {
 		$this->Tree = new FlagTree();
 		$this->Tree->order = null;
@@ -284,11 +284,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testGenerateTreeListWithSelfJoin method
- *
- * @return void
- */
+	/**
+	 * testGenerateTreeListWithSelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testAliasesWithScopeInTwoTreeAssociations() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -342,11 +342,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testGenerateTreeListWithScope method
- *
- * @return void
- */
+	/**
+	 * testGenerateTreeListWithScope method
+	 *
+	 * @return void
+	 */
 	public function testGenerateTreeListWithScope() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -381,11 +381,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecoverUsingParentMode method
- *
- * @return void
- */
+	/**
+	 * testRecoverUsingParentMode method
+	 *
+	 * @return void
+	 */
 	public function testRecoverUsingParentMode() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -441,11 +441,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testRecoverFromMissingParent method
- *
- * @return void
- */
+	/**
+	 * testRecoverFromMissingParent method
+	 *
+	 * @return void
+	 */
 	public function testRecoverFromMissingParent() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -472,11 +472,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidParents method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidParents method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidParents() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -502,11 +502,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * testDetectInvalidLftsRghts method
- *
- * @return void
- */
+	/**
+	 * testDetectInvalidLftsRghts method
+	 *
+	 * @return void
+	 */
 	public function testDetectInvalidLftsRghts() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -531,11 +531,11 @@ class TreeBehaviorScopedTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-/**
- * Reproduces a situation where a single node has lft= rght, and all other lft and rght fields follow sequentially
- *
- * @return void
- */
+	/**
+	 * Reproduces a situation where a single node has lft= rght, and all other lft and rght fields follow sequentially
+	 *
+	 * @return void
+	 */
 	public function testDetectEqualLftsRghts() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();

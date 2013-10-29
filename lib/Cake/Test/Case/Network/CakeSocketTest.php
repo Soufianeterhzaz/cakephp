@@ -27,31 +27,31 @@ App::uses('CakeSocket', 'Network');
  */
 class CakeSocketTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Socket = new CakeSocket(array('timeout' => 1));
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Socket);
 	}
 
-/**
- * testConstruct method
- *
- * @return void
- */
+	/**
+	 * testConstruct method
+	 *
+	 * @return void
+	 */
 	public function testConstruct() {
 		$this->Socket = new CakeSocket();
 		$config = $this->Socket->config;
@@ -78,11 +78,11 @@ class CakeSocketTest extends CakeTestCase {
 		$this->assertSame($this->Socket->config, $config);
 	}
 
-/**
- * testSocketConnection method
- *
- * @return void
- */
+	/**
+	 * testSocketConnection method
+	 *
+	 * @return void
+	 */
 	public function testSocketConnection() {
 		$this->assertFalse($this->Socket->connected);
 		$this->Socket->disconnect();
@@ -103,11 +103,11 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * data provider function for testInvalidConnection
- *
- * @return array
- */
+	/**
+	 * data provider function for testInvalidConnection
+	 *
+	 * @return array
+	 */
 	public static function invalidConnections() {
 		return array(
 			array(array('host' => 'invalid.host', 'port' => 9999, 'timeout' => 1)),
@@ -115,23 +115,23 @@ class CakeSocketTest extends CakeTestCase {
 		);
 	}
 
-/**
- * testInvalidConnection method
- *
- * @dataProvider invalidConnections
- * @expectedException SocketException
- * return void
- */
+	/**
+	 * testInvalidConnection method
+	 *
+	 * @dataProvider invalidConnections
+	 * @expectedException SocketException
+	 * return void
+	 */
 	public function testInvalidConnection($data) {
 		$this->Socket->config = array_merge($this->Socket->config, $data);
 		$this->Socket->connect();
 	}
 
-/**
- * testSocketHost method
- *
- * @return void
- */
+	/**
+	 * testSocketHost method
+	 *
+	 * @return void
+	 */
 	public function testSocketHost() {
 		try {
 			$this->Socket = new CakeSocket();
@@ -152,11 +152,11 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testSocketWriting method
- *
- * @return void
- */
+	/**
+	 * testSocketWriting method
+	 *
+	 * @return void
+	 */
 	public function testSocketWriting() {
 		try {
 			$request = "GET / HTTP/1.1\r\nConnection: close\r\n\r\n";
@@ -166,11 +166,11 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testSocketReading method
- *
- * @return void
- */
+	/**
+	 * testSocketReading method
+	 *
+	 * @return void
+	 */
 	public function testSocketReading() {
 		$this->Socket = new CakeSocket(array('timeout' => 5));
 		try {
@@ -187,11 +187,11 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testTimeOutConnection method
- *
- * @return void
- */
+	/**
+	 * testTimeOutConnection method
+	 *
+	 * @return void
+	 */
 	public function testTimeOutConnection() {
 		$config = array('host' => '127.0.0.1', 'timeout' => 0.5);
 		$this->Socket = new CakeSocket($config);
@@ -207,22 +207,22 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testLastError method
- *
- * @return void
- */
+	/**
+	 * testLastError method
+	 *
+	 * @return void
+	 */
 	public function testLastError() {
 		$this->Socket = new CakeSocket();
 		$this->Socket->setLastError(4, 'some error here');
 		$this->assertEquals('4: some error here', $this->Socket->lastError());
 	}
 
-/**
- * testReset method
- *
- * @return void
- */
+	/**
+	 * testReset method
+	 *
+	 * @return void
+	 */
 	public function testReset() {
 		$config = array(
 			'persistent' => true,
@@ -236,12 +236,12 @@ class CakeSocketTest extends CakeTestCase {
 		$this->assertEquals(array(), $anotherSocket->config);
 	}
 
-/**
- * testEncrypt
- *
- * @expectedException SocketException
- * @return void
- */
+	/**
+	 * testEncrypt
+	 *
+	 * @expectedException SocketException
+	 * @return void
+	 */
 	public function testEnableCryptoSocketExceptionNoSsl() {
 		$this->skipIf(!extension_loaded('openssl'), 'OpenSSL is not enabled cannot test SSL.');
 		$configNoSslOrTls = array('host' => 'localhost', 'port' => 80, 'timeout' => 0.1);
@@ -252,12 +252,12 @@ class CakeSocketTest extends CakeTestCase {
 		$this->Socket->enableCrypto('sslv3', 'client');
 	}
 
-/**
- * testEnableCryptoSocketExceptionNoTls
- *
- * @expectedException SocketException
- * @return void
- */
+	/**
+	 * testEnableCryptoSocketExceptionNoTls
+	 *
+	 * @expectedException SocketException
+	 * @return void
+	 */
 	public function testEnableCryptoSocketExceptionNoTls() {
 		$configNoSslOrTls = array('host' => 'localhost', 'port' => 80, 'timeout' => 0.1);
 
@@ -267,11 +267,11 @@ class CakeSocketTest extends CakeTestCase {
 		$this->Socket->enableCrypto('tls', 'client');
 	}
 
-/**
- * _connectSocketToSslTls
- *
- * @return void
- */
+	/**
+	 * _connectSocketToSslTls
+	 *
+	 * @return void
+	 */
 	protected function _connectSocketToSslTls() {
 		$this->skipIf(!extension_loaded('openssl'), 'OpenSSL is not enabled cannot test SSL.');
 		$configSslTls = array('host' => 'smtp.gmail.com', 'port' => 465, 'timeout' => 5);
@@ -283,12 +283,12 @@ class CakeSocketTest extends CakeTestCase {
 		}
 	}
 
-/**
- * testEnableCryptoBadMode
- *
- * @expectedException InvalidArgumentException
- * @return void
- */
+	/**
+	 * testEnableCryptoBadMode
+	 *
+	 * @expectedException InvalidArgumentException
+	 * @return void
+	 */
 	public function testEnableCryptoBadMode() {
 		// testing wrong encryption mode
 		$this->_connectSocketToSslTls();
@@ -296,11 +296,11 @@ class CakeSocketTest extends CakeTestCase {
 		$this->Socket->disconnect();
 	}
 
-/**
- * testEnableCrypto
- *
- * @return void
- */
+	/**
+	 * testEnableCrypto
+	 *
+	 * @return void
+	 */
 	public function testEnableCrypto() {
 		// testing on ssl server
 		$this->_connectSocketToSslTls();
@@ -313,12 +313,12 @@ class CakeSocketTest extends CakeTestCase {
 		$this->Socket->disconnect();
 	}
 
-/**
- * testEnableCryptoExceptionEnableTwice
- *
- * @expectedException SocketException
- * @return void
- */
+	/**
+	 * testEnableCryptoExceptionEnableTwice
+	 *
+	 * @expectedException SocketException
+	 * @return void
+	 */
 	public function testEnableCryptoExceptionEnableTwice() {
 		// testing on tls server
 		$this->_connectSocketToSslTls();
@@ -326,23 +326,23 @@ class CakeSocketTest extends CakeTestCase {
 		$this->Socket->enableCrypto('tls', 'client');
 	}
 
-/**
- * testEnableCryptoExceptionDisableTwice
- *
- * @expectedException SocketException
- * @return void
- */
+	/**
+	 * testEnableCryptoExceptionDisableTwice
+	 *
+	 * @expectedException SocketException
+	 * @return void
+	 */
 	public function testEnableCryptoExceptionDisableTwice() {
 		// testing on tls server
 		$this->_connectSocketToSslTls();
 		$this->Socket->enableCrypto('tls', 'client', false);
 	}
 
-/**
- * testEnableCryptoEnableStatus
- *
- * @return void
- */
+	/**
+	 * testEnableCryptoEnableStatus
+	 *
+	 * @return void
+	 */
 	public function testEnableCryptoEnableStatus() {
 		// testing on tls server
 		$this->_connectSocketToSslTls();
@@ -351,11 +351,11 @@ class CakeSocketTest extends CakeTestCase {
 		$this->assertTrue($this->Socket->encrypted);
 	}
 
-/**
- * test getting the context for a socket.
- *
- * @return void
- */
+	/**
+	 * test getting the context for a socket.
+	 *
+	 * @return void
+	 */
 	public function testGetContext() {
 		$this->skipIf(!extension_loaded('openssl'), 'OpenSSL is not enabled cannot test SSL.');
 		$config = array(

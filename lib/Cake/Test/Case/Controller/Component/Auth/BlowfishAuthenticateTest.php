@@ -36,11 +36,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 
 	public $fixtures = array('core.user', 'core.auth_user');
 
-/**
- * setup
- *
- * @return void
- */
+	/**
+	 * setup
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->Collection = $this->getMock('ComponentCollection');
@@ -57,11 +57,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->skipIf(strpos($hash, '$2a$') === false, 'Skipping blowfish tests as hashing is not working');
 	}
 
-/**
- * test applying settings in the constructor
- *
- * @return void
- */
+	/**
+	 * test applying settings in the constructor
+	 *
+	 * @return void
+	 */
 	public function testConstructor() {
 		$Object = new BlowfishAuthenticate($this->Collection, array(
 			'userModel' => 'AuthUser',
@@ -71,44 +71,44 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertEquals(array('username' => 'user', 'password' => 'password'), $Object->settings['fields']);
 	}
 
-/**
- * testAuthenticateNoData method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoData method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoData() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array();
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateNoUsername method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoUsername method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoUsername() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('password' => 'foobar'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateNoPassword method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateNoPassword method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateNoPassword() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array('user' => 'mariano'));
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticatePasswordIsFalse method
- *
- * @return void
- */
+	/**
+	 * testAuthenticatePasswordIsFalse method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticatePasswordIsFalse() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array(
@@ -119,11 +119,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateInjection method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateInjection method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateInjection() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array(
@@ -133,11 +133,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testAuthenticateSuccess method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateSuccess method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateSuccess() {
 		$request = new CakeRequest('posts/index', false);
 		$request->data = array('User' => array(
@@ -154,11 +154,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-/**
- * testAuthenticateScopeFail method
- *
- * @return void
- */
+	/**
+	 * testAuthenticateScopeFail method
+	 *
+	 * @return void
+	 */
 	public function testAuthenticateScopeFail() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
 		$request = new CakeRequest('posts/index', false);
@@ -169,11 +169,11 @@ class BlowfishAuthenticateTest extends CakeTestCase {
 		$this->assertFalse($this->auth->authenticate($request, $this->response));
 	}
 
-/**
- * testPluginModel method
- *
- * @return void
- */
+	/**
+	 * testPluginModel method
+	 *
+	 * @return void
+	 */
 	public function testPluginModel() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build(array(

@@ -32,18 +32,18 @@ App::uses('ComponentCollection', 'Controller');
  */
 class AclShellTest extends CakeTestCase {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.aco', 'core.aro', 'core.aros_aco');
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Acl.database', 'test');
@@ -62,11 +62,11 @@ class AclShellTest extends CakeTestCase {
 		$this->Task->params['datasource'] = 'test';
 	}
 
-/**
- * test that model.foreign_key output works when looking at acl rows
- *
- * @return void
- */
+	/**
+	 * test that model.foreign_key output works when looking at acl rows
+	 *
+	 * @return void
+	 */
 	public function testViewWithModelForeignKeyOutput() {
 		$this->Task->command = 'view';
 		$this->Task->startup();
@@ -92,11 +92,11 @@ class AclShellTest extends CakeTestCase {
 		$this->Task->view();
 	}
 
-/**
- * test view with an argument
- *
- * @return void
- */
+	/**
+	 * test view with an argument
+	 *
+	 * @return void
+	 */
 	public function testViewWithArgument() {
 		$this->Task->args = array('aro', 'admins');
 
@@ -108,11 +108,11 @@ class AclShellTest extends CakeTestCase {
 		$this->Task->view();
 	}
 
-/**
- * test the method that splits model.foreign key. and that it returns an array.
- *
- * @return void
- */
+	/**
+	 * test the method that splits model.foreign key. and that it returns an array.
+	 *
+	 * @return void
+	 */
 	public function testParsingModelAndForeignKey() {
 		$result = $this->Task->parseIdentifier('Model.foreignKey');
 		$expected = array('model' => 'Model', 'foreign_key' => 'foreignKey');
@@ -125,11 +125,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals('111234', $result);
 	}
 
-/**
- * test creating aro/aco nodes
- *
- * @return void
- */
+	/**
+	 * test creating aro/aco nodes
+	 *
+	 * @return void
+	 */
 	public function testCreate() {
 		$this->Task->args = array('aro', 'root', 'User.1');
 		$this->Task->expects($this->at(0))->method('out')->with("<success>New Aro</success> 'User.1' created.", 2);
@@ -166,11 +166,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals(null, $result['Aro']['parent_id']);
 	}
 
-/**
- * test the delete method with different node types.
- *
- * @return void
- */
+	/**
+	 * test the delete method with different node types.
+	 *
+	 * @return void
+	 */
 	public function testDelete() {
 		$this->Task->args = array('aro', 'AuthUser.1');
 		$this->Task->expects($this->at(0))->method('out')
@@ -182,11 +182,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertSame(array(), $result);
 	}
 
-/**
- * test setParent method.
- *
- * @return void
- */
+	/**
+	 * test setParent method.
+	 *
+	 * @return void
+	 */
 	public function testSetParent() {
 		$this->Task->args = array('aro', 'AuthUser.2', 'root');
 		$this->Task->setParent();
@@ -196,11 +196,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals(null, $result['Aro']['parent_id']);
 	}
 
-/**
- * test grant
- *
- * @return void
- */
+	/**
+	 * test grant
+	 *
+	 * @return void
+	 */
 	public function testGrant() {
 		$this->Task->args = array('AuthUser.2', 'ROOT/Controller1', 'create');
 		$this->Task->expects($this->at(0))->method('out')
@@ -213,11 +213,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals(1, $node['Aco'][0]['Permission']['_create']);
 	}
 
-/**
- * test deny
- *
- * @return void
- */
+	/**
+	 * test deny
+	 *
+	 * @return void
+	 */
 	public function testDeny() {
 		$this->Task->args = array('AuthUser.2', 'ROOT/Controller1', 'create');
 		$this->Task->expects($this->at(0))->method('out')
@@ -231,11 +231,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals(-1, $node['Aco'][0]['Permission']['_create']);
 	}
 
-/**
- * test checking allowed and denied perms
- *
- * @return void
- */
+	/**
+	 * test checking allowed and denied perms
+	 *
+	 * @return void
+	 */
 	public function testCheck() {
 		$this->Task->expects($this->at(0))->method('out')
 			->with($this->matchesRegularExpression('/not allowed/'), true);
@@ -259,11 +259,11 @@ class AclShellTest extends CakeTestCase {
 		$this->Task->check();
 	}
 
-/**
- * test inherit and that it 0's the permission fields.
- *
- * @return void
- */
+	/**
+	 * test inherit and that it 0's the permission fields.
+	 *
+	 * @return void
+	 */
 	public function testInherit() {
 		$this->Task->expects($this->at(0))->method('out')
 			->with($this->matchesRegularExpression('/Permission .*granted/'), true);
@@ -282,11 +282,11 @@ class AclShellTest extends CakeTestCase {
 		$this->assertEquals(0, $node['Aco'][0]['Permission']['_create']);
 	}
 
-/**
- * test getting the path for an aro/aco
- *
- * @return void
- */
+	/**
+	 * test getting the path for an aro/aco
+	 *
+	 * @return void
+	 */
 	public function testGetPath() {
 		$this->Task->args = array('aro', 'AuthUser.2');
 		$node = $this->Task->Acl->Aro->node(array('model' => 'AuthUser', 'foreign_key' => 2));
@@ -299,11 +299,11 @@ class AclShellTest extends CakeTestCase {
 		$this->Task->getPath();
 	}
 
-/**
- * test that initdb makes the correct call.
- *
- * @return void
- */
+	/**
+	 * test that initdb makes the correct call.
+	 *
+	 * @return void
+	 */
 	public function testInitDb() {
 		$this->Task->expects($this->once())->method('dispatchShell')
 			->with('schema create DbAcl');

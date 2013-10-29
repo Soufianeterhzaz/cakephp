@@ -31,19 +31,19 @@ App::uses('Security', 'Utility');
  */
 class ProjectTask extends AppShell {
 
-/**
- * configs path (used in testing).
- *
- * @var string
- */
+	/**
+	 * configs path (used in testing).
+	 *
+	 * @var string
+	 */
 	public $configPath = null;
 
-/**
- * Checks that given project path does not already exist, and
- * finds the app directory in it. Then it calls bake() with that information.
- *
- * @return mixed
- */
+	/**
+	 * Checks that given project path does not already exist, and
+	 * finds the app directory in it. Then it calls bake() with that information.
+	 *
+	 * @return mixed
+	 */
 	public function execute() {
 		$project = null;
 		if (isset($this->args[0])) {
@@ -142,11 +142,11 @@ class ProjectTask extends AppShell {
 		}
 	}
 
-/**
- * Checks PHP's include_path for CakePHP.
- *
- * @return boolean Indicates whether or not CakePHP exists on include_path
- */
+	/**
+	 * Checks PHP's include_path for CakePHP.
+	 *
+	 * @return boolean Indicates whether or not CakePHP exists on include_path
+	 */
 	public function cakeOnIncludePath() {
 		$paths = explode(PATH_SEPARATOR, ini_get('include_path'));
 		foreach ($paths as $path) {
@@ -157,16 +157,16 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Looks for a skeleton template of a Cake application,
- * and if not found asks the user for a path. When there is a path
- * this method will make a deep copy of the skeleton to the project directory.
- *
- * @param string $path Project path
- * @param string $skel Path to copy from
- * @param string $skip array of directories to skip when copying
- * @return mixed
- */
+	/**
+	 * Looks for a skeleton template of a Cake application,
+	 * and if not found asks the user for a path. When there is a path
+	 * this method will make a deep copy of the skeleton to the project directory.
+	 *
+	 * @param string $path Project path
+	 * @param string $skel Path to copy from
+	 * @param string $skip array of directories to skip when copying
+	 * @return mixed
+	 */
 	public function bake($path, $skel = null, $skip = array('empty')) {
 		if (!$skel && !empty($this->params['skel'])) {
 			$skel = $this->params['skel'];
@@ -229,13 +229,13 @@ class ProjectTask extends AppShell {
 		}
 	}
 
-/**
- * Generates the correct path to the CakePHP libs that are generating the project
- * and points app/console/cake.php to the right place
- *
- * @param string $path Project path.
- * @return boolean success
- */
+	/**
+	 * Generates the correct path to the CakePHP libs that are generating the project
+	 * and points app/console/cake.php to the right place
+	 *
+	 * @param string $path Project path.
+	 * @return boolean success
+	 */
 	public function consolePath($path) {
 		$File = new File($path . 'Console' . DS . 'cake.php');
 		$contents = $File->read();
@@ -251,12 +251,12 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Generates and writes 'Security.salt'
- *
- * @param string $path Project path
- * @return boolean Success
- */
+	/**
+	 * Generates and writes 'Security.salt'
+	 *
+	 * @param string $path Project path
+	 * @return boolean Success
+	 */
 	public function securitySalt($path) {
 		$File = new File($path . 'Config' . DS . 'core.php');
 		$contents = $File->read();
@@ -271,12 +271,12 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Generates and writes 'Security.cipherSeed'
- *
- * @param string $path Project path
- * @return boolean Success
- */
+	/**
+	 * Generates and writes 'Security.cipherSeed'
+	 *
+	 * @param string $path Project path
+	 * @return boolean Success
+	 */
 	public function securityCipherSeed($path) {
 		$File = new File($path . 'Config' . DS . 'core.php');
 		$contents = $File->read();
@@ -292,12 +292,12 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Writes cache prefix using app's name
- *
- * @param string $dir Path to project
- * @return boolean Success
- */
+	/**
+	 * Writes cache prefix using app's name
+	 *
+	 * @param string $dir Path to project
+	 * @return boolean Success
+	 */
 	public function cachePrefix($dir) {
 		$app = basename($dir);
 		$File = new File($dir . 'Config' . DS . 'core.php');
@@ -309,13 +309,13 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Generates and writes CAKE_CORE_INCLUDE_PATH
- *
- * @param string $path Project path
- * @param boolean $hardCode Whether or not define calls should be hardcoded.
- * @return boolean Success
- */
+	/**
+	 * Generates and writes CAKE_CORE_INCLUDE_PATH
+	 *
+	 * @param string $path Project path
+	 * @param boolean $hardCode Whether or not define calls should be hardcoded.
+	 * @return boolean Success
+	 */
 	public function corePath($path, $hardCode = true) {
 		if (dirname($path) !== CAKE_CORE_INCLUDE_PATH) {
 			$filename = $path . 'webroot' . DS . 'index.php';
@@ -330,13 +330,13 @@ class ProjectTask extends AppShell {
 		}
 	}
 
-/**
- * Replaces the __CAKE_PATH__ placeholder in the template files.
- *
- * @param string $filename The filename to operate on.
- * @param boolean $hardCode Whether or not the define should be uncommented.
- * @return boolean Success
- */
+	/**
+	 * Replaces the __CAKE_PATH__ placeholder in the template files.
+	 *
+	 * @param string $filename The filename to operate on.
+	 * @param boolean $hardCode Whether or not the define should be uncommented.
+	 * @return boolean Success
+	 */
 	protected function _replaceCorePath($filename, $hardCode) {
 		$contents = file_get_contents($filename);
 
@@ -353,12 +353,12 @@ class ProjectTask extends AppShell {
 		return (bool)$count;
 	}
 
-/**
- * Enables Configure::read('Routing.prefixes') in /app/Config/core.php
- *
- * @param string $name Name to use as admin routing
- * @return boolean Success
- */
+	/**
+	 * Enables Configure::read('Routing.prefixes') in /app/Config/core.php
+	 *
+	 * @param string $name Name to use as admin routing
+	 * @return boolean Success
+	 */
 	public function cakeAdmin($name) {
 		$path = (empty($this->configPath)) ? APP . 'Config' . DS : $this->configPath;
 		$File = new File($path . 'core.php');
@@ -373,11 +373,11 @@ class ProjectTask extends AppShell {
 		return false;
 	}
 
-/**
- * Checks for Configure::read('Routing.prefixes') and forces user to input it if not enabled
- *
- * @return string Admin route to use
- */
+	/**
+	 * Checks for Configure::read('Routing.prefixes') and forces user to input it if not enabled
+	 *
+	 * @return string Admin route to use
+	 */
 	public function getPrefix() {
 		$admin = '';
 		$prefixes = Configure::read('Routing.prefixes');
@@ -421,11 +421,11 @@ class ProjectTask extends AppShell {
 		return '';
 	}
 
-/**
- * get the option parser.
- *
- * @return ConsoleOptionParser
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return ConsoleOptionParser
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(

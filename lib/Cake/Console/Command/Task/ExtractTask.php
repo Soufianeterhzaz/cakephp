@@ -29,95 +29,95 @@ App::uses('Hash', 'Utility');
  */
 class ExtractTask extends AppShell {
 
-/**
- * Paths to use when looking for strings
- *
- * @var string
- */
+	/**
+	 * Paths to use when looking for strings
+	 *
+	 * @var string
+	 */
 	protected $_paths = array();
 
-/**
- * Files from where to extract
- *
- * @var array
- */
+	/**
+	 * Files from where to extract
+	 *
+	 * @var array
+	 */
 	protected $_files = array();
 
-/**
- * Merge all domain and category strings into the default.pot file
- *
- * @var boolean
- */
+	/**
+	 * Merge all domain and category strings into the default.pot file
+	 *
+	 * @var boolean
+	 */
 	protected $_merge = false;
 
-/**
- * Current file being processed
- *
- * @var string
- */
+	/**
+	 * Current file being processed
+	 *
+	 * @var string
+	 */
 	protected $_file = null;
 
-/**
- * Contains all content waiting to be write
- *
- * @var string
- */
+	/**
+	 * Contains all content waiting to be write
+	 *
+	 * @var string
+	 */
 	protected $_storage = array();
 
-/**
- * Extracted tokens
- *
- * @var array
- */
+	/**
+	 * Extracted tokens
+	 *
+	 * @var array
+	 */
 	protected $_tokens = array();
 
-/**
- * Extracted strings indexed by category and domain.
- *
- * @var array
- */
+	/**
+	 * Extracted strings indexed by category and domain.
+	 *
+	 * @var array
+	 */
 	protected $_translations = array();
 
-/**
- * Destination path
- *
- * @var string
- */
+	/**
+	 * Destination path
+	 *
+	 * @var string
+	 */
 	protected $_output = null;
 
-/**
- * An array of directories to exclude.
- *
- * @var array
- */
+	/**
+	 * An array of directories to exclude.
+	 *
+	 * @var array
+	 */
 	protected $_exclude = array();
 
-/**
- * Holds whether this call should extract model validation messages
- *
- * @var boolean
- */
+	/**
+	 * Holds whether this call should extract model validation messages
+	 *
+	 * @var boolean
+	 */
 	protected $_extractValidation = true;
 
-/**
- * Holds the validation string domain to use for validation messages when extracting
- *
- * @var boolean
- */
+	/**
+	 * Holds the validation string domain to use for validation messages when extracting
+	 *
+	 * @var boolean
+	 */
 	protected $_validationDomain = 'default';
 
-/**
- * Holds whether this call should extract the CakePHP Lib messages
- *
- * @var boolean
- */
+	/**
+	 * Holds whether this call should extract the CakePHP Lib messages
+	 *
+	 * @var boolean
+	 */
 	protected $_extractCore = false;
 
-/**
- * Method to interact with the User and get path selections.
- *
- * @return void
- */
+	/**
+	 * Method to interact with the User and get path selections.
+	 *
+	 * @return void
+	 */
 	protected function _getPaths() {
 		$defaultPath = APP;
 		while (true) {
@@ -146,11 +146,11 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Execution method always used for tasks
- *
- * @return void
- */
+	/**
+	 * Execution method always used for tasks
+	 *
+	 * @return void
+	 */
 	public function execute() {
 		if (!empty($this->params['exclude'])) {
 			$this->_exclude = explode(',', $this->params['exclude']);
@@ -239,17 +239,17 @@ class ExtractTask extends AppShell {
 		$this->_extract();
 	}
 
-/**
- * Add a translation to the internal translations property
- *
- * Takes care of duplicate translations
- *
- * @param string $category
- * @param string $domain
- * @param string $msgid
- * @param array $details
- * @return void
- */
+	/**
+	 * Add a translation to the internal translations property
+	 *
+	 * Takes care of duplicate translations
+	 *
+	 * @param string $category
+	 * @param string $domain
+	 * @param string $msgid
+	 * @param array $details
+	 * @return void
+	 */
 	protected function _addTranslation($category, $domain, $msgid, $details = array()) {
 		if (empty($this->_translations[$category][$domain][$msgid])) {
 			$this->_translations[$category][$domain][$msgid] = array(
@@ -270,11 +270,11 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Extract text
- *
- * @return void
- */
+	/**
+	 * Extract text
+	 *
+	 * @return void
+	 */
 	protected function _extract() {
 		$this->out();
 		$this->out();
@@ -297,11 +297,11 @@ class ExtractTask extends AppShell {
 		$this->out(__d('cake_console', 'Done.'));
 	}
 
-/**
- * Get & configure the option parser
- *
- * @return void
- */
+	/**
+	 * Get & configure the option parser
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(__d('cake_console', 'CakePHP Language String Extraction:'))
@@ -346,11 +346,11 @@ class ExtractTask extends AppShell {
 			));
 	}
 
-/**
- * Extract tokens out of all files to be processed
- *
- * @return void
- */
+	/**
+	 * Extract tokens out of all files to be processed
+	 *
+	 * @return void
+	 */
 	protected function _extractTokens() {
 		foreach ($this->_files as $file) {
 			$this->_file = $file;
@@ -376,13 +376,13 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Parse tokens
- *
- * @param string $functionName Function name that indicates translatable string (e.g: '__')
- * @param array $map Array containing what variables it will find (e.g: category, domain, singular, plural)
- * @return void
- */
+	/**
+	 * Parse tokens
+	 *
+	 * @param string $functionName Function name that indicates translatable string (e.g: '__')
+	 * @param array $map Array containing what variables it will find (e.g: category, domain, singular, plural)
+	 * @return void
+	 */
 	protected function _parse($functionName, $map) {
 		$count = 0;
 		$categories = array('LC_ALL', 'LC_COLLATE', 'LC_CTYPE', 'LC_MONETARY', 'LC_NUMERIC', 'LC_TIME', 'LC_MESSAGES');
@@ -435,12 +435,12 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Looks for models in the application and extracts the validation messages
- * to be added to the translation map
- *
- * @return void
- */
+	/**
+	 * Looks for models in the application and extracts the validation messages
+	 * to be added to the translation map
+	 *
+	 * @return void
+	 */
 	protected function _extractValidationMessages() {
 		if (!$this->_extractValidation) {
 			return;
@@ -455,12 +455,12 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Extract validation messages from application or plugin models
- *
- * @param string $plugin Plugin name or `null` to process application models
- * @return void
- */
+	/**
+	 * Extract validation messages from application or plugin models
+	 *
+	 * @param string $plugin Plugin name or `null` to process application models
+	 * @return void
+	 */
 	protected function _extractPluginValidationMessages($plugin = null) {
 		App::uses('AppModel', 'Model');
 		if (!empty($plugin)) {
@@ -495,16 +495,16 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Process a validation rule for a field and looks for a message to be added
- * to the translation map
- *
- * @param string $field the name of the field that is being processed
- * @param array $rules the set of validation rules for the field
- * @param string $file the file name where this validation rule was found
- * @param string $domain default domain to bind the validations to
- * @return void
- */
+	/**
+	 * Process a validation rule for a field and looks for a message to be added
+	 * to the translation map
+	 *
+	 * @param string $field the name of the field that is being processed
+	 * @param array $rules the set of validation rules for the field
+	 * @param string $file the file name where this validation rule was found
+	 * @param string $domain default domain to bind the validations to
+	 * @return void
+	 */
 	protected function _processValidationRules($field, $rules, $file, $domain, $category = 'LC_MESSAGES') {
 		if (!is_array($rules)) {
 			return;
@@ -536,11 +536,11 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Build the translate template file contents out of obtained strings
- *
- * @return void
- */
+	/**
+	 * Build the translate template file contents out of obtained strings
+	 *
+	 * @return void
+	 */
 	protected function _buildFiles() {
 		$paths = $this->_paths;
 		$paths[] = realpath(APP) . DS;
@@ -576,15 +576,15 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Prepare a file to be stored
- *
- * @param string $category
- * @param string $domain
- * @param string $header
- * @param string $sentence
- * @return void
- */
+	/**
+	 * Prepare a file to be stored
+	 *
+	 * @param string $category
+	 * @param string $domain
+	 * @param string $header
+	 * @param string $sentence
+	 * @return void
+	 */
 	protected function _store($category, $domain, $header, $sentence) {
 		if (!isset($this->_storage[$category])) {
 			$this->_storage[$category] = array();
@@ -599,11 +599,11 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Write the files that need to be stored
- *
- * @return void
- */
+	/**
+	 * Write the files that need to be stored
+	 *
+	 * @return void
+	 */
 	protected function _writeFiles() {
 		$overwriteAll = false;
 		if (!empty($this->params['overwrite'])) {
@@ -648,11 +648,11 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Build the translation template header
- *
- * @return string Translation template header
- */
+	/**
+	 * Build the translation template header
+	 *
+	 * @return string Translation template header
+	 */
 	protected function _writeHeader() {
 		$output = "# LANGUAGE translation of CakePHP Application\n";
 		$output .= "# Copyright YEAR NAME <EMAIL@ADDRESS>\n";
@@ -672,13 +672,13 @@ class ExtractTask extends AppShell {
 		return $output;
 	}
 
-/**
- * Get the strings from the position forward
- *
- * @param integer $position Actual position on tokens array
- * @param integer $target Number of strings to extract
- * @return array Strings extracted
- */
+	/**
+	 * Get the strings from the position forward
+	 *
+	 * @param integer $position Actual position on tokens array
+	 * @param integer $target Number of strings to extract
+	 * @return array Strings extracted
+	 */
 	protected function _getStrings(&$position, $target) {
 		$strings = array();
 		$count = count($strings);
@@ -703,12 +703,12 @@ class ExtractTask extends AppShell {
 		return $strings;
 	}
 
-/**
- * Format a string to be added as a translatable string
- *
- * @param string $string String to format
- * @return string Formatted string
- */
+	/**
+	 * Format a string to be added as a translatable string
+	 *
+	 * @param string $string String to format
+	 * @return string Formatted string
+	 */
 	protected function _formatString($string) {
 		$quote = substr($string, 0, 1);
 		$string = substr($string, 1, -1);
@@ -721,15 +721,15 @@ class ExtractTask extends AppShell {
 		return addcslashes($string, "\0..\37\\\"");
 	}
 
-/**
- * Indicate an invalid marker on a processed file
- *
- * @param string $file File where invalid marker resides
- * @param integer $line Line number
- * @param string $marker Marker found
- * @param integer $count Count
- * @return void
- */
+	/**
+	 * Indicate an invalid marker on a processed file
+	 *
+	 * @param string $file File where invalid marker resides
+	 * @param integer $line Line number
+	 * @param string $marker Marker found
+	 * @param integer $count Count
+	 * @return void
+	 */
 	protected function _markerError($file, $line, $marker, $count) {
 		$this->out(__d('cake_console', "Invalid marker content in %s:%s\n* %s(", $file, $line, $marker));
 		$count += 2;
@@ -754,11 +754,11 @@ class ExtractTask extends AppShell {
 		$this->out("\n", true);
 	}
 
-/**
- * Search files that may contain translatable strings
- *
- * @return void
- */
+	/**
+	 * Search files that may contain translatable strings
+	 *
+	 * @return void
+	 */
 	protected function _searchFiles() {
 		$pattern = false;
 		if (!empty($this->_exclude)) {
@@ -786,22 +786,22 @@ class ExtractTask extends AppShell {
 		}
 	}
 
-/**
- * Returns whether this execution is meant to extract string only from directories in folder represented by the
- * APP constant, i.e. this task is extracting strings from same application.
- *
- * @return boolean
- */
+	/**
+	 * Returns whether this execution is meant to extract string only from directories in folder represented by the
+	 * APP constant, i.e. this task is extracting strings from same application.
+	 *
+	 * @return boolean
+	 */
 	protected function _isExtractingApp() {
 		return $this->_paths === array(APP);
 	}
 
-/**
- * Checks whether or not a given path is usable for writing.
- *
- * @param string $path Path to folder
- * @return boolean true if it exists and is writable, false otherwise
- */
+	/**
+	 * Checks whether or not a given path is usable for writing.
+	 *
+	 * @param string $path Path to folder
+	 * @return boolean true if it exists and is writable, false otherwise
+	 */
 	protected function _isPathUsable($path) {
 		return is_dir($path) && is_writable($path);
 	}

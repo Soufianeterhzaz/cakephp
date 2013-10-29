@@ -32,18 +32,18 @@ require_once dirname(dirname(__FILE__)) . DS . 'models.php';
  */
 class TreeBehaviorUuidTest extends CakeTestCase {
 
-/**
- * Whether backup global state for each test method or not
- *
- * @var boolean
- */
+	/**
+	 * Whether backup global state for each test method or not
+	 *
+	 * @var boolean
+	 */
 	public $backupGlobals = false;
 
-/**
- * settings property
- *
- * @var array
- */
+	/**
+	 * settings property
+	 *
+	 * @var array
+	 */
 	public $settings = array(
 		'modelClass' => 'UuidTree',
 		'leftField' => 'lft',
@@ -51,18 +51,18 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		'parentField' => 'parent_id'
 	);
 
-/**
- * fixtures property
- *
- * @var array
- */
+	/**
+	 * fixtures property
+	 *
+	 * @var array
+	 */
 	public $fixtures = array('core.uuid_tree');
 
-/**
- * testAddWithPreSpecifiedId method
- *
- * @return void
- */
+	/**
+	 * testAddWithPreSpecifiedId method
+	 *
+	 * @return void
+	 */
 	public function testAddWithPreSpecifiedId() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -90,11 +90,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertTrue($this->Tree->verify());
 	}
 
-/**
- * testMovePromote method
- *
- * @return void
- */
+	/**
+	 * testMovePromote method
+	 *
+	 * @return void
+	 */
 	public function testMovePromote() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -117,11 +117,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testMoveWithWhitelist method
- *
- * @return void
- */
+	/**
+	 * testMoveWithWhitelist method
+	 *
+	 * @return void
+	 */
 	public function testMoveWithWhitelist() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -145,11 +145,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertTrue($this->Tree->verify());
 	}
 
-/**
- * testRemoveNoChildren method
- *
- * @return void
- */
+	/**
+	 * testRemoveNoChildren method
+	 *
+	 * @return void
+	 */
 	public function testRemoveNoChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -180,11 +180,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testRemoveAndDeleteNoChildren method
- *
- * @return void
- */
+	/**
+	 * testRemoveAndDeleteNoChildren method
+	 *
+	 * @return void
+	 */
 	public function testRemoveAndDeleteNoChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -213,11 +213,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertTrue($validTree);
 	}
 
-/**
- * testChildren method
- *
- * @return void
- */
+	/**
+	 * testChildren method
+	 *
+	 * @return void
+	 */
 	public function testChildren() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -242,11 +242,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertEquals($total, $expects);
 	}
 
-/**
- * testNoAmbiguousColumn method
- *
- * @return void
- */
+	/**
+	 * testNoAmbiguousColumn method
+	 *
+	 * @return void
+	 */
 	public function testNoAmbiguousColumn() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();
@@ -279,11 +279,11 @@ class TreeBehaviorUuidTest extends CakeTestCase {
 		$this->assertEquals($total, $expects);
 	}
 
-/**
- * testGenerateTreeListWithSelfJoin method
- *
- * @return void
- */
+	/**
+	 * testGenerateTreeListWithSelfJoin method
+	 *
+	 * @return void
+	 */
 	public function testGenerateTreeListWithSelfJoin() {
 		extract($this->settings);
 		$this->Tree = new $modelClass();

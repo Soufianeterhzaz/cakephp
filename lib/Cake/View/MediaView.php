@@ -59,13 +59,13 @@ App::uses('CakeRequest', 'Network');
  */
 class MediaView extends View {
 
-/**
- * Display or download the given file
- *
- * @param string $view Not used
- * @param string $layout Not used
- * @return boolean
- */
+	/**
+	 * Display or download the given file
+	 *
+	 * @param string $view Not used
+	 * @param string $layout Not used
+	 * @return boolean
+	 */
 	public function render($view = null, $layout = null) {
 		$name = $download = $id = $modified = $path = $cache = $mimeType = $compress = null;
 		extract($this->viewVars, EXTR_OVERWRITE);

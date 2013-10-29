@@ -28,11 +28,11 @@ App::uses('HelpFormatter', 'Console');
  */
 class HelpFormatterTest extends CakeTestCase {
 
-/**
- * test that the console max width is respected when generating help.
- *
- * @return void
- */
+	/**
+	 * test that the console max width is respected when generating help.
+	 *
+	 * @return void
+	 */
 	public function testWidthFormatting() {
 		$parser = new ConsoleOptionParser('test', false);
 		$parser->description('This is fifteen This is fifteen This is fifteen')
@@ -72,11 +72,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Generated help is too wide');
 	}
 
-/**
- * test help() with options and arguments that have choices.
- *
- * @return void
- */
+	/**
+	 * test help() with options and arguments that have choices.
+	 *
+	 * @return void
+	 */
 	public function testHelpWithChoices() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.', 'choices' => array('one', 'two')))
@@ -107,11 +107,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
-/**
- * test description and epilog in the help
- *
- * @return void
- */
+	/**
+	 * test description and epilog in the help
+	 *
+	 * @return void
+	 */
 	public function testHelpDescriptionAndEpilog() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->description('Description text')
@@ -142,11 +142,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Help is wrong.');
 	}
 
-/**
- * test that help() outputs subcommands.
- *
- * @return void
- */
+	/**
+	 * test that help() outputs subcommands.
+	 *
+	 * @return void
+	 */
 	public function testHelpSubcommand() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addSubcommand('method', array('help' => 'This is another command'))
@@ -173,11 +173,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Help is not correct.');
 	}
 
-/**
- * test getting help with defined options.
- *
- * @return void
- */
+	/**
+	 * test getting help with defined options.
+	 *
+	 * @return void
+	 */
 	public function testHelpWithOptions() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.'))
@@ -202,11 +202,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
-/**
- * test getting help with defined options.
- *
- * @return void
- */
+	/**
+	 * test getting help with defined options.
+	 *
+	 * @return void
+	 */
 	public function testHelpWithOptionsAndArguments() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.'))
@@ -233,11 +233,11 @@ TEXT;
 		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
-/**
- * Test that a long set of options doesn't make useless output.
- *
- * @return void
- */
+	/**
+	 * Test that a long set of options doesn't make useless output.
+	 *
+	 * @return void
+	 */
 	public function testHelpWithLotsOfOptions() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser
@@ -257,11 +257,11 @@ TEXT;
 		$this->assertContains($expected, $result);
 	}
 
-/**
- * Test that a long set of arguments doesn't make useless output.
- *
- * @return void
- */
+	/**
+	 * Test that a long set of arguments doesn't make useless output.
+	 *
+	 * @return void
+	 */
 	public function testHelpWithLotsOfArguments() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser
@@ -281,11 +281,11 @@ TEXT;
 		$this->assertContains($expected, $result);
 	}
 
-/**
- * test help() with options and arguments that have choices.
- *
- * @return void
- */
+	/**
+	 * test help() with options and arguments that have choices.
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpWithChoices() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.', 'choices' => array('one', 'two')))
@@ -331,11 +331,11 @@ TEXT;
 		$this->assertEquals(new DomDocument($expected), new DomDocument($result), 'Help does not match');
 	}
 
-/**
- * test description and epilog in the help
- *
- * @return void
- */
+	/**
+	 * test description and epilog in the help
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpDescriptionAndEpilog() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->description('Description text')
@@ -372,11 +372,11 @@ TEXT;
 		$this->assertEquals(new DomDocument($expected), new DomDocument($result), 'Help does not match');
 	}
 
-/**
- * test that help() outputs subcommands.
- *
- * @return void
- */
+	/**
+	 * test that help() outputs subcommands.
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpSubcommand() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addSubcommand('method', array('help' => 'This is another command'))
@@ -409,11 +409,11 @@ TEXT;
 		$this->assertEquals(new DomDocument($expected), new DomDocument($result), 'Help does not match');
 	}
 
-/**
- * test getting help with defined options.
- *
- * @return void
- */
+	/**
+	 * test getting help with defined options.
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpWithOptions() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.'))
@@ -450,11 +450,11 @@ TEXT;
 		$this->assertEquals(new DomDocument($expected), new DomDocument($result), 'Help does not match');
 	}
 
-/**
- * test getting help with defined options.
- *
- * @return void
- */
+	/**
+	 * test getting help with defined options.
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpWithOptionsAndArguments() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.'))
@@ -493,11 +493,11 @@ TEXT;
 		$this->assertEquals(new DomDocument($expected), new DomDocument($result), 'Help does not match');
 	}
 
-/**
- * Test xml help as object
- *
- * @return void
- */
+	/**
+	 * Test xml help as object
+	 *
+	 * @return void
+	 */
 	public function testXmlHelpAsObject() {
 		$parser = new ConsoleOptionParser('mycommand', false);
 		$parser->addOption('test', array('help' => 'A test option.'))

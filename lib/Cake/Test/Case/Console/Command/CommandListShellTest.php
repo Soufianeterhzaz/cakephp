@@ -46,11 +46,11 @@ class TestStringOutput extends ConsoleOutput {
  */
 class CommandListShellTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
@@ -79,22 +79,22 @@ class CommandListShellTest extends CakeTestCase {
 		);
 	}
 
-/**
- * tearDown
- *
- * @return void
- */
+	/**
+	 * tearDown
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		unset($this->Shell);
 		CakePlugin::unload();
 	}
 
-/**
- * test that main finds core shells.
- *
- * @return void
- */
+	/**
+	 * test that main finds core shells.
+	 *
+	 * @return void
+	 */
 	public function testMain() {
 		$this->Shell->main();
 		$output = $this->Shell->stdout->output;
@@ -112,11 +112,11 @@ class CommandListShellTest extends CakeTestCase {
 		$this->assertRegExp($expected, $output);
 	}
 
-/**
- * test xml output.
- *
- * @return void
- */
+	/**
+	 * test xml output.
+	 *
+	 * @return void
+	 */
 	public function testMainXml() {
 		$this->Shell->params['xml'] = true;
 		$this->Shell->main();

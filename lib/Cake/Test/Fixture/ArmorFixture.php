@@ -25,20 +25,20 @@
  */
 class ArmorFixture extends CakeTestFixture {
 
-/**
- * Datasource
- *
- * Used for Multi database fixture test
- *
- * @var string 'test2'
- */
+	/**
+	 * Datasource
+	 *
+	 * Used for Multi database fixture test
+	 *
+	 * @var string 'test2'
+	 */
 	public $useDbConfig = 'test2';
 
-/**
- * fields property
- *
- * @var array
- */
+	/**
+	 * fields property
+	 *
+	 * @var array
+	 */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false),
@@ -46,11 +46,11 @@ class ArmorFixture extends CakeTestFixture {
 		'updated' => 'datetime'
 	);
 
-/**
- * records property
- *
- * @var array
- */
+	/**
+	 * records property
+	 *
+	 * @var array
+	 */
 	public $records = array(
 		array('name' => 'Leather', 'created' => '2007-03-17 01:16:23'),
 		array('name' => 'Chainmail', 'created' => '2007-03-17 01:18:23'),

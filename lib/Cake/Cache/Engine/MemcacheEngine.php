@@ -29,41 +29,41 @@
  */
 class MemcacheEngine extends CacheEngine {
 
-/**
- * Contains the compiled group names
- * (prefixed with the global configuration prefix)
- *
- * @var array
- */
+	/**
+	 * Contains the compiled group names
+	 * (prefixed with the global configuration prefix)
+	 *
+	 * @var array
+	 */
 	protected $_compiledGroupNames = array();
 
-/**
- * Memcache wrapper.
- *
- * @var Memcache
- */
+	/**
+	 * Memcache wrapper.
+	 *
+	 * @var Memcache
+	 */
 	protected $_Memcache = null;
 
-/**
- * Settings
- *
- *  - servers = string or array of memcache servers, default => 127.0.0.1. If an
- *    array MemcacheEngine will use them as a pool.
- *  - compress = boolean, default => false
- *
- * @var array
- */
+	/**
+	 * Settings
+	 *
+	 *  - servers = string or array of memcache servers, default => 127.0.0.1. If an
+	 *    array MemcacheEngine will use them as a pool.
+	 *  - compress = boolean, default => false
+	 *
+	 * @var array
+	 */
 	public $settings = array();
 
-/**
- * Initialize the Cache Engine
- *
- * Called automatically by the cache frontend
- * To reinitialize the settings call Cache::engine('EngineName', [optional] settings = array());
- *
- * @param array $settings array of setting for the engine
- * @return boolean True if the engine has been successfully initialized, false if not
- */
+	/**
+	 * Initialize the Cache Engine
+	 *
+	 * Called automatically by the cache frontend
+	 * To reinitialize the settings call Cache::engine('EngineName', [optional] settings = array());
+	 *
+	 * @param array $settings array of setting for the engine
+	 * @return boolean True if the engine has been successfully initialized, false if not
+	 */
 	public function init($settings = array()) {
 		if (!class_exists('Memcache')) {
 			return false;
@@ -99,13 +99,13 @@ class MemcacheEngine extends CacheEngine {
 		return true;
 	}
 
-/**
- * Parses the server address into the host/port. Handles both IPv6 and IPv4
- * addresses and Unix sockets
- *
- * @param string $server The server address string.
- * @return array Array containing host, port
- */
+	/**
+	 * Parses the server address into the host/port. Handles both IPv6 and IPv4
+	 * addresses and Unix sockets
+	 *
+	 * @param string $server The server address string.
+	 * @return array Array containing host, port
+	 */
 	protected function _parseServerString($server) {
 		if ($server[0] === 'u') {
 			return array($server, 0);
@@ -127,17 +127,17 @@ class MemcacheEngine extends CacheEngine {
 		return array($host, $port);
 	}
 
-/**
- * Write data for key into cache. When using memcache as your cache engine
- * remember that the Memcache pecl extension does not support cache expiry times greater
- * than 30 days in the future. Any duration greater than 30 days will be treated as never expiring.
- *
- * @param string $key Identifier for the data
- * @param mixed $value Data to be cached
- * @param integer $duration How long to cache the data, in seconds
- * @return boolean True if the data was successfully cached, false on failure
- * @see http://php.net/manual/en/memcache.set.php
- */
+	/**
+	 * Write data for key into cache. When using memcache as your cache engine
+	 * remember that the Memcache pecl extension does not support cache expiry times greater
+	 * than 30 days in the future. Any duration greater than 30 days will be treated as never expiring.
+	 *
+	 * @param string $key Identifier for the data
+	 * @param mixed $value Data to be cached
+	 * @param integer $duration How long to cache the data, in seconds
+	 * @return boolean True if the data was successfully cached, false on failure
+	 * @see http://php.net/manual/en/memcache.set.php
+	 */
 	public function write($key, $value, $duration) {
 		if ($duration > 30 * DAY) {
 			$duration = 0;
@@ -145,24 +145,24 @@ class MemcacheEngine extends CacheEngine {
 		return $this->_Memcache->set($key, $value, $this->settings['compress'], $duration);
 	}
 
-/**
- * Read a key from the cache
- *
- * @param string $key Identifier for the data
- * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
- */
+	/**
+	 * Read a key from the cache
+	 *
+	 * @param string $key Identifier for the data
+	 * @return mixed The cached data, or false if the data doesn't exist, has expired, or if there was an error fetching it
+	 */
 	public function read($key) {
 		return $this->_Memcache->get($key);
 	}
 
-/**
- * Increments the value of an integer cached key
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to increment
- * @return New incremented value, false otherwise
- * @throws CacheException when you try to increment with compress = true
- */
+	/**
+	 * Increments the value of an integer cached key
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to increment
+	 * @return New incremented value, false otherwise
+	 * @throws CacheException when you try to increment with compress = true
+	 */
 	public function increment($key, $offset = 1) {
 		if ($this->settings['compress']) {
 			throw new CacheException(
@@ -172,14 +172,14 @@ class MemcacheEngine extends CacheEngine {
 		return $this->_Memcache->increment($key, $offset);
 	}
 
-/**
- * Decrements the value of an integer cached key
- *
- * @param string $key Identifier for the data
- * @param integer $offset How much to subtract
- * @return New decremented value, false otherwise
- * @throws CacheException when you try to decrement with compress = true
- */
+	/**
+	 * Decrements the value of an integer cached key
+	 *
+	 * @param string $key Identifier for the data
+	 * @param integer $offset How much to subtract
+	 * @return New decremented value, false otherwise
+	 * @throws CacheException when you try to decrement with compress = true
+	 */
 	public function decrement($key, $offset = 1) {
 		if ($this->settings['compress']) {
 			throw new CacheException(
@@ -189,22 +189,22 @@ class MemcacheEngine extends CacheEngine {
 		return $this->_Memcache->decrement($key, $offset);
 	}
 
-/**
- * Delete a key from the cache
- *
- * @param string $key Identifier for the data
- * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
- */
+	/**
+	 * Delete a key from the cache
+	 *
+	 * @param string $key Identifier for the data
+	 * @return boolean True if the value was successfully deleted, false if it didn't exist or couldn't be removed
+	 */
 	public function delete($key) {
 		return $this->_Memcache->delete($key);
 	}
 
-/**
- * Delete all keys from the cache
- *
- * @param boolean $check
- * @return boolean True if the cache was successfully cleared, false otherwise
- */
+	/**
+	 * Delete all keys from the cache
+	 *
+	 * @param boolean $check
+	 * @return boolean True if the cache was successfully cleared, false otherwise
+	 */
 	public function clear($check) {
 		if ($check) {
 			return true;
@@ -230,13 +230,13 @@ class MemcacheEngine extends CacheEngine {
 		return true;
 	}
 
-/**
- * Connects to a server in connection pool
- *
- * @param string $host host ip address or name
- * @param integer $port Server port
- * @return boolean True if memcache server was connected
- */
+	/**
+	 * Connects to a server in connection pool
+	 *
+	 * @param string $host host ip address or name
+	 * @param integer $port Server port
+	 * @return boolean True if memcache server was connected
+	 */
 	public function connect($host, $port = 11211) {
 		if ($this->_Memcache->getServerStatus($host, $port) === 0) {
 			if ($this->_Memcache->connect($host, $port)) {
@@ -247,13 +247,13 @@ class MemcacheEngine extends CacheEngine {
 		return true;
 	}
 
-/**
- * Returns the `group value` for each of the configured groups
- * If the group initial value was not found, then it initializes
- * the group accordingly.
- *
- * @return array
- */
+	/**
+	 * Returns the `group value` for each of the configured groups
+	 * If the group initial value was not found, then it initializes
+	 * the group accordingly.
+	 *
+	 * @return array
+	 */
 	public function groups() {
 		if (empty($this->_compiledGroupNames)) {
 			foreach ($this->settings['groups'] as $group) {
@@ -281,12 +281,12 @@ class MemcacheEngine extends CacheEngine {
 		return $result;
 	}
 
-/**
- * Increments the group value to simulate deletion of all keys under a group
- * old values will remain in storage until they expire.
- *
- * @return boolean success
- */
+	/**
+	 * Increments the group value to simulate deletion of all keys under a group
+	 * old values will remain in storage until they expire.
+	 *
+	 * @return boolean success
+	 */
 	public function clearGroup($group) {
 		return (bool)$this->_Memcache->increment($this->settings['prefix'] . $group);
 	}

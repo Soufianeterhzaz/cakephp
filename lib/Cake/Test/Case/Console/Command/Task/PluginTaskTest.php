@@ -36,11 +36,11 @@ App::uses('File', 'Utility');
  */
 class PluginTaskTest extends CakeTestCase {
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->out = $this->getMock('ConsoleOutput', array(), array(), '', false);
@@ -64,11 +64,11 @@ class PluginTaskTest extends CakeTestCase {
 		App::build(array('plugins' => $paths));
 	}
 
-/**
- * tearDown()
- *
- * @return void
- */
+	/**
+	 * tearDown()
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		if (file_exists($this->Task->bootstrap)) {
 			unlink($this->Task->bootstrap);
@@ -76,11 +76,11 @@ class PluginTaskTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-/**
- * test bake()
- *
- * @return void
- */
+	/**
+	 * test bake()
+	 *
+	 * @return void
+	 */
 	public function testBakeFoldersAndFiles() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue($this->_testPath));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue('y'));
@@ -123,11 +123,11 @@ class PluginTaskTest extends CakeTestCase {
 		$Folder->delete();
 	}
 
-/**
- * test execute with no args, flowing into interactive,
- *
- * @return void
- */
+	/**
+	 * test execute with no args, flowing into interactive,
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithNoArgs() {
 		$this->Task->expects($this->at(0))->method('in')->will($this->returnValue('TestPlugin'));
 		$this->Task->expects($this->at(1))->method('in')->will($this->returnValue($this->_testPath));
@@ -150,11 +150,11 @@ class PluginTaskTest extends CakeTestCase {
 		$Folder->delete();
 	}
 
-/**
- * Test Execute
- *
- * @return void
- */
+	/**
+	 * Test Execute
+	 *
+	 * @return void
+	 */
 	public function testExecuteWithOneArg() {
 		$this->Task->expects($this->at(0))->method('in')
 			->will($this->returnValue($this->_testPath));
@@ -179,11 +179,11 @@ class PluginTaskTest extends CakeTestCase {
 		$Folder->delete();
 	}
 
-/**
- * Test that findPath ignores paths that don't exist.
- *
- * @return void
- */
+	/**
+	 * Test that findPath ignores paths that don't exist.
+	 *
+	 * @return void
+	 */
 	public function testFindPathNonExistant() {
 		$paths = App::path('plugins');
 		$last = count($paths);

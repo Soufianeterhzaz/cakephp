@@ -52,18 +52,18 @@ App::uses('Xml', 'Utility');
  */
 class XmlView extends View {
 
-/**
- * The subdirectory. XML views are always in xml.
- *
- * @var string
- */
+	/**
+	 * The subdirectory. XML views are always in xml.
+	 *
+	 * @var string
+	 */
 	public $subDir = 'xml';
 
-/**
- * Constructor
- *
- * @param Controller $controller
- */
+	/**
+	 * Constructor
+	 *
+	 * @param Controller $controller
+	 */
 	public function __construct(Controller $controller = null) {
 		parent::__construct($controller);
 
@@ -72,11 +72,11 @@ class XmlView extends View {
 		}
 	}
 
-/**
- * Skip loading helpers if this is a _serialize based view.
- *
- * @return void
- */
+	/**
+	 * Skip loading helpers if this is a _serialize based view.
+	 *
+	 * @return void
+	 */
 	public function loadHelpers() {
 		if (isset($this->viewVars['_serialize'])) {
 			return;
@@ -84,18 +84,18 @@ class XmlView extends View {
 		parent::loadHelpers();
 	}
 
-/**
- * Render a XML view.
- *
- * Uses the special '_serialize' parameter to convert a set of
- * view variables into a XML response. Makes generating simple
- * XML responses very easy. You can omit the '_serialize' parameter,
- * and use a normal view + layout as well.
- *
- * @param string $view The view being rendered.
- * @param string $layout The layout being rendered.
- * @return string The rendered view.
- */
+	/**
+	 * Render a XML view.
+	 *
+	 * Uses the special '_serialize' parameter to convert a set of
+	 * view variables into a XML response. Makes generating simple
+	 * XML responses very easy. You can omit the '_serialize' parameter,
+	 * and use a normal view + layout as well.
+	 *
+	 * @param string $view The view being rendered.
+	 * @param string $layout The layout being rendered.
+	 * @return string The rendered view.
+	 */
 	public function render($view = null, $layout = null) {
 		if (isset($this->viewVars['_serialize'])) {
 			return $this->_serialize($this->viewVars['_serialize']);
@@ -105,12 +105,12 @@ class XmlView extends View {
 		}
 	}
 
-/**
- * Serialize view vars.
- *
- * @param array $serialize The viewVars that need to be serialized.
- * @return string The serialized data
- */
+	/**
+	 * Serialize view vars.
+	 *
+	 * @param array $serialize The viewVars that need to be serialized.
+	 * @return string The serialized data
+	 */
 	protected function _serialize($serialize) {
 		$rootNode = isset($this->viewVars['_rootNode']) ? $this->viewVars['_rootNode'] : 'response';
 

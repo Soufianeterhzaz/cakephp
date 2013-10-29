@@ -31,57 +31,57 @@ App::uses('AppHelper', 'View/Helper');
  */
 class CacheHelper extends AppHelper {
 
-/**
- * Array of strings replaced in cached views.
- * The strings are found between `<!--nocache--><!--/nocache-->` in views
- *
- * @var array
- */
+	/**
+	 * Array of strings replaced in cached views.
+	 * The strings are found between `<!--nocache--><!--/nocache-->` in views
+	 *
+	 * @var array
+	 */
 	protected $_replace = array();
 
-/**
- * Array of string that are replace with there var replace above.
- * The strings are any content inside `<!--nocache--><!--/nocache-->` and includes the tags in views
- *
- * @var array
- */
+	/**
+	 * Array of string that are replace with there var replace above.
+	 * The strings are any content inside `<!--nocache--><!--/nocache-->` and includes the tags in views
+	 *
+	 * @var array
+	 */
 	protected $_match = array();
 
-/**
- * Counter used for counting nocache section tags.
- *
- * @var integer
- */
+	/**
+	 * Counter used for counting nocache section tags.
+	 *
+	 * @var integer
+	 */
 	protected $_counter = 0;
 
-/**
- * Is CacheHelper enabled? should files + output be parsed.
- *
- * @return boolean
- */
+	/**
+	 * Is CacheHelper enabled? should files + output be parsed.
+	 *
+	 * @return boolean
+	 */
 	protected function _enabled() {
 		return $this->_View->cacheAction && (Configure::read('Cache.check') === true);
 	}
 
-/**
- * Parses the view file and stores content for cache file building.
- *
- * @param string $viewFile
- * @param string $output The output for the file.
- * @return string Updated content.
- */
+	/**
+	 * Parses the view file and stores content for cache file building.
+	 *
+	 * @param string $viewFile
+	 * @param string $output The output for the file.
+	 * @return string Updated content.
+	 */
 	public function afterRenderFile($viewFile, $output) {
 		if ($this->_enabled()) {
 			return $this->_parseContent($viewFile, $output);
 		}
 	}
 
-/**
- * Parses the layout file and stores content for cache file building.
- *
- * @param string $layoutFile
- * @return void
- */
+	/**
+	 * Parses the layout file and stores content for cache file building.
+	 *
+	 * @param string $layoutFile
+	 * @return void
+	 */
 	public function afterLayout($layoutFile) {
 		if ($this->_enabled()) {
 			$this->_View->output = $this->cache($layoutFile, $this->_View->output);
@@ -89,29 +89,29 @@ class CacheHelper extends AppHelper {
 		$this->_View->output = preg_replace('/<!--\/?nocache-->/', '', $this->_View->output);
 	}
 
-/**
- * Parse a file + output. Matches nocache tags between the current output and the current file
- * stores a reference of the file, so the generated can be swapped back with the file contents when
- * writing the cache file.
- *
- * @param string $file The filename to process.
- * @param string $out The output for the file.
- * @return string Updated content.
- */
+	/**
+	 * Parse a file + output. Matches nocache tags between the current output and the current file
+	 * stores a reference of the file, so the generated can be swapped back with the file contents when
+	 * writing the cache file.
+	 *
+	 * @param string $file The filename to process.
+	 * @param string $out The output for the file.
+	 * @return string Updated content.
+	 */
 	protected function _parseContent($file, $out) {
 		$out = preg_replace_callback('/<!--nocache-->/', array($this, '_replaceSection'), $out);
 		$this->_parseFile($file, $out);
 		return $out;
 	}
 
-/**
- * Main method used to cache a view
- *
- * @param string $file File to cache
- * @param string $out output to cache
- * @return string view output
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/cache.html
- */
+	/**
+	 * Main method used to cache a view
+	 *
+	 * @param string $file File to cache
+	 * @param string $out output to cache
+	 * @return string view output
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/cache.html
+	 */
 	public function cache($file, $out) {
 		$cacheTime = 0;
 		$useCallbacks = false;
@@ -168,13 +168,13 @@ class CacheHelper extends AppHelper {
 		return $out;
 	}
 
-/**
- * Parse file searching for no cache tags
- *
- * @param string $file The filename that needs to be parsed.
- * @param string $cache The cached content
- * @return void
- */
+	/**
+	 * Parse file searching for no cache tags
+	 *
+	 * @param string $file The filename that needs to be parsed.
+	 * @param string $cache The cached content
+	 * @return void
+	 */
 	protected function _parseFile($file, $cache) {
 		if (is_file($file)) {
 			$file = file_get_contents($file);
@@ -208,35 +208,35 @@ class CacheHelper extends AppHelper {
 		}
 	}
 
-/**
- * Munges the output from a view with cache tags, and numbers the sections.
- * This helps solve issues with empty/duplicate content.
- *
- * @return string The content with cake:nocache tags replaced.
- */
+	/**
+	 * Munges the output from a view with cache tags, and numbers the sections.
+	 * This helps solve issues with empty/duplicate content.
+	 *
+	 * @return string The content with cake:nocache tags replaced.
+	 */
 	protected function _replaceSection() {
 		$this->_counter += 1;
 		return sprintf('<!--nocache:%03d-->', $this->_counter);
 	}
 
-/**
- * Strip cake:nocache tags from a string. Since View::render()
- * only removes un-numbered nocache tags, remove all the numbered ones.
- * This is the complement to _replaceSection.
- *
- * @param string $content String to remove tags from.
- * @return string String with tags removed.
- */
+	/**
+	 * Strip cake:nocache tags from a string. Since View::render()
+	 * only removes un-numbered nocache tags, remove all the numbered ones.
+	 * This is the complement to _replaceSection.
+	 *
+	 * @param string $content String to remove tags from.
+	 * @return string String with tags removed.
+	 */
 	protected function _stripTags($content) {
 		return preg_replace('#<!--/?nocache(\:\d{3})?-->#', '', $content);
 	}
 
-/**
- * Parse the output and replace cache tags
- *
- * @param string $cache Output to replace content in.
- * @return string with all replacements made to <!--nocache--><!--nocache-->
- */
+	/**
+	 * Parse the output and replace cache tags
+	 *
+	 * @param string $cache Output to replace content in.
+	 * @return string with all replacements made to <!--nocache--><!--nocache-->
+	 */
 	protected function _parseOutput($cache) {
 		$count = 0;
 		if (!empty($this->_match)) {
@@ -263,14 +263,14 @@ class CacheHelper extends AppHelper {
 		return $cache;
 	}
 
-/**
- * Write a cached version of the file
- *
- * @param string $content view content to write to a cache file.
- * @param string $timestamp Duration to set for cache file.
- * @param boolean $useCallbacks
- * @return boolean success of caching view.
- */
+	/**
+	 * Write a cached version of the file
+	 *
+	 * @param string $content view content to write to a cache file.
+	 * @param string $timestamp Duration to set for cache file.
+	 * @param boolean $useCallbacks
+	 * @return boolean success of caching view.
+	 */
 	protected function _writeFile($content, $timestamp, $useCallbacks = false) {
 		$now = time();
 

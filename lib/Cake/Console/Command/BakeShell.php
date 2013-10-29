@@ -36,25 +36,25 @@ App::uses('Model', 'Model');
  */
 class BakeShell extends AppShell {
 
-/**
- * Contains tasks to load and instantiate
- *
- * @var array
- */
+	/**
+	 * Contains tasks to load and instantiate
+	 *
+	 * @var array
+	 */
 	public $tasks = array('Project', 'DbConfig', 'Model', 'Controller', 'View', 'Plugin', 'Fixture', 'Test');
 
-/**
- * The connection being used.
- *
- * @var string
- */
+	/**
+	 * The connection being used.
+	 *
+	 * @var string
+	 */
 	public $connection = 'default';
 
-/**
- * Assign $this->connection to the active task if a connection param is set.
- *
- * @return void
- */
+	/**
+	 * Assign $this->connection to the active task if a connection param is set.
+	 *
+	 * @return void
+	 */
 	public function startup() {
 		parent::startup();
 		Configure::write('debug', 2);
@@ -71,11 +71,11 @@ class BakeShell extends AppShell {
 		}
 	}
 
-/**
- * Override main() to handle action
- *
- * @return mixed
- */
+	/**
+	 * Override main() to handle action
+	 *
+	 * @return mixed
+	 */
 	public function main() {
 		if (!is_dir($this->DbConfig->path)) {
 			$path = $this->Project->execute();
@@ -134,11 +134,11 @@ class BakeShell extends AppShell {
 		$this->main();
 	}
 
-/**
- * Quickly bake the MVC
- *
- * @return void
- */
+	/**
+	 * Quickly bake the MVC
+	 *
+	 * @return void
+	 */
 	public function all() {
 		$this->out('Bake All');
 		$this->hr();
@@ -204,11 +204,11 @@ class BakeShell extends AppShell {
 		return $this->_stop();
 	}
 
-/**
- * get the option parser.
- *
- * @return void
- */
+	/**
+	 * get the option parser.
+	 *
+	 * @return void
+	 */
 	public function getOptionParser() {
 		$parser = parent::getOptionParser();
 		return $parser->description(__d('cake_console',
