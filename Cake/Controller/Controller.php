@@ -353,7 +353,7 @@ class Controller extends Object implements EventListener {
 		if (!$this->viewPath) {
 			$viewPath = $this->name;
 			if (isset($request->params['prefix'])) {
-				$viewPath = $request->params['prefix'] . DS . $viewPath;
+				$viewPath = Inflector::camelize($request->params['prefix']) . DS . $viewPath;
 			}
 			$this->viewPath = $viewPath;
 		}
