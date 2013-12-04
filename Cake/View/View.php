@@ -904,7 +904,7 @@ class View extends Object {
 		list($plugin, $name) = $this->pluginSplit($name);
 
 		if (strpos($name, DS) === false && $name[0] !== '.') {
-			$name = $this->viewPath . DS . $subDir . Inflector::underscore($name);
+			$name = $this->viewPath . DS . $subDir . $name;
 		} elseif (strpos($name, DS) !== false) {
 			if ($name[0] === DS || $name[1] === ':') {
 				if (is_file($name)) {

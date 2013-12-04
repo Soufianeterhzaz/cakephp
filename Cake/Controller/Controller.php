@@ -353,7 +353,7 @@ class Controller extends Object implements EventListener {
 		if (!$this->viewPath) {
 			$viewPath = $this->name;
 			if (isset($request->params['prefix'])) {
-				$viewPath = Inflector::camelize($request->params['prefix']) . DS . $viewPath;
+				$viewPath = $request->params['prefix'] . DS . $viewPath;
 			}
 			$this->viewPath = $viewPath;
 		}
@@ -444,13 +444,23 @@ class Controller extends Object implements EventListener {
  *    not enabled.
  */
 	public function invokeAction(Request $request) {
+		$action = lcfirst(Inflector::camelize($request->params['action']));
+		if (Inflector::underscore($action) !== $request->params['action']) {
+			throw new Error\MissingActionException(array(
+				'controller' => $this->name . "Controller",
+				'action' => $action,
+				'prefix' => isset($request->params['prefix']) ? $request->params['prefix'] : '',
+				'plugin' => $request->params['plugin'],
+			));
+		}
+
 		try {
-			$method = new \ReflectionMethod($this, $request->params['action']);
+			$method = new \ReflectionMethod($this, $action);
 
 			if ($this->_isPrivateAction($method, $request)) {
 				throw new Error\PrivateActionException(array(
 					'controller' => $this->name . "Controller",
-					'action' => $request->params['action'],
+					'action' => $action,
 					'prefix' => isset($request->params['prefix']) ? $request->params['prefix'] : '',
 					'plugin' => $request->params['plugin'],
 				));
@@ -463,7 +473,7 @@ class Controller extends Object implements EventListener {
 			}
 			throw new Error\MissingActionException(array(
 				'controller' => $this->name . "Controller",
-				'action' => $request->params['action'],
+				'action' => $action,
 				'prefix' => isset($request->params['prefix']) ? $request->params['prefix'] : '',
 				'plugin' => $request->params['plugin'],
 			));

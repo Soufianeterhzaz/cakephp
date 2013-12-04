@@ -39,7 +39,6 @@ class ScaffoldView extends View {
 		if ($name === null) {
 			$name = $this->action;
 		}
-		$name = Inflector::underscore($name);
 		$prefixes = Configure::read('Routing.prefixes');
 
 		if (!empty($prefixes)) {

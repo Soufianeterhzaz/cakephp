@@ -377,7 +377,7 @@ class FormHelper extends Helper {
 				if (!empty($model)) {
 					$options['url']['controller'] = Inflector::underscore(Inflector::pluralize($model));
 				} elseif (!empty($this->request->params['controller'])) {
-					$options['url']['controller'] = Inflector::underscore($this->request->params['controller']);
+					$options['url']['controller'] = $this->request->params['controller'];
 				}
 			}
 			if (empty($options['action'])) {

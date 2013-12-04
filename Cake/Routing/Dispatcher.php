@@ -250,13 +250,23 @@ class Dispatcher implements EventListener {
 		$namespace = 'Controller';
 		if (!empty($request->params['plugin'])) {
 			$pluginName = Inflector::camelize($request->params['plugin']);
+			if (Inflector::underscore($pluginName) !== $request->params['plugin']) {
+				return false;
+			}
 			$pluginPath = $pluginName . '.';
 		}
 		if (!empty($request->params['controller'])) {
 			$controller = Inflector::camelize($request->params['controller']);
+			if (Inflector::underscore($controller) !== $request->params['controller']) {
+				throw new NotFoundException(__d('cake_dev', '%s needs to be accessed via %s', $controller, $request->params['controller']));
+			}
 		}
 		if (!empty($request->params['prefix'])) {
-			$namespace .= '/' . Inflector::camelize($request->params['prefix']);
+			$prefix = Inflector::camelize($request->params['prefix']);
+			if (Inflector::underscore($prefix) !== $request->params['prefix']) {
+				return false;
+			}
+			$namespace .= '/' . $prefix;
 		}
 		if ($pluginPath . $controller) {
 			return App::classname($pluginPath . $controller, $namespace, 'Controller');
