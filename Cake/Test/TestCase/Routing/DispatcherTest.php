@@ -425,11 +425,11 @@ class DispatcherTest extends TestCase {
 		require CAKE . 'Config/routes.php';
 		$Dispatcher = new TestDispatcher();
 
-		$url = new Request('test_dispatch_pages/camelCased');
+		$url = new Request('test_dispatch_pages/camel_cased');
 		$Dispatcher->dispatch($url, $response, array('return' => 1));
 		$this->assertEquals('TestDispatchPages', $Dispatcher->controller->name);
 
-		$url = new Request('test_dispatch_pages/camelCased/something. .');
+		$url = new Request('test_dispatch_pages/camel_cased/something. .');
 		$Dispatcher->dispatch($url, $response, array('return' => 1));
 		$this->assertEquals(
 			'something. .',
