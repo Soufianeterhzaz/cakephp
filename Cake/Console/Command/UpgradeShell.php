@@ -112,7 +112,7 @@ class UpgradeShell extends Shell {
  *
  * @return void
  */
-	public function rename_classes() {
+	public function renameClasses() {
 		$path = $this->_getPath();
 		$Folder = new Folder($path);
 		$this->_paths = $Folder->tree(null, false, 'dir');
@@ -189,7 +189,7 @@ class UpgradeShell extends Shell {
  *
  * @return void
  */
-	public function app_uses() {
+	public function appUses() {
 		$path = $this->_getPath();
 		$Folder = new Folder($path);
 		$this->_paths = $Folder->tree(null, false, 'dir');
@@ -435,7 +435,7 @@ class UpgradeShell extends Shell {
  *
  * @return void
  */
-	public function rename_collections() {
+	public function renameCollections() {
 		$path = $this->_getPath();
 
 		$Folder = new Folder($path);
@@ -480,7 +480,7 @@ class UpgradeShell extends Shell {
 	 *
 	 * @return void
 	 */
-	public function rename_methods() {
+	public function renameMethods() {
 		$path = $this->_getPath();
 		$app = rtrim(APP, DS);
 		if ($path === $app || !empty($this->params['plugin'])) {
@@ -501,7 +501,13 @@ class UpgradeShell extends Shell {
 			$path .= DS . 'Console' . DS . 'Command' . DS;
 		}
 		$this->out(__d('cake_console', 'Processing shells on %s', $path));
-		//TODO: process shells
+		$this->_paths[] = realpath($path);
+		$this->_findFiles('php');
+		foreach ($this->_files as $file) {
+			$this->out(__d('cake_console', 'Updating %s...', $file), 1, Shell::VERBOSE);
+			$content = $this->_renameMethods(file_get_contents($file));
+			$this->_saveFile($file, $content);
+		}
 	}
 
 	/**
@@ -511,7 +517,7 @@ class UpgradeShell extends Shell {
 	 * @return string
 	 */
 	protected function _renameMethods($content) {
-		if (strpos($content, 'Controller extends ') === false) {
+		if (strpos($content, 'Controller extends ') === false && strpos($content, 'Shell extends ') === false) {
 			return $content;
 		}
 
@@ -524,6 +530,17 @@ class UpgradeShell extends Shell {
 		if ($count) {
 			$this->out(__d('cake_console', 'Updated %s methods', $count), 1, Shell::VERBOSE);
 		}
+		if (strpos($content, 'Shell extends ') === false) {
+			return $content;
+		}
+
+		// For shells we also need the ConsoleOptionParser modified as well as internally called methods
+		$pattern = '/\baddSubcommand\(\'(\w+)\'/i';
+		$replacement = function ($matches) {
+			return 'addSubcommand(\'' . lcfirst(Inflector::camelize($matches[1])) . '\'';
+		};
+		$content = preg_replace_callback($pattern, $replacement, $content);
+
 		return $content;
 	}
 
@@ -755,11 +772,11 @@ class UpgradeShell extends Shell {
 				'help' => __d('cake_console', 'Add namespaces to files based on their file path. Only run this *after* you have moved files with locations.'),
 				'parser' => ['options' => compact('plugin', 'dryRun', 'namespace', 'exclude'), 'arguments' => compact('path')]
 			])
-			->addSubcommand('app_uses', [
+			->addSubcommand('appUses', [
 				'help' => __d('cake_console', 'Replace App::uses() with use statements'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
 			])
-			->addSubcommand('rename_classes', [
+			->addSubcommand('renameClasses', [
 				'help' => __d('cake_console', 'Rename classes that have been moved/renamed. Run after replacing App::uses().'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
 			])
@@ -767,11 +784,11 @@ class UpgradeShell extends Shell {
 				'help' => __d('cake_console', 'Update fixtures to use new index/constraint features. This is necessary before running tests.'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')],
 			])
-			->addSubcommand('rename_collections', [
+			->addSubcommand('renameCollections', [
 				'help' => __d('cake_console', 'Rename HelperCollection, ComponentCollection, and TaskCollection. Will also rename component constructor arguments and _Collection properties on all objects.'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
 			])
-			->addSubcommand('rename_methods', [
+			->addSubcommand('renameMethods', [
 				'help' => __d('cake_console', 'Rename methods to follow conventions'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
 			])

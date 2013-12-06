@@ -150,7 +150,7 @@ class ShellDispatcher {
 
 		$command = null;
 		if (isset($this->args[0])) {
-			$command = $this->args[0];
+			$command = lcfirst(Inflector::camelize($this->args[0]));
 		}
 
 		if ($Shell instanceof Shell) {
