@@ -391,7 +391,7 @@ class DispatcherTest extends TestCase {
  * @return void
  */
 	public function testDispatchBasic() {
-		Router::connect('/pages/*', array('controller' => 'Pages', 'action' => 'display'));
+		Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 		Router::connect('/:controller/:action/*');
 
 		$Dispatcher = new TestDispatcher();
@@ -869,9 +869,7 @@ class DispatcherTest extends TestCase {
 		return array(
 			array('/'),
 			array('test_cached_pages/index'),
-			array('TestCachedPages/index'),
 			array('test_cached_pages/test_nocache_tags'),
-			array('TestCachedPages/test_nocache_tags'),
 			array('test_cached_pages/view/param/param'),
 			array('test_cached_pages/view?q=cakephp'),
 			array('test_cached_pages/themed'),
