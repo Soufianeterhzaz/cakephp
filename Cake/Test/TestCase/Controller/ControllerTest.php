@@ -829,7 +829,7 @@ class ControllerTest extends TestCase {
  * test invoking private methods.
  *
  * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::private_m() is not directly accessible.
+ * @expectedExceptionMessage Private Action TestController::privateM() is not directly accessible.
  * @return void
  */
 	public function testInvokeActionPrivate() {
@@ -845,7 +845,7 @@ class ControllerTest extends TestCase {
  * test invoking protected methods.
  *
  * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::protected_m() is not directly accessible.
+ * @expectedExceptionMessage Private Action TestController::protectedM() is not directly accessible.
  * @return void
  */
 	public function testInvokeActionProtected() {
@@ -893,7 +893,7 @@ class ControllerTest extends TestCase {
  * test invoking controller methods.
  *
  * @expectedException Cake\Error\PrivateActionException
- * @expectedExceptionMessage Private Action TestController::admin_add() is not directly accessible.
+ * @expectedExceptionMessage Private Action TestController::adminAdd() is not directly accessible.
  * @return void
  */
 	public function testInvokeActionPrefixProtection() {
