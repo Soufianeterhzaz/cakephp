@@ -244,6 +244,7 @@ class Dispatcher implements EventListener {
  *
  * @param Cake\Network\Request $request
  * @return string|boolean Name of controller class name
+ * @throws Cake\Error\NotFoundException
  */
 	protected function _loadController($request) {
 		$pluginName = $pluginPath = $controller = null;
@@ -258,7 +259,7 @@ class Dispatcher implements EventListener {
 		if (!empty($request->params['controller'])) {
 			$controller = Inflector::camelize($request->params['controller']);
 			if (Inflector::underscore($controller) !== $request->params['controller']) {
-				throw new NotFoundException(__d('cake_dev', '%s needs to be accessed via %s', $controller, $request->params['controller']));
+				throw new Error\NotFoundException(__d('cake_dev', '%s needs to be accessed via %s', $controller, $request->params['controller']));
 			}
 		}
 		if (!empty($request->params['prefix'])) {
