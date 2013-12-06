@@ -521,7 +521,7 @@ class UpgradeShell extends Shell {
 			return $content;
 		}
 
-		$pattern = '/public\s+function\s+([a-z]+\_[a-z]+[a-z_]*)\s*\(/i';
+		$pattern = '/public\s+function\s+([a-z0-9]+\_[a-z0-9]+[a-z0-9_]*)\s*\(/i';
 		$replacement = function ($matches) {
 			return 'public function ' . lcfirst(Inflector::camelize($matches[1])) . '(';
 		};
@@ -541,7 +541,7 @@ class UpgradeShell extends Shell {
 		};
 		$content = preg_replace_callback($pattern, $replacement, $content);
 
-		$pattern = '/\$this-\>([a-z]+\_[a-z]+[a-z_]*)\(/i';
+		$pattern = '/\$this-\>([a-z0-9]+\_[a-z0-9]+[a-z0-9_]*)\(/i';
 		$replacement = function ($matches) {
 			return '$this->' . lcfirst(Inflector::camelize($matches[1])) . '(';
 		};

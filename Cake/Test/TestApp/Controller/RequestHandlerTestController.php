@@ -56,7 +56,7 @@ class RequestHandlerTestController extends Controller {
  *
  * @return void
  */
-	public function ajax2_layout() {
+	public function ajax2Layout() {
 		if ($this->autoLayout) {
 			$this->layout = 'ajax2';
 		}
