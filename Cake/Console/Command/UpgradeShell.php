@@ -474,12 +474,12 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Collection class uses renamed successfully.</success>'));
 	}
 
-	/**
-	 * Rename shell and controller methods to camelBacked style.
-	 * With this all methods now follow the convention.
-	 *
-	 * @return void
-	 */
+/**
+ * Rename shell and controller methods to camelBacked style.
+ * With this all methods now follow the convention.
+ *
+ * @return void
+ */
 	public function renameMethods() {
 		$path = $this->_getPath();
 		$app = rtrim(APP, DS);
@@ -510,12 +510,12 @@ class UpgradeShell extends Shell {
 		}
 	}
 
-	/**
-	 * UpgradeShell::_renameMethods()
-	 *
-	 * @param string $content
-	 * @return string
-	 */
+/**
+ * UpgradeShell::_renameMethods()
+ *
+ * @param string $content
+ * @return string
+ */
 	protected function _renameMethods($content) {
 		if (strpos($content, 'Controller extends ') === false && strpos($content, 'Shell extends ') === false) {
 			return $content;
