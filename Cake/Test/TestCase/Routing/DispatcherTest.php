@@ -446,7 +446,7 @@ class DispatcherTest extends TestCase {
 	public function testDispatchActionReturnsResponse() {
 		Router::connect('/:controller/:action');
 		$Dispatcher = new Dispatcher();
-		$request = new Request('some_pages/responseGenerator');
+		$request = new Request('some_pages/response_generator');
 		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 
 		ob_start();
