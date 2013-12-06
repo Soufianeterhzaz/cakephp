@@ -541,6 +541,12 @@ class UpgradeShell extends Shell {
 		};
 		$content = preg_replace_callback($pattern, $replacement, $content);
 
+		$pattern = '/\$this-\>([a-z]+\_[a-z]+[a-z_]*)\(/i';
+		$replacement = function ($matches) {
+			return '$this->' . lcfirst(Inflector::camelize($matches[1])) . '(';
+		};
+		$content = preg_replace_callback($pattern, $replacement, $content);
+
 		return $content;
 	}
 
