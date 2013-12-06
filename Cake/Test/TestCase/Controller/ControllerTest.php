@@ -118,17 +118,17 @@ class TestController extends ControllerTestAppController {
 	}
 
 	//@codingStandardsIgnoreStart
-	protected function protected_m() {
+	protected function protectedM() {
 	}
 
-	private function private_m() {
+	private function privateM() {
 	}
 
 	public function _hidden() {
 	}
 	//@codingStandardsIgnoreEnd
 
-	public function admin_add() {
+	public function adminAdd() {
 	}
 
 }

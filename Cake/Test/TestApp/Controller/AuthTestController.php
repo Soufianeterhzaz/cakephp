@@ -80,7 +80,7 @@ class AuthTestController extends Controller {
  *
  * @return void
  */
-	public function admin_login() {
+	public function adminLogin() {
 	}
 
 /**
@@ -88,7 +88,7 @@ class AuthTestController extends Controller {
  *
  * @return void
  */
-	public function admin_add() {
+	public function adminAdd() {
 	}
 
 /**

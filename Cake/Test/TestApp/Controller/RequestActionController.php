@@ -37,7 +37,7 @@ class RequestActionController extends AppController {
  * @access public
  * @return void
  */
-	public function test_request_action() {
+	public function testRequestAction() {
 		return 'This is a test';
 	}
 
@@ -49,7 +49,7 @@ class RequestActionController extends AppController {
  * @access public
  * @return void
  */
-	public function another_ra_test($id, $other) {
+	public function anotherRaTest($id, $other) {
 		return $id + $other;
 	}
 
@@ -58,7 +58,7 @@ class RequestActionController extends AppController {
  *
  * @return void
  */
-	public function normal_request_action() {
+	public function normalRequestAction() {
 		return 'Hello World';
 	}
 
@@ -67,7 +67,7 @@ class RequestActionController extends AppController {
  *
  * @return void
  */
-	public function return_here() {
+	public function returnHere() {
 		return $this->here;
 	}
 
@@ -76,7 +76,7 @@ class RequestActionController extends AppController {
  *
  * @return void
  */
-	public function paginate_request_action() {
+	public function paginateRequestAction() {
 		$data = $this->paginate();
 		return true;
 	}
@@ -86,7 +86,7 @@ class RequestActionController extends AppController {
  *
  * @return array
  */
-	public function post_pass() {
+	public function postPass() {
 		return $this->request->data;
 	}
 
@@ -95,7 +95,7 @@ class RequestActionController extends AppController {
  *
  * @return array
  */
-	public function query_pass() {
+	public function queryPass() {
 		return $this->request->query;
 	}
 
@@ -104,11 +104,11 @@ class RequestActionController extends AppController {
  *
  * @return array
  */
-	public function params_pass() {
+	public function paramsPass() {
 		return $this->request;
 	}
 
-	public function param_check() {
+	public function paramCheck() {
 		$this->autoRender = false;
 		$content = '';
 		if (isset($this->request->params[0])) {

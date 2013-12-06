@@ -35,16 +35,16 @@ class TestsAppsController extends AppController {
 		$this->set('var', $var);
 	}
 
-	public function some_method() {
+	public function someMethod() {
 		return 5;
 	}
 
-	public function set_action() {
+	public function setAction() {
 		$this->set('var', 'string');
 		$this->render('index');
 	}
 
-	public function redirect_to() {
+	public function redirectTo() {
 		return $this->redirect('http://cakephp.org');
 	}
 

@@ -46,7 +46,7 @@ class RequestHandlerTestController extends Controller {
  *
  * @return void
  */
-	public function param_method($one = null, $two = null) {
+	public function paramMethod($one = null, $two = null) {
 		echo "one: $one two: $two";
 		$this->autoRender = false;
 	}

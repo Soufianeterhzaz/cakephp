@@ -474,6 +474,59 @@ class UpgradeShell extends Shell {
 		$this->out(__d('cake_console', '<success>Collection class uses renamed successfully.</success>'));
 	}
 
+	/**
+	 * Rename shell and controller methods to camelBacked style.
+	 * With this all methods now follow the convention.
+	 *
+	 * @return void
+	 */
+	public function rename_methods() {
+		$path = $this->_getPath();
+		$app = rtrim(APP, DS);
+		if ($path === $app || !empty($this->params['plugin'])) {
+			$path .= DS . 'Controller' . DS;
+		}
+		$this->out(__d('cake_console', 'Processing controllers on %s', $path));
+		$this->_paths[] = realpath($path);
+		$this->_findFiles('php');
+		foreach ($this->_files as $file) {
+			$this->out(__d('cake_console', 'Updating %s...', $file), 1, Shell::VERBOSE);
+			$content = $this->_renameMethods(file_get_contents($file));
+			$this->_saveFile($file, $content);
+		}
+
+		$path = $this->_getPath();
+		$app = rtrim(APP, DS);
+		if ($path === $app || !empty($this->params['plugin'])) {
+			$path .= DS . 'Console' . DS . 'Command' . DS;
+		}
+		$this->out(__d('cake_console', 'Processing shells on %s', $path));
+		//TODO: process shells
+	}
+
+	/**
+	 * UpgradeShell::_renameMethods()
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	protected function _renameMethods($content) {
+		if (strpos($content, 'Controller extends ') === false) {
+			return $content;
+		}
+
+		$pattern = '/public\s+function\s+([a-z]+\_[a-z]+[a-z_]*)\s*\(/i';
+		$replacement = function ($matches) {
+			return 'public function ' . lcfirst(Inflector::camelize($matches[1])) . '(';
+		};
+
+		$content = preg_replace_callback($pattern, $replacement, $content, -1, $count);
+		if ($count) {
+			$this->out(__d('cake_console', 'Updated %s methods', $count), 1, Shell::VERBOSE);
+		}
+		return $content;
+	}
+
 /**
  * Update test case assertion methods.
  *
@@ -716,6 +769,10 @@ class UpgradeShell extends Shell {
 			])
 			->addSubcommand('rename_collections', [
 				'help' => __d('cake_console', 'Rename HelperCollection, ComponentCollection, and TaskCollection. Will also rename component constructor arguments and _Collection properties on all objects.'),
+				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
+			])
+			->addSubcommand('rename_methods', [
+				'help' => __d('cake_console', 'Rename methods to follow conventions'),
 				'parser' => ['options' => compact('plugin', 'dryRun'), 'arguments' => compact('path')]
 			])
 			->addSubcommand('tests', [

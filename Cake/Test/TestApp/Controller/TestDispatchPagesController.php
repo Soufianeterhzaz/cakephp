@@ -40,7 +40,7 @@ class TestDispatchPagesController extends Controller {
  *
  * @return void
  */
-	public function admin_index() {
+	public function adminIndex() {
 		return true;
 	}
 

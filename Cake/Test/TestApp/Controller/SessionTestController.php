@@ -33,7 +33,7 @@ class SessionTestController extends Controller {
  *
  * @return string
  */
-	public function session_id() {
+	public function sessionId() {
 		return $this->Session->id();
 	}
 }

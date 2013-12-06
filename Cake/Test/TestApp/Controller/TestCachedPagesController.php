@@ -69,7 +69,7 @@ class TestCachedPagesController extends Controller {
  *
  * @return void
  */
-	public function test_nocache_tags() {
+	public function testNocacheTags() {
 		$this->render();
 	}
 
@@ -87,7 +87,7 @@ class TestCachedPagesController extends Controller {
  *
  * @return void
  */
-	public function cache_form() {
+	public function cacheForm() {
 		$this->cacheAction = 10;
 		$this->helpers[] = 'Form';
 	}

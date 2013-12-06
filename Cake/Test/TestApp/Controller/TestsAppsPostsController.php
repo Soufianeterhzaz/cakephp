@@ -45,7 +45,7 @@ class TestsAppsPostsController extends AppController {
  * check URL params
  *
  */
-	public function url_var() {
+	public function urlVar() {
 		$this->set('params', $this->request->params);
 		$this->render('index');
 	}
@@ -54,12 +54,12 @@ class TestsAppsPostsController extends AppController {
  * post var testing
  *
  */
-	public function post_var() {
+	public function postVar() {
 		$this->set('data', $this->request->data);
 		$this->render('index');
 	}
 
-	public function input_data() {
+	public function inputData() {
 		$this->set('data', $this->request->input('json_decode', true));
 		$this->render('index');
 	}
