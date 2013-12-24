@@ -258,10 +258,6 @@ class AppTest extends TestCase {
  * @return void
  */
 	public function testThemePath() {
-		$path = App::themePath('test_theme');
-		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
-		$this->assertEquals($expected, $path);
-
 		$path = App::themePath('TestTheme');
 		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
 		$this->assertEquals($expected, $path);
