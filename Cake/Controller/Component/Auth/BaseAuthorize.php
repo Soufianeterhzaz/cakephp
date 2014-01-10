@@ -46,7 +46,7 @@ abstract class BaseAuthorize {
 	protected $_registry;
 
 /**
- * Settings for authorize objects.
+ * Config settings for authorize objects.
  *
  * - `actionPath` - The path to ACO nodes that contains the nodes for controllers. Used as a prefix
  *    when calling $this->action();
@@ -55,7 +55,7 @@ abstract class BaseAuthorize {
  *
  * @var array
  */
-	public $settings = array(
+	public $config = array(
 		'actionPath' => null,
 		'actionMap' => array(
 			'index' => 'read',
@@ -72,13 +72,13 @@ abstract class BaseAuthorize {
  * Constructor
  *
  * @param ComponentRegistry $registry The controller for this request.
- * @param string $settings An array of settings. This class does not use any settings.
+ * @param string $config An array of settings. This class does not use any settings.
  */
-	public function __construct(ComponentRegistry $registry, $settings = array()) {
+	public function __construct(ComponentRegistry $registry, $config = array()) {
 		$this->_registry = $registry;
 		$controller = $registry->getController();
 		$this->controller($controller);
-		$this->settings = Hash::merge($this->settings, $settings);
+		$this->config = Hash::merge($this->config, $config);
 	}
 
 /**
@@ -121,7 +121,7 @@ abstract class BaseAuthorize {
 		$path = str_replace(
 			array(':controller', ':action', ':plugin/'),
 			array(Inflector::camelize($request['controller']), $request['action'], $plugin),
-			$this->settings['actionPath'] . $path
+			$this->config['actionPath'] . $path
 		);
 		$path = str_replace('//', '/', $path);
 		return trim($path, '/');
@@ -153,16 +153,16 @@ abstract class BaseAuthorize {
  */
 	public function mapActions($map = array()) {
 		if (empty($map)) {
-			return $this->settings['actionMap'];
+			return $this->config['actionMap'];
 		}
 		$crud = array('create', 'read', 'update', 'delete');
 		foreach ($map as $action => $type) {
 			if (in_array($action, $crud) && is_array($type)) {
 				foreach ($type as $typedAction) {
-					$this->settings['actionMap'][$typedAction] = $action;
+					$this->config['actionMap'][$typedAction] = $action;
 				}
 			} else {
-				$this->settings['actionMap'][$action] = $type;
+				$this->config['actionMap'][$action] = $type;
 			}
 		}
 	}

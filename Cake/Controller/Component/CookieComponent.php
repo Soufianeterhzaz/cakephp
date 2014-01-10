@@ -48,79 +48,36 @@ class CookieComponent extends Component {
 	public $name = 'CakeCookie';
 
 /**
- * The time a cookie will remain valid.
+ * Default configuration
  *
- * Can be either integer Unix timestamp or a date string.
+ * These are merged with user-provided configuration when the component is used.
  *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->time = '5 Days';
+ * Configs are
+ * - time: Can be either integer Unix timestamp or a date string.
+ * - path: The path on the server in which the cookie will be available on.
+ *   If public $cookiePath is set to '/foo/', the cookie will only be available
+ *   within the /foo/ directory and all sub-directories such as /foo/bar/ of domain.
+ *   The default value is the entire domain.
+ * - domain: The domain that the cookie is available.
+ *   To make the cookie available on all subdomains of example.com.
+ *   Set $this->Cookie->domain = '.example.com'; in your controller beforeFilter
+ * - secure: Secure HTTPS only cookie.
+ *   Indicates that the cookie should only be transmitted over a secure HTTPS connection.
+ *   When set to true, the cookie will only be set if a secure connection exists.
+ * - key: Encryption key.
+ * - httpOnly: Set to true to make HTTP only cookies. Cookies that are HTTP only
+ *   are not accessible in JavaScript.
  *
- * @var mixed
+ * @var array
  */
-	public $time = null;
-
-/**
- * Cookie path.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->path = '/';
- *
- * The path on the server in which the cookie will be available on.
- * If public $cookiePath is set to '/foo/', the cookie will only be available
- * within the /foo/ directory and all sub-directories such as /foo/bar/ of domain.
- * The default value is the entire domain.
- *
- * @var string
- */
-	public $path = '/';
-
-/**
- * Domain path.
- *
- * The domain that the cookie is available.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->domain = '.example.com';
- *
- * To make the cookie available on all subdomains of example.com.
- * Set $this->Cookie->domain = '.example.com'; in your controller beforeFilter
- *
- * @var string
- */
-	public $domain = '';
-
-/**
- * Secure HTTPS only cookie.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->secure = true;
- *
- * Indicates that the cookie should only be transmitted over a secure HTTPS connection.
- * When set to true, the cookie will only be set if a secure connection exists.
- *
- * @var boolean
- */
-	public $secure = false;
-
-/**
- * Encryption key.
- *
- * Overridden with the controller beforeFilter();
- * $this->Cookie->key = 'SomeRandomString';
- *
- * @var string
- */
-	public $key = null;
-
-/**
- * HTTP only cookie
- *
- * Set to true to make HTTP only cookies. Cookies that are HTTP only
- * are not accessible in JavaScript.
- *
- * @var boolean
- */
-	public $httpOnly = false;
+	protected  $_defaultConfig = [
+		'time' => null,
+		'path' => '/',
+		'domain' => '',
+		'secure' => false,
+		'key' => null,
+		'httpOnly' => false
+	];
 
 /**
  * Values stored in the cookie.
@@ -175,13 +132,13 @@ class CookieComponent extends Component {
  * Constructor
  *
  * @param ComponentRegistry $collection A ComponentRegistry for this component
- * @param array $settings Array of settings.
+ * @param array $config Array of config settings.
  */
-	public function __construct(ComponentRegistry $collection, $settings = array()) {
-		$this->key = Configure::read('Security.salt');
-		parent::__construct($collection, $settings);
-		if (isset($this->time)) {
-			$this->_expire($this->time);
+	public function __construct(ComponentRegistry $collection, $config = array()) {
+		$this->config['key'] = Configure::read('Security.salt');
+		parent::__construct($collection, $config);
+		if (isset($this->config['time'])) {
+			$this->_expire($this->config['time']);
 		}
 
 		$controller = $collection->getController();
@@ -205,7 +162,7 @@ class CookieComponent extends Component {
  * @return void
  */
 	public function startup(Event $event) {
-		$this->_expire($this->time);
+		$this->_expire($this->config['time']);
 
 		$this->_values[$this->name] = array();
 	}
@@ -448,10 +405,10 @@ class CookieComponent extends Component {
 			'name' => $this->name . $name,
 			'value' => $this->_encrypt($value),
 			'expire' => $this->_expires,
-			'path' => $this->path,
-			'domain' => $this->domain,
-			'secure' => $this->secure,
-			'httpOnly' => $this->httpOnly
+			'path' => $this->config['path'],
+			'domain' => $this->config['domain'],
+			'secure' => $this->config['secure'],
+			'httpOnly' => $this->config['httpOnly']
 		));
 
 		if (!empty($this->_reset)) {
@@ -471,10 +428,10 @@ class CookieComponent extends Component {
 			'name' => $this->name . $name,
 			'value' => '',
 			'expire' => time() - 42000,
-			'path' => $this->path,
-			'domain' => $this->domain,
-			'secure' => $this->secure,
-			'httpOnly' => $this->httpOnly
+			'path' => $this->config['path'],
+			'domain' => $this->config['domain'],
+			'secure' => $this->config['secure'],
+			'httpOnly' => $this->config['httpOnly']
 		));
 	}
 
@@ -493,10 +450,10 @@ class CookieComponent extends Component {
 		}
 		$prefix = "Q2FrZQ==.";
 		if ($this->_type === 'rijndael') {
-			$cipher = Security::rijndael($value, $this->key, 'encrypt');
+			$cipher = Security::rijndael($value, $this->config['key'], 'encrypt');
 		}
 		if ($this->_type === 'aes') {
-			$cipher = Security::encrypt($value, $this->key);
+			$cipher = Security::encrypt($value, $this->config['key']);
 		}
 		return $prefix . base64_encode($cipher);
 	}
@@ -537,10 +494,10 @@ class CookieComponent extends Component {
 		}
 		$value = base64_decode(substr($value, strlen($prefix)));
 		if ($this->_type === 'rijndael') {
-			$plain = Security::rijndael($value, $this->key, 'decrypt');
+			$plain = Security::rijndael($value, $this->config['key'], 'decrypt');
 		}
 		if ($this->_type === 'aes') {
-			$plain = Security::decrypt($value, $this->key);
+			$plain = Security::decrypt($value, $this->config['key']);
 		}
 		return $this->_explode($plain);
 	}

@@ -37,17 +37,17 @@ class PaginatorComponent extends Component {
  * When calling paginate() these settings will be merged with the configuration
  * you provide.
  *
- * - `maxLimit` The maximum limit users can choose to view. Defaults to 100
- * - `limit` The initial number of items per page. Defaults to 20.
  * - `page` The starting page, defaults to 1.
+ * - `limit` The initial number of items per page. Defaults to 20.
+ * - `maxLimit` The maximum limit users can choose to view. Defaults to 100.
  *
  * @var array
  */
-	protected $_defaultConfig = array(
+	protected $_defaultConfig = [
 		'page' => 1,
 		'limit' => 20,
 		'maxLimit' => 100,
-	);
+	];
 
 /**
  * A list of parameters users are allowed to set using request parameters. Modifying

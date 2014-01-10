@@ -71,10 +71,10 @@ class DigestAuthenticateTest extends TestCase {
 			'fields' => array('username' => 'user', 'password' => 'password'),
 			'nonce' => 123456
 		));
-		$this->assertEquals('AuthUser', $object->settings['userModel']);
-		$this->assertEquals(array('username' => 'user', 'password' => 'password'), $object->settings['fields']);
-		$this->assertEquals(123456, $object->settings['nonce']);
-		$this->assertEquals(env('SERVER_NAME'), $object->settings['realm']);
+		$this->assertEquals('AuthUser', $object->config['userModel']);
+		$this->assertEquals(array('username' => 'user', 'password' => 'password'), $object->config['fields']);
+		$this->assertEquals(123456, $object->config['nonce']);
+		$this->assertEquals(env('SERVER_NAME'), $object->config['realm']);
 	}
 
 /**
@@ -184,7 +184,7 @@ DIGEST;
  * @return void
  */
 	public function testAuthenticateFailReChallenge() {
-		$this->auth->settings['scope'] = array('username' => 'nate');
+		$this->auth->config['scope'] = array('username' => 'nate');
 		$request = new Request([
 			'url' => 'posts/index',
 			'environment' => ['REQUEST_METHOD' => 'GET']

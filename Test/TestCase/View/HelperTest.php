@@ -251,7 +251,7 @@ class HelperTest extends TestCase {
 			'key2' => array('key2.1' => 'val2.1', 'key2.2' => 'newval'),
 			'key3' => 'val3'
 		);
-		$this->assertEquals($expected, $Helper->settings);
+		$this->assertEquals($expected, $Helper->config);
 	}
 
 /**

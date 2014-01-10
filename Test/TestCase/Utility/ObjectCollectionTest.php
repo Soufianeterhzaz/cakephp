@@ -30,11 +30,11 @@ class GenericObject {
  * Constructor
  *
  * @param GenericObjectCollection $collection
- * @param array $settings
+ * @param array $config
  */
-	public function __construct(GenericObjectCollection $collection, $settings = array()) {
+	public function __construct(GenericObjectCollection $collection, $config = array()) {
 		$this->_Collection = $collection;
-		$this->settings = $settings;
+		$this->config = $config;
 	}
 
 }

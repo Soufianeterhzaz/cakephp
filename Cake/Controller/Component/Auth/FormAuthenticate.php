@@ -70,10 +70,10 @@ class FormAuthenticate extends BaseAuthenticate {
  * @return mixed False on login failure.  An array of User data on success.
  */
 	public function authenticate(Request $request, Response $response) {
-		$userModel = $this->settings['userModel'];
+		$userModel = $this->config['userModel'];
 		list(, $model) = pluginSplit($userModel);
 
-		$fields = $this->settings['fields'];
+		$fields = $this->config['fields'];
 		if (!$this->_checkFields($request, $model, $fields)) {
 			return false;
 		}

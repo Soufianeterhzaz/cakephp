@@ -49,11 +49,11 @@ use Cake\Utility\Inflector;
 class Helper extends Object implements EventListener {
 
 /**
- * Settings for this helper.
+ * Config settings for this helper.
  *
  * @var array
  */
-	public $settings = array();
+	public $config = array();
 
 /**
  * List of helpers used by this helper
@@ -182,7 +182,7 @@ class Helper extends Object implements EventListener {
 		$this->_View = $View;
 		$this->request = $View->request;
 		if ($settings) {
-			$this->settings = Hash::merge($this->settings, $settings);
+			$this->config = Hash::merge($this->config, $settings);
 		}
 		if (!empty($this->helpers)) {
 			$this->_helperMap = $View->Helpers->normalizeArray($this->helpers);

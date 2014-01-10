@@ -182,7 +182,7 @@ class CrudAuthorizeTest extends TestCase {
 		Router::reload();
 
 		$auth = new CrudAuthorize($this->Components);
-		$this->assertTrue(isset($auth->settings['actionMap']['admin_index']));
+		$this->assertTrue(isset($auth->config['actionMap']['admin_index']));
 	}
 
 }

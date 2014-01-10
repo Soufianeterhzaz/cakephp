@@ -82,7 +82,7 @@ class CrudAuthorize extends BaseAuthorize {
  * @return boolean
  */
 	public function authorize($user, Request $request) {
-		if (!isset($this->settings['actionMap'][$request->params['action']])) {
+		if (!isset($this->config['actionMap'][$request->params['action']])) {
 			trigger_error(sprintf(
 				'CrudAuthorize::authorize() - Attempted access of un-mapped action "%1$s" in controller "%2$s"',
 				$request->action,
@@ -92,12 +92,12 @@ class CrudAuthorize extends BaseAuthorize {
 			);
 			return false;
 		}
-		$user = array($this->settings['userModel'] => $user);
+		$user = array($this->config['userModel'] => $user);
 		$Acl = $this->_registry->load('Acl');
 		return $Acl->check(
 			$user,
 			$this->action($request, ':controller'),
-			$this->settings['actionMap'][$request->params['action']]
+			$this->config['actionMap'][$request->params['action']]
 		);
 	}
 

@@ -100,7 +100,7 @@ class RequestHandlerComponentTest extends TestCase {
 		$collection = new ComponentRegistry($controller);
 		$requestHandler = new RequestHandlerComponent($collection, $settings);
 		$this->assertEquals('test_ajax', $requestHandler->ajaxLayout);
-		$this->assertEquals(array('json' => 'MyPlugin.MyJson'), $requestHandler->settings['viewClassMap']);
+		$this->assertEquals(array('json' => 'MyPlugin.MyJson'), $requestHandler->config['viewClassMap']);
 	}
 
 /**
@@ -290,7 +290,7 @@ class RequestHandlerComponentTest extends TestCase {
  */
 	public function testViewClassMap() {
 		$event = new Event('Controller.initialize', $this->Controller);
-		$this->RequestHandler->settings = array('viewClassMap' => array('json' => 'CustomJson'));
+		$this->RequestHandler->config = array('viewClassMap' => array('json' => 'CustomJson'));
 		$this->RequestHandler->initialize($event);
 		$result = $this->RequestHandler->viewClassMap();
 		$expected = array(

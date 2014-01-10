@@ -501,7 +501,7 @@ class Controller extends Object implements EventListener {
 		$components = $this->Components->normalizeArray($this->components);
 		foreach ($components as $properties) {
 			list(, $class) = pluginSplit($properties['class']);
-			$this->{$class} = $this->Components->load($properties['class'], $properties['settings']);
+			$this->{$class} = $this->Components->load($properties['class'], $properties['config']);
 		}
 	}
 

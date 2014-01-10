@@ -30,7 +30,7 @@ use Cake\Utility\Security;
 abstract class BaseAuthenticate {
 
 /**
- * Settings for this object.
+ * Config settings for this object.
  *
  * - `fields` The fields to use to identify a user by.
  * - `userModel` The alias for users table, defaults to Users.
@@ -43,7 +43,7 @@ abstract class BaseAuthenticate {
  *
  * @var array
  */
-	public $settings = [
+	public $config = [
 		'fields' => [
 			'username' => 'username',
 			'password' => 'password'
@@ -72,11 +72,11 @@ abstract class BaseAuthenticate {
  * Constructor
  *
  * @param ComponentRegistry $registry The Component registry used on this request.
- * @param array $settings Array of settings to use.
+ * @param array $config Array of settings to use.
  */
-	public function __construct(ComponentRegistry $registry, $settings) {
+	public function __construct(ComponentRegistry $registry, $config) {
 		$this->_registry = $registry;
-		$this->settings = Hash::merge($this->settings, $settings);
+		$this->config = Hash::merge($this->config, $config);
 	}
 
 /**
@@ -91,19 +91,19 @@ abstract class BaseAuthenticate {
  * @return boolean|array Either false on failure, or an array of user data.
  */
 	protected function _findUser($username, $password = null) {
-		$userModel = $this->settings['userModel'];
+		$userModel = $this->config['userModel'];
 		list(, $model) = pluginSplit($userModel);
-		$fields = $this->settings['fields'];
+		$fields = $this->config['fields'];
 
 		$conditions = [$model . '.' . $fields['username'] => $username];
 
-		if (!empty($this->settings['scope'])) {
-			$conditions = array_merge($conditions, $this->settings['scope']);
+		if (!empty($this->config['scope'])) {
+			$conditions = array_merge($conditions, $this->config['scope']);
 		}
 
 		$table = TableRegistry::get($userModel)->find('all');
-		if ($this->settings['contain']) {
-			$table = $table->contain($this->settings['contain']);
+		if ($this->config['contain']) {
+			$table = $table->contain($this->config['contain']);
 		}
 		$result = $table
 			->where($conditions)
@@ -137,11 +137,11 @@ abstract class BaseAuthenticate {
 		}
 
 		$config = array();
-		if (is_string($this->settings['passwordHasher'])) {
-			$class = $this->settings['passwordHasher'];
+		if (is_string($this->config['passwordHasher'])) {
+			$class = $this->config['passwordHasher'];
 		} else {
-			$class = $this->settings['passwordHasher']['className'];
-			$config = $this->settings['passwordHasher'];
+			$class = $this->config['passwordHasher']['className'];
+			$config = $this->config['passwordHasher'];
 			unset($config['className']);
 		}
 

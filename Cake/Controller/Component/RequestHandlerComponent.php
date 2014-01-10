@@ -107,10 +107,10 @@ class RequestHandlerComponent extends Component {
  * Constructor. Parses the accepted content types accepted by the client using HTTP_ACCEPT
  *
  * @param ComponentRegistry $collection ComponentRegistry object.
- * @param array $settings Array of settings.
+ * @param array $config Array of config settings.
  */
-	public function __construct(ComponentRegistry $collection, $settings = array()) {
-		parent::__construct($collection, $settings + array('checkHttpCache' => true));
+	public function __construct(ComponentRegistry $collection, $config = array()) {
+		parent::__construct($collection, $config + array('checkHttpCache' => true));
 		$this->addInputType('xml', array(array($this, 'convertXml')));
 
 		$Controller = $collection->getController();
@@ -135,8 +135,8 @@ class RequestHandlerComponent extends Component {
 		if (empty($this->ext) || $this->ext === 'html') {
 			$this->_setExtension();
 		}
-		if (!empty($this->settings['viewClassMap'])) {
-			$this->viewClassMap($this->settings['viewClassMap']);
+		if (!empty($this->config['viewClassMap'])) {
+			$this->viewClassMap($this->config['viewClassMap']);
 		}
 	}
 
@@ -282,7 +282,7 @@ class RequestHandlerComponent extends Component {
  * @return boolean false if the render process should be aborted
  */
 	public function beforeRender(Event $event) {
-		if ($this->settings['checkHttpCache'] && $this->response->checkNotModified($this->request)) {
+		if ($this->config['checkHttpCache'] && $this->response->checkNotModified($this->request)) {
 			return false;
 		}
 	}

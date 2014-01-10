@@ -71,11 +71,18 @@ class Component extends Object implements EventListener {
 	protected $_registry;
 
 /**
- * Settings for this Component
+ * Config for this Component.
  *
  * @var array
  */
-	public $settings = array();
+	public $config = array();
+
+/**
+ * Default Config for this Component.
+ *
+ * @var array
+ */
+	protected $_defaultConfig = array();
 
 /**
  * Other Components this component uses.
@@ -95,12 +102,11 @@ class Component extends Object implements EventListener {
  * Constructor
  *
  * @param ComponentRegistry $registry A ComponentRegistry this component can use to lazy load its components
- * @param array $settings Array of configuration settings.
+ * @param array $config Array of configuration settings.
  */
-	public function __construct(ComponentRegistry $registry, $settings = []) {
+	public function __construct(ComponentRegistry $registry, $config = []) {
 		$this->_registry = $registry;
-		$this->settings = array_merge($this->settings, $settings);
-		$this->_set($settings);
+		$this->config = array_merge($this->_defaultConfig, $this->config, $config);
 		if (!empty($this->components)) {
 			$this->_componentMap = $registry->normalizeArray($this->components);
 		}
@@ -114,8 +120,8 @@ class Component extends Object implements EventListener {
  */
 	public function __get($name) {
 		if (isset($this->_componentMap[$name]) && !isset($this->{$name})) {
-			$settings = array_merge((array)$this->_componentMap[$name]['settings'], array('enabled' => false));
-			$this->{$name} = $this->_registry->load($this->_componentMap[$name]['class'], $settings);
+			$config = array_merge((array)$this->_componentMap[$name]['config'], array('enabled' => false));
+			$this->{$name} = $this->_registry->load($this->_componentMap[$name]['class'], $config);
 		}
 		if (isset($this->{$name})) {
 			return $this->{$name};
@@ -126,7 +132,7 @@ class Component extends Object implements EventListener {
  * Get the Controller callbacks this Component is interested in.
  *
  * Uses Conventions to map controller events to standard component
- * callback method names. By defining one of the callback methods a 
+ * callback method names. By defining one of the callback methods a
  * component is assumed to be interested in the related event.
  *
  * Override this method if you need to add non-conventional event listeners.

@@ -61,7 +61,7 @@ use Cake\Network\Response;
 class DigestAuthenticate extends BasicAuthenticate {
 
 /**
- * Settings for this object.
+ * Config settings for this object.
  *
  * - `fields` The fields to use to identify a user by.
  * - `userModel` The model name of the User, defaults to User.
@@ -77,7 +77,7 @@ class DigestAuthenticate extends BasicAuthenticate {
  *
  * @var array
  */
-	public $settings = array(
+	public $config = array(
 		'fields' => array(
 			'username' => 'username',
 			'password' => 'password'
@@ -105,13 +105,13 @@ class DigestAuthenticate extends BasicAuthenticate {
 			return false;
 		}
 
-		list(, $model) = pluginSplit($this->settings['userModel']);
+		list(, $model) = pluginSplit($this->config['userModel']);
 		$user = $this->_findUser($digest['username']);
 		if (empty($user)) {
 			return false;
 		}
-		$password = $user[$this->settings['fields']['password']];
-		unset($user[$this->settings['fields']['password']]);
+		$password = $user[$this->config['fields']['password']];
+		unset($user[$this->config['fields']['password']]);
 		$hash = $this->generateResponseHash($digest, $password, $request->env('REQUEST_METHOD'));
 		if ($digest['response'] === $hash) {
 			return $user;
@@ -200,11 +200,11 @@ class DigestAuthenticate extends BasicAuthenticate {
  */
 	public function loginHeaders(Request $request) {
 		$options = array(
-			'realm' => $this->settings['realm'] ?: $request->env('SERVER_NAME'),
-			'qop' => $this->settings['qop'],
-			'nonce' => $this->settings['nonce'] ?: uniqid(''),
+			'realm' => $this->config['realm'] ?: $request->env('SERVER_NAME'),
+			'qop' => $this->config['qop'],
+			'nonce' => $this->config['nonce'] ?: uniqid(''),
 		);
-		$options['opaque'] = $this->settings['opaque'] ?: md5($options['realm']);
+		$options['opaque'] = $this->config['opaque'] ?: md5($options['realm']);
 		$opts = array();
 		foreach ($options as $k => $v) {
 			$opts[] = sprintf('%s="%s"', $k, $v);

@@ -185,8 +185,8 @@ abstract class ObjectCollection {
 		foreach ((array)$name as $object) {
 			if (isset($this->_loaded[$object]) && !isset($this->_enabled[$object])) {
 				$priority = $this->defaultPriority;
-				if (isset($this->_loaded[$object]->settings['priority'])) {
-					$priority = $this->_loaded[$object]->settings['priority'];
+				if (isset($this->_loaded[$object]->config['priority'])) {
+					$priority = $this->_loaded[$object]->config['priority'];
 				}
 				$this->_enabled[$object] = array($priority);
 				$enabled = true;
@@ -230,7 +230,7 @@ abstract class ObjectCollection {
 				if ($objectPriority === null) {
 					$objectPriority = $this->defaultPriority;
 				}
-				$this->_loaded[$object]->settings['priority'] = $objectPriority;
+				$this->_loaded[$object]->config['priority'] = $objectPriority;
 				if (isset($this->_enabled[$object])) {
 					$this->_enabled[$object] = array($objectPriority);
 				}

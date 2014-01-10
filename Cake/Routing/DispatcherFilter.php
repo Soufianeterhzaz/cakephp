@@ -37,19 +37,19 @@ abstract class DispatcherFilter implements EventListener {
 	public $priority = 10;
 
 /**
- * Settings for this filter
+ * Config settings for this filter
  *
  * @var array
  */
-	public $settings = array();
+	public $config = array();
 
 /**
  * Constructor.
  *
  * @param string $setting Configuration settings for the filter.
  */
-	public function __construct($settings = array()) {
-		$this->settings = Hash::merge($this->settings, $settings);
+	public function __construct($config = array()) {
+		$this->config = Hash::merge($this->config, $config);
 	}
 
 /**

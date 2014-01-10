@@ -180,8 +180,8 @@ class ControllerTestCaseTest extends TestCase {
 		));
 
 		$expected = array('some' => 'config');
-		$settings = array_intersect_key($Tests->RequestHandler->settings, array('some' => 'foo'));
-		$this->assertSame($expected, $settings, 'A mocked component should have the same config as an unmocked component');
+		$config = array_intersect_key($Tests->RequestHandler->config, array('some' => 'foo'));
+		$this->assertSame($expected, $config, 'A mocked component should have the same config as an unmocked component');
 
 		$Tests = $this->Case->generate('TestConfigs', array(
 			'components' => array(
@@ -190,8 +190,8 @@ class ControllerTestCaseTest extends TestCase {
 		));
 
 		$expected = array('some' => 'config');
-		$settings = array_intersect_key($Tests->RequestHandler->settings, array('some' => 'foo'));
-		$this->assertSame($expected, $settings, 'A mocked component should have the same config as an unmocked component');
+		$config = array_intersect_key($Tests->RequestHandler->config, array('some' => 'foo'));
+		$this->assertSame($expected, $config, 'A mocked component should have the same config as an unmocked component');
 	}
 
 /**
