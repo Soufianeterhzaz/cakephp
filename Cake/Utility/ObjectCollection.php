@@ -324,7 +324,7 @@ abstract class ObjectCollection {
 				$objectName = $i;
 			}
 			list(, $name) = pluginSplit($objectName);
-			$normal[$name] = array('class' => $objectName, 'settings' => $options);
+			$normal[$name] = array('class' => $objectName, 'config' => $options);
 		}
 		return $normal;
 	}

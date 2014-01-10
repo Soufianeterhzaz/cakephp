@@ -522,10 +522,10 @@ class ObjectCollectionTest extends TestCase {
 		);
 		$result = ObjectCollection::normalizeObjectArray($components);
 		$expected = array(
-			'Html' => array('class' => 'Html', 'settings' => array()),
-			'Bar' => array('class' => 'Foo.Bar', 'settings' => array('one', 'two')),
-			'Something' => array('class' => 'Something', 'settings' => array()),
-			'Apple' => array('class' => 'Banana.Apple', 'settings' => array('foo' => 'bar')),
+			'Html' => array('class' => 'Html', 'config' => array()),
+			'Bar' => array('class' => 'Foo.Bar', 'config' => array('one', 'two')),
+			'Something' => array('class' => 'Something', 'config' => array()),
+			'Apple' => array('class' => 'Banana.Apple', 'config' => array('foo' => 'bar')),
 		);
 		$this->assertEquals($expected, $result);
 

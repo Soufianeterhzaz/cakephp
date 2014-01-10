@@ -801,7 +801,7 @@ class View extends Object {
 		$helpers = $this->Helpers->normalizeArray($this->helpers);
 		foreach ($helpers as $properties) {
 			list(, $class) = pluginSplit($properties['class']);
-			$this->{$class} = $this->Helpers->load($properties['class'], $properties['settings']);
+			$this->{$class} = $this->Helpers->load($properties['class'], $properties['config']);
 		}
 	}
 

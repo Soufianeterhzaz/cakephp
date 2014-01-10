@@ -209,8 +209,8 @@ class Helper extends Object implements EventListener {
  */
 	public function __get($name) {
 		if (isset($this->_helperMap[$name]) && !isset($this->{$name})) {
-			$settings = array_merge((array)$this->_helperMap[$name]['settings'], array('enabled' => false));
-			$this->{$name} = $this->_View->loadHelper($this->_helperMap[$name]['class'], $settings);
+			$config = array_merge((array)$this->_helperMap[$name]['config'], array('enabled' => false));
+			$this->{$name} = $this->_View->loadHelper($this->_helperMap[$name]['class'], $config);
 		}
 		if (isset($this->{$name})) {
 			return $this->{$name};
